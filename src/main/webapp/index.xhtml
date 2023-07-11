@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:r="http://java.sun.com/jsp/jstl/core">
+
+<!-- scripts -->
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/client.js?onload=init"></script>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Awesome videos!" />
+<link rel="stylesheet" href="CSS/bootstrap.min.css" />
+<link rel="stylesheet" href="CSS/style.css" />
+</head>
+<ui:composition template="/WEB-INF/facelets/templates/cabecera.xhtml">
+	<ui:define name="title">
+		<h:outputText value="Esto es el titulo" />
+	</ui:define>
+	<ui:define name="content">
+
+		<script type="text/javascript">
+			PrimeFaces.locales["es"] = {
+				closeText : "Cerrar",
+				prevText : "Anterior",
+				nextText : "Siguiente",
+				monthNames : [ "Enero", "Febrero", "Marzo", "Abril", "Mayo",
+						"Junio", "Julio", "Agosto", "Septiembre", "Octubre",
+						"Noviembre", "Diciembre" ],
+				monthNamesShort : [ "Enero", "Febrero", "Marzo", "Abril",
+						"Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+						"Octubre", "Noviembre", "Diciembre" ],
+				dayNames : [ "Lunes", "Martes", "Miércoles", "Jueves",
+						"Viernes", "Sábado", "Domingo" ],
+				dayNamesShort : [ "Lun", "Mar", "Mie", "Jue", "Vie", "Sab",
+						"Dom" ],
+				dayNamesMin : [ "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do" ],
+				weekHeader : "Semana",
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : "",
+				timeOnlyTitle : "Solo hora",
+				timeText : "Tiempo",
+				hourText : "Hora",
+				minuteText : "Minuto",
+				secondText : "Segundo",
+				currentText : "Fecha actual",
+				ampm : false,
+				month : "Mes",
+				week : "Semana",
+				day : "Día",
+				allDayText : "Todo el día"
+			};
+		</script>
+		<h:form id="formulario">
+			<div id="contenido"
+				style="margin-top: 40px; width: 100%; margin: auto;">
+				<div
+					style="margin-top: 40px; background-color: #e8e4e4; height: auto; width: 100%">
+					<div id="divFechas" style="padding: 20px; margin-left: 10%;">
+						<p:commandButton action="#{index.irDiaAntes()}"
+							update="formulario" value="#{index.devolverDiaAnterior()}"
+							style="font-weight: 900" />
+						<p:calendar id="button" value="#{index.fechaPartidos}"
+							pattern="dd-MM-yyyy" locale="es" showOn="button" navigator="true"
+							style="margin-left: 20px;margin-right: 20px" class="calendario"
+							mindate="01-01-1946">
+							<p:ajax event="dateSelect" listener="#{index.buscarPartidos()}"
+								update="formulario" />
+						</p:calendar>
+						<p:commandButton action="#{index.irDiaDespues()}"
+							update="formulario" value="#{index.devolverDiaSiguiente()}"
+							style="font-weight: 900" />
+						<h2 id="fechaElegida" style="margin-right: 20%; float: right">
+							Partidos del día
+							<h:outputText value="#{index.devolverFechaElegida()}">
+								<f:convertDateTime pattern="MM/dd/yyyy" />
+							</h:outputText>
+						</h2>
+					</div>
+
+					<!-- 
+                        <p:commandButton actionListener="#{index.buscarPartidos()}" update="form,:form:j_idt35"/>
+                        -->
+
+					<p:dataList id="tablaPartidos" value="#{index.listaPartidos}"
+						var="match"
+						emptyMessage="No existen partidos para el día escogido">
+						<p:panelGrid columns="2"
+							columnClasses="porcentaje-cuarenta,porcentaje-sesenta"
+							styleClass="sinBordes"
+							style="width: 85%; margin:auto;margin-bottom: 33px;margin-top:10px;">
+							<p:panelGrid columns="1" style="width:100%;"
+								styleClass="sinBordes">
+								<!-- CABECERA _ NOMBRE EQUIPOS Y RECORD DE TEMPORADA -->
+								<div class="ui-g"
+									style="width: 100%; height: 40px; margin: auto; text-align: center; font-size: 16px; font-weight: bold;">
+									<div class="ui-g-5">#{match.equipoVisitante.nombre}</div>
+									<div class="ui-g-2"></div>
+									<div class="ui-g-5">#{match.equipoLocal.nombre}</div>
+								</div>
+								<div class="ui-g"
+									style="width: 100%; margin: auto; text-align: center; font-size: 14px; font-weight: bold;">
+									<div class="ui-g-5">#{match.equipoVisitante.victorias}-#{match.equipoVisitante.derrotas}</div>
+									<div class="ui-g-2"></div>
+									<div class="ui-g-5">#{match.equipoLocal.victorias}-#{match.equipoLocal.derrotas}</div>
+								</div>
+								<!-- LOGOS DE LOS EQUIPOS Y TANTEO -->
+								<div class="ui-g"
+									style="width: 100%; height: 160px; margin: auto; text-align: center; vertical-align: central; font-weight: bold;">
+									<div class="ui-g-5" style="text-align: center">
+										<img
+											src="https://d2p3bygnnzw9w3.cloudfront.net/req/202102091/tlogo/bbr/#{match.equipoVisitante.nombreAbreviado}.png"
+											height="140px" />
+									</div>
+									<div class="ui-g-2" style="margin: auto; font-size: 20px">
+										<outputLabel>
+										#{match.equipoVisitante.tanteo}-#{match.equipoLocal.tanteo} </outputLabel>
+									</div>
+									<div class="ui-g-5" style="text-align: center">
+										<img
+											src="https://d2p3bygnnzw9w3.cloudfront.net/req/202102091/tlogo/bbr/#{match.equipoLocal.nombreAbreviado}.png"
+											height="140px" />
+									</div>
+								</div>
+								<!-- MAXIMOS ANOTADORES -->
+								<div class="ui-g"
+									style="width: 90%; height: 90px; margin: auto; vertical-align: central;">
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].id}.jpg"
+											height="70" />
+									</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: right; font-size: 14px;">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].apeNom}</div>
+									<div class="ui-g-1 tooltip"
+										style="margin: auto; text-align: center">
+										#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].totalPartido.puntos}
+										<span class="tooltiptext"> Tiros Libres:
+											#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresIntentados}
+											<br /> Tiros Campo :
+											#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoIntentados}
+											<br /> Triples :
+											#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesIntentados}
+										</span>
+									</div>
+									<div class="ui-g-2"
+										style="margin: auto; text-align: center; font-weight: bold">Puntos</div>
+									<div class="ui-g-1 tooltip"
+										style="margin: auto; text-align: center">
+										#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].totalPartido.puntos}<span
+											class="tooltiptext"> Tiros Libres:
+											#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresIntentados}
+											<br /> Tiros Campo :
+											#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoIntentados}
+											<br /> Triples :
+											#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesIntentados}
+										</span>
+									</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: left; font-size: 14px;">#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].apeNom}</div>
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].id}.jpg"
+											height="70" />
+									</div>
+								</div>
+								<!-- MAXIMOS REBOTEADORES -->
+								<div class="ui-g"
+									style="width: 90%; height: 90px; margin: auto; vertical-align: central;">
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].id}.jpg"
+											height="70" />
+									</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: right; font-size: 14px;">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].apeNom}</div>
+									<div class="ui-g-1" style="margin: auto; text-align: center">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].totalPartido.totalRebotes}</div>
+									<div class="ui-g-2"
+										style="margin: auto; text-align: center; font-weight: bold">Rebotes</div>
+									<div class="ui-g-1" style="margin: auto; text-align: center">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].totalPartido.totalRebotes}</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: left; font-size: 14px;">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].apeNom}</div>
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].id}.jpg"
+											height="70" />
+									</div>
+								</div>
+								<!-- MAXIMOS ASISTENTES -->
+								<div class="ui-g"
+									style="width: 90%; height: 90px; margin: auto; vertical-align: central;">
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].id}.jpg"
+											height="70" />
+									</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: right; font-size: 14px;">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].apeNom}</div>
+									<div class="ui-g-1" style="margin: auto; text-align: center">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].totalPartido.asistencias}</div>
+									<div class="ui-g-2"
+										style="margin: auto; text-align: center; font-weight: bold">Asistencias</div>
+									<div class="ui-g-1" style="margin: auto; text-align: center">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].totalPartido.asistencias}</div>
+									<div class="ui-g-3"
+										style="margin: auto; text-align: left; font-size: 14px;">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].apeNom}</div>
+									<div class="ui-g-1">
+										<img
+											src="https://d2cwpp38twqe55.cloudfront.net/req/202001155/images/players/#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].id}.jpg"
+											height="70" />
+									</div>
+								</div>
+							</p:panelGrid>
+							<p:panelGrid columns="1" style="width:100%;"
+								styleClass="sinBordes">
+								<p:tabView style="border:0px;">
+									<p:tab title="Resumen del partido">
+										<p:panelGrid columns="1"
+											columnClasses="porcentaje-cuarenta,porcentaje-sesenta"
+											styleClass="sinBordes">
+											<p:panelGrid columns="1" columnClasses="porcentaje-cien"
+												styleClass="sinBordes">
+												<pre>
+Cambios de lide en el partido   <spam style="font-weight:bold">#{match.cambiosLider}</spam>
+Empates en el partido           <spam style="font-weight:bold">#{match.empates}</spam>
+Tiempo de empate en el partido  <spam style="font-weight:bold">#{match.tiempoEmpateMinutos}</spam>
+
+<spam style="font-weight:bold">#{match.equipoVisitante.tanteo}</spam> <u>#{match.equipoVisitante.nombre}</u>
+    - Tiempo ganando           	<spam style="font-weight:bold">#{match.tiempoVisitanteGanandoMinutos}</spam>
+    - Más puntos consecutivos  	<spam style="font-weight:bold">#{match.visitantePuntosConsecutivos}</spam>
+    - Más tiempo sin anotar    	<spam style="font-weight:bold">#{match.visitanteSinAnotarMinutos}</spam>
+
+<spam style="font-weight:bold">#{match.equipoLocal.tanteo}</spam> <u>#{match.equipoLocal.nombre}</u>
+    - Tiempo ganando           	<spam style="font-weight:bold">#{match.tiempoLocalGanandoMinutos}</spam>
+    - Más puntos consecutivos  	<spam style="font-weight:bold">#{match.localPuntosConsecutivos}</spam> 
+    - Más tiempo sin anotar    	<spam style="font-weight:bold">#{match.localSinAnotarMinutos}</spam>
+                                                        </pre>
+												<p:dataTable id="tanteoCuartos" styleClass="columns"
+													var="stat" value="#{match.listaCuartos}">
+													<p:columnGroup type="header">
+														<p:row>
+															<p:column headerText="Tanteo de los cuartos"
+																style="width: 45%;text-align: left" />
+															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
+																<p:column headerText="#{cuarto.cuarto}" />
+															</ui:repeat>
+															<p:column headerText="Total" />
+														</p:row>
+													</p:columnGroup>
+												</p:dataTable>
+												<p:dataTable id="tanteoVisitante" styleClass="columns"
+													var="stat" value="#{match.listaCuartos}">
+													<p:columnGroup type="header">
+														<p:row>
+															<p:column headerText="#{match.equipoVisitante.nombre}"
+																style="width: 45%;text-align: left" />
+															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
+																<p:column headerText="#{cuarto.tanteoVisitante}" />
+															</ui:repeat>
+															<p:column headerText="#{match.equipoVisitante.tanteo}" />
+														</p:row>
+													</p:columnGroup>
+												</p:dataTable>
+
+												<p:dataTable id="tanteoLocal" styleClass="columns"
+													var="stat" value="#{match.listaCuartos}">
+													<p:columnGroup type="header">
+														<p:row>
+															<p:column headerText="#{match.equipoLocal.nombre}"
+																style="width: 45%;text-align: left" />
+															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
+																<p:column headerText="#{cuarto.tanteoLocal}" />
+															</ui:repeat>
+															<p:column headerText="#{match.equipoLocal.tanteo}" />
+														</p:row>
+													</p:columnGroup>
+												</p:dataTable>
+											</p:panelGrid>
+										</p:panelGrid>
+									</p:tab>
+									<p:tab title="Stats #{match.equipoVisitante.nombre}">
+										<p:dataTable id="boxscoreVisitante" var="stat"
+											value="#{match.equipoVisitante.jugadores}"
+											style="font-size:12px;text-align: center;"
+											sortMode="multiple"
+											rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
+											<p:column headerText="Jugadores"
+												style="width: 15%;text-align: left">
+												<h:outputText value="#{stat.apeNom}" />
+											</p:column>
+											<p:column headerText="MIN">
+												<h:outputText value="#{stat.minutos}" />
+											</p:column>
+											<p:column headerText="FG">
+												<h:outputText
+													value="#{stat.boxscore.tirosCampoMetidos}/#{stat.boxscore.tirosCampoIntentados}" />
+											</p:column>
+											<p:column headerText="%FG">
+												<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.000" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="3FG">
+												<h:outputText
+													value="#{stat.boxscore.triplesMetidos}/#{stat.boxscore.triplesIntentados}" />
+											</p:column>
+											<p:column headerText="%3FG">
+												<h:outputText value="#{stat.boxscore.triplesPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.000" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="FT">
+												<h:outputText
+													value="#{stat.boxscore.tirosLibresMetidos}/#{stat.boxscore.tirosLibresIntentados}" />
+											</p:column>
+											<p:column headerText="%FT">
+												<h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.000" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="DREB">
+												<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
+											</p:column>
+											<p:column headerText="OREB">
+												<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
+											</p:column>
+											<p:column headerText="REB">
+												<h:outputText value="#{stat.boxscore.totalRebotes}" />
+											</p:column>
+											<p:column headerText="AST">
+												<h:outputText value="#{stat.boxscore.asistencias}" />
+											</p:column>
+											<p:column headerText="STL">
+												<h:outputText value="#{stat.boxscore.robos}" />
+											</p:column>
+											<p:column headerText="BLK">
+												<h:outputText value="#{stat.boxscore.tapones}" />
+											</p:column>
+											<p:column headerText="TOV">
+												<h:outputText value="#{stat.boxscore.perdidas}" />
+											</p:column>
+											<p:column headerText="+/-">
+												<h:outputText value="#{stat.boxscore.masMenos}" />
+											</p:column>
+											<p:column headerText="PTS" style="font-size: 10px">
+												<h:outputText value="#{stat.boxscore.puntos}" />
+											</p:column>
+										</p:dataTable>
+										<p:dataTable id="boxscoreVisitanteTotal" var="stat"
+											value="#{match.equipoVisitante}"
+											style="font-size:11px;text-align: center;"
+											rowStyleClass="equipo">
+											<p:column style="width: 15%;text-align: left">
+												<h:outputText value="#{stat.nombre}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="240" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosCampoMetidos}/#{stat.estadisticaNormal.tirosCampoIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosCampoPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.triplesMetidos}/#{stat.estadisticaNormal.triplesIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresMetidos}/#{stat.estadisticaNormal.tirosLibresIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.reboteDefensivo}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.reboteOfensivo}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.totalRebotes}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.asistencias}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.robos}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.tapones}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.perdidas}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.masMenos}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.puntos}" />
+											</p:column>
+										</p:dataTable>
+									</p:tab>
+									<p:tab title="Stats #{match.equipoLocal.nombre}">
+										<p:dataTable id="boxscoreLocal" var="stat"
+											value="#{match.equipoLocal.jugadores}"
+											style="font-size:12px;text-align: center;"
+											sortMode="multiple"
+											rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
+											<p:column headerText="Jugadores"
+												style="width: 15%;text-align: left">
+												<h:outputText value="#{stat.apeNom}" />
+											</p:column>
+											<p:column headerText="MIN">
+												<h:outputText value="#{stat.minutos}" />
+											</p:column>
+											<p:column headerText="FG">
+												<h:outputText
+													value="#{stat.boxscore.tirosCampoMetidos}/#{stat.boxscore.tirosCampoIntentados}" />
+											</p:column>
+											<p:column headerText="%FG">
+												<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="3FG">
+												<h:outputText
+													value="#{stat.boxscore.triplesMetidos}/#{stat.boxscore.triplesIntentados}" />
+											</p:column>
+											<p:column headerText="%3FG">
+												<h:outputText value="#{stat.boxscore.triplesPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="FT">
+												<h:outputText
+													value="#{stat.boxscore.tirosLibresMetidos}/#{stat.boxscore.tirosLibresIntentados}" />
+											</p:column>
+											<p:column headerText="%FT">
+												<h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="DREB">
+												<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
+											</p:column>
+											<p:column headerText="OREB">
+												<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
+											</p:column>
+											<p:column headerText="REB">
+												<h:outputText value="#{stat.boxscore.totalRebotes}" />
+											</p:column>
+											<p:column headerText="AST">
+												<h:outputText value="#{stat.boxscore.asistencias}" />
+											</p:column>
+											<p:column headerText="STL">
+												<h:outputText value="#{stat.boxscore.robos}" />
+											</p:column>
+											<p:column headerText="BLK">
+												<h:outputText value="#{stat.boxscore.tapones}" />
+											</p:column>
+											<p:column headerText="TOV">
+												<h:outputText value="#{stat.boxscore.perdidas}" />
+											</p:column>
+											<p:column headerText="+/-">
+												<h:outputText value="#{stat.boxscore.masMenos}" />
+											</p:column>
+											<p:column headerText="PTS">
+												<h:outputText value="#{stat.boxscore.puntos}" />
+											</p:column>
+										</p:dataTable>
+										<p:dataTable id="boxscoreLocalTotal" var="stat"
+											value="#{match.equipoLocal}"
+											style="font-size:11px;text-align: center;"
+											rowStyleClass="equipo">
+											<p:column style="width: 15%;text-align: left">
+												<h:outputText value="#{stat.nombre}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="240" />
+											</p:column>
+											<p:column style="tex">
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosCampoMetidos}/#{stat.estadisticaNormal.tirosCampoIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosCampoPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.triplesMetidos}/#{stat.estadisticaNormal.triplesIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresMetidos}/#{stat.estadisticaNormal.tirosLibresIntentados}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.tirosLibresPorcentaje}">
+													<f:convertNumber pattern="#,###,##0.00" />
+												</h:outputText>
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.reboteDefensivo}" />
+											</p:column>
+											<p:column>
+												<h:outputText
+													value="#{stat.estadisticaNormal.reboteOfensivo}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.totalRebotes}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.asistencias}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.robos}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.tapones}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.perdidas}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.masMenos}" />
+											</p:column>
+											<p:column>
+												<h:outputText value="#{stat.estadisticaNormal.puntos}" />
+											</p:column>
+										</p:dataTable>
+									</p:tab>
+
+									<p:tab title="Carta de Tiros">
+										<div id="tablaTiros">
+										
+											<h:panelGrid columns="2" styleClass="sinBordes"
+												id="tirosPartido">
+												<h:panelGrid id="shotChartVisitante">
+													<h:selectOneMenu id="cuartosVi"
+														value="#{match.cuartoPartidoTirosVisitante}">
+														<f:selectItems value="#{jugadores.listaCuartos}"
+															id="listaJugadoresTirosVisitante" />
+													</h:selectOneMenu>
+
+													<h:selectOneMenu value="#{jugadores.listaCuartosElegidos}"
+														filter="false" style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{match.listaJugadoresVisitante}" />
+													</h:selectOneMenu>
+													
+													<h:commandButton id="validar" value="ver" actionListener="#{index.cuartoPartidoTirosVisitante}" process="@this"/>
+
+													<h:panelGroup style="display:block" class="shot-area"
+														id="cartaVisitante">
+														<img alt="nbaHalfCourt"
+															src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+														<p:repeat value="#{match.listaTirosVisitante}" var="item">
+															<div
+																style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+																class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+														</p:repeat>
+													</h:panelGroup>
+
+												</h:panelGrid>
+
+												<h:panelGrid id="shotChartLocal">
+													<h:selectOneMenu
+														value="#{match.cuartoPartidoTirosVisitante}"
+														filter="false" style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaCuartos}"
+															id="listaJugadoresTirosLocal" />
+													</h:selectOneMenu>
+
+													<h:selectOneMenu value="#{jugadores.listaCuartosElegidos}"
+														filter="false" style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{match.listaJugadoresLocal}" />
+													</h:selectOneMenu>
+													<h:panelGroup style="display:block" class="shot-area"
+														id="cartaLocal">
+														<img alt="nbaHalfCourt"
+															src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+														<p:repeat value="#{match.listaTirosLocal}" var="item">
+															<div
+																style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+																class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+														</p:repeat>
+													</h:panelGroup>
+
+												</h:panelGrid>
+											</h:panelGrid>
+										</div>
+									</p:tab>
+								</p:tabView>
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:dataList>
+					<div id="footer" style="height: 60px;"></div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+

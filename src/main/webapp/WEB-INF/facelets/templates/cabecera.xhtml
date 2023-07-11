@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="CSS/principal.css"/>
+        <title>
+            <ui:insert name="title" />
+        </title>
+        <script>
+            window.onload = function(){
+                //Variables
+                var IMAGENES = [
+                    'resources/images/index/Cabecera_001.jpg',
+                    'resources/images/index/Cabecera_002.jpg',
+                    'resources/images/index/Cabecera_003.jpg',
+                    'resources/images/index/Cabecera_004.jpg',
+                    'resources/images/index/Cabecera_005.jpg',
+                    'resources/images/index/Cabecera_006.jpg',
+                    'resources/images/index/Cabecera_007.jpg',
+                    'resources/images/index/Cabecera_008.jpg',
+                    'resources/images/index/Cabecera_009.jpg',
+                    'resources/images/index/Cabecera_010.jpg',
+                    'resources/images/index/Cabecera_011.jpg',
+                    'resources/images/index/Cabecera_013.jpg',
+                    'resources/images/index/Cabecera_014.jpg',
+                    'resources/images/index/Cabecera_015.jpg',
+                    'resources/images/index/Cabecera_016.jpg',
+                    'resources/images/index/Cabecera_017.jpg',
+                    'resources/images/index/Cabecera_018.jpg',
+                    'resources/images/index/Cabecera_019.jpg',
+                    'resources/images/index/Cabecera_020.jpg',
+                    'resources/images/index/Cabecera_021.jpg',
+                    'resources/images/index/Cabecera_022.jpg',
+                    'resources/images/index/Cabecera_023.jpg',
+                    'resources/images/index/Cabecera_024.jpg'
+                ];
+                
+                var TIEMPO_INTERVALO_SEGUNDOS = 3500;
+                var foto = document.querySelector('#fotis');
+                var posicionActual = 0;
+                var intervalo;
+                
+                
+                /**
+                 * Funcion que cambia la foto en la siguiente posicion
+                 */
+                function pasarFoto() {
+                    if(posicionActual >= IMAGENES.length - 1) {
+                        posicionActual = 0;
+                    } else {
+                        posicionActual++;
+                    }
+                    renderizarImagen();
+                }
+                
+                function renderizarImagen () {
+                   foto.style.backgroundImage = 'url('+IMAGENES[posicionActual]+')';
+                }
+                
+            /**
+             * Activa el autoplay de la imagen
+             */
+            function playIntervalo() {
+                intervalo = setInterval(pasarFoto, TIEMPO_INTERVALO_SEGUNDOS);
+                // Desactivamos los botones de control
+                $botonAvanzar.setAttribute('disabled', true);
+                $botonRetroceder.setAttribute('disabled', true);
+                $botonPlay.setAttribute('disabled', true);
+                $botonStop.removeAttribute('disabled');
+            }
+                playIntervalo();
+            }
+        </script>
+    </h:head>
+    <h:body id="fotis">
+        <div id="vacio"></div>
+        <div id="menu">
+            <h:form>
+                <ul id="navegacion">
+                <li><h:commandLink action="index" value="Partidos"/></li>
+                <li><h:commandLink action="jugadores" value="Jugadores"/></li>
+                <li><h:commandLink action="jugadores" value="Equipos"/></li>
+                <li><h:commandLink action="jugadores" value="Temporadas"/></li>
+                <li><h:commandLink action="jugadores" value="Estadisticas"/></li>
+            </ul>
+            </h:form>
+        </div>
+
+        <div id="contenedor">
+            <ui:insert name="content">
+                <span>Página en Construcción</span>
+            </ui:insert>
+        </div>
+
+        <div id="footer">
+            
+        </div>
+    </h:body>
+</html>

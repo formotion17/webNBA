@@ -1,0 +1,535 @@
+@CHARSET "ISO-8859-1";
+
+*{
+    margin:0px;
+    padding:0px;
+}
+
+body#fotis{
+    background-image: url(../resources/images/index/Cabecera_001.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed;
+    background-color: black;
+}
+
+div#vacio{
+    width: 100%;
+    height: 300px; /*Controlamos el alto de las imagenes*/
+}
+
+
+div#contenedor{
+    width: 100%;
+    height: auto;
+    background-color: black;
+}
+
+div#menu{
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    position: absolute;
+}
+
+div#main{
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+    background-color: white;
+}
+
+#navegacion {
+    padding: 0;
+    width: 85%;
+    margin-left: 7.5%;
+}
+
+#navegacion li {
+    display: inline;
+    margin:auto;
+}
+
+#navegacion li a {
+    font-family: monospace;
+    font-size: 16px;
+    text-decoration: none;
+    float: left;
+    color: #fff;
+    width: 20%;
+    margin-top:10px;
+    text-align: center;
+}
+
+#navegacion li a:hover {
+    background-color: #2586d7;
+    border-radius: 18px;
+}
+
+/*Para ver el resultado de los partidos*/
+.tg  {border-collapse:collapse;border-spacing:0;width: 450px;height: 350px;margin-left:10px;margin-top:15px; background-color: white;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-baqh{text-align:center;}
+.tg .tg-0lax{text-align:center;}
+
+
+
+.tb  {border-collapse:collapse;border-spacing:0;width: 100%;table-layout: fixed;height: 50px;}
+.tb th{font-family:Arial, sans-serif;font-size:17px;font-weight:normal;border-width:0px;overflow:hidden;word-break:normal;border-color:black;height: 40px;}
+.tb td{font-family:Arial, sans-serif;font-size:17px;font-weight:bold;border-width:0px;overflow:hidden;word-break:normal;border-color:black;}
+.tb .tb-0lax{text-align:center;vertical-align:top;font-size:14px}
+.tb .tb-0laxp{text-align:center;vertical-align:top;border-right: 1px solid;font-size:14px}
+.tb ul{
+    list-style:none; 
+}
+
+.tb  {border-collapse:collapse;border-spacing:0;width: 100%;table-layout: fixed;height: 50px;}
+.tb th{font-family:Arial, sans-serif;font-size:17px;font-weight:normal;border-width:0px;overflow:hidden;word-break:normal;border-color:black;height: 40px;}
+.tb td{font-family:Arial, sans-serif;font-size:17px;font-weight:bold;border-width:0px;overflow:hidden;word-break:normal;border-color:black;}
+.tb .tb-0lbx{text-align:center;vertical-align:top;font-size:14px;vertical-align:middle}
+.tb .tb-0lbxp{text-align:center;vertical-align:top;border-right: 1px solid;font-size:14px;vertical-align:middle}
+.tb ul{
+    list-style:none; 
+}
+
+li{
+    list-style:none; 
+}
+
+ul{
+    list-style:none; 
+}
+
+
+
+.centered {
+    margin-left: 30%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.centeredHistorico {
+    margin-left: 50%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.ui-g div {
+    vertical-align: middle;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: #555;
+    color: #fff;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.calendario .ui-inputfield{
+    font-weight: 900;
+    padding: 6px;
+}
+
+/*.ui-datatable-data tr{
+    height: 100px !important;
+}*/
+
+.tablaEstadisticaContraEquipos{
+    margin-top:20px;
+    font-size:14px;
+    text-align:center;
+}
+
+.tablaEstadisticaCarrera{
+    margin-top:30px;
+    font-size:12px;
+    text-align:center;
+}
+
+.tablaEstadisticasCabecera td{
+    padding-left: 2px;
+}
+
+.listaEquipos{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.listaEquipos .ui-button.ui-widget.ui-state-default.ui-button-text-only{
+    font-size:16px;
+    border-color:white;
+    background-color:#b9c1c7;
+    width:15em;
+    padding:4px;
+    margin:2px;
+}
+
+.listaEquipos .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
+    border-color:#007ad9;
+    background-color:#0c4d80;
+    color:#fff;
+}
+
+.listaTemporadas{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.listaTemporadas .ui-button.ui-widget.ui-state-default.ui-button-text-only{
+    font-size:16px;
+    border-color:white;
+    background-color:#b9c1c7;
+    width:15em;
+    padding:4px;
+    margin:2px;
+}
+
+.listaTemporadas .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
+    border-color:#007ad9;
+    background-color:#0c4d80;
+    color:#fff;
+}
+
+.ui-selectonemenu-label{
+    font-size:14px;
+}
+
+.labelInfo{
+    font-size:14px;
+}
+
+.ui-selectonemenu-item.ui-selectonemenu-list-item{
+    font-size:14px;
+}
+
+.foto{
+    background-image: "https://d2p3bygnnzw9w3.cloudfront.net/req/202002101/tlogo/bbr/WAS.png"
+}
+
+.shot-area {
+    position:relative;
+    overflow-x:auto;
+    margin-top: 30px;
+}
+.shot-area>div {
+    position:absolute;
+    font-size:14px;
+}
+.shot-area>.make {
+    color:#080;
+}
+.shot-area>.miss {
+    color:#f00;
+}
+
+#cartaLocalRegular.shot-area{
+
+}
+
+/*PÁGINA JUGADORES*/
+
+/* CABECERA BUSCAR JUGADOR*/
+.findJugador{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: flex-start;
+    height: 100vh;
+    overflow: auto;
+    flex-direction: row;
+    margin:0 auto;
+}
+
+.findJugador>.nombreJugador{
+    width: 15em;
+    font-size:16px;
+    /*margin-top: 90px;*/
+}
+
+.findJugador>.buscarJugador{
+    width: 15em;
+    height: 140px;
+    margin-top: 90px;
+}
+
+.findJugador>.tablaJugadores{
+    width: 70em;
+    height: 140px;
+    margin: 5px;
+}
+
+.tituloEquipo{
+    display: table;
+    position: relative;
+    margin: auto;
+}
+
+.invisible{
+    display: none;
+}
+
+.statsJugador{
+    padding:14px;
+    display: flex;
+    justify-content: space-around;
+    width: 97%;
+    margin:0 auto;
+    margin-bottom:30px;
+}
+
+.statsJugador>.fotoJugador{
+    height: 220px;
+    margin-right:10px;
+    margin-left:-30px;
+    margin-top:4%;
+}
+
+/*
+.statsJugador>.estadisticasCarrera{
+    
+    width: 200em;
+    height: 220px;
+    margin: 5px;
+}*/
+
+/*TAB PÁGINA JUGADOR*/
+
+.tabset > input[type="radio"] {
+    position: absolute;
+    left: -200vw;
+}
+
+.tabset .tab-panel {
+    display: none;
+    padding-left:10px;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+    display: block;
+}
+
+/*
+ Styling
+*/
+body {
+    font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
+    color: #333;
+    font-weight: 300;
+}
+
+.tabset > label {
+    position: relative;
+    display: inline-block;
+    padding: 15px 15px 25px;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tabset > label::after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    width: 22px;
+    height: 4px;
+    background: #8d8d8d;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label {
+    color: #06c;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+    background: #06c;
+}
+
+.tabset > input:checked + label {
+    border-color: #ccc;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+}
+
+.tab-panel {
+    padding: 30px 0;
+    border-top: 1px solid #ccc;
+}
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+/*body {
+    padding: 30px;
+}*/
+
+.tabset {
+    max-width: 98%;
+}
+
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger{
+    width:25px;
+}
+
+.anchoCuatro{
+    width: 45px;
+}
+.anchoVeinte{
+    width: 20px;
+}
+
+.anchoTreinta{
+    width: 30px;
+}
+
+.anchoCientoSetantayCinco{
+    width: 160px;   
+}
+
+.anchoSetenta{
+    width: 70px;    
+}
+
+.anchoCientodiez{
+    width: 160px;    
+}
+
+.porcentaje-cinco{width:5%;}
+.porcentaje-diez{width:10%;}
+.porcentaje-quince{width:15%;}
+.porcentaje-veinte{width:20%;}
+.porcentaje-veinteCinco{width:25%;}
+.porcentaje-treinta{width:30%;}
+.porcentaje-treintaCinco{width:35%;}
+.porcentaje-cuarenta{width:40%;}
+.porcentaje-cuarentaCinco{width:45%;}
+.porcentaje-cincuenta{width:50%;}
+.porcentaje-cincuentaCinco{width:55%;}
+.porcentaje-sesenta{width:60%;}
+.porcentaje-sesentaCinco{width:65%;}
+.porcentaje-setenta{width:70%;}
+.porcentaje-setentaCinco{width:75%;}
+.porcentaje-ochenta{width:80%;}
+.porcentaje-ochentaCinco{width:85%;}
+.porcentaje-noventa{width:90%;}
+.porcentaje-noventaCinco{width:95%;}
+.porcentaje-cien{width:100%;}
+
+.borderless .ui-datatable thead th,
+.borderless .ui-datatable tbody,
+.borderless .ui-datatable tbody tr,
+.borderless .ui-datatable tbody td {
+    border: none;
+    display: none;
+}
+
+ui-panelgrid .ui-panelgrid-cell {
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    padding: 4px 10px;
+}
+
+.titulares {
+        background-color: #ceefb1 !important;
+}
+
+.suplentes {
+        background-color: #fff !important;
+}
+
+.equipo {
+        background-color: #d0d0d0 !important;
+        font-weight: bold;
+}
+
+.sinBordes.ui-panelgrid>*>tr,
+.sinBordes.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+
+.ui-datalist-content.ui-widget-content{
+    background-color: #f1f1f1;
+}
+
+.yellowRaw{
+     background-color: #ceefb1 !important;
+ }
+ 
+ .redRaw{
+     background-color: #fff !important;
+ }
+ 
+ .green{
+     background-color: #98db98  !important;
+ }
+ 
+ .whie{
+     background-color: white !important;
+ }
+ 
+ .grey{
+     background-color: #ccc !important
+ }
+ 
+ .partidosHeader {
+   text-align:center;
+   background:none repeat scroll 0 0 #B5B5B5;
+   border-bottom:1px solid #000000;  
+   padding:2px;
+}
