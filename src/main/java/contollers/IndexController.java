@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.bson.Document;
 
@@ -23,7 +24,7 @@ import com.mongodb.client.MongoDatabase;
 import clases.ControllerPartido;
 import util.MapJavaMongo;
 
-@RequestScoped	
+@ViewScoped
 @ManagedBean(name ="index")
 public class IndexController extends BaseController{
     
@@ -42,13 +43,15 @@ public class IndexController extends BaseController{
     private Date diaPosterior= Calendar.getInstance().getTime();
     private Date diaMaximo = Calendar.getInstance().getTime();
     
-    //@PostConstruct
+    
+    @PostConstruct
     public void init(){
         System.out.println("iniciamos");
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        calendar.add(Calendar.DAY_OF_WEEK,0);
         fechaPartidos = calendar.getTime();
         restar1dia(calendar);
+        sumar2dia(calendar);
         iniciarSesion("localhost", 27017);
         rellenarPartidos();
         System.out.println(listaPartidos.size());
@@ -56,6 +59,11 @@ public class IndexController extends BaseController{
     
     private void sumar1dia(Calendar calendar){
         calendar.add(Calendar.DAY_OF_WEEK, 1);
+        diaPosterior = calendar.getTime();
+    }
+    
+    private void sumar2dia(Calendar calendar){
+        calendar.add(Calendar.DAY_OF_WEEK, 2);
         diaPosterior = calendar.getTime();
     }
     
@@ -97,12 +105,12 @@ public class IndexController extends BaseController{
             
             setDiaMesYear();
 
-            MongoDatabase db = mongo.getDatabase("nba");
+            MongoDatabase db = mongo.getDatabase("NBA");
 
             // Select the collection
-            MongoCollection<Document> collection = db.getCollection("partido");
+            MongoCollection<Document> collection = db.getCollection("partidos");
 
-            Document findDocument = new Document("dia",devolverFechaSinCero(Integer.toString(Integer.parseInt(dia)-1)));
+            Document findDocument = new Document("dia",devolverFechaSinCero(Integer.toString(Integer.parseInt(dia))));
             findDocument.put("mes", mes);
             findDocument.put("year", year);
 
@@ -152,10 +160,10 @@ public class IndexController extends BaseController{
             sumar1dia(calendar);
             restar2dias(calendar);
 
-            MongoDatabase db = mongo.getDatabase("nba");
+            MongoDatabase db = mongo.getDatabase("NBA");
 
             // Select the collection
-            MongoCollection<Document> collection = db.getCollection("partido");
+            MongoCollection<Document> collection = db.getCollection("partidos");
 
             Document findDocument = new Document("dia",dia);
             findDocument.put("mes", mes);
