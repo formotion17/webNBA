@@ -87,7 +87,7 @@
 						<p:dataList id="tablaPartidos" value="#{index.listaPartidos}" var="match"
 							emptyMessage="No existen partidos para el día escogido" style="background-color:red;">
 							<p:panelGrid columns="2"
-								columnClasses="porcentaje-cuarenta,porcentaje-sesenta"
+								columnClasses="porcentaje-treintaCinco,porcentaje-sesenta"
 								styleClass="sinBordes"
 								class="partido">
 								<p:panelGrid columns="1" style="width:100%;"
@@ -110,14 +110,14 @@
 									</div>
 									<!-- LOGOS DE LOS EQUIPOS Y TANTEO -->
 									<div class="ui-g partido-logoTanteo">
-										<div class="ui-g-5 partido-textoCentrado">
+										<div class="ui-g-4 partido-textoCentrado">
 											<img src="https://d2p3bygnnzw9w3.cloudfront.net/req/202102091/tlogo/bbr/#{match.equipoVisitante.nombreAbreviado}.png"
 												height="140px" />
 										</div>
-										<div class="ui-g-2 partido-tanteo">
+										<div class="ui-g-4 partido-tanteo">
 											<outputLabel>#{match.equipoVisitante.tanteo}-#{match.equipoLocal.tanteo} </outputLabel>
 										</div>
-										<div class="ui-g-5 partido-textoCentrado">
+										<div class="ui-g-4 partido-textoCentrado">
 											<img src="https://d2p3bygnnzw9w3.cloudfront.net/req/202102091/tlogo/bbr/#{match.equipoLocal.nombreAbreviado}.png"
 												height="140px" />
 										</div>
@@ -210,18 +210,27 @@
 												<p:panelGrid columns="1" columnClasses="porcentaje-cien"
 													styleClass="sinBordes">
 	                                                <div class="ui-g">
-	                                                	<div class="ui-g-12">
-	                                                		<pre>Cambios de lide en el partido    <spam class="negrita">#{match.cambiosLider}</spam></pre>
+	                                                	<div class="ui-g-4">
+	                                                		<spam class="negrita">Cambios de lider en el partido</spam>
+	                                                	</div>
+	                                                	<div class="ui-g-8">
+	                                                		<spam class="negrita">#{match.cambiosLider}</spam>
 	                                                	</div>
 	                                                </div>
 	                                                <div class="ui-g">
-	                                                	<div class="ui-g-12">
-	                                                		<pre>Empates en el partido            <spam class="negrita">#{match.empates}</spam></pre>
+	                                                	<div class="ui-g-4">
+	                                                		<spam class="negrita">Empates en el partido</spam>
+	                                                	</div>
+	                                                	<div class="ui-g-8">
+	                                                		<spam class="negrita">#{match.empates}</spam>
 	                                                	</div>
 	                                                </div>
 	                                                <div class="ui-g">
-	                                                	<div class="ui-g-12">
-	                                                		<pre>Tiempo de empate en el partido   <spam class="negrita">#{match.tiempoEmpateMinutos}</spam></pre>
+	                                                	<div class="ui-g-4">
+	                                                		<spam class="negrita">Tiempo de empate en el partido</spam>
+	                                                	</div>
+	                                                	<div class="ui-g-8">
+	                                                		<spam class="negrita">#{match.tiempoEmpateMinutos}</spam>
 	                                                	</div>
 	                                                </div>
 	                                                <div class="ui-g">
@@ -244,7 +253,7 @@
 	                                                	<div class="ui-g-4 textoCentrado">#{match.visitanteSinAnotarMinutos}</div>
 	                                                	<div class="ui-g-4 textoCentrado">1#{match.localSinAnotarMinutos}</div>
 	                                                </div>
-													<p:dataTable id="tanteoCuartos" styleClass="columns" class="tanteoCuartosGenerico"
+													<p:dataTable id="tanteoCuartos" styleClass="columns tanteoCuartosGenerico"
 														var="stat" value="#{match.listaCuartos}">
 														<p:columnGroup type="header">
 															<p:row>
@@ -255,11 +264,6 @@
 																</ui:repeat>
 																<p:column headerText="Total" />
 															</p:row>
-														</p:columnGroup>
-													</p:dataTable>
-													<p:dataTable id="tanteoVisitante" styleClass="columns"
-														var="stat" value="#{match.listaCuartos}">
-														<p:columnGroup type="header">
 															<p:row>
 																<p:column headerText="#{match.equipoVisitante.nombre}"
 																	style="width: 45%;text-align: left" />
@@ -268,12 +272,6 @@
 																</ui:repeat>
 																<p:column headerText="#{match.equipoVisitante.tanteo}" />
 															</p:row>
-														</p:columnGroup>
-													</p:dataTable>
-	
-													<p:dataTable id="tanteoLocal" styleClass="columns"
-														var="stat" value="#{match.listaCuartos}">
-														<p:columnGroup type="header">
 															<p:row>
 																<p:column headerText="#{match.equipoLocal.nombre}"
 																	style="width: 45%;text-align: left" />
@@ -287,14 +285,16 @@
 												</p:panelGrid>
 											</p:panelGrid>
 										</p:tab>
+										
 										<p:tab title="Stats #{match.equipoVisitante.nombre}">
 											<p:dataTable id="boxscoreVisitante" var="stat"
 												value="#{match.equipoVisitante.jugadores}"
 												style="font-size:12px;text-align: center;"
 												sortMode="multiple"
 												rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
+												
 												<p:column headerText="Jugadores"
-													style="width: 15%;text-align: left">
+													style="width: 12%;text-align: left">
 													<h:outputText value="#{stat.apeNom}" />
 												</p:column>
 												<p:column headerText="MIN">
@@ -313,7 +313,7 @@
 													<h:outputText
 														value="#{stat.boxscore.triplesMetidos}/#{stat.boxscore.triplesIntentados}" />
 												</p:column>
-												<p:column headerText="%3FG">
+												<p:column headerText="%3F">
 													<h:outputText value="#{stat.boxscore.triplesPorcentaje}">
 														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
@@ -327,10 +327,10 @@
 														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="DREB">
+												<p:column headerText="DRE">
 													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
 												</p:column>
-												<p:column headerText="OREB">
+												<p:column headerText="ORE">
 													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
 												</p:column>
 												<p:column headerText="REB">
@@ -351,15 +351,15 @@
 												<p:column headerText="+/-">
 													<h:outputText value="#{stat.boxscore.masMenos}" />
 												</p:column>
-												<p:column headerText="PTS" style="font-size: 10px">
-													<h:outputText value="#{stat.boxscore.puntos}" />
+												<p:column headerText="PTS" style="font-size: 10px;text-align:right;">
+													<h:outputText style="text-align:right;" value="#{stat.boxscore.puntos}" />
 												</p:column>
 											</p:dataTable>
 											<p:dataTable id="boxscoreVisitanteTotal" var="stat"
 												value="#{match.equipoVisitante}"
 												style="font-size:11px;text-align: center;"
 												rowStyleClass="equipo">
-												<p:column style="width: 15%;text-align: left">
+												<p:column style="width: 13%;text-align: left">
 													<h:outputText value="#{stat.nombre}" />
 												</p:column>
 												<p:column>
@@ -433,7 +433,7 @@
 												sortMode="multiple"
 												rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
 												<p:column headerText="Jugadores"
-													style="width: 15%;text-align: left">
+													style="width: 13%;text-align: left">
 													<h:outputText value="#{stat.apeNom}" />
 												</p:column>
 												<p:column headerText="MIN">
@@ -565,7 +565,16 @@
 												</p:column>
 											</p:dataTable>
 										</p:tab>
-	
+										
+										<p:tab title="Grafica Tanteo">
+											<div id="graficaTanteo">
+												<h:panelGrid columns="1">
+													<h:form>
+    													<p:barChart model="#{match.tanteoGrafica}" style="width: 100%; height: 500px;"/>
+												    </h:form>
+												</h:panelGrid>
+											</div>
+										</p:tab>
 										<p:tab title="Carta de Tiros">
 											<div id="tablaTiros">
 											

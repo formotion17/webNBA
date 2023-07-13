@@ -25,7 +25,8 @@ import org.bson.Document;
  */
 public class MapJavaMongo {
 
-    public static ControllerPartido rellenarPartido(Document partido) {
+    @SuppressWarnings("unchecked")
+	public static ControllerPartido rellenarPartido(Document partido) {
         ControllerPartido match = new ControllerPartido();
         System.out.println((String) partido.get("dia") + " " + (String) partido.get("mes"));
         match.setAsistencia((Integer) partido.get("asistencia"));
@@ -49,6 +50,8 @@ public class MapJavaMongo {
         match.setYear((String) partido.get("year"));
         match.rellenarCuartos();
         match.rellenarTirosEquipos();
+        match.setListaTanteoLocal((ArrayList<Integer>)partido.get("tanteoLocal"));
+        match.setListaTanteoPartido((ArrayList<String>)partido.get("tanteo"));
         
         if(partido.containsKey("playIn")) {
         	match.setPlayin((boolean)partido.get("playIn"));
@@ -497,7 +500,7 @@ public class MapJavaMongo {
     private static ArrayList<ControllerTiros> devolverCartaTiro(ArrayList<Document> lista) {
         ArrayList<ControllerTiros> listaTiros = new ArrayList<ControllerTiros>();
         for (int i = 0; i < lista.size(); i++) {
-            listaTiros.add(devolverTiros((Document) lista.get(i)));
+            listaTiros.add(devolverTiros(lista.get(i)));
         }
         return listaTiros;
     }
@@ -515,7 +518,7 @@ public class MapJavaMongo {
     private static ArrayList<ControllerJugador> devolverJugadores(ArrayList<Document> lista) {
         ArrayList<ControllerJugador> listaJugadores = new ArrayList<ControllerJugador>();
         for (int i = 0; i < lista.size(); i++) {
-            ControllerJugador jugador = devolverJugador((Document)lista.get(i), i);
+            ControllerJugador jugador = devolverJugador(lista.get(i), i);
             if(jugador!=null){
                 listaJugadores.add(jugador);
             }

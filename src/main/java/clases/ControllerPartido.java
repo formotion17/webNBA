@@ -1,7 +1,19 @@
 package clases;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.axes.cartesian.CartesianScales;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.optionconfig.title.Title;
+import org.primefaces.model.charts.optionconfig.tooltip.Tooltip;
 
 import contollers.JugadorController;
+import util.ListaEquipos;
 
 public class ControllerPartido {
 
@@ -10,7 +22,9 @@ public class ControllerPartido {
     private ArrayList<ControllerCuarto> listaCuartos = new ArrayList<ControllerCuarto>();
     private ArrayList<ControllerTiros> listaTirosLocal = new ArrayList<ControllerTiros>();
     private ArrayList<ControllerTiros> listaTirosVisitante = new ArrayList<ControllerTiros>();
-
+    private ArrayList<Integer> listaTanteoLocal = new ArrayList<Integer>();
+    private ArrayList<String> listaTanteoPartido = new ArrayList<String>();
+    
     private Integer asistencia = 0;
     private Integer tiempoEmpate = 0;
     private Integer localSinAnotar = 0;
@@ -49,6 +63,10 @@ public class ControllerPartido {
     private String rutaLogo="logo.png";
     private boolean logoPartido=false;
     private boolean playin=false;
+    private ListaEquipos equipoSeleccionado;
+    
+
+    private BarChartModel tanteoGrafica;
 
 	// Getter Methods 
     public Integer getAsistencia() {
@@ -429,8 +447,95 @@ public class ControllerPartido {
 
 	public void setPlayin(boolean playin) {
 		this.playin = playin;
+	}
+
+	public ArrayList<Integer> getListaTanteoLocal() {
+		return listaTanteoLocal;
+	}
+
+	public void setListaTanteoLocal(ArrayList<Integer> listaTanteoLocal) {
+		this.listaTanteoLocal = listaTanteoLocal;
+	}
+	
+	private void crearGrafica() {
+		tanteoGrafica = new BarChartModel();
+        ChartData data = new ChartData();
+
+        BarChartDataSet barraLocal = new BarChartDataSet();
+        BarChartDataSet barraVisitante = new BarChartDataSet();
+        
+        barraLocal.setLabel(equipoLocal.getNombre());
+        barraLocal.setBackgroundColor(ListaEquipos.findColorByAbreviatura(equipoLocal.getNombreAbreviado().toLowerCase()));
+        System.out.println(ListaEquipos.findColorByAbreviatura(equipoLocal.getNombreAbreviado().toLowerCase()));
+        
+        barraVisitante.setLabel(equipoVisitante.getNombre());
+        barraVisitante.setBackgroundColor(ListaEquipos.findColorByAbreviatura(equipoVisitante.getNombreAbreviado().toLowerCase()));
+        System.out.println(ListaEquipos.findColorByAbreviatura(equipoVisitante.getNombreAbreviado().toLowerCase()));
+        
+        List<Number> dataLocal = new ArrayList<>();
+        List<Number> dataVisitante = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+        
+        for(int i=0;i<listaTanteoLocal.size();i++) {
+        	if(listaTanteoLocal.get(i)>0) {
+        		dataLocal.add(listaTanteoLocal.get(i));
+        		dataVisitante.add(0);
+        	}else if(listaTanteoLocal.get(i)<0) {
+        		dataLocal.add(0);
+        		dataVisitante.add(listaTanteoLocal.get(i));
+        	}else {
+        		dataLocal.add(0);
+        		dataVisitante.add(0);
+        	}
+        	labels.add(listaTanteoPartido.get(i));
+        }
+        
+        barraLocal.setData(dataLocal);
+        barraVisitante.setData(dataVisitante);
+
+        data.addChartDataSet(barraLocal);
+        data.addChartDataSet(barraVisitante);
+        data.setLabels(labels);
+        tanteoGrafica.setData(data);
+
+        //Options
+        BarChartOptions options = new BarChartOptions();
+        CartesianScales cScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setStacked(true);
+        linearAxes.setOffset(true);
+        cScales.addXAxesData(linearAxes);
+        cScales.addYAxesData(linearAxes);
+        options.setScales(cScales);
+
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText(equipoVisitante.getNombre()+" "+equipoVisitante.getTanteo()+" - "+
+        		equipoLocal.getTanteo()+" "+equipoLocal.getNombre());
+        options.setTitle(title);
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.setMode("index");
+        tooltip.setIntersect(true);
+        options.setTooltip(tooltip);
+        tanteoGrafica.setOptions(options);
+	}
+
+	public BarChartModel getTanteoGrafica() {
+		return tanteoGrafica;
+	}
+
+	public void setTanteoGrafica(BarChartModel tanteoGrafica) {
+		this.tanteoGrafica = tanteoGrafica;
+	}
+
+	public ArrayList<String> getListaTanteoPartido() {
+		return listaTanteoPartido;
+	}
+
+	public void setListaTanteoPartido(ArrayList<String> listaTanteoPartido) {
+		this.listaTanteoPartido = listaTanteoPartido;
+		crearGrafica();
 	}    
-	
-	
     
 }
