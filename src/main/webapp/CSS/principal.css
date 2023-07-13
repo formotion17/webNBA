@@ -17,11 +17,6 @@
 	margin: auto;
 }
 
-.divFechas{
-	padding: 20px;
-	margin-left: 10%;
-}
-
 .contenido-index{
 	background-color: #e8e4e4;
 	height: auto;
@@ -48,13 +43,113 @@
 .divFechas-calendario {
   flex: 1;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .divFechas-titulo {
   flex: 1;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.partido{
+	width: 100%;
+	margin:auto;
+	margin-bottom: 33px;
+	margin-top:10px;
+}
+
+/* Información del partido */
+.partido-nombre{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	background-color:#c8c8c8;
+}
+
+.partido-record{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	background-color:#d3d3d3;
+}
+
+.partido-tipoPartido{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	background-color:#f8f8ff;
+}
+
+.partido-logoTanteo{
+	width: 100%;
+	height: 160px;
+	margin: auto;
+	text-align: center;
+	vertical-align: central;
+	font-weight: bold;
+}
+
+.partido-textoCentrado{
+	text-align:center;
+}
+
+.partido-tanteo{
+	margin: auto;
+	font-size: 20px
+}
+
+.partido-maximos{
+	width: 100%;
+	height: 90px;
+	margin: auto;
+	vertical-align: central;
+}
+
+.partido-puntuacion{
+	margin: auto;
+	text-align: center;
+}
+
+.partido-atributo{
+	margin: auto;
+	text-align: center;
+	font-weight: bold;
+}
+
+.partido-jugadorNombreVisitante{
+	margin: auto;
+	text-align: right;
+	font-size: 14px;
+}
+
+.partido-jugadorNombreLocal{
+	margin: auto;
+	text-align: left;
+	font-size: 14px;
+}
+
+.partido-logoPartido{
+  max-width: 100%;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tanteoCuartosGenerico{
+	background-color:#a9a9a9; 
+}
 
 
 /*Para ver el resultado de los partidos*/
@@ -518,4 +613,14 @@ ui-panelgrid .ui-panelgrid-cell {
    background:none repeat scroll 0 0 #B5B5B5;
    border-bottom:1px solid #000000;  
    padding:2px;
+}
+
+.negrita{
+	font-weight:bold;
+}
+.subrayado {
+  text-decoration: underline;
+}
+.textoCentrado{
+	text-align:center;
 }

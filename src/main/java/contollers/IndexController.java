@@ -42,6 +42,7 @@ public class IndexController extends BaseController{
     private Date diaAnterior= Calendar.getInstance().getTime();
     private Date diaPosterior= Calendar.getInstance().getTime();
     private Date diaMaximo = Calendar.getInstance().getTime();
+    private String urlFoto="https://www.basketball-reference.com/req/202106291/images/headshots/";
     
     
     @PostConstruct
@@ -239,5 +240,9 @@ public class IndexController extends BaseController{
 
     public void setDiaMaximo(Date diaMaximo) {
         this.diaMaximo = diaMaximo;
+    }
+    
+    public String getUrlFoto() {
+    	return urlFoto;
     }
 }

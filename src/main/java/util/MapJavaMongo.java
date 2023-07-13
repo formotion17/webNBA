@@ -49,6 +49,32 @@ public class MapJavaMongo {
         match.setYear((String) partido.get("year"));
         match.rellenarCuartos();
         match.rellenarTirosEquipos();
+        
+        if(partido.containsKey("playIn")) {
+        	match.setPlayin((boolean)partido.get("playIn"));
+        	match.setRutaLogo("playin.png");
+        }
+        
+        if(match.getPlayOff()) {
+        	
+        	match.setBracket((String)partido.get("bracket"));
+        	match.setGame((Integer)partido.get("game"));
+        	
+        	if(!match.getBracket().equals("Finales NBA")) {
+            	match.setConferencia((String)partido.get("conferencia"));
+            	if(match.getBracket().equals("Finales de la Conferencia ")) {
+            		if(match.getConferencia().equals("ESTE")) {
+            			match.setRutaLogo("esteFinales.jpeg");
+            		}else {
+            			match.setRutaLogo("oesteFinales.jpeg");
+            		}
+            	}
+        	}
+        	
+        }else {
+        	match.setBracket("Partido de Temporada Regular");
+        	match.setTemporadaRegular(true);
+        }
         return match;
     }
 

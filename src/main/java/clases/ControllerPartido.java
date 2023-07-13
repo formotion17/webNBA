@@ -34,6 +34,10 @@ public class ControllerPartido {
     private String localPuntosConsecutivos = "";
     private String visitantePuntosConsecutivos = "";
     
+    private String bracket="";
+    private String conferencia="";
+    private Integer game=0;
+    
     // Para ver los tiros de un partido
     private String cuartoPartidoTirosVisitante="";
     
@@ -41,6 +45,10 @@ public class ControllerPartido {
     private ArrayList<String> listaJugadoresVisitante = new ArrayList<String>();
 
     private boolean playOff = false;
+    private boolean temporadaRegular=false;
+    private String rutaLogo="logo.png";
+    private boolean logoPartido=false;
+    private boolean playin=false;
 
 	// Getter Methods 
     public Integer getAsistencia() {
@@ -149,7 +157,7 @@ public class ControllerPartido {
     }
 
     public void setHora(String hora) {
-        this.hora = hora;
+        this.hora = hora.substring(1,6);
     }
 
     public void setLocalPuntosConsecutivos(String localPuntosConsecutivos) {
@@ -342,6 +350,87 @@ public class ControllerPartido {
 
 	public void setListaJugadoresVisitante(ArrayList<String> listaJugadoresVisitante) {
 		this.listaJugadoresVisitante = listaJugadoresVisitante;
+	}
+
+	public String getBracket() {
+		return bracket;
+	}
+
+	public void setBracket(String bracket) {
+		switch(bracket) {
+		case "Conference First Round":
+			this.bracket="Primera Ronda de la Conferencia ";
+			this.logoPartido=true;
+			this.rutaLogo="playoff.png";
+			break;
+		case "Conference Semifinals":
+			this.bracket="Semifinales de la Conferencia ";
+			this.logoPartido=true;
+			this.rutaLogo="playoff.png";
+			break;
+		case "Conference Finals":
+			this.logoPartido=true;
+			this.bracket="Finales de la Conferencia ";
+			break;
+		case "NBA Finals":
+			this.logoPartido=true;
+			this.bracket="Finales NBA";
+			this.rutaLogo="finals.png";
+			break;
+		default:
+			this.bracket=bracket;
+			this.logoPartido=false;
+			}
+	}
+
+	public String getConferencia() {
+		return conferencia;
+	}
+
+	public void setConferencia(String conferencia) {
+		this.conferencia=conferencia.toUpperCase();
+	}
+
+	public Integer getGame() {
+		return game;
+	}
+
+	public void setGame(Integer game) {
+		this.game = game;
+	}
+
+	public boolean isTemporadaRegular() {
+		return temporadaRegular;
+	}
+
+	public void setTemporadaRegular(boolean temporadaRegular) {
+		this.temporadaRegular = temporadaRegular;
+	}
+
+	public String getRutaLogo() {
+		return rutaLogo;
+	}
+
+	public void setRutaLogo(String rutaLogo) {
+		this.rutaLogo = rutaLogo;
+	}
+
+	public boolean getLogoPartido() {
+		return logoPartido;
+	}
+
+	public void setLogoPartido(boolean logoPartido) {
+		this.logoPartido = logoPartido;
+	}
+
+	public boolean isPlayin() {
+		return playin;
+	}
+
+	public void setPlayin(boolean playin) {
+		this.playin = playin;
 	}    
+	
+	
     
 }
