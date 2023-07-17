@@ -1,8 +1,10 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class ControllerEquipo {
 
@@ -21,6 +23,12 @@ public class ControllerEquipo {
     private ControllerTanteoCuartos tanteoCuartos = new ControllerTanteoCuartos();
     private ControllerEstadisticaAvanzada estadisticaAvanzada = new ControllerEstadisticaAvanzada();
     private ControllerEstadisticaNormal estadisticaNormal = new ControllerEstadisticaNormal();
+    private ArrayList<ControllerTiros> listaTiros = new ArrayList<ControllerTiros>();
+    
+    private ArrayList<String> listaJugadores = new ArrayList<String>();
+
+    private String cuartoElegidoTiros="partido";
+    private String jugadorElegidoTiros="";
 
     public String getDerrotas() {
         return derrotas;
@@ -238,4 +246,86 @@ public class ControllerEquipo {
         };
         Collections.sort(jugadores, comparator);
     }
+
+	public ArrayList<ControllerTiros> getListaTiros() {
+		return listaTiros;
+	}
+
+	public void setListaTiros(ArrayList<ControllerTiros> listaTiros) {
+		this.listaTiros = listaTiros;
+	}
+
+	public void rellenarTirosEquipos() {
+		
+		listaJugadores.add(getNombre());
+		for(ControllerJugador jugador: getJugadores()) {
+			for(ControllerTiros tiro:jugador.getListaTiros()) {
+				listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro(),tiro.getCuarto()));
+			}
+			listaJugadores.add(jugador.getApeNom());
+		}
+		
+	}
+
+    public void actualizarTiros() {
+    	
+    	listaTiros.clear();
+    	ControllerJugador jugador= buscarJugadorCartaTiros();
+    	if(null!=jugador) {
+        	for(ControllerTiros tiro:jugador.getListaTiros()) {
+    			if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));}
+    		}    		
+    	}else {
+    		for(ControllerJugador jugadorEquipo: getJugadores()) {
+    			for(ControllerTiros tiro:jugadorEquipo.getListaTiros()) {
+    				if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));}
+    			}
+    		}
+    	}
+    	
+    }
+    
+    public ControllerJugador buscarJugadorCartaTiros() {
+    	for(ControllerJugador jugador:getJugadores()) {
+    		if(jugador.getApeNom().equals(getJugadorElegidoTiros())) {
+    			return jugador;
+    		}
+    	}
+    	return null;
+    }
+    
+    private boolean insetarTiroGraficaPartido(ControllerTiros tiro){
+    	if(tiro.getCuarto().equals(getCuartoElegidoTiros())) {
+    		return true;
+    	}else if("partido".equals(getCuartoElegidoTiros())) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+	public ArrayList<String> getListaJugadores() {
+		return listaJugadores;
+	}
+
+	public void setListaJugadores(ArrayList<String> listaJugadores) {
+		this.listaJugadores = listaJugadores;
+	}
+
+	public String getCuartoElegidoTiros() {
+		return cuartoElegidoTiros;
+	}
+
+	public void setCuartoElegidoTiros(String cuartoElegidoTiros) {
+		this.cuartoElegidoTiros = cuartoElegidoTiros;
+	}
+
+	public String getJugadorElegidoTiros() {
+		return jugadorElegidoTiros;
+	}
+
+	public void setJugadorElegidoTiros(String jugadorElegidoTiros) {
+		this.jugadorElegidoTiros = jugadorElegidoTiros;
+	}
+    
+    
 }

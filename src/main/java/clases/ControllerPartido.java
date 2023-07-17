@@ -2,7 +2,6 @@ package clases;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -12,7 +11,6 @@ import org.primefaces.model.charts.bar.BarChartOptions;
 import org.primefaces.model.charts.optionconfig.title.Title;
 import org.primefaces.model.charts.optionconfig.tooltip.Tooltip;
 
-import contollers.JugadorController;
 import util.ListaEquipos;
 
 public class ControllerPartido {
@@ -24,6 +22,8 @@ public class ControllerPartido {
     private ArrayList<ControllerTiros> listaTirosVisitante = new ArrayList<ControllerTiros>();
     private ArrayList<Integer> listaTanteoLocal = new ArrayList<Integer>();
     private ArrayList<String> listaTanteoPartido = new ArrayList<String>();
+    private ArrayList<String> listaJugadoresLocal = new ArrayList<String>();
+    private ArrayList<String> listaJugadoresVisitante = new ArrayList<String>();
     
     private Integer asistencia = 0;
     private Integer tiempoEmpate = 0;
@@ -51,19 +51,12 @@ public class ControllerPartido {
     private String bracket="";
     private String conferencia="";
     private Integer game=0;
-    
-    // Para ver los tiros de un partido
-    private String cuartoPartidoTirosVisitante="";
-    
-    private ArrayList<String> listaJugadoresLocal = new ArrayList<String>();
-    private ArrayList<String> listaJugadoresVisitante = new ArrayList<String>();
 
     private boolean playOff = false;
     private boolean temporadaRegular=false;
     private String rutaLogo="logo.png";
     private boolean logoPartido=false;
     private boolean playin=false;
-    private ListaEquipos equipoSeleccionado;
     
 
     private BarChartModel tanteoGrafica;
@@ -278,7 +271,6 @@ public class ControllerPartido {
     
     
     public String getMinutos(int segundos){
-        String min="";
         int iSeg, iMin;
         iMin=segundos/60;
         iSeg=segundos-iMin*60;
@@ -316,59 +308,6 @@ public class ControllerPartido {
             listaCuartos.add(new ControllerCuarto(listaCuarto[i],equipoLocal.getTanteoCuartos().devolverCuarto(lista[i]),equipoVisitante.getTanteoCuartos().devolverCuarto(lista[i])));
         }
     }
-
-	public void rellenarTirosEquipos() {
-		
-		actualizarTirosVisitante();
-		
-		listaJugadoresLocal.add(equipoLocal.getNombre());
-		for(ControllerJugador jugador: equipoLocal.getJugadores()) {
-			for(ControllerTiros tiro:jugador.getListaTiros()) {
-				listaTirosLocal.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));
-			}
-			listaJugadoresLocal.add(jugador.getApeNom());
-		}
-		
-		listaJugadoresVisitante.add(equipoVisitante.getNombre());
-		for(ControllerJugador jugador: equipoVisitante.getJugadores()) {
-			for(ControllerTiros tiro:jugador.getListaTiros()) {
-				listaTirosVisitante.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));
-			}
-			listaJugadoresVisitante.add(jugador.getApeNom());
-		}
-	}
-    
-    public void cuartoPartidoTirosVisitante() {
-    	System.out.println("ENTRAMOSOOO");
-    }
-    
-    public void actualizarTirosVisitante() {
-    	System.out.println(equipoLocal.getNombre());
-    }
-
-	public String getCuartoPartidoTirosVisitante() {
-		return cuartoPartidoTirosVisitante;
-	}
-
-	public void setCuartoPartidoTirosVisitante(String cuartoPartidoTirosVisitante) {
-		this.cuartoPartidoTirosVisitante = cuartoPartidoTirosVisitante;
-	}
-
-	public ArrayList<String> getListaJugadoresLocal() {
-		return listaJugadoresLocal;
-	}
-
-	public void setListaJugadoresLocal(ArrayList<String> listaJugadoresLocal) {
-		this.listaJugadoresLocal = listaJugadoresLocal;
-	}
-
-	public ArrayList<String> getListaJugadoresVisitante() {
-		return listaJugadoresVisitante;
-	}
-
-	public void setListaJugadoresVisitante(ArrayList<String> listaJugadoresVisitante) {
-		this.listaJugadoresVisitante = listaJugadoresVisitante;
-	}
 
 	public String getBracket() {
 		return bracket;
@@ -496,12 +435,14 @@ public class ControllerPartido {
         data.addChartDataSet(barraLocal);
         data.addChartDataSet(barraVisitante);
         data.setLabels(labels);
+        
         tanteoGrafica.setData(data);
 
         //Options
         BarChartOptions options = new BarChartOptions();
         CartesianScales cScales = new CartesianScales();
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        
         linearAxes.setStacked(true);
         linearAxes.setOffset(true);
         cScales.addXAxesData(linearAxes);
@@ -509,15 +450,19 @@ public class ControllerPartido {
         options.setScales(cScales);
 
         Title title = new Title();
+        
         title.setDisplay(true);
-        title.setText(equipoVisitante.getNombre()+" "+equipoVisitante.getTanteo()+" - "+
-        		equipoLocal.getTanteo()+" "+equipoLocal.getNombre());
+        title.setText(equipoVisitante.getNombre()+" "+equipoVisitante.getTanteo()+" - "+equipoLocal.getTanteo()+" "+equipoLocal.getNombre());
         options.setTitle(title);
-
+        
+     // Configurar el tooltip personalizado
         Tooltip tooltip = new Tooltip();
-        tooltip.setMode("index");
-        tooltip.setIntersect(true);
+        tooltip.setEnabled(true);
+        tooltip.setIntersect(false);
+        
         options.setTooltip(tooltip);
+
+
         tanteoGrafica.setOptions(options);
 	}
 
@@ -536,6 +481,21 @@ public class ControllerPartido {
 	public void setListaTanteoPartido(ArrayList<String> listaTanteoPartido) {
 		this.listaTanteoPartido = listaTanteoPartido;
 		crearGrafica();
-	}    
-    
+	}
+
+	public ArrayList<String> getListaJugadoresLocal() {
+		return listaJugadoresLocal;
+	}
+
+	public void setListaJugadoresLocal(ArrayList<String> listaJugadoresLocal) {
+		this.listaJugadoresLocal = listaJugadoresLocal;
+	}
+
+	public ArrayList<String> getListaJugadoresVisitante() {
+		return listaJugadoresVisitante;
+	}
+
+	public void setListaJugadoresVisitante(ArrayList<String> listaJugadoresVisitante) {
+		this.listaJugadoresVisitante = listaJugadoresVisitante;
+	}
 }

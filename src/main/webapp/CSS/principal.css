@@ -618,4 +618,13 @@ ui-panelgrid .ui-panelgrid-cell {
 .textoCentrado{
 	text-align:center;
 }
-.
+
+.centrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mostrarEnLinea {
+  display: inline-block;
+}

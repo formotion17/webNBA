@@ -49,7 +49,6 @@ public class MapJavaMongo {
         match.setVisitanteSinAnotar((Integer) partido.get("visitanteSinAnotar"));
         match.setYear((String) partido.get("year"));
         match.rellenarCuartos();
-        match.rellenarTirosEquipos();
         match.setListaTanteoLocal((ArrayList<Integer>)partido.get("tanteoLocal"));
         match.setListaTanteoPartido((ArrayList<String>)partido.get("tanteo"));
         
@@ -78,6 +77,10 @@ public class MapJavaMongo {
         	match.setBracket("Partido de Temporada Regular");
         	match.setTemporadaRegular(true);
         }
+        
+        match.setListaJugadoresLocal(match.getEquipoLocal().getListaJugadores());
+        match.setListaJugadoresVisitante(match.getEquipoVisitante().getListaJugadores());
+        
         return match;
     }
 
@@ -98,6 +101,7 @@ public class MapJavaMongo {
         equipo.setTiempoLider((Integer) team.get("tiempoLider"));
         equipo.setVictorias((String) team.get("victorias"));
         equipo.obtenerEstrellas();
+        equipo.rellenarTirosEquipos();
 
         return equipo;
 
@@ -146,14 +150,18 @@ public class MapJavaMongo {
     private static ControllerTiros devolverTiros(Document tiro) {
         ControllerTiros carta = new ControllerTiros();
 
+        	carta.setCuarto((String)tiro.get("cuarto"));
             carta.setDentro((boolean) tiro.get("dentro"));
             carta.setDistancia((Integer) tiro.get("distancia"));
             carta.setPosicionLeft(Integer.parseInt((String) tiro.get("posicionLeft")));
             carta.setPosicionTop(Integer.parseInt((String) tiro.get("posicionTop")));
-            carta.setSituacion((String) tiro.get("situacion"));
+            carta.setSituacionAntes((String) tiro.get("situacionAntes"));
+            carta.setSituacionDespues((String) tiro.get("situacionDespues"));
+            carta.setTanteo((String)tiro.get("tanteo"));
+            carta.setTanteoEquipo((String)tiro.get("tanteoEquipo"));
+            carta.setTanteoRival((String)tiro.get("tanteoRival"));
             carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
             carta.setTipo((String) tiro.get("tipo"));
-            carta.setTanteo((String)tiro.get("tanteo"));
 
         return carta;
     }
@@ -161,15 +169,18 @@ public class MapJavaMongo {
     public static ControllerTiros devolverTiros(Map tiro) {
         ControllerTiros carta = new ControllerTiros();
             
-            carta.setCuarto((String)tiro.get("cuarto"));
-            carta.setDentro((Boolean) tiro.get("dentro"));
-            carta.setDistancia((Integer) tiro.get("distancia"));
-            carta.setPosicionLeft(Integer.parseInt((String) tiro.get("posicionLeft")));
-            carta.setPosicionTop(Integer.parseInt((String) tiro.get("posicionTop")));
-            carta.setSituacion((String) tiro.get("situacion"));
-            carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
-            carta.setTipo((String) tiro.get("tipo"));
-            carta.setTanteo((String)tiro.get("tanteo"));
+	        carta.setCuarto((String)tiro.get("cuarto"));
+	        carta.setDentro((boolean) tiro.get("dentro"));
+	        carta.setDistancia((Integer) tiro.get("distancia"));
+	        carta.setPosicionLeft(Integer.parseInt((String) tiro.get("posicionLeft")));
+	        carta.setPosicionTop(Integer.parseInt((String) tiro.get("posicionTop")));
+	        carta.setSituacionAntes((String) tiro.get("situacionAntes"));
+	        carta.setSituacionDespues((String) tiro.get("situacionDespues"));
+	        carta.setTanteo((String)tiro.get("tanteo"));
+	        carta.setTanteoEquipo((String)tiro.get("tanteoEquipo"));
+	        carta.setTanteoRival((String)tiro.get("tanteoRival"));
+	        carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
+	        carta.setTipo((String) tiro.get("tipo"));
 
         return carta;
     }

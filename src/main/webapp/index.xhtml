@@ -84,7 +84,7 @@
 						</div>
 					</div>
 					<div>
-						<p:dataList id="tablaPartidos" value="#{index.listaPartidos}" var="match"
+						<p:dataList id="tablaPartidos" value="#{index.listaPartidos}" var="match" rowIndexVar="indice"
 							emptyMessage="No existen partidos para el día escogido" style="background-color:red;">
 							<p:panelGrid columns="2"
 								columnClasses="porcentaje-treintaCinco,porcentaje-sesenta"
@@ -203,7 +203,7 @@
 								<p:panelGrid columns="1" style="width:100%;"
 									styleClass="sinBordes">
 									<p:tabView style="border:0px;">
-										<p:tab title="Resumen del partido">
+										<p:tab title="Partido">
 											<p:panelGrid columns="1"
 												columnClasses="porcentaje-cuarenta,porcentaje-sesenta"
 												styleClass="sinBordes">
@@ -286,7 +286,7 @@
 											</p:panelGrid>
 										</p:tab>
 										
-										<p:tab title="Stats #{match.equipoVisitante.nombre}">
+										<p:tab title="Box #{match.equipoVisitante.nombre}">
 											<p:dataTable id="boxscoreVisitante" var="stat"
 												value="#{match.equipoVisitante.jugadores}"
 												style="font-size:12px;text-align: center;"
@@ -426,7 +426,7 @@
 												</p:column>
 											</p:dataTable>
 										</p:tab>
-										<p:tab title="Stats #{match.equipoLocal.nombre}">
+										<p:tab title="Box #{match.equipoLocal.nombre}">
 											<p:dataTable id="boxscoreLocal" var="stat"
 												value="#{match.equipoLocal.jugadores}"
 												style="font-size:12px;text-align: center;"
@@ -566,7 +566,7 @@
 											</p:dataTable>
 										</p:tab>
 										
-										<p:tab title="Grafica Tanteo">
+										<p:tab title="Tanteo Partido">
 											<div id="graficaTanteo">
 												<h:panelGrid columns="1">
 													<h:form>
@@ -575,65 +575,75 @@
 												</h:panelGrid>
 											</div>
 										</p:tab>
-										<p:tab title="Carta de Tiros">
-											<div id="tablaTiros">
-											
-												<h:panelGrid columns="2" styleClass="sinBordes"
-													id="tirosPartido">
-													<h:panelGrid id="shotChartVisitante">
-														<h:selectOneMenu id="cuartosVi"
-															value="#{match.cuartoPartidoTirosVisitante}">
-															<f:selectItems value="#{jugadores.listaCuartos}"
-																id="listaJugadoresTirosVisitante" />
-														</h:selectOneMenu>
-	
-														<h:selectOneMenu value="#{jugadores.listaCuartosElegidos}"
-															filter="false" style="width: 200px;margin-left:10px;">
-															<f:selectItems value="#{match.listaJugadoresVisitante}" />
-														</h:selectOneMenu>
-														
-														<h:commandButton id="validar" value="ver" actionListener="#{index.cuartoPartidoTirosVisitante}" process="@this"/>
-	
-														<h:panelGroup style="display:block" class="shot-area"
-															id="cartaVisitante">
-															<img alt="nbaHalfCourt"
-																src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-															<p:repeat value="#{match.listaTirosVisitante}" var="item">
-																<div
-																	style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-																	class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-															</p:repeat>
-														</h:panelGroup>
-	
-													</h:panelGrid>
-	
-													<h:panelGrid id="shotChartLocal">
-														<h:selectOneMenu
-															value="#{match.cuartoPartidoTirosVisitante}"
-															filter="false" style="width: 200px;margin-left:10px;">
-															<f:selectItems value="#{jugadores.listaCuartos}"
-																id="listaJugadoresTirosLocal" />
-														</h:selectOneMenu>
-	
-														<h:selectOneMenu value="#{jugadores.listaCuartosElegidos}"
-															filter="false" style="width: 200px;margin-left:10px;">
-															<f:selectItems value="#{match.listaJugadoresLocal}" />
-														</h:selectOneMenu>
-														<h:panelGroup style="display:block" class="shot-area"
-															id="cartaLocal">
-															<img alt="nbaHalfCourt"
-																src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-															<p:repeat value="#{match.listaTirosLocal}" var="item">
-																<div
-																	style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-																	class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-															</p:repeat>
-														</h:panelGroup>
-	
-													</h:panelGrid>
-												</h:panelGrid>
-											</div>
+										<p:tab title="Tiros #{match.equipoVisitante.nombre}">
+											<p:panelGrid columns="1" styleClass="sinBordes centrar"
+													id="tirosPartidoVisitante">
+												<p:panelGrid id="shotChartVisitante" columns="2">
+												  	<h:form>
+												  		<p:selectOneMenu value="#{match.equipoVisitante.jugadorElegidoTiros}"
+															filter="false">
+															<f:selectItems value="#{match.equipoVisitante.listaJugadores}" />
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaVisitante"
+																listener="#{match.equipoVisitante.actualizarTiros()}" />
+														</p:selectOneMenu>
+												  	</h:form>
+													<h:form>
+														<p:selectOneMenu value="#{match.equipoVisitante.cuartoElegidoTiros}"
+															filter="false" >
+    														<f:selectItem itemLabel="Partido" itemValue="partido" />
+															<f:selectItems value="#{match.equipoVisitante.tanteoCuartos.listaCuartosJugados}" />
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaVisitante"
+																listener="#{match.equipoVisitante.actualizarTiros()}" />
+														</p:selectOneMenu>
+													</h:form>
+												</p:panelGrid>
+												<h:panelGroup style="display:block" class="shot-area"
+													id="cartaVisitante">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{match.equipoVisitante.listaTiros}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
 										</p:tab>
+										<p:tab title="Tiros #{match.equipoLocal.nombre}">
+											<p:panelGrid columns="1" styleClass="sinBordes centrar"
+													id="tirosPartidoLocal">
+												<p:panelGrid id="shotChartLocal" columns="2">
+												  	<h:form>
+												  		<p:selectOneMenu value="#{match.equipoLocal.jugadorElegidoTiros}"
+															filter="false">
+															<f:selectItems value="#{match.equipoLocal.listaJugadores}" />
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaLocal"
+																listener="#{match.equipoLocal.actualizarTiros()}" />
+														</p:selectOneMenu>
+												  	</h:form>
+													<h:form>
+														<p:selectOneMenu value="#{match.equipoLocal.cuartoElegidoTiros}"
+															filter="false" >
+    														<f:selectItem itemLabel="Partido" itemValue="partido" />
+															<f:selectItems value="#{match.equipoLocal.tanteoCuartos.listaCuartosJugados}" />
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaLocal"
+																listener="#{match.equipoLocal.actualizarTiros()}" />
+														</p:selectOneMenu>
+													</h:form>
+												</p:panelGrid>
+												<h:panelGroup style="display:block" class="shot-area"
+													id="cartaLocal">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{match.equipoLocal.listaTiros}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
+										</p:tab>
+										
 									</p:tabView>
 								</p:panelGrid>
 							</p:panelGrid>

@@ -2,16 +2,19 @@ package clases;
 
 public class ControllerTiros {
 
+    private String cuarto;
+    private boolean dentro=false;
     private Integer distancia = 0;
+    private Integer posicionLeft = 0;
+    private Integer posicionTop = 0;
+    private String situacionAntes = "";
+	private String situacionDespues = "";
+    private String tanteo="";
+    private String tanteoEquipo="";
+    private String tanteoRival="";
     private Integer tiempoRestante = 0;
     private String tipo = "";
-    private String situacion = "";
-    private Integer posicionTop = 0;
-    private Integer posicionLeft = 0;
-    private String cuarto;
     private String clase="";
-    private String tanteo="";
-    private boolean dentro=false;
     
     public ControllerTiros(){
         
@@ -25,6 +28,13 @@ public class ControllerTiros {
         this.posicionTop=posicionTop;
         this.posicionLeft=posicionLeft;
         this.dentro=dentro;
+    }
+    
+    public ControllerTiros(Integer posicionTop, Integer posicionLeft,boolean dentro,String cuarto) {
+        this.posicionTop=posicionTop;
+        this.posicionLeft=posicionLeft;
+        this.dentro=dentro;
+        this.cuarto=cuarto;
     }
     
     public String getCuarto() {
@@ -57,14 +67,6 @@ public class ControllerTiros {
 
     public void setPosicionTop(Integer posicionTop) {
         this.posicionTop = posicionTop;
-    }
-
-    public String getSituacion() {
-        return situacion;
-    }
-
-    public void setSituacion(String situacion) {
-        this.situacion = situacion;
     }
 
     public Integer getTiempoRestante() {
@@ -112,5 +114,29 @@ public class ControllerTiros {
         this.tanteo = tanteo;
     }
     
-    
+
+    public String getSituacionAntes() {
+		return situacionAntes;
+	}
+	public void setSituacionAntes(String situacionAntes) {
+		this.situacionAntes = situacionAntes;
+	}
+	public String getSituacionDespues() {
+		return situacionDespues;
+	}
+	public void setSituacionDespues(String situacionDespues) {
+		this.situacionDespues = situacionDespues;
+	}
+	public String getTanteoEquipo() {
+		return tanteoEquipo;
+	}
+	public void setTanteoEquipo(String tanteoEquipo) {
+		this.tanteoEquipo = tanteoEquipo;
+	}
+	public String getTanteoRival() {
+		return tanteoRival;
+	}
+	public void setTanteoRival(String tanteoRival) {
+		this.tanteoRival = tanteoRival;
+	}
 }

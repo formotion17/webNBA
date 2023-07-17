@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16584935523840" configfile="/NBAInfoStat/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16584935523840" configfile="/NBAInfoStat/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf16894734372070" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf16894734372081" inlinks="pf16894734372092" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="122" y="178" id="pf16894734372103" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf16894734372092" inlinks="pf16894734372081" path="jugadores.xhtml"/>
+  <links id="pf16894734372081" target="pf16894734372103" source="pf16894734372070" outcome="jugadores"/>
+  <links id="pf16894734372092" target="pf16894734372070" source="pf16894734372103" outcome="index"/>
+</pageflow:Pageflow>

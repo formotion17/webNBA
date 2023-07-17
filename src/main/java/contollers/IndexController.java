@@ -13,6 +13,7 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.bson.Document;
@@ -25,6 +26,9 @@ import clases.ControllerPartido;
 import util.MapJavaMongo;
 
 @ViewScoped
+@RequestScoped
+@javax.faces.view.ViewScoped
+@javax.enterprise.context.RequestScoped
 @ManagedBean(name ="index")
 public class IndexController extends BaseController{
     
@@ -43,6 +47,11 @@ public class IndexController extends BaseController{
     private Date diaPosterior= Calendar.getInstance().getTime();
     private Date diaMaximo = Calendar.getInstance().getTime();
     private String urlFoto="https://www.basketball-reference.com/req/202106291/images/headshots/";
+    
+    private String jugadorLocalElegido="";
+    private String jugadorVisitanteElegido="";
+    private String cuartoLocalElegido="";
+    private String cuartoVisitanteElegido="";
     
     
     @PostConstruct
@@ -186,6 +195,13 @@ public class IndexController extends BaseController{
     	return "";
     }
     
+    public String cuartoPartidoTirosLocal() {
+    	
+    	System.out.println("ENTRAMOSOOO");
+    	return "";
+    }
+    
+    
     public String devolverFechaElegida(){
         return formatter.format(fechaPartidos);
     }
@@ -245,4 +261,46 @@ public class IndexController extends BaseController{
     public String getUrlFoto() {
     	return urlFoto;
     }
+
+	public String getJugadorLocalElegido() {
+		return jugadorLocalElegido;
+	}
+
+	public void setJugadorLocalElegido(String jugadorLocalElegido) {
+		this.jugadorLocalElegido = jugadorLocalElegido;
+	}
+
+	public String getJugadorVisitanteElegido() {
+		return jugadorVisitanteElegido;
+	}
+
+	public void setJugadorVisitanteElegido(String jugadorVisitanteElegido) {
+		this.jugadorVisitanteElegido = jugadorVisitanteElegido;
+	}
+
+	public String getCuartoLocalElegido() {
+		return cuartoLocalElegido;
+	}
+
+	public void setCuartoLocalElegido(String cuartoLocalElegido) {
+		this.cuartoLocalElegido = cuartoLocalElegido;
+	}
+
+	public String getCuartoVisitanteElegido() {
+		return cuartoVisitanteElegido;
+	}
+
+	public void setCuartoVisitanteElegido(String cuartoVisitanteElegido) {
+		this.cuartoVisitanteElegido = cuartoVisitanteElegido;
+	}
+	
+	public void actualizarTiros() {
+		System.out.println("Paramos");
+	}
+	
+	public String formatValue(int value) {
+		System.out.println(value);
+	    int formattedValue = Math.abs(value);
+	    return String.valueOf(formattedValue);
+	}
 }
