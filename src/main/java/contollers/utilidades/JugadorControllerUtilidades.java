@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class JugadorControllerUtilidades {
 	
-	private static String RUTA_ARCHIVO_ID="E://TFG//idJugadores.txt";
+	private static String RUTA_ARCHIVO_ID="/Users/formotion/tfg/java/archivos/idJugadoresNombre";
     
     public List<Jugador> devolverJugadores(String nombre) throws IOException{
         List<Jugador> listaJugadores;
@@ -35,11 +35,11 @@ public class JugadorControllerUtilidades {
     
     public List<Jugador> completeTextJugadores() throws FileNotFoundException, IOException {
         
-            List<Jugador> listaJugadores;
-            List<String> listaJugadoresNombre;
-            Dictionary d = new Hashtable();
-	    listaJugadores = new ArrayList<Jugador>();
-            listaJugadoresNombre = new ArrayList<String>();
+        List<Jugador> listaJugadores;
+        List<String> listaJugadoresNombre;
+        Dictionary d = new Hashtable();
+        listaJugadores = new ArrayList<Jugador>();
+        listaJugadoresNombre = new ArrayList<String>();
         try (BufferedReader readerJugadores = new BufferedReader(new FileReader(RUTA_ARCHIVO_ID))) {
         //try (BufferedReader readerJugadores = new BufferedReader(new FileReader("E://TFG//archivos varios//listaJugadoresIdNombreApellidoNuevoBis.txt"))) {
             String lineJugadores;

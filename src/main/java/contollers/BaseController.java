@@ -25,6 +25,13 @@ public class BaseController implements Serializable{
 	 */
 	private static final long serialVersionUID = -2150948195156093408L;
 	static String nombreJugador;
+	
+	
+	protected static String BASE_DATOS="NBA";
+	protected String HOST="localhost";
+	protected Integer PUERTO_HOST=27017;
+	protected String COLLECTION_PARTIDOS="partidos";
+	protected String COLLECTION_TOTALES="totales";
 
     public static String getNombreJugador() {
         return nombreJugador;

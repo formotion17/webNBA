@@ -17,6 +17,7 @@ and open the template in the editor.
             <meta charset="UTF-8" />					
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <meta name="description" content="Awesome videos!" />
+            <h:outputStylesheet name="primefaces/primefaces.css" library="primefaces" />
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         </head>
     <h:body>
@@ -69,8 +70,11 @@ and open the template in the editor.
                                            <h:outputText value="#{item.nombre}"/>
                                        </p:column>
 
-                                       <p:column style="width:90px;text-align: center;">
-                                           <p:graphicImage url="https://d2cwpp38twqe55.cloudfront.net/req/201912101/images/players/#{item.codigo}.jpg" height="120" width="80" alt="Image Description for #{item.nombre}" title="#{item.nombre}"/>
+                                      	<p:column style="width:90px;text-align: center;">
+	                                       	<p:avatar styleClass="mr-2" size="xlarge">
+								                <p:graphicImage url="#{jugadores.urlFoto}#{item.codigo}.jpg" alt="Image Description for #{item.nombre}" title="#{item.nombre}"/>
+								            </p:avatar>
+                                           
                                        </p:column>
                                    </p:dataTable>
                                 </div>
@@ -87,11 +91,17 @@ and open the template in the editor.
                                 <div class="estadisticasCarrera">
                                     <p:dataTable var="stat" value="#{jugadores.listaEstadisticasCabecera}" class="tablaEstadisticaCarrera"
                                                  expandableRowGroups="true" sortBy="#{stat.tiempo}">
-                                        <p:headerRow>
-                                            <p:column colspan="22" style="text-align:left">
-                                                <h:outputText value="#{stat.partidosJugados} #{stat.tituloCabeceraJugador}"/>
-                                            </p:column>
-                                        </p:headerRow>
+                                                 
+                                        <p:headerRow field="tituloCabeceraJugador"
+							                         expandable="false"
+							                         style="vertical-Align:left;">
+							
+							                <p:column colspan="23">
+							                    <div class="inline-flex align-items-left" style="text-align: left;">
+							                        <h:outputText styleClass="ml-2" value="#{stat.partidosJugados} #{stat.tituloCabeceraJugador}"/>
+							                    </div>
+							                </p:column>
+							            </p:headerRow>
                                         <p:column headerText="MIN" style="width: 5%;">
                                             <h:outputText value="#{stat.minutos}" />
                                         </p:column>
@@ -188,11 +198,15 @@ and open the template in the editor.
                                         <div class="estadisticasCarrera" >
                                             <p:dataTable id="estadisticasJugadorYears" var="stat" value="#{jugadores.listaEstadisticasJugador}" class="tablaEstadisticaCarrera"
                                                          expandableRowGroups="true" sortBy="#{stat.tiempo}">
-                                                <p:headerRow>
-                                                    <p:column colspan="24" style="text-align:left">
-                                                        <h:outputText value="Partidos de #{stat.tiempo}"/>
-                                                    </p:column>
-                                                </p:headerRow>
+                                                <p:headerRow field="tiempo"
+									                         expandable="false"
+									                         style="vertical-Align:left;">
+									                <p:column colspan="25">
+									                    <div class="inline-flex align-items-left" style="text-align: left;">
+									                        <h:outputText styleClass="ml-2" value="Partidos de #{stat.tiempo}"/>
+									                    </div>
+									                </p:column>
+									            </p:headerRow>
                                                 <p:column headerText="TEM" style="width: 3%;" footerText="TEM">
                                                     <h:outputText value="#{stat.temporada}" id="estadisticasJugadorYearsTemporada"/>
                                                     <p:tooltip for="estadisticasJugadorYearsTemporada" value="Temporada"/>
@@ -271,13 +285,12 @@ and open the template in the editor.
                                     </section>
                                     <section id="estadisticas_equipos" class="tab-panel">
                                         <h2>Estadisticas Contra Equipos</h2>
-                                        <p:selectOneButton value="#{jugadores.equipoSeleccionado}"  class="listaEquipos">
+                                        
+                                        <p:selectOneButton value="#{jugadores.equipoSeleccionado}"  class="listaEquipos" style="margin-left:4%;">
                                             <f:selectItems value="#{jugadores.equipos}" var="status" class="foto"  
-                                                               itemValue="#{status}" itemLabel="#{status.nombre}">
-                                            </f:selectItems>
+                                                               itemValue="#{status}" itemLabel="#{status.nombre}" />
                                             <p:ajax update="botonVerEstadisticas,tablaEstadisticasJugadorEquipo"/>
                                         </p:selectOneButton>
-                                        
                                         
                                         <div id="listaMenusCriba" style="margin:0px auto;text-align:center;margin-bottom:20px;">
                                             <h:panelGrid columns="7" style="margin:0px auto;">
@@ -346,11 +359,16 @@ and open the template in the editor.
                                         <div>
                                             <p:dataTable id="statPlayerLocalRegular" var="statLoRe" value="#{jugadores.partidosDeLocalRegular}" class="tablaEstadisticaContraEquipos"
                                                          expandableRowGroups="true" sortBy="#{statLoRe.temporada}" lazy="true">
-                                                <p:headerRow>
-                                                    <p:column colspan="21" style="text-align:left">
-                                                        <h:outputText value="#{jugadores.partidosDeLocalRegular.partidosJugados} partidos de Temporada regular como local"/>
-                                                    </p:column>
-                                                </p:headerRow>
+                                                <p:headerRow field="partidosJugados"
+									                         expandable="false"
+									                         style="vertical-Align:left;">
+									                <p:column colspan="22">
+									                    <div class="inline-flex align-items-left" style="text-align: left;">
+									                        <h:outputText styleClass="ml-2" value="#{jugadores.partidosDeLocalRegular.partidosJugados} partidos de Temporada regular como local"/>
+									                    </div>
+									                </p:column>
+									            </p:headerRow>
+                                                
                                                 <p:column headerText="PTS" >
                                                     <h:outputText value="#{statLoRe.puntos}" />
                                                 </p:column>
@@ -425,11 +443,16 @@ and open the template in the editor.
                                             </p:dataTable>
                                             <p:dataTable id="statPlayerLocalPlayoff" var="statLoRe" value="#{jugadores.partidosDeLocalPlayoff}" class="tablaEstadisticaContraEquipos"
                                                          expandableRowGroups="true" sortBy="#{statLoRe.temporada}" lazy="true">
-                                                <p:headerRow>
-                                                    <p:column colspan="21" style="text-align:left">
-                                                        <h:outputText value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local"/>
-                                                    </p:column>
-                                                </p:headerRow>
+                                                         
+                                                <p:headerRow field="partidosLocalPlayoff"
+									                         expandable="false"
+									                         style="vertical-Align:left;">
+									                <p:column colspan="22">
+									                    <div class="inline-flex align-items-left" style="text-align: left;">
+									                        <h:outputText styleClass="ml-2" value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local"/>
+									                    </div>
+									                </p:column>
+									            </p:headerRow>
                                                 <p:column headerText="PTS" >
                                                     <h:outputText value="#{statLoRe.puntos}" />
                                                 </p:column>
@@ -504,11 +527,16 @@ and open the template in the editor.
                                             </p:dataTable>
                                             <p:dataTable id="statPlayerVisitanteRegular" var="statLoRe" value="#{jugadores.partidosDeVisitanteRegular}" class="tablaEstadisticaContraEquipos"
                                                          expandableRowGroups="true" sortBy="#{statLoRe.temporada}" lazy="true">
-                                                <p:headerRow>
-                                                    <p:column colspan="21" style="text-align:left">
-                                                        <h:outputText value="#{jugadores.partidosVisitanteRegular} partidos de Temporada regular como Visitante"/>
-                                                    </p:column>
-                                                </p:headerRow>
+                                                         
+                                                <p:headerRow field="partidosVisitanteRegular"
+									                         expandable="false"
+									                         style="vertical-Align:left;">
+									                <p:column colspan="22">
+									                    <div class="inline-flex align-items-left" style="text-align: left;">
+									                        <h:outputText styleClass="ml-2" value="#{jugadores.partidosVisitanteRegular} partidos de Temporada regular como Visitante"/>
+									                    </div>
+									                </p:column>
+									            </p:headerRow>
                                                 <p:column headerText="PTS" >
                                                     <h:outputText value="#{statLoRe.puntos}" />
                                                 </p:column>
@@ -583,11 +611,16 @@ and open the template in the editor.
                                             </p:dataTable>
                                             <p:dataTable id="statPlayerVisitantePlayoff" var="statLoRe" value="#{jugadores.partidosDeVisitantePlayoff}" class="tablaEstadisticaContraEquipos"
                                                          expandableRowGroups="true" sortBy="#{statLoRe.temporada}" lazy="true">
-                                                <p:headerRow>
-                                                    <p:column colspan="21" style="text-align:left">
-                                                        <h:outputText value="#{jugadores.partidosVisitantePlayoff} partidos de PlayOff como visitante"/>
-                                                    </p:column>
-                                                </p:headerRow>
+                                                
+                                                <p:headerRow field="partidosVisitantePlayoff"
+									                         expandable="false"
+									                         style="vertical-Align:left;">
+									                <p:column colspan="22">
+									                    <div class="inline-flex align-items-left" style="text-align: left;">
+									                        <h:outputText styleClass="ml-2" value="#{jugadores.partidosVisitantePlayoff} partidos de PlayOff como visitante"/>
+									                    </div>
+									                </p:column>
+									            </p:headerRow>
                                                 <p:column headerText="PTS" >
                                                     <h:outputText value="#{statLoRe.puntos}" />
                                                 </p:column>
@@ -677,9 +710,9 @@ and open the template in the editor.
                                             </h:panelGroup>
                                             
                                             <h:panelGrid columns="1">
-                                                <p:donutChart id="chartDonut1" model="#{jugadores.donutModel}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor1}
-                                                <p:donutChart id="chartDonut2" model="#{jugadores.donutModel2}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor2}
-                                                <p:donutChart id="chartDonut3" model="#{jugadores.donutModel3}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor3}
+                                                <p:donutChart id="chartDonut1" model="#{jugadores.donutModel}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor1}
+                                                <p:donutChart id="chartDonut2" model="#{jugadores.donutModel2}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor2}
+                                                <p:donutChart id="chartDonut3" model="#{jugadores.donutModel3}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor3}
                                             </h:panelGrid>
                                             
                                             <h:panelGroup style="display:block;margin-left:60px" class="shot-area" id="cartaVisitanteRegular">
@@ -690,9 +723,9 @@ and open the template in the editor.
                                             </h:panelGroup>
                                             
                                             <h:panelGrid columns="1">
-                                                <p:donutChart id="chartDonut4" model="#{jugadores.donutModel4}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor4}
-                                                <p:donutChart id="chartDonut5" model="#{jugadores.donutModel5}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor5}
-                                                <p:donutChart id="chartDonut6" model="#{jugadores.donutModel6}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor6}
+                                                <p:donutChart id="chartDonut4" model="#{jugadores.donutModel4}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor4}
+                                                <p:donutChart id="chartDonut5" model="#{jugadores.donutModel5}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor5}
+                                                <p:donutChart id="chartDonut6" model="#{jugadores.donutModel6}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor6}
                                             </h:panelGrid>
                                             
                                         </h:panelGrid>
@@ -712,9 +745,9 @@ and open the template in the editor.
                                             </h:panelGroup>
                                             
                                             <h:panelGrid columns="1">
-                                                <p:donutChart id="chartDonut7" model="#{jugadores.donutModel7}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor7}
-                                                <p:donutChart id="chartDonut8" model="#{jugadores.donutModel8}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor8}
-                                                <p:donutChart id="chartDonut9" model="#{jugadores.donutModel9}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor9}
+                                                <p:donutChart id="chartDonut7" model="#{jugadores.donutModel7}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor7}
+                                                <p:donutChart id="chartDonut8" model="#{jugadores.donutModel8}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor8}
+                                                <p:donutChart id="chartDonut9" model="#{jugadores.donutModel9}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor9}
                                             </h:panelGrid>
                                             
                                             <h:panelGroup style="display:block;margin-left:60px" class="shot-area" id="cartaVisitantePlayoff">
@@ -725,9 +758,9 @@ and open the template in the editor.
                                             </h:panelGroup>
                                             
                                             <h:panelGrid columns="1">
-                                                <p:donutChart id="chartDonut10" model="#{jugadores.donutModel10}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor10}
-                                                <p:donutChart id="chartDonut11" model="#{jugadores.donutModel11}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor11}
-                                                <p:donutChart id="chartDonut12" model="#{jugadores.donutModel12}"  style="width: 100%; height: 200px;"/> #{jugadores.donutModelPor12}
+                                                <p:donutChart id="chartDonut10" model="#{jugadores.donutModel10}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor10}
+                                                <p:donutChart id="chartDonut11" model="#{jugadores.donutModel11}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor11}
+                                                <p:donutChart id="chartDonut12" model="#{jugadores.donutModel12}"  style="width: 100%; height: 100px;"/> #{jugadores.donutModelPor12}
                                             </h:panelGrid>
                                             
                                             
@@ -1093,7 +1126,7 @@ and open the template in the editor.
                                 
                             </div>
                             <p:dialog header="Cargando Datos" widgetVar="dlg2" modal="true" height="auto" resizable="false">
-                                <h:graphicImage value="data:image/gif;base64,#{jugadores.imgagenCarga}" style="max-width: 300px; max-height: 300px;" />
+                                <h:graphicImage value="data:image/gif;base64,#{jugadores.imagenCarga}" style="max-width: 300px; max-height: 300px;" />
                             </p:dialog> 
                         </div>
                     </div>

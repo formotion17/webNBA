@@ -23,13 +23,13 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 import clases.ControllerPartido;
+import lombok.Data;
 import util.MapJavaMongo;
 
 @ViewScoped
 @RequestScoped
-@javax.faces.view.ViewScoped
-@javax.enterprise.context.RequestScoped
 @ManagedBean(name ="index")
+@Data
 public class IndexController extends BaseController{
     
     /**
@@ -56,13 +56,13 @@ public class IndexController extends BaseController{
     
     @PostConstruct
     public void init(){
-        System.out.println("iniciamos");
+        System.out.println("Iniciamos aplicación NBA INFO STATS");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_WEEK,0);
         fechaPartidos = calendar.getTime();
         restar1dia(calendar);
         sumar2dia(calendar);
-        iniciarSesion("localhost", 27017);
+        iniciarSesion(HOST, PUERTO_HOST);
         rellenarPartidos();
         System.out.println(listaPartidos.size());
     }
@@ -88,7 +88,7 @@ public class IndexController extends BaseController{
     }
     
     public void irDiaDespues(){
-        iniciarSesion("localhost", 27017);
+        iniciarSesion(HOST,PUERTO_HOST);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaPartidos);
         calendar.add(Calendar.DAY_OF_WEEK, 1);
@@ -99,7 +99,7 @@ public class IndexController extends BaseController{
     }
     
     public void irDiaAntes(){
-        iniciarSesion("localhost", 27017);
+        iniciarSesion(HOST, PUERTO_HOST);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaPartidos);
         calendar.add(Calendar.DAY_OF_WEEK, -1);
@@ -110,12 +110,14 @@ public class IndexController extends BaseController{
     }
     
     public void rellenarPartidos(){
+    	
+    	listaPartidos.clear();
                 
         if(mongo!=null) {
             
             setDiaMesYear();
 
-            MongoDatabase db = mongo.getDatabase("NBA");
+            MongoDatabase db = mongo.getDatabase(BASE_DATOS);
 
             // Select the collection
             MongoCollection<Document> collection = db.getCollection("partidos");
@@ -170,7 +172,7 @@ public class IndexController extends BaseController{
             sumar1dia(calendar);
             restar2dias(calendar);
 
-            MongoDatabase db = mongo.getDatabase("NBA");
+            MongoDatabase db = mongo.getDatabase(BASE_DATOS);
 
             // Select the collection
             MongoCollection<Document> collection = db.getCollection("partidos");
@@ -187,120 +189,14 @@ public class IndexController extends BaseController{
             }
         }
     }
-
     
-    public String cuartoPartidoTirosVisitante() {
-    	
-    	System.out.println("ENTRAMOSOOO");
-    	return "";
-    }
-    
-    public String cuartoPartidoTirosLocal() {
-    	
-    	System.out.println("ENTRAMOSOOO");
-    	return "";
-    }
-    
-    
-    public String devolverFechaElegida(){
-        return formatter.format(fechaPartidos);
-    }
-        
-    public String irJugadores(){
-        return "jugadores";
-    }
-
-    public ArrayList<ControllerPartido> getListaPartidos() {
-       return listaPartidos;
-    }
-
-    public void setListaPartidos(ArrayList<ControllerPartido> listaPartidos) {
-        this.listaPartidos = listaPartidos;
-    }
-
-    public Date getFechaPartidos() {
-        return fechaPartidos;
-    }
-
-    public void setFechaPartidos(Date fechaPartidos) {
-        this.fechaPartidos = fechaPartidos;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public Date getDiaMaximo() {
-        return diaMaximo;
-    }
-
-    public void setDiaMaximo(Date diaMaximo) {
-        this.diaMaximo = diaMaximo;
-    }
-    
-    public String getUrlFoto() {
-    	return urlFoto;
-    }
-
-	public String getJugadorLocalElegido() {
-		return jugadorLocalElegido;
-	}
-
-	public void setJugadorLocalElegido(String jugadorLocalElegido) {
-		this.jugadorLocalElegido = jugadorLocalElegido;
-	}
-
-	public String getJugadorVisitanteElegido() {
-		return jugadorVisitanteElegido;
-	}
-
-	public void setJugadorVisitanteElegido(String jugadorVisitanteElegido) {
-		this.jugadorVisitanteElegido = jugadorVisitanteElegido;
-	}
-
-	public String getCuartoLocalElegido() {
-		return cuartoLocalElegido;
-	}
-
-	public void setCuartoLocalElegido(String cuartoLocalElegido) {
-		this.cuartoLocalElegido = cuartoLocalElegido;
-	}
-
-	public String getCuartoVisitanteElegido() {
-		return cuartoVisitanteElegido;
-	}
-
-	public void setCuartoVisitanteElegido(String cuartoVisitanteElegido) {
-		this.cuartoVisitanteElegido = cuartoVisitanteElegido;
-	}
-	
-	public void actualizarTiros() {
-		System.out.println("Paramos");
-	}
-	
 	public String formatValue(int value) {
 		System.out.println(value);
 	    int formattedValue = Math.abs(value);
 	    return String.valueOf(formattedValue);
 	}
+    
+    public String devolverFechaElegida(){
+        return formatter.format(fechaPartidos);
+    }
 }

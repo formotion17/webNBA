@@ -135,6 +135,8 @@ public class Utilidades {
             lista.add(new SelectItem("season20182019","2018/2019"));
             lista.add(new SelectItem("season20192020","2019/2020"));
             lista.add(new SelectItem("season20202021","2020/2021"));
+            lista.add(new SelectItem("season20212022","2021/2022"));
+            lista.add(new SelectItem("season20222023","2022/2023"));
         return lista;
     }
     

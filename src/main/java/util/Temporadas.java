@@ -21,5 +21,7 @@ public enum Temporadas {
 	season20172018,
 	season20182019,
 	season20192020,
-        season20202021
+    season20202021,
+    season20212022,
+    season20222023
 }

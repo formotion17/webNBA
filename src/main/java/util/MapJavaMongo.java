@@ -363,8 +363,11 @@ public class MapJavaMongo {
         }
         
         // Tanteo
-        match.setTanteoEquipoJugador(Integer.parseInt((String)equipoJugador.get("tanteo")));
-        match.setTanteoEquipoRival(Integer.parseInt((String)equipoRival.get("tanteo")));
+        System.out.println(equipoJugador.get("nombre"));
+        System.out.println(equipoRival.get("nombre"));
+        System.out.println(match.getFecha());
+        match.setTanteoEquipoJugador(Integer.parseInt(((String)equipoJugador.get("tanteo")).trim()));
+        match.setTanteoEquipoRival(Integer.parseInt(((String)equipoRival.get("tanteo")).trim()));
         
         // Nombre Equipos
         match.setJugandoConNombre((String)equipoJugador.get("nombre"));

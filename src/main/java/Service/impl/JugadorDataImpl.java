@@ -70,7 +70,7 @@ public class JugadorDataImpl{
         if(mongo!=null){
             listaEstadisticasJugador = new ArrayList<ClaseEstadisticaNormalTotales>();
         
-            conectarBaseDatos("nba",mongo);
+            conectarBaseDatos("NBA",mongo);
             conectarColeccion("totales");
 
             for(Temporadas t : Temporadas.values()){
@@ -112,7 +112,7 @@ public class JugadorDataImpl{
             
             listaEstadisticasCabecera = new ArrayList<ClaseEstadisticaNormalTotales>();
 
-            conectarBaseDatos("nba",mongo);
+            conectarBaseDatos("NBA",mongo);
             conectarColeccion("totales");
 
             listaEstadisticasCabecera.add(insertarFilaEstadisticasCabecera(collection,"carrera","regular","total","Regular",codigoJugador)); //Indice 0
@@ -169,7 +169,7 @@ public class JugadorDataImpl{
         
         if(mongo!=null){
 
-            conectarBaseDatos("nba",mongo);
+            conectarBaseDatos("NBA",mongo);
             conectarColeccion(temporada);
 
             Document findDocument = new Document("equipoLocal.jugadores.id",jugador);

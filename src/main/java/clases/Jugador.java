@@ -72,7 +72,6 @@ public class Jugador {
     }
 
     public String recogerFoto() {
-        System.out.println("https://d2cwpp38twqe55.cloudfront.net/req/202001262/images/players/" + codigo + ".jpg");
-        return "https://d2cwpp38twqe55.cloudfront.net/req/202001262/images/players/" + codigo + ".jpg";
+        return "https://www.basketball-reference.com/req/202106291/images/headshots/" + codigo + ".jpg";
     }
 }
