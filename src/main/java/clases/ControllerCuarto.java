@@ -5,10 +5,13 @@
  */
 package clases;
 
+import lombok.Data;
+
 /**
  *
  * @author hatashi
  */
+@Data
 public class ControllerCuarto {
     
     private String cuarto="";
@@ -23,30 +26,4 @@ public class ControllerCuarto {
         this.tanteoLocal=tanteoLocal;
         this.tanteoVisitante=tanteoVisitante;
     }
-
-    public String getCuarto() {
-        return cuarto;
-    }
-
-    public void setCuarto(String cuarto) {
-        this.cuarto = cuarto;
-    }
-
-    public int getTanteoLocal() {
-        return tanteoLocal;
-    }
-
-    public void setTanteoLocal(int tanteoLocal) {
-        this.tanteoLocal = tanteoLocal;
-    }
-
-    public int getTanteoVisitante() {
-        return tanteoVisitante;
-    }
-
-    public void setTanteoVisitante(int tanteoVisitante) {
-        this.tanteoVisitante = tanteoVisitante;
-    }
-    
-    
 }

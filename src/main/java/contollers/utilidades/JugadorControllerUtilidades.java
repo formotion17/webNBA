@@ -33,7 +33,8 @@ public class JugadorControllerUtilidades {
         return lista;
     }
     
-    public List<Jugador> completeTextJugadores() throws FileNotFoundException, IOException {
+    @SuppressWarnings({ "rawtypes", "unused" })
+	public List<Jugador> completeTextJugadores() throws FileNotFoundException, IOException {
         
         List<Jugador> listaJugadores;
         List<String> listaJugadoresNombre;

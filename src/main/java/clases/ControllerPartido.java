@@ -11,8 +11,10 @@ import org.primefaces.model.charts.bar.BarChartOptions;
 import org.primefaces.model.charts.optionconfig.title.Title;
 import org.primefaces.model.charts.optionconfig.tooltip.Tooltip;
 
+import lombok.Data;
 import util.ListaEquipos;
 
+@Data
 public class ControllerPartido {
 
     private ControllerEquipo equipoLocal = new ControllerEquipo();
@@ -60,132 +62,16 @@ public class ControllerPartido {
     
 
     private BarChartModel tanteoGrafica;
-
-	// Getter Methods 
-    public Integer getAsistencia() {
-        return asistencia;
-    }
-
-    public String getCambiosLider() {
-        return cambiosLider;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public String getEmpates() {
-        return empates;
-    }
-
-    public ControllerEquipo getEquipoLocal() {
-        return equipoLocal;
-    }
-
-    public ControllerEquipo getEquipoVisitante() {
-        return equipoVisitante;
-    }
-
-    public String getEstadio() {
-        return estadio;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public String getLocalPuntosConsecutivos() {
-        return localPuntosConsecutivos;
-    }
-
-    public Integer getLocalSinAnotar() {
-        return localSinAnotar;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public boolean getPlayOff() {
-        return playOff;
-    }
-
-    public Integer getTiempoEmpate() {
-        return tiempoEmpate;
-    }
-
-    public Integer getTiempoLocalGanando() {
-        return tiempoLocalGanando;
-    }
-
-    public Integer getTiempoVisitanteGanando() {
-        return tiempoVisitanteGanando;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public String getVisitantePuntosConsecutivos() {
-        return visitantePuntosConsecutivos;
-    }
-
-    public Integer getVisitanteSinAnotar() {
-        return visitanteSinAnotar;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-	 // Setter Methods 
-    public void setAsistencia(Integer asistencia) {
-        this.asistencia = asistencia;
-    }
-
-    public void setCambiosLider(String cambiosLider) {
-        this.cambiosLider = cambiosLider;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public void setEmpates(String empates) {
-        this.empates = empates;
-    }
-
-    public void setEquipoLocal(ControllerEquipo equipoLocal) {
-        this.equipoLocal = equipoLocal;
-    }
-
-    public void setEquipoVisitante(ControllerEquipo equipoVisitante) {
-        this.equipoVisitante = equipoVisitante;
-    }
-
-    public void setEstadio(String estadio) {
-        this.estadio = estadio;
-    }
+    
+    private List<EstadisticaIndexPartido> estadisticaIndexPartido;
 
     public void setHora(String hora) {
         this.hora = hora.substring(1,6);
     }
 
-    public void setLocalPuntosConsecutivos(String localPuntosConsecutivos) {
-        this.localPuntosConsecutivos = localPuntosConsecutivos;
-    }
-
     public void setLocalSinAnotar(Integer localSinAnotar) {
         this.localSinAnotar = localSinAnotar;
         setLocalSinAnotarMinutos(getMinutos(localSinAnotar));
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public void setPlayOff(boolean playOff) {
-        this.playOff = playOff;
     }
 
     public void setTiempoEmpate(Integer tiempoEmpate) {
@@ -203,72 +89,10 @@ public class ControllerPartido {
         setTiempoVisitanteGanandoMinutos(getMinutos(tiempoVisitanteGanando));
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public void setVisitantePuntosConsecutivos(String visitantePuntosConsecutivos) {
-        this.visitantePuntosConsecutivos = visitantePuntosConsecutivos;
-    }
-
     public void setVisitanteSinAnotar(Integer visitanteSinAnotar) {
         this.visitanteSinAnotar = visitanteSinAnotar;
         setVisitanteSinAnotarMinutos(getMinutos(visitanteSinAnotar));
     }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getTiempoEmpateMinutos() {
-        return tiempoEmpateMinutos;
-    }
-
-    public void setTiempoEmpateMinutos(String tiempoEmpateMinutos) {
-        this.tiempoEmpateMinutos = tiempoEmpateMinutos;
-    }
-
-    public String getLocalSinAnotarMinutos() {
-        return localSinAnotarMinutos;
-    }
-
-    public void setLocalSinAnotarMinutos(String localSinAnotarMinutos) {
-        this.localSinAnotarMinutos = localSinAnotarMinutos;
-    }
-
-    public String getVisitanteSinAnotarMinutos() {
-        return visitanteSinAnotarMinutos;
-    }
-
-    public void setVisitanteSinAnotarMinutos(String visitanteSinAnotarMinutos) {
-        this.visitanteSinAnotarMinutos = visitanteSinAnotarMinutos;
-    }
-
-    public String getTiempoLocalGanandoMinutos() {
-        return tiempoLocalGanandoMinutos;
-    }
-
-    public void setTiempoLocalGanandoMinutos(String tiempoLocalGanandoMinutos) {
-        this.tiempoLocalGanandoMinutos = tiempoLocalGanandoMinutos;
-    }
-
-    public String getTiempoVisitanteGanandoMinutos() {
-        return tiempoVisitanteGanandoMinutos;
-    }
-
-    public void setTiempoVisitanteGanandoMinutos(String tiempoVisitanteGanandoMinutos) {
-        this.tiempoVisitanteGanandoMinutos = tiempoVisitanteGanandoMinutos;
-    }
-
-    public ArrayList<ControllerCuarto> getListaCuartos() {
-        return listaCuartos;
-    }
-
-    public void setListaCuartos(ArrayList<ControllerCuarto> listaCuartos) {
-        this.listaCuartos = listaCuartos;
-    }
-    
-    
     
     public String getMinutos(int segundos){
         int iSeg, iMin;
@@ -284,22 +108,6 @@ public class ControllerPartido {
             return Integer.toString(seg);
         }
     }
-        
-    public ArrayList<ControllerTiros> getListaTirosLocal() {
-		return listaTirosLocal;
-	}
-
-	public void setListaTirosLocal(ArrayList<ControllerTiros> listaTirosLocal) {
-		this.listaTirosLocal = listaTirosLocal;
-	}
-
-	public ArrayList<ControllerTiros> getListaTirosVisitante() {
-		return listaTirosVisitante;
-	}
-
-	public void setListaTirosVisitante(ArrayList<ControllerTiros> listaTirosVisitante) {
-		this.listaTirosVisitante = listaTirosVisitante;
-	}
 
 	public void rellenarCuartos(){
         String[] lista = {"primero","segundo","tercero","cuarto","OT1","OT2","OT3","OT4","OT5","OT6"};
@@ -309,9 +117,6 @@ public class ControllerPartido {
         }
     }
 
-	public String getBracket() {
-		return bracket;
-	}
 
 	public void setBracket(String bracket) {
 		switch(bracket) {
@@ -339,61 +144,9 @@ public class ControllerPartido {
 			this.logoPartido=false;
 			}
 	}
-
-	public String getConferencia() {
-		return conferencia;
-	}
-
+	
 	public void setConferencia(String conferencia) {
 		this.conferencia=conferencia.toUpperCase();
-	}
-
-	public Integer getGame() {
-		return game;
-	}
-
-	public void setGame(Integer game) {
-		this.game = game;
-	}
-
-	public boolean isTemporadaRegular() {
-		return temporadaRegular;
-	}
-
-	public void setTemporadaRegular(boolean temporadaRegular) {
-		this.temporadaRegular = temporadaRegular;
-	}
-
-	public String getRutaLogo() {
-		return rutaLogo;
-	}
-
-	public void setRutaLogo(String rutaLogo) {
-		this.rutaLogo = rutaLogo;
-	}
-
-	public boolean getLogoPartido() {
-		return logoPartido;
-	}
-
-	public void setLogoPartido(boolean logoPartido) {
-		this.logoPartido = logoPartido;
-	}
-
-	public boolean isPlayin() {
-		return playin;
-	}
-
-	public void setPlayin(boolean playin) {
-		this.playin = playin;
-	}
-
-	public ArrayList<Integer> getListaTanteoLocal() {
-		return listaTanteoLocal;
-	}
-
-	public void setListaTanteoLocal(ArrayList<Integer> listaTanteoLocal) {
-		this.listaTanteoLocal = listaTanteoLocal;
 	}
 	
 	private void crearGrafica() {
@@ -465,37 +218,139 @@ public class ControllerPartido {
 
         tanteoGrafica.setOptions(options);
 	}
-
-	public BarChartModel getTanteoGrafica() {
-		return tanteoGrafica;
-	}
-
-	public void setTanteoGrafica(BarChartModel tanteoGrafica) {
-		this.tanteoGrafica = tanteoGrafica;
-	}
-
-	public ArrayList<String> getListaTanteoPartido() {
-		return listaTanteoPartido;
-	}
-
+	
 	public void setListaTanteoPartido(ArrayList<String> listaTanteoPartido) {
 		this.listaTanteoPartido = listaTanteoPartido;
 		crearGrafica();
 	}
-
-	public ArrayList<String> getListaJugadoresLocal() {
-		return listaJugadoresLocal;
+	
+	private String getIndexEstadisticaEquipoLocalTirosCampo(){
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTirosCampoMetidos())+" / "+
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTirosCampoIntentados())+" ( "+
+				Double.toString(equipoLocal.getEstadisticaNormal().getTirosCampoPorcentaje())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteTirosCampo() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTirosCampoMetidos())+" / "+
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTirosCampoIntentados())+" ( "+
+				Double.toString(equipoVisitante.getEstadisticaNormal().getTirosCampoPorcentaje())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoLocalTriples(){
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTriplesMetidos())+" / "+
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTriplesIntentados())+" ( "+
+				Double.toString(equipoLocal.getEstadisticaNormal().getTriplesPorcentaje())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteTriples() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTriplesMetidos())+" / "+
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTriplesIntentados())+" ( "+
+				Double.toString(equipoVisitante.getEstadisticaNormal().getTriplesPorcentaje())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoLocalTirosLibres(){
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTirosLibresMetidos())+" / "+
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTirosLibresIntentados())+" ( "+
+				Double.toString(equipoLocal.getEstadisticaNormal().getTirosLibresPorcentaje())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteTirosLibres() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTirosLibresMetidos())+" / "+
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTirosLibresIntentados())+" ( "+
+				Double.toString(equipoVisitante.getEstadisticaNormal().getTirosLibresPorcentaje())+" )";
 	}
 
-	public void setListaJugadoresLocal(ArrayList<String> listaJugadoresLocal) {
-		this.listaJugadoresLocal = listaJugadoresLocal;
+	private String getIndexEstadisticaEquipoVisitanteRebotes() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTotalRebotes())+" ( "+
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getReboteDefensivo())+" / "+
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getReboteOfensivo())+" )";
 	}
+	
+	private String getIndexEstadisticaEquipoLocalRebotes() {
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTotalRebotes())+" ( "+
+				Integer.toString(equipoLocal.getEstadisticaNormal().getReboteDefensivo())+" / "+
+				Integer.toString(equipoLocal.getEstadisticaNormal().getReboteOfensivo())+" )";
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteAsistencias() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getAsistencias());
+	}
+	
+	private String getIndexEstadisticaEquipoLocalAsistencias() {
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getAsistencias());
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteRobos() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getRobos());
+	}
+	
+	private String getIndexEstadisticaEquipoLocalRobos() {
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getRobos());
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteTapones() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getTapones());
+	}
+	
+	private String getIndexEstadisticaEquipoLocalTapones() {
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getTapones());
+	}
+	
+	private String getIndexEstadisticaEquipoVisitanteFaltas() {
+		return 
+				Integer.toString(equipoVisitante.getEstadisticaNormal().getFaltasPersonales());
+	}
+	
+	private String getIndexEstadisticaEquipoLocalFaltas() {
+		return 
+				Integer.toString(equipoLocal.getEstadisticaNormal().getFaltasPersonales());
+	}
+	
+	public void completarEstadisticasIndexPartido() {
+        
+		estadisticaIndexPartido = new ArrayList<>();
+        // Agregar estadísticas al azar solo como ejemplo
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Tiros de Campo",getIndexEstadisticaEquipoVisitanteTirosCampo(),getIndexEstadisticaEquipoLocalTirosCampo()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Triples", getIndexEstadisticaEquipoVisitanteTriples(), getIndexEstadisticaEquipoLocalTriples()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Tiros Libres",getIndexEstadisticaEquipoVisitanteTirosLibres(),getIndexEstadisticaEquipoLocalTirosLibres()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Rebotes (Def/Ofe)", getIndexEstadisticaEquipoVisitanteRebotes(), getIndexEstadisticaEquipoLocalRebotes()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Asistencias", getIndexEstadisticaEquipoVisitanteAsistencias(), getIndexEstadisticaEquipoLocalAsistencias()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Robos", getIndexEstadisticaEquipoVisitanteRobos(), getIndexEstadisticaEquipoLocalRobos()));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Tapones", getIndexEstadisticaEquipoVisitanteTapones(), getIndexEstadisticaEquipoLocalTapones() ));
+		
+		estadisticaIndexPartido.add(new EstadisticaIndexPartido(
+				"Faltas", getIndexEstadisticaEquipoVisitanteFaltas(), getIndexEstadisticaEquipoLocalFaltas()));
+	}
+	
+	public boolean getPlayOff() {
+        return playOff;
+    }
 
-	public ArrayList<String> getListaJugadoresVisitante() {
-		return listaJugadoresVisitante;
-	}
-
-	public void setListaJugadoresVisitante(ArrayList<String> listaJugadoresVisitante) {
-		this.listaJugadoresVisitante = listaJugadoresVisitante;
-	}
 }

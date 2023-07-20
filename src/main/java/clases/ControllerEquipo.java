@@ -1,11 +1,12 @@
 package clases;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class ControllerEquipo {
 
     private String nombre = "";
@@ -29,54 +30,13 @@ public class ControllerEquipo {
 
     private String cuartoElegidoTiros="partido";
     private String jugadorElegidoTiros="";
+    
 
-    public String getDerrotas() {
-        return derrotas;
-    }
-
-    public void setDerrotas(String derrotas) {
-        this.derrotas = derrotas;
-    }
-
-    public ControllerEstadisticaAvanzada getEstadisticaAvanzada() {
-        return estadisticaAvanzada;
-    }
-
-    public void setEstadisticaAvanzada(ControllerEstadisticaAvanzada estadisticaAvanzada) {
-        this.estadisticaAvanzada = estadisticaAvanzada;
-    }
-
-    public ControllerEstadisticaNormal getEstadisticaNormal() {
-        return estadisticaNormal;
-    }
-
-    public void setEstadisticaNormal(ControllerEstadisticaNormal estadisticaNormal) {
-        this.estadisticaNormal = estadisticaNormal;
-    }
-
-    public ControllerFullBoxscore getFullBoxscore() {
-        return fullBoxscore;
-    }
-
-    public void setFullBoxscore(ControllerFullBoxscore fullBoxscore) {
-        this.fullBoxscore = fullBoxscore;
-    }
-
-    public ArrayList<ControllerJugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(ArrayList<ControllerJugador> jugadores) {
-        this.jugadores = jugadores;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    private int[] maxAnotadores = new int[3];
+    private int[] maxAsistentes = new int[3];
+    private int[] maxReboteadores = new int[3];
+    private int[] maxTaponadores = new int[3];
+    private int[] maxPorcentaje = new int[3];
 
     public String getNombreAbreviado() {
         if(nombreAbreviado.equals("BRK")){
@@ -96,93 +56,15 @@ public class ControllerEquipo {
         return nombreAbreviado;
     }
 
-    public void setNombreAbreviado(String nombreAbreviado) {
-        this.nombreAbreviado = nombreAbreviado;
-    }
-
-    public String getPuntosConsecutivos() {
-        return puntosConsecutivos;
-    }
-
-    public void setPuntosConsecutivos(String puntosConsecutivos) {
-        this.puntosConsecutivos = puntosConsecutivos;
-    }
-
-    public Integer getSinAnotar() {
-        return sinAnotar;
-    }
-
-    public void setSinAnotar(Integer sinAnotar) {
-        this.sinAnotar = sinAnotar;
-    }
-
-    public String getTanteo() {
-        return tanteo;
-    }
-
-    public void setTanteo(String tanteo) {
-        this.tanteo = tanteo;
-    }
-
-    public ControllerTanteoCuartos getTanteoCuartos() {
-        return tanteoCuartos;
-    }
-
-    public void setTanteoCuartos(ControllerTanteoCuartos tanteoCuartos) {
-        this.tanteoCuartos = tanteoCuartos;
-    }
-
-    public Integer getTiempoLider() {
-        return tiempoLider;
-    }
-
-    public void setTiempoLider(Integer tiempoLider) {
-        this.tiempoLider = tiempoLider;
-    }
-
-    public String getVictorias() {
-        return victorias;
-    }
-
-    public void setVictorias(String victorias) {
-        this.victorias = victorias;
-    }
-
-    public int[] getMaxAnotadores() {
-        return maxAnotadores;
-    }
-
-    public void setMaxAnotadores(int[] maxAnotadores) {
-        this.maxAnotadores = maxAnotadores;
-    }
-
-    public int[] getMaxAsistentes() {
-        return maxAsistentes;
-    }
-
-    public void setMaxAsistentes(int[] maxAsistentes) {
-        this.maxAsistentes = maxAsistentes;
-    }
-
-    public int[] getMaxReboteadores() {
-        return maxReboteadores;
-    }
-
-    public void setMaxReboteadores(int[] maxReboteadores) {
-        this.maxReboteadores = maxReboteadores;
-    }
-
-    private int[] maxAnotadores = new int[3];
-    private int[] maxAsistentes = new int[3];
-    private int[] maxReboteadores = new int[3];
-
     public void obtenerEstrellas() {
         maximaAnotacion();
         maximoAsistente();
         maximoReboteador();
+        maximoTapones();
+        maximoPorcentajes();
         ordenarInicio();
     }
-
+    
     private void maximaAnotacion() {
 //		Collections.sort(jugadores,new ordenMaximoAnotador());
         ordenarAnotadores();
@@ -205,6 +87,40 @@ public class ControllerEquipo {
         maxReboteadores[0] = getJugadores().get(0).getPosicionTabla();
         maxReboteadores[1] = getJugadores().get(1).getPosicionTabla();
         maxReboteadores[2] = getJugadores().get(2).getPosicionTabla();
+    }
+    
+    private void maximoTapones() {
+    	ordenarTapones();
+    	maxTaponadores[0] = getJugadores().get(0).getPosicionTabla();
+    	maxTaponadores[1] = getJugadores().get(1).getPosicionTabla();
+    	maxTaponadores[2] = getJugadores().get(2).getPosicionTabla();
+    }
+
+    private void maximoPorcentajes(){
+    	ordenarPorcentajes();
+    	maxPorcentaje[0] = getJugadores().get(0).getPosicionTabla();
+    	maxPorcentaje[1] = getJugadores().get(1).getPosicionTabla();
+    	maxPorcentaje[2] = getJugadores().get(2).getPosicionTabla();
+    }
+    
+    private void ordenarPorcentajes() {
+    	Comparator<ControllerJugador> comparator = new Comparator<ControllerJugador>() {
+            @Override
+            public int compare(ControllerJugador s1, ControllerJugador s2) {
+                return s2.getBoxscore().getTirosCampoPorcentaje().compareTo(s1.getBoxscore().getTirosCampoPorcentaje());
+            }
+        };
+        Collections.sort(jugadores, comparator);
+    }
+    
+    private void ordenarTapones() {
+    	Comparator<ControllerJugador> comparator = new Comparator<ControllerJugador>() {
+            @Override
+            public int compare(ControllerJugador s1, ControllerJugador s2) {
+                return s2.getTotalPartido().getTapones().compareTo(s1.getTotalPartido().getTapones());
+            }
+        };
+        Collections.sort(jugadores, comparator);
     }
 
     private void ordenarAnotadores() {
@@ -246,14 +162,6 @@ public class ControllerEquipo {
         };
         Collections.sort(jugadores, comparator);
     }
-
-	public ArrayList<ControllerTiros> getListaTiros() {
-		return listaTiros;
-	}
-
-	public void setListaTiros(ArrayList<ControllerTiros> listaTiros) {
-		this.listaTiros = listaTiros;
-	}
 
 	public void rellenarTirosEquipos() {
 		
@@ -302,30 +210,5 @@ public class ControllerEquipo {
     	}
     	return false;
     }
-    
-	public ArrayList<String> getListaJugadores() {
-		return listaJugadores;
-	}
-
-	public void setListaJugadores(ArrayList<String> listaJugadores) {
-		this.listaJugadores = listaJugadores;
-	}
-
-	public String getCuartoElegidoTiros() {
-		return cuartoElegidoTiros;
-	}
-
-	public void setCuartoElegidoTiros(String cuartoElegidoTiros) {
-		this.cuartoElegidoTiros = cuartoElegidoTiros;
-	}
-
-	public String getJugadorElegidoTiros() {
-		return jugadorElegidoTiros;
-	}
-
-	public void setJugadorElegidoTiros(String jugadorElegidoTiros) {
-		this.jugadorElegidoTiros = jugadorElegidoTiros;
-	}
-    
     
 }

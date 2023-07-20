@@ -1,9 +1,11 @@
 package clases;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
+import lombok.Data;
+
+@Data
 public class ControllerJugador {
 
     private ControllerFullBoxscore totalPartido = new ControllerFullBoxscore();
@@ -23,7 +25,8 @@ public class ControllerJugador {
 
     private Integer segundos = 0;
 
-    public void ordenarJugadoresPuntosMetidos() {
+    @SuppressWarnings("unused")
+	public void ordenarJugadoresPuntosMetidos() {
         Comparator<ControllerJugador> comparator = new Comparator<ControllerJugador>() {
 
             @Override
@@ -31,94 +34,6 @@ public class ControllerJugador {
                 return o1.getBoxscore().getPuntos().compareTo(o2.getBoxscore().getPuntos());
             }
         };
-    }
-
-    public String getApeNom() {
-        return apeNom;
-    }
-
-    public void setApeNom(String apeNom) {
-        this.apeNom = apeNom;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public ControllerEstadisticaNormal getBoxscore() {
-        return boxscore;
-    }
-
-    public void setBoxscore(ControllerEstadisticaNormal boxscore) {
-        this.boxscore = boxscore;
-    }
-
-    public ArrayList<ControllerFullBoxscore> getCuartos() {
-        return cuartos;
-    }
-
-    public void setCuartos(ArrayList<ControllerFullBoxscore> cuartos) {
-        this.cuartos = cuartos;
-    }
-
-    public ControllerEstadisticaAvanzada getEstadisticaAvanzada() {
-        return estadisticaAvanzada;
-    }
-
-    public void setEstadisticaAvanzada(ControllerEstadisticaAvanzada estadisticaAvanzada) {
-        this.estadisticaAvanzada = estadisticaAvanzada;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Boolean getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(Boolean inicio) {
-        this.inicio = inicio;
-    }
-
-    public ArrayList<ControllerTiros> getListaTiros() {
-        return listaTiros;
-    }
-
-    public void setListaTiros(ArrayList<ControllerTiros> listaTiros) {
-        this.listaTiros = listaTiros;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Integer getSegundos() {
-        return segundos;
-    }
-
-    public void setSegundos(Integer segundos) {
-        this.segundos = segundos;
-    }
-
-    public ControllerFullBoxscore getTotalPartido() {
-        return totalPartido;
-    }
-
-    public void setTotalPartido(ControllerFullBoxscore totalPartido) {
-        this.totalPartido = totalPartido;
     }
 
     public void addCuartoJugador(ControllerFullBoxscore fullCuarto) {
@@ -133,7 +48,8 @@ public class ControllerJugador {
         this.posicionTabla = posicionTabla;
     }
     
-    public String getMinutos(){
+    @SuppressWarnings("unused")
+	public String getMinutos(){
         String min="";
         int iSeg, iMin;
         iMin=getSegundos()/60;

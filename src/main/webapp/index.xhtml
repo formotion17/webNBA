@@ -122,83 +122,105 @@
 												height="140px" />
 										</div>
 									</div>
-									<!-- NOMBRE EQUIPOS Y RECORD DE TEMPORADA -->
-									<div class="ui-g partido-nombre">
-										<div class="ui-g-5">#{match.equipoVisitante.nombre}</div>
-										<div class="ui-g-2"></div>
-										<div class="ui-g-5">#{match.equipoLocal.nombre}</div>
-									</div>
-									<div class="ui-g partido-record">
-										<div class="ui-g-5">#{match.equipoVisitante.victorias}-#{match.equipoVisitante.derrotas}</div>
-										<div class="ui-g-2"></div>
-										<div class="ui-g-5">#{match.equipoLocal.victorias}-#{match.equipoLocal.derrotas}</div>
-									</div>
-									<!-- MAXIMOS ANOTADORES -->
-									<div class="ui-g partido-maximos">
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].id}.jpg"
-												height="70" />
+									<div>
+										<div class="ui-g partido-nombre">
+											<div class="ui-g-5">#{match.equipoVisitante.nombre}</div>
+											<div class="ui-g-2"></div>
+											<div class="ui-g-5">#{match.equipoLocal.nombre}</div>
 										</div>
-										<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].apeNom}</div>
-										<div class="ui-g-1 tooltip partido-puntuacion">
-											#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].totalPartido.puntos}
-											<span class="tooltiptext"> Tiros Libres:
-												#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresIntentados}
-												<br /> Tiros Campo :
-												#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoIntentados}
-												<br /> Triples :
-												#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesIntentados}
-											</span>
-										</div>
-										<div class="ui-g-2 partido-atributo">Puntos</div>
-										<div class="ui-g-1 tooltip partido-puntuacion">
-											#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].totalPartido.puntos}<span
-												class="tooltiptext"> Tiros Libres:
-												#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresIntentados}
-												<br /> Tiros Campo :
-												#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoIntentados}
-												<br /> Triples :
-												#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesIntentados}
-											</span>
-										</div>
-										<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].apeNom}</div>
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].id}.jpg"
-												height="70" />
+										<div class="ui-g partido-record">
+											<div class="ui-g-5">#{match.equipoVisitante.victorias}-#{match.equipoVisitante.derrotas}</div>
+											<div class="ui-g-2"></div>
+											<div class="ui-g-5">#{match.equipoLocal.victorias}-#{match.equipoLocal.derrotas}</div>
 										</div>
 									</div>
-									<!-- MAXIMOS REBOTEADORES -->
-									<div class="ui-g partido-maximos">
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].id}.jpg"
-												height="70" />
-										</div>
-										<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].apeNom}</div>
-										<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].totalPartido.totalRebotes}</div>
-										<div class="ui-g-2 partido-atributo">Rebotes</div>
-										<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].totalPartido.totalRebotes}</div>
-										<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].apeNom}</div>
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].id}.jpg"
-												height="70" />
-										</div>
-									</div>
-									<!-- MAXIMOS ASISTENTES -->
-									<div class="ui-g partido-maximos">
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].id}.jpg"
-												height="70" />
-										</div>
-										<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].apeNom}</div>
-										<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].totalPartido.asistencias}</div>
-										<div class="ui-g-2 partido-atributo">Asistencias</div>
-										<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].totalPartido.asistencias}</div>
-										<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].apeNom}</div>
-										<div class="ui-g-1">
-											<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].id}.jpg"
-												height="70" />
-										</div>
-									</div>
+									<p:tabView>
+										<p:tab  title="Estadisticas">
+											<h:form>
+											    <p:dataTable value="#{match.estadisticaIndexPartido}" var="estadistica" styleClass="tabla-estadisticas">
+											        <p:column headerText="Estadística">
+											            <h:outputText value="#{estadistica.atributo}" />
+											        </p:column>
+											        <p:column headerText="#{match.equipoVisitante.nombre}" styleClass="centrar">
+											            <h:outputText value="#{estadistica.visitante}" />
+											        </p:column>
+											        <p:column headerText="#{match.equipoLocal.nombre}" style="text-align:center;">
+											            <h:outputText value="#{estadistica.local}" />
+											        </p:column>
+											    </p:dataTable>
+											</h:form>
+										</p:tab>
+										
+										<!-- NOMBRE EQUIPOS Y RECORD DE TEMPORADA -->
+										<p:tab  title="Maximos">
+											<!-- MAXIMOS ANOTADORES -->
+											<div class="ui-g partido-maximos">
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].id}.jpg"
+														height="70" />
+												</div>
+												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].apeNom}</div>
+												<div class="ui-g-1 tooltip partido-puntuacion">
+													#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].totalPartido.puntos}
+													<span class="tooltiptext"> Tiros Libres:
+														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresIntentados}
+														<br /> Tiros Campo :
+														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoIntentados}
+														<br /> Triples :
+														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesIntentados}
+													</span>
+												</div>
+												<div class="ui-g-2 partido-atributo">Puntos</div>
+												<div class="ui-g-1 tooltip partido-puntuacion">
+													#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].totalPartido.puntos}<span
+														class="tooltiptext"> Tiros Libres:
+														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresIntentados}
+														<br /> Tiros Campo :
+														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoIntentados}
+														<br /> Triples :
+														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesIntentados}
+													</span>
+												</div>
+												<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].apeNom}</div>
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].id}.jpg"
+														height="70" />
+												</div>
+											</div>
+											<!-- MAXIMOS REBOTEADORES -->
+											<div class="ui-g partido-maximos">
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].id}.jpg"
+														height="70" />
+												</div>
+												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].apeNom}</div>
+												<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].totalPartido.totalRebotes}</div>
+												<div class="ui-g-2 partido-atributo">Rebotes</div>
+												<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].totalPartido.totalRebotes}</div>
+												<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].apeNom}</div>
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].id}.jpg"
+														height="70" />
+												</div>
+											</div>
+											<!-- MAXIMOS ASISTENTES -->
+											<div class="ui-g partido-maximos">
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].id}.jpg"
+														height="70" />
+												</div>
+												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].apeNom}</div>
+												<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].totalPartido.asistencias}</div>
+												<div class="ui-g-2 partido-atributo">Asistencias</div>
+												<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].totalPartido.asistencias}</div>
+												<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].apeNom}</div>
+												<div class="ui-g-1">
+													<img src="#{index.urlFoto}#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].id}.jpg"
+														height="70" />
+												</div>
+											</div>
+										</p:tab>
+									</p:tabView>
 								</p:panelGrid>
 								<p:panelGrid columns="1" style="width:100%;"
 									styleClass="sinBordes">
@@ -583,7 +605,7 @@
 												  		<p:selectOneMenu value="#{match.equipoVisitante.jugadorElegidoTiros}"
 															filter="false">
 															<f:selectItems value="#{match.equipoVisitante.listaJugadores}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaVisitante"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaVisitante"
 																listener="#{match.equipoVisitante.actualizarTiros()}" />
 														</p:selectOneMenu>
 												  	</h:form>
@@ -592,7 +614,7 @@
 															filter="false" >
     														<f:selectItem itemLabel="Partido" itemValue="partido" />
 															<f:selectItems value="#{match.equipoVisitante.tanteoCuartos.listaCuartosJugados}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaVisitante"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaVisitante"
 																listener="#{match.equipoVisitante.actualizarTiros()}" />
 														</p:selectOneMenu>
 													</h:form>
@@ -617,7 +639,7 @@
 												  		<p:selectOneMenu value="#{match.equipoLocal.jugadorElegidoTiros}"
 															filter="false">
 															<f:selectItems value="#{match.equipoLocal.listaJugadores}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaLocal"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaLocal"
 																listener="#{match.equipoLocal.actualizarTiros()}" />
 														</p:selectOneMenu>
 												  	</h:form>
@@ -626,7 +648,7 @@
 															filter="false" >
     														<f:selectItem itemLabel="Partido" itemValue="partido" />
 															<f:selectItems value="#{match.equipoLocal.tanteoCuartos.listaCuartosJugados}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt36:cartaLocal"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaLocal"
 																listener="#{match.equipoLocal.actualizarTiros()}" />
 														</p:selectOneMenu>
 													</h:form>

@@ -24,7 +24,6 @@ public class BaseController implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2150948195156093408L;
-	static String nombreJugador;
 	
 	
 	protected static String BASE_DATOS="NBA";
@@ -32,15 +31,7 @@ public class BaseController implements Serializable{
 	protected Integer PUERTO_HOST=27017;
 	protected String COLLECTION_PARTIDOS="partidos";
 	protected String COLLECTION_TOTALES="totales";
-
-    public static String getNombreJugador() {
-        return nombreJugador;
-    }
-
-    public static void setNombreJugador(String nombreJugador) {
-        BaseController.nombreJugador = nombreJugador;
-    }
-    
+	
     protected static MongoClient mongo = null;
 	
 	
@@ -50,6 +41,8 @@ public class BaseController implements Serializable{
 	public MongoClient getMongo() {
 		return mongo;
 	}
+	
+	@SuppressWarnings("static-access")
 	public void setMongo(MongoClient mongo) {
 		this.mongo = mongo;
 	}

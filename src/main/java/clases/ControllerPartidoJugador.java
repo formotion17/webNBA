@@ -8,10 +8,13 @@ package clases;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.Data;
+
 /**
  *
  * @author hatashi
  */
+@Data
 public class ControllerPartidoJugador {
     
     private Date fecha;
@@ -27,7 +30,8 @@ public class ControllerPartidoJugador {
     private String jugandoContraAbreviado="";
     private String jugandoContraNombre=""; //Tooltip
     
-    private String minutos="";
+    @SuppressWarnings("unused")
+	private String minutos="";
     private Integer segundos=0;
     
     private ControllerEstadisticaNormal boxscore = new ControllerEstadisticaNormal();
@@ -59,22 +63,6 @@ public class ControllerPartidoJugador {
         
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public boolean isCasa() {
-        return casa;
-    }
-
-    public void setCasa(boolean casa) {
-        this.casa = casa;
-    }
-
     public String getJugandoConAbreviado() {
         if("BRK".equals(jugandoConAbreviado.toUpperCase())){
             return "NJN";
@@ -84,18 +72,6 @@ public class ControllerPartidoJugador {
             return "CHA";
         }
         return jugandoConAbreviado.toUpperCase();
-    }
-
-    public void setJugandoConAbreviado(String jugandoConAbreviado) {
-        this.jugandoConAbreviado = jugandoConAbreviado;
-    }
-
-    public String getJugandoConNombre() {
-        return jugandoConNombre;
-    }
-
-    public void setJugandoConNombre(String jugandoConNombre) {
-        this.jugandoConNombre = jugandoConNombre;
     }
 
     public String getJugandoContraAbreviado() {
@@ -109,43 +85,9 @@ public class ControllerPartidoJugador {
         return jugandoContraAbreviado.toUpperCase();
     }
 
-    public void setJugandoContraAbreviado(String jugandoContraAbreviado) {
-        this.jugandoContraAbreviado = jugandoContraAbreviado;
-    }
-
-    public String getJugandoContraNombre() {
-        return jugandoContraNombre;
-    }
-
-    public void setJugandoContraNombre(String jugandoContraNombre) {
-        this.jugandoContraNombre = jugandoContraNombre;
-    }
-
-    public Integer getTanteoEquipoJugador() {
-        return tanteoEquipoJugador;
-    }
-
-    public void setTanteoEquipoJugador(Integer tanteoEquipoJugador) {
-        this.tanteoEquipoJugador = tanteoEquipoJugador;
-    }
-
-    public Integer getTanteoEquipoRival() {
-        return tanteoEquipoRival;
-    }
-
-    public void setTanteoEquipoRival(Integer tanteoEquipoRival) {
-        this.tanteoEquipoRival = tanteoEquipoRival;
-    }
-
-    public Integer getSegundos() {
-        return segundos;
-    }
-
-    public void setSegundos(Integer segundos) {
-        this.segundos = segundos;
-    }
-
-    public String getMinutos(){
+   
+    @SuppressWarnings("unused")
+	public String getMinutos(){
         String min="";
         int iSeg, iMin;
         iMin=getSegundos()/60;
@@ -175,14 +117,6 @@ public class ControllerPartidoJugador {
         return simpleDateFormat.format(getFecha());
     }
 
-    public Integer getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(Integer inicio) {
-        this.inicio = inicio;
-    }
-
     public String getResultadoPartido() {
         
         if(casa){
@@ -207,166 +141,5 @@ public class ControllerPartidoJugador {
             return "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-plane-512.png";
         }
     }
-
-    public Integer getPartidoNumero() {
-        return partidoNumero;
-    }
-
-    public void setPartidoNumero(Integer partidoNumero) {
-        this.partidoNumero = partidoNumero;
-    }
-
-    public boolean isMaximaAnotacion() {
-        return maximaAnotacion;
-    }
-
-    public void setMaximaAnotacion(boolean maximaAnotacion) {
-        this.maximaAnotacion = maximaAnotacion;
-    }
-
-    public boolean isMaximaMasMenos() {
-        return maximaMasMenos;
-    }
-
-    public void setMaximaMasMenos(boolean maximaMasMenos) {
-        this.maximaMasMenos = maximaMasMenos;
-    }
-
-    public boolean isMaximaTapones() {
-        return maximaTapones;
-    }
-
-    public void setMaximaTapones(boolean maximaTapones) {
-        this.maximaTapones = maximaTapones;
-    }
-
-    public boolean isMaximaPerdidas() {
-        return maximaPerdidas;
-    }
-
-    public void setMaximaPerdidas(boolean maximaPerdidas) {
-        this.maximaPerdidas = maximaPerdidas;
-    }
-
-    public boolean isMaximaRobos() {
-        return maximaRobos;
-    }
-
-    public void setMaximaRobos(boolean maximaRobos) {
-        this.maximaRobos = maximaRobos;
-    }
-
-    public boolean isMaximaAsistencias() {
-        return maximaAsistencias;
-    }
-
-    public void setMaximaAsistencias(boolean maximaAsistencias) {
-        this.maximaAsistencias = maximaAsistencias;
-    }
-
-    public boolean isMaximaRebotes() {
-        return maximaRebotes;
-    }
-
-    public void setMaximaRebotes(boolean maximaRebotes) {
-        this.maximaRebotes = maximaRebotes;
-    }
-
-    public boolean isMaximaRebotesDefensa() {
-        return maximaRebotesDefensa;
-    }
-
-    public void setMaximaRebotesDefensa(boolean maximaRebotesDefensa) {
-        this.maximaRebotesDefensa = maximaRebotesDefensa;
-    }
-
-    public boolean isMaximaRebotesAtaque() {
-        return maximaRebotesAtaque;
-    }
-
-    public void setMaximaRebotesAtaque(boolean maximaRebotesAtaque) {
-        this.maximaRebotesAtaque = maximaRebotesAtaque;
-    }
-
-    public boolean isMaximaTiroLibrePorcentaje() {
-        return maximaTiroLibrePorcentaje;
-    }
-
-    public void setMaximaTiroLibrePorcentaje(boolean maximaTiroLibrePorcentaje) {
-        this.maximaTiroLibrePorcentaje = maximaTiroLibrePorcentaje;
-    }
-
-    public boolean isMaximaTiroLibreTirado() {
-        return maximaTiroLibreTirado;
-    }
-
-    public void setMaximaTiroLibreTirado(boolean maximaTiroLibreTirado) {
-        this.maximaTiroLibreTirado = maximaTiroLibreTirado;
-    }
-
-    public boolean isMaximaTiroLibreMetido() {
-        return maximaTiroLibreMetido;
-    }
-
-    public void setMaximaTiroLibreMetido(boolean maximaTiroLibreMetido) {
-        this.maximaTiroLibreMetido = maximaTiroLibreMetido;
-    }
-
-    public boolean isMaximaTriplePorcentaje() {
-        return maximaTriplePorcentaje;
-    }
-
-    public void setMaximaTriplePorcentaje(boolean maximaTriplePorcentaje) {
-        this.maximaTriplePorcentaje = maximaTriplePorcentaje;
-    }
-
-    public boolean isMaximaTripleTirado() {
-        return maximaTripleTirado;
-    }
-
-    public void setMaximaTripleTirado(boolean maximaTripleTirado) {
-        this.maximaTripleTirado = maximaTripleTirado;
-    }
-
-    public boolean isMaximaTripleMetido() {
-        return maximaTripleMetido;
-    }
-
-    public void setMaximaTripleMetido(boolean maximaTripleMetido) {
-        this.maximaTripleMetido = maximaTripleMetido;
-    }
-
-    public boolean isMaximaTirosCampoPorcentaje() {
-        return maximaTirosCampoPorcentaje;
-    }
-
-    public void setMaximaTirosCampoPorcentaje(boolean maximaTirosCampoPorcentaje) {
-        this.maximaTirosCampoPorcentaje = maximaTirosCampoPorcentaje;
-    }
-
-    public boolean isMaximaTirosCampoTirado() {
-        return maximaTirosCampoTirado;
-    }
-
-    public void setMaximaTirosCampoTirado(boolean maximaTirosCampoTirado) {
-        this.maximaTirosCampoTirado = maximaTirosCampoTirado;
-    }
-
-    public boolean isMaximaTirosCampoMetido() {
-        return maximaTirosCampoMetido;
-    }
-
-    public void setMaximaTirosCampoMetido(boolean maximaTirosCampoMetido) {
-        this.maximaTirosCampoMetido = maximaTirosCampoMetido;
-    }
-
-    public boolean isMaximaMinutos() {
-        return maximaMinutos;
-    }
-
-    public void setMaximaMinutos(boolean maximaMinutos) {
-        this.maximaMinutos = maximaMinutos;
-    }
-    
     
 }

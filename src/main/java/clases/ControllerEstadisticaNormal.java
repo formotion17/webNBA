@@ -2,6 +2,9 @@ package clases;
 
 import java.text.DecimalFormat;
 
+import lombok.Data;
+
+@Data
 public class ControllerEstadisticaNormal {
 
     private Integer robos = 0;
@@ -37,167 +40,6 @@ public class ControllerEstadisticaNormal {
     private DecimalFormat media = new DecimalFormat("0.00");
     private boolean tienePartido=false;
 
-	 // Getter Methods 
-    public Integer getAsistencias() {
-        return asistencias;
-    }
-
-    public String getCuarto() {
-        return cuarto;
-    }
-
-    public Integer getFaltasPersonales() {
-        return faltasPersonales;
-    }
-
-    public Integer getPerdidas() {
-        return perdidas;
-    }
-
-    public Integer getPuntos() {
-        return puntos;
-    }
-
-    public Integer getReboteDefensivo() {
-        return reboteDefensivo;
-    }
-
-    public Integer getReboteOfensivo() {
-        return reboteOfensivo;
-    }
-
-    public Integer getRobos() {
-        return robos;
-    }
-
-    public Integer getTapones() {
-        return tapones;
-    }
-
-    public Integer getTirosCampoIntentados() {
-        return tirosCampoIntentados;
-    }
-
-    public Integer getTirosCampoMetidos() {
-        return tirosCampoMetidos;
-    }
-
-    public Double getTirosCampoPorcentaje() {
-        return tirosCampoPorcentaje;
-    }
-
-    public Integer getTirosLibresIntentados() {
-        return tirosLibresIntentados;
-    }
-
-    public Integer getTirosLibresMetidos() {
-        return tirosLibresMetidos;
-    }
-
-    public Double getTirosLibresPorcentaje() {
-        return tirosLibresPorcentaje;
-    }
-
-    public Integer getTotalRebotes() {
-        return totalRebotes;
-    }
-
-    public Integer getTriplesIntentados() {
-        return triplesIntentados;
-    }
-
-    public Integer getTriplesMetidos() {
-        return triplesMetidos;
-    }
-
-    public Double getTriplesPorcentaje() {
-        return triplesPorcentaje;
-    }
-
-	 // Setter Methods 
-    public void setAsistencias(Integer asistencias) {
-        this.asistencias = asistencias;
-    }
-
-    public void setCuarto(String cuarto) {
-        this.cuarto = cuarto;
-    }
-
-    public void setFaltasPersonales(Integer faltasPersonales) {
-        this.faltasPersonales = faltasPersonales;
-    }
-
-    public void setPerdidas(Integer perdidas) {
-        this.perdidas = perdidas;
-    }
-
-    public void setPuntos(Integer puntos) {
-        this.puntos = puntos;
-    }
-
-    public void setReboteDefensivo(Integer reboteDefensivo) {
-        this.reboteDefensivo = reboteDefensivo;
-    }
-
-    public void setReboteOfensivo(Integer reboteOfensivo) {
-        this.reboteOfensivo = reboteOfensivo;
-    }
-
-    public void setRobos(Integer robos) {
-        this.robos = robos;
-    }
-
-    public void setTapones(Integer tapones) {
-        this.tapones = tapones;
-    }
-
-    public void setTirosCampoIntentados(Integer tirosCampoIntentados) {
-        this.tirosCampoIntentados = tirosCampoIntentados;
-    }
-
-    public void setTirosCampoMetidos(Integer tirosCampoMetidos) {
-        this.tirosCampoMetidos = tirosCampoMetidos;
-    }
-
-    public void setTirosCampoPorcentaje(Double tirosCampoPorcentaje) {
-        this.tirosCampoPorcentaje = tirosCampoPorcentaje;
-    }
-
-    public void setTirosLibresIntentados(Integer tirosLibresIntentados) {
-        this.tirosLibresIntentados = tirosLibresIntentados;
-    }
-
-    public void setTirosLibresMetidos(Integer tirosLibresMetidos) {
-        this.tirosLibresMetidos = tirosLibresMetidos;
-    }
-
-    public void setTirosLibresPorcentaje(Double tirosLibresPorcentaje) {
-        this.tirosLibresPorcentaje = tirosLibresPorcentaje;
-    }
-
-    public void setTotalRebotes(Integer totalRebotes) {
-        this.totalRebotes = totalRebotes;
-    }
-
-    public void setTriplesIntentados(Integer triplesIntentados) {
-        this.triplesIntentados = triplesIntentados;
-    }
-
-    public void setTriplesMetidos(Integer triplesMetidos) {
-        this.triplesMetidos = triplesMetidos;
-    }
-
-    public void setTriplesPorcentaje(Double triplesPorcentaje) {
-        this.triplesPorcentaje = triplesPorcentaje;
-    }
-
-    public Integer getMasMenos() {
-        return masMenos;
-    }
-
-    public void setMasMenos(Integer masMenos) {
-        this.masMenos = masMenos;
-    }
 
     public void calcularTirosDosPuntos() {
         tirosDosIntentados = tirosCampoIntentados - triplesIntentados;
@@ -226,54 +68,6 @@ public class ControllerEstadisticaNormal {
         } else {
             tirosCampoPorcentaje = 0.0;
         }
-    }
-
-    public Integer getTirosDosMetidos() {
-        return tirosDosMetidos;
-    }
-
-    public void setTirosDosMetidos(Integer tirosDosMetidos) {
-        this.tirosDosMetidos = tirosDosMetidos;
-    }
-
-    public Integer getTirosDosIntentados() {
-        return tirosDosIntentados;
-    }
-
-    public void setTirosDosIntentados(Integer tirosDosIntentados) {
-        this.tirosDosIntentados = tirosDosIntentados;
-    }
-
-    public Double getTirosDosPorcentaje() {
-        return tirosDosPorcentaje;
-    }
-
-    public void setTirosDosPorcentaje(Double tirosDosPorcentaje) {
-        this.tirosDosPorcentaje = tirosDosPorcentaje;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public String getCuando() {
-        return cuando;
-    }
-
-    public void setCuando(String cuando) {
-        this.cuando = cuando;
-    }
-
-    public Integer getPartidosJugados() {
-        return partidosJugados;
-    }
-
-    public void setPartidosJugados(Integer partidosJugados) {
-        this.partidosJugados = partidosJugados;
     }
 
     public String devolverPorcentajeTirosCampo() {
@@ -424,14 +218,10 @@ public class ControllerEstadisticaNormal {
         }
         return "0";
     }
-
-    public boolean isTienePartido() {
-        return tienePartido;
-    }
-
-    public void setTienePartido(boolean tienePartido) {
-        this.tienePartido = tienePartido;
-    }
     
+	public String getPorcentajeTirosCampo() {
+		int porcentaje = (int) (tirosCampoPorcentaje * 100);
+		return  porcentaje + "%";
+	}
     
 }

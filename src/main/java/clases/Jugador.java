@@ -5,13 +5,14 @@
  */
 package clases;
 
-import java.io.Serializable;
-import org.primefaces.model.SelectableDataModel;
+import lombok.Data;
 
 /**
  *
  * @author hatashi
  */
+
+@Data
 public class Jugador {
 
     private String nombre = "";
@@ -29,46 +30,10 @@ public class Jugador {
         this.ver = ver;
     }
 
-    public boolean isVer() {
-        return ver;
-    }
-
-    public void setVer(boolean ver) {
-        this.ver = ver;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Jugador(String nombre) {
-        this.nombre = nombre;
-    }
-
     public Jugador(String apellido, String id, String nombre) {
         this.nombre = nombre;
         this.codigo = id;
         this.apellido = apellido;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String recogerFoto() {

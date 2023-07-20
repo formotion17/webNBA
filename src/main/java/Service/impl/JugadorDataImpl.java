@@ -9,20 +9,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-
 import org.bson.Document;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 import clases.ControllerPartidoJugador;
+import lombok.Data;
 import util.ClaseEstadisticaNormalTotales;
 import util.MapJavaMongo;
 import util.Temporadas;
@@ -31,6 +26,8 @@ import util.Temporadas;
  *
  * @author hatashi
  */
+
+@Data
 public class JugadorDataImpl{
     
     private ArrayList<String> listaSeleccionTemporadasProgresion = new ArrayList<String>();
@@ -76,7 +73,6 @@ public class JugadorDataImpl{
             for(Temporadas t : Temporadas.values()){
                         for(String temporada : listaSeleccionTemporadasProgresion){
                             if(t.toString().equals(temporada)){
-                                System.out.println("Temporada a revisar: "+temporada);
                                 ClaseEstadisticaNormalTotales stat = insertarFilaEstadisticasCabecera(collection,t.toString(),"regular","total",t.toString().substring(8,10)+"/"+t.toString().substring(12,t.toString().length()),codigoJugador);
                                 if(null !=stat){
                                     listaEstadisticasJugador.add(stat);
@@ -155,7 +151,8 @@ public class JugadorDataImpl{
     }
     
     
-    public ArrayList<ControllerPartidoJugador> devolverListaPartidosTemporada(String temporada,String jugador,boolean playoff) {
+    @SuppressWarnings("unused")
+	public ArrayList<ControllerPartidoJugador> devolverListaPartidosTemporada(String temporada,String jugador,boolean playoff) {
         
         
         String pattern = "dd-MM-yyyy";
@@ -218,7 +215,8 @@ public class JugadorDataImpl{
         return listaPartidos;
     }
     
-    private void colocarMaximosCero(){
+    @SuppressWarnings("unused")
+	private void colocarMaximosCero(){
         maximaAnotacion=0;
         maximaMasMenos=0;
         maximaTapones=0;
@@ -379,167 +377,4 @@ public class JugadorDataImpl{
     private void conectarColeccion(String coleccion){
          collection = db.getCollection(coleccion);
     }
-
-    public ArrayList<ControllerPartidoJugador> getListaPartidos() {
-        return listaPartidos;
-    }
-
-    public void setListaPartidos(ArrayList<ControllerPartidoJugador> listaPartidos) {
-        this.listaPartidos = listaPartidos;
-    }
-
-    public Integer getMaximaMasMenos() {
-        return maximaMasMenos;
-    }
-
-    public void setMaximaMasMenos(Integer maximaMasMenos) {
-        this.maximaMasMenos = maximaMasMenos;
-    }
-
-    public Integer getMaximaAnotacion() {
-        return maximaAnotacion;
-    }
-
-    public void setMaximaAnotacion(Integer maximaAnotacion) {
-        this.maximaAnotacion = maximaAnotacion;
-    }
-
-    public Integer getMaximaTapones() {
-        return maximaTapones;
-    }
-
-    public void setMaximaTapones(Integer maximaTapones) {
-        this.maximaTapones = maximaTapones;
-    }
-
-    public Integer getMaximaPerdidas() {
-        return maximaPerdidas;
-    }
-
-    public void setMaximaPerdidas(Integer maximaPerdidas) {
-        this.maximaPerdidas = maximaPerdidas;
-    }
-
-    public Integer getMaximaRobos() {
-        return maximaRobos;
-    }
-
-    public void setMaximaRobos(Integer maximaRobos) {
-        this.maximaRobos = maximaRobos;
-    }
-
-    public Integer getMaximaAsistencias() {
-        return maximaAsistencias;
-    }
-
-    public void setMaximaAsistencias(Integer maximaAsistencias) {
-        this.maximaAsistencias = maximaAsistencias;
-    }
-
-    public Integer getMaximaRebotes() {
-        return maximaRebotes;
-    }
-
-    public void setMaximaRebotes(Integer maximaRebotes) {
-        this.maximaRebotes = maximaRebotes;
-    }
-
-    public Integer getMaximaRebotesDefensa() {
-        return maximaRebotesDefensa;
-    }
-
-    public void setMaximaRebotesDefensa(Integer maximaRebotesDefensa) {
-        this.maximaRebotesDefensa = maximaRebotesDefensa;
-    }
-
-    public Integer getMaximaRebotesAtaque() {
-        return maximaRebotesAtaque;
-    }
-
-    public void setMaximaRebotesAtaque(Integer maximaRebotesAtaque) {
-        this.maximaRebotesAtaque = maximaRebotesAtaque;
-    }
-
-    public Double getMaximaTiroLibrePorcentaje() {
-        return maximaTiroLibrePorcentaje;
-    }
-
-    public void setMaximaTiroLibrePorcentaje(Double maximaTiroLibrePorcentaje) {
-        this.maximaTiroLibrePorcentaje = maximaTiroLibrePorcentaje;
-    }
-
-    public Integer getMaximaTiroLibreTirado() {
-        return maximaTiroLibreTirado;
-    }
-
-    public void setMaximaTiroLibreTirado(Integer maximaTiroLibreTirado) {
-        this.maximaTiroLibreTirado = maximaTiroLibreTirado;
-    }
-
-    public Integer getMaximaTiroLibreMetido() {
-        return maximaTiroLibreMetido;
-    }
-
-    public void setMaximaTiroLibreMetido(Integer maximaTiroLibreMetido) {
-        this.maximaTiroLibreMetido = maximaTiroLibreMetido;
-    }
-
-    public Double getMaximaTriplePorcentaje() {
-        return maximaTriplePorcentaje;
-    }
-
-    public void setMaximaTriplePorcentaje(Double maximaTriplePorcentaje) {
-        this.maximaTriplePorcentaje = maximaTriplePorcentaje;
-    }
-
-    public Integer getMaximaTripleTirado() {
-        return maximaTripleTirado;
-    }
-
-    public void setMaximaTripleTirado(Integer maximaTripleTirado) {
-        this.maximaTripleTirado = maximaTripleTirado;
-    }
-
-    public Integer getMaximaTripleMetido() {
-        return maximaTripleMetido;
-    }
-
-    public void setMaximaTripleMetido(Integer maximaTripleMetido) {
-        this.maximaTripleMetido = maximaTripleMetido;
-    }
-
-    public Double getMaximaTirosCampoPorcentaje() {
-        return maximaTirosCampoPorcentaje;
-    }
-
-    public void setMaximaTirosCampoPorcentaje(Double maximaTirosCampoPorcentaje) {
-        this.maximaTirosCampoPorcentaje = maximaTirosCampoPorcentaje;
-    }
-
-    public Integer getMaximaTirosCampoTirado() {
-        return maximaTirosCampoTirado;
-    }
-
-    public void setMaximaTirosCampoTirado(Integer maximaTirosCampoTirado) {
-        this.maximaTirosCampoTirado = maximaTirosCampoTirado;
-    }
-
-    public Integer getMaximaTirosCampoMetido() {
-        return maximaTirosCampoMetido;
-    }
-
-    public void setMaximaTirosCampoMetido(Integer maximaTirosCampoMetido) {
-        this.maximaTirosCampoMetido = maximaTirosCampoMetido;
-    }
-
-    public Integer getMaximaMinutos() {
-        return maximaMinutos;
-    }
-
-    public void setMaximaMinutos(Integer maximaMinutos) {
-        this.maximaMinutos = maximaMinutos;
-    }
-
-    
-    
 }

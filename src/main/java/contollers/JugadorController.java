@@ -7,28 +7,20 @@ import clases.ControllerPartidoJugador;
 import clases.ControllerTiros;
 import clases.Jugador;
 import util.ListaEquipos;
-import util.Temporadas;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 import contollers.utilidades.JugadorControllerUtilidades;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -38,23 +30,11 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import org.bson.Document;
-import org.primefaces.model.chart.PieChartModel;
 import org.primefaces.model.charts.ChartData;
-import org.primefaces.model.charts.axes.cartesian.CartesianScales;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
-import org.primefaces.model.charts.bar.BarChartDataSet;
 import org.primefaces.model.charts.bar.BarChartModel;
-import org.primefaces.model.charts.bar.BarChartOptions;
 import org.primefaces.model.charts.donut.DonutChartDataSet;
 import org.primefaces.model.charts.donut.DonutChartModel;
-import org.primefaces.model.charts.donut.DonutChartOptions;
-import org.primefaces.model.charts.line.LineChartDataSet;
 import org.primefaces.model.charts.line.LineChartModel;
-import org.primefaces.model.charts.line.LineChartOptions;
-import org.primefaces.model.charts.optionconfig.title.Title;
 import util.ClaseEstadisticaNormalTotales;
 import util.MapJavaMongo;
 import util.Utilidades;
@@ -67,7 +47,8 @@ import util.Utilidades;
 @ViewScoped
 @ManagedBean(name ="jugadores")
 @Data
-public class JugadorController implements Serializable{
+@EqualsAndHashCode(callSuper=false)
+public class JugadorController extends BaseController implements Serializable{
     
     /**
 	 * 
@@ -225,7 +206,8 @@ public class JugadorController implements Serializable{
     //TAB 3
     private String partidosTemporada="";
     
-    @PostConstruct
+    @SuppressWarnings("unchecked")
+	@PostConstruct
     public void init(){
         atributosMap = Utilidades.devolverHashMapAtributos();
         setInvisibleEstadisticasGlobales("invisible"); //Para cuando funcione todo invisible //Probando statsJugador
@@ -337,16 +319,18 @@ public class JugadorController implements Serializable{
     /**
      * Recogemos las estadisticas que tiene un jugador contra un equipo en concreto
      */
-    public void verEstadisticasContraEquipos(){
+    @SuppressWarnings({ "resource", "unchecked", "rawtypes" })
+	public void verEstadisticasContraEquipos(){
         
         MongoClient mongo = null;
-        mongo = new MongoClient("localhost",27017);
+        mongo = new MongoClient(HOST,PUERTO_HOST);
 		
         if(mongo!=null) {
                 borrarDatosContraEquipo();
                 ArrayList<BasicDBObject> listaTirosLocal = null;
                         
-                DB db = mongo.getDB("NBA");
+                @SuppressWarnings("deprecation")
+				DB db = mongo.getDB(BASE_DATOS);
                 DBCursor cursor;
 
                 for(String temporada:listaTemporadasElegidas){
@@ -517,20 +501,62 @@ public class JugadorController implements Serializable{
                         
                 }
         }
-        rellenarGraficoDonut();
-        rellenarGraficoDonut2();
-        rellenarGraficoDonut3();
-        rellenarGraficoDonut4();
-        rellenarGraficoDonut5();
-        rellenarGraficoDonut6();
-        rellenarGraficoDonut7();
-        rellenarGraficoDonut8();
-        rellenarGraficoDonut9();
-        rellenarGraficoDonut10();
-        rellenarGraficoDonut11();
-        rellenarGraficoDonut12();
-        System.out.println("acabamos");
+        
+        rellenarGraficaDonutGenerico(getDonutModel(),localRegularDosPuntosDentro,localRegularDosPuntosFuera,"2pt Fuera","2pt Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel2(),localRegularTresPuntosDentro,localRegularTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel3,localRegularTotalDentro,localRegularTotalFuera,"TR Local Fuera","TR Local Dentro");
+        
+        rellenarGraficaDonutGenerico(donutModel4,localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera,"2pt Fuera","2pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel5,localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel6,localPlayoffTotalDentro,localPlayoffTotalFuera,"PO Local Fuera","PO Local Dentro");
+        
+        rellenarGraficaDonutGenerico(donutModel7,visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera,"2pt Fuera","2pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel8,visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel9,visitanteRegularTotalDentro,visitanteRegularTotalFuera,"TR Visitante Fuera","TR Visitante Dentro");
+        
+        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera,"2pt Fuera","2pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel12,visitantePlayoffTotalDentro,visitantePlayoffTotalFuera,"PO Visitante Fuera","PO Visitante Dentro");
+
+        setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegularDosPuntosDentro,localRegularDosPuntosFuera));
+        setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegularTresPuntosDentro,localRegularTresPuntosFuera));
+        setDonutModelPor3(actualizarPorcentajeTirosDonut(localRegularTotalDentro,localRegularTotalFuera));
+        setDonutModelPor4(actualizarPorcentajeTirosDonut(localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera));
+        setDonutModelPor5(actualizarPorcentajeTirosDonut(localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera));
+        setDonutModelPor6(actualizarPorcentajeTirosDonut(localPlayoffTotalDentro,localPlayoffTotalFuera));
+        setDonutModelPor7(actualizarPorcentajeTirosDonut(visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera));
+        setDonutModelPor8(actualizarPorcentajeTirosDonut(visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera));
+        setDonutModelPor9(actualizarPorcentajeTirosDonut(visitanteRegularTotalDentro,visitanteRegularTotalFuera));
+        setDonutModelPor10(actualizarPorcentajeTirosDonut(visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera));
+        setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera));
+        setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoffTotalDentro,visitantePlayoffTotalFuera));
     }
+    
+    private void rellenarGraficaDonutGenerico(DonutChartModel grafica,int dentro, int fuera,String fueraLabel, String dentroLabel) {
+    	//grafica = new DonutChartModel();
+    	ChartData data = new ChartData();
+
+    	DonutChartDataSet dataSet = new DonutChartDataSet();
+        List<Number> values = new ArrayList<>();
+        values.add(fuera);
+        values.add(dentro);
+        dataSet.setData(values);
+        
+        List<String> bgColors = new ArrayList<>();
+        bgColors.add("rgb(178, 34, 34)");
+        bgColors.add("rgb(34, 139, 34)");
+        dataSet.setBackgroundColor(bgColors);
+         
+        data.addChartDataSet(dataSet);
+        List<String> labels = new ArrayList<>();
+        labels.add(fueraLabel);
+        labels.add(dentroLabel);
+        data.setLabels(labels);
+                 
+        grafica.setData(data);
+    	
+    }
+
     private void insertarTiro(ControllerTiros cartaTiro, ArrayList<ControllerTiros> listaTiros,int situacionTemporada) {
         
         // Miramos si dentro o fuera los tiros
@@ -793,7 +819,8 @@ public class JugadorController implements Serializable{
         return false;
     }
     
-    private void doFind(FacesContext context, String clientId) {
+    @SuppressWarnings("unused")
+	private void doFind(FacesContext context, String clientId) {
         FacesContext.getCurrentInstance().getViewRoot().invokeOnComponent(context, clientId, new ContextCallback() {
             @Override
             public void invokeContextCallback(FacesContext context,
@@ -849,323 +876,16 @@ public class JugadorController implements Serializable{
         }
     }
     
-    private void rellenarGraficoDonut(){
-        donutModel = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localRegularDosPuntosFuera);
-        values.add(localRegularDosPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Fuera");
-        labels.add("Dentro");
-        data.setLabels(labels);
-                 
-        donutModel.setData(data);
-        
-        donutModelPor1 = actualizarPorcentajeTirosDonut(localRegularDosPuntosDentro,localRegularDosPuntosFuera);
-    }
     
-    private void rellenarGraficoDonut2(){
-        donutModel2 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localRegularTresPuntosFuera);
-        values.add(localRegularTresPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  TR Local 3 Puntos");
-        labels.add("Canasta Dentro TR Local 3 Puntos");
-        data.setLabels(labels);
-         
-        donutModel2.setData(data);
-        
-        setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegularTresPuntosDentro,localRegularTresPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut3(){
-        donutModel3 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localRegularTotalFuera);
-        values.add(localRegularTotalDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  TR Local");
-        labels.add("Canasta Dentro TR Local");
-        data.setLabels(labels);
-         
-        donutModel3.setData(data);
-        
-        setDonutModelPor3(actualizarPorcentajeTirosDonut(localRegularTotalDentro,localRegularTotalFuera));
-    }
-    
-    private void rellenarGraficoDonut4(){
-        donutModel4 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localPlayoffDosPuntosFuera);
-        values.add(localPlayoffDosPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Local 2 Puntos");
-        labels.add("Canasta Dentro PO Local 2 Puntos");
-        data.setLabels(labels);
-         
-        donutModel4.setData(data);
-        
-        setDonutModelPor4(actualizarPorcentajeTirosDonut(localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut5(){
-        donutModel5 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localPlayoffTresPuntosFuera);
-        values.add(localPlayoffTresPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Local 3 Puntos");
-        labels.add("Canasta Dentro PO Local 3 Puntos");
-        data.setLabels(labels);
-         
-        donutModel5.setData(data);
-        
-        setDonutModelPor5(actualizarPorcentajeTirosDonut(localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut6(){
-        donutModel6 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(localPlayoffTotalFuera);
-        values.add(localPlayoffTotalDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Local");
-        labels.add("Canasta Dentro PO Local");
-        data.setLabels(labels);
-         
-        donutModel6.setData(data);
-        
-        setDonutModelPor6(actualizarPorcentajeTirosDonut(localPlayoffTotalDentro,localPlayoffTotalFuera));
-    }
-    
-    private void rellenarGraficoDonut7(){
-        donutModel7 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitanteRegularDosPuntosFuera);
-        values.add(visitanteRegularDosPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  TR Visitante 2 Puntos");
-        labels.add("Canasta Dentro TR Visitante 2 Puntos");
-        data.setLabels(labels);
-        
-        donutModel7.setData(data);
-        
-        setDonutModelPor7(actualizarPorcentajeTirosDonut(visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut8(){
-        donutModel8 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitanteRegularTresPuntosFuera);
-        values.add(visitanteRegularTresPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  TR Visitante 3 Puntos");
-        labels.add("Canasta Dentro TR Visitante 3 Puntos");
-        data.setLabels(labels);
-         
-        donutModel8.setData(data);
-        
-        setDonutModelPor8(actualizarPorcentajeTirosDonut(visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut9(){
-        donutModel9 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitanteRegularTotalFuera);
-        values.add(visitanteRegularTotalDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  TR Visitante");
-        labels.add("Canasta Dentro TR Visitante");
-        data.setLabels(labels);
-         
-        donutModel9.setData(data);
-        
-        setDonutModelPor9(actualizarPorcentajeTirosDonut(visitanteRegularTotalDentro,visitanteRegularTotalFuera));
-    }
-    
-    private void rellenarGraficoDonut10(){
-        donutModel10 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitantePlayoffDosPuntosFuera);
-        values.add(visitantePlayoffDosPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Visitante 2 Puntos");
-        labels.add("Canasta Dentro PO Visitante 2 Puntos");
-        data.setLabels(labels);
-         
-        donutModel10.setData(data);
-        
-        setDonutModelPor10(actualizarPorcentajeTirosDonut(visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut11(){
-        donutModel11 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitantePlayoffTresPuntosFuera);
-        values.add(visitantePlayoffTresPuntosDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Visitante 3 Puntos");
-        labels.add("Canasta Dentro PO Visitante 3 Puntos");
-        data.setLabels(labels);
-         
-        donutModel11.setData(data);
-        
-        setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera));
-    }
-    
-    private void rellenarGraficoDonut12(){
-        donutModel12 = new DonutChartModel();
-        ChartData data = new ChartData();
-         
-        DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(visitantePlayoffTotalFuera);
-        values.add(visitantePlayoffTotalDentro);
-        dataSet.setData(values);
-         
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Canasta Fuera  PO Visitante");
-        labels.add("Canasta Dentro PO Visitante");
-        data.setLabels(labels);
-        
-        donutModel12.setData(data);
-        
-        setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoffTotalDentro,visitantePlayoffTotalFuera));
-    }
     
     private String actualizarPorcentajeTirosDonut(int dentro, int fuera) {
     	String porcentaje = new java.text.DecimalFormat("0.##").format(Double.valueOf((double) dentro/(dentro+fuera)));
     	
     	if(porcentaje.equals("NaN")) {
     		return "";
+    	}
+    	if(fuera==0) {
+    		return "0";
     	}
     	return (new java.text.DecimalFormat("0.##").format(Double.parseDouble(porcentaje.replace(",", "."))*100))+"%";
     }

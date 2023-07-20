@@ -40,7 +40,8 @@ public class Utilidades {
         return lista;
     }
     
-    public static HashMap devolverHashMapAtributos(){
+    @SuppressWarnings("rawtypes")
+	public static HashMap devolverHashMapAtributos(){
         HashMap<String,String> map = new HashMap<String,String>();
             map.put("PTS","puntos");
             map.put("TRB","totalRebotes");

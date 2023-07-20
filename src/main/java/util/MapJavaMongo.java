@@ -9,7 +9,6 @@ import clases.ControllerEstadisticaAvanzada;
 import clases.ControllerEstadisticaNormal;
 import clases.ControllerJugador;
 import clases.ControllerPartidoJugador;
-import com.mongodb.BasicDBObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -51,6 +50,7 @@ public class MapJavaMongo {
         match.rellenarCuartos();
         match.setListaTanteoLocal((ArrayList<Integer>)partido.get("tanteoLocal"));
         match.setListaTanteoPartido((ArrayList<String>)partido.get("tanteo"));
+        match.completarEstadisticasIndexPartido();
         
         if(partido.containsKey("playIn")) {
         	match.setPlayin((boolean)partido.get("playIn"));
@@ -84,9 +84,9 @@ public class MapJavaMongo {
         return match;
     }
 
-    private static ControllerEquipo rellenarEquipo(Document team) {
+    @SuppressWarnings("unchecked")
+	private static ControllerEquipo rellenarEquipo(Document team) {
         ControllerEquipo equipo = new ControllerEquipo();
-        System.out.println((String) team.get("nombre"));
         equipo.setDerrotas((String) team.get("derrotas"));
         equipo.setEstadisticaAvanzada(devolverEstadisticaAvanzada((Document) team.get("estadisticaAvanzada"))); // Estadistica Avanzada
         equipo.setEstadisticaNormal(devolverEstadisticaNormal((Document) team.get("estadisticaNormal"))); // Estadistica Normal
@@ -107,7 +107,8 @@ public class MapJavaMongo {
 
     }
 
-    private static ControllerJugador devolverJugador(Document player, int i) {
+    @SuppressWarnings("unchecked")
+	private static ControllerJugador devolverJugador(Document player, int i) {
         ControllerJugador jugador = new ControllerJugador();
 
         jugador.setApellido((String) player.get("apellido"));
@@ -166,7 +167,8 @@ public class MapJavaMongo {
         return carta;
     }
     
-    public static ControllerTiros devolverTiros(Map tiro) {
+    @SuppressWarnings("rawtypes")
+	public static ControllerTiros devolverTiros(Map tiro) {
         ControllerTiros carta = new ControllerTiros();
             
 	        carta.setCuarto((String)tiro.get("cuarto"));
@@ -341,7 +343,8 @@ public class MapJavaMongo {
         return tanteoCuartos;
     }
     
-    public static ControllerPartidoJugador devolverPartidoTemporadaJugador(Document partido,boolean lugar,String jugador){
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	public static ControllerPartidoJugador devolverPartidoTemporadaJugador(Document partido,boolean lugar,String jugador){
         ControllerPartidoJugador match = new ControllerPartidoJugador();
         
         // Recogemos las fecha
@@ -363,9 +366,6 @@ public class MapJavaMongo {
         }
         
         // Tanteo
-        System.out.println(equipoJugador.get("nombre"));
-        System.out.println(equipoRival.get("nombre"));
-        System.out.println(match.getFecha());
         match.setTanteoEquipoJugador(Integer.parseInt(((String)equipoJugador.get("tanteo")).trim()));
         match.setTanteoEquipoRival(Integer.parseInt(((String)equipoRival.get("tanteo")).trim()));
         
@@ -402,7 +402,8 @@ public class MapJavaMongo {
         return null;
     }
 
-    public static ControllerEstadisticaNormal devolverEstadisticaJugadorEquipo(Map stats, ControllerEstadisticaNormal jugador,String cuarto) {
+    @SuppressWarnings("rawtypes")
+	public static ControllerEstadisticaNormal devolverEstadisticaJugadorEquipo(Map stats, ControllerEstadisticaNormal jugador,String cuarto) {
         Map stat = (Map) stats.get(cuarto);
         if(!jugador.isTienePartido()){
             jugador.setPartidosJugados(jugador.getPartidosJugados()+1);
@@ -460,7 +461,8 @@ public class MapJavaMongo {
         return jugador;
     }
 
-    private static boolean existeKey(Map map, String atributo) {
+    @SuppressWarnings("rawtypes")
+	private static boolean existeKey(Map map, String atributo) {
         if (map.containsKey(atributo)) {
             return true;
         }

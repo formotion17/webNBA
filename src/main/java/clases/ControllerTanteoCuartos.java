@@ -29,12 +29,9 @@ public class ControllerTanteoCuartos {
     }
     
     public boolean existeCuarto(String cuarto){
-        System.out.println(cuarto);
         if(devolverCuarto(cuarto)==99){
-            System.out.println(false);
             return false;
         }else{
-            System.out.println(true);
             return true;
         }
     }

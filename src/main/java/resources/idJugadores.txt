@@ -1,14 +1,3 @@
-INICIAMOS LA APLICACIÓN PARA ERCOGER LOS DIFERENTES ID'S QUE HAY
-ene 14, 2022 10:46:21 A. M. com.mongodb.diagnostics.logging.JULLogger log
-INFORMACIÓN: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-ene 14, 2022 10:46:22 A. M. com.mongodb.diagnostics.logging.JULLogger log
-INFORMACIÓN: Cluster description not yet available. Waiting for 30000 ms before timing out
-ene 14, 2022 10:46:22 A. M. com.mongodb.diagnostics.logging.JULLogger log
-INFORMACIÓN: Opened connection [connectionId{localValue:1, serverValue:63351}] to localhost:27017
-ene 14, 2022 10:46:22 A. M. com.mongodb.diagnostics.logging.JULLogger log
-INFORMACIÓN: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 2, 1]}, minWireVersion=0, maxWireVersion=8, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3950200}
-ene 14, 2022 10:46:22 A. M. com.mongodb.diagnostics.logging.JULLogger log
-INFORMACIÓN: Opened connection [connectionId{localValue:2, serverValue:63352}] to localhost:27017
 Crawford/crawfch01/Chris
 Henderson/hendeal01/Alan
 Jackson/jacksji01/Jim

@@ -628,3 +628,39 @@ ui-panelgrid .ui-panelgrid-cell {
 .mostrarEnLinea {
   display: inline-block;
 }
+
+.tabla-estadisticas {
+  table-layout: fixed; /* Hace que las celdas tengan un ancho fijo */
+  border-collapse: collapse; /* Combina los bordes de las celdas */
+  width: 100%; /* Ancho total de la tabla */
+}
+
+/* Alineación de la primera columna (equipo) a la izquierda */
+.tabla-estadisticas tbody td:first-child {
+  text-align: left; /* Alineación del texto a la izquierda */
+  background-color: #f2f2f2; /* Fondo gris claro */
+  font-weight: bold; /* Texto en negrita */
+}
+
+/* Alineación del resto de columnas al centro */
+.tabla-estadisticas tbody td:not(:first-child) {
+  text-align: center;
+}
+
+/* styles.css */
+table {
+  font-size: 14px; /* Tamaño de letra más pequeño */
+  border-collapse: collapse; /* Eliminar espacios entre las celdas */
+}
+
+th, td {
+  padding: 5px; /* Espaciado interno para celdas */
+}
+
+/* Estilos específicos para las cabeceras de las tablas */
+th {
+  font-weight: bold; /* Texto en negrita para encabezados */
+  background-color: #f2f2f2; /* Fondo gris claro para encabezados */
+  text-align: center; /* Alinear el texto al centro en los encabezados */
+}
+

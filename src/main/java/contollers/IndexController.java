@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -24,12 +23,14 @@ import com.mongodb.client.MongoDatabase;
 
 import clases.ControllerPartido;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import util.MapJavaMongo;
 
 @ViewScoped
 @RequestScoped
 @ManagedBean(name ="index")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class IndexController extends BaseController{
     
     /**
@@ -64,7 +65,7 @@ public class IndexController extends BaseController{
         sumar2dia(calendar);
         iniciarSesion(HOST, PUERTO_HOST);
         rellenarPartidos();
-        System.out.println(listaPartidos.size());
+        System.out.println(listaPartidos.size()+" Partidos encontrados");
     }
     
     private void sumar1dia(Calendar calendar){
@@ -191,7 +192,6 @@ public class IndexController extends BaseController{
     }
     
 	public String formatValue(int value) {
-		System.out.println(value);
 	    int formattedValue = Math.abs(value);
 	    return String.valueOf(formattedValue);
 	}
