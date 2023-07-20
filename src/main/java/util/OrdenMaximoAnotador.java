@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import clases.ControllerJugador;
 
-public class ordenMaximoAnotador  implements Comparator<ControllerJugador>{
+public class OrdenMaximoAnotador  implements Comparator<ControllerJugador>{
 
 	@Override
 	public int compare(ControllerJugador e1, ControllerJugador e2) {

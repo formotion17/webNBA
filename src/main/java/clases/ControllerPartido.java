@@ -1,4 +1,5 @@
 package clases;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +16,21 @@ import lombok.Data;
 import util.ListaEquipos;
 
 @Data
-public class ControllerPartido {
+public class ControllerPartido implements Serializable{
 
-    private ControllerEquipo equipoLocal = new ControllerEquipo();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1101255755757932660L;
+	private ControllerEquipo equipoLocal = new ControllerEquipo();
     private ControllerEquipo equipoVisitante = new ControllerEquipo();
-    private ArrayList<ControllerCuarto> listaCuartos = new ArrayList<ControllerCuarto>();
-    private ArrayList<ControllerTiros> listaTirosLocal = new ArrayList<ControllerTiros>();
-    private ArrayList<ControllerTiros> listaTirosVisitante = new ArrayList<ControllerTiros>();
-    private ArrayList<Integer> listaTanteoLocal = new ArrayList<Integer>();
-    private ArrayList<String> listaTanteoPartido = new ArrayList<String>();
-    private ArrayList<String> listaJugadoresLocal = new ArrayList<String>();
-    private ArrayList<String> listaJugadoresVisitante = new ArrayList<String>();
+    private ArrayList<ControllerCuarto> listaCuartos = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosLocal = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosVisitante = new ArrayList<>();
+    private ArrayList<Integer> listaTanteoLocal = new ArrayList<>();
+    private ArrayList<String> listaTanteoPartido = new ArrayList<>();
+    private ArrayList<String> listaJugadoresLocal = new ArrayList<>();
+    private ArrayList<String> listaJugadoresVisitante = new ArrayList<>();
     
     private Integer asistencia = 0;
     private Integer tiempoEmpate = 0;
@@ -95,7 +100,8 @@ public class ControllerPartido {
     }
     
     public String getMinutos(int segundos){
-        int iSeg, iMin;
+        int iSeg;
+        int iMin;
         iMin=segundos/60;
         iSeg=segundos-iMin*60;
         return Integer.toString(iMin)+":"+devolverSegundos(iSeg);
@@ -158,11 +164,9 @@ public class ControllerPartido {
         
         barraLocal.setLabel(equipoLocal.getNombre());
         barraLocal.setBackgroundColor(ListaEquipos.findColorByAbreviatura(equipoLocal.getNombreAbreviado().toLowerCase()));
-        System.out.println(ListaEquipos.findColorByAbreviatura(equipoLocal.getNombreAbreviado().toLowerCase()));
         
         barraVisitante.setLabel(equipoVisitante.getNombre());
         barraVisitante.setBackgroundColor(ListaEquipos.findColorByAbreviatura(equipoVisitante.getNombreAbreviado().toLowerCase()));
-        System.out.println(ListaEquipos.findColorByAbreviatura(equipoVisitante.getNombreAbreviado().toLowerCase()));
         
         List<Number> dataLocal = new ArrayList<>();
         List<Number> dataVisitante = new ArrayList<>();

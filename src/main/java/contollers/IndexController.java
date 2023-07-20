@@ -5,6 +5,7 @@
  */
 package contollers;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
@@ -31,14 +34,15 @@ import util.MapJavaMongo;
 @ManagedBean(name ="index")
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class IndexController extends BaseController{
+public class IndexController extends BaseController implements Serializable{
     
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -1666879989209306824L;
+	private static final Logger logger = LogManager.getLogger(IndexController.class);
 
-    private ArrayList<ControllerPartido> listaPartidos = new ArrayList<ControllerPartido>();
+    private ArrayList<ControllerPartido> listaPartidos = new ArrayList<>();
     private Date fechaPartidos = Calendar.getInstance().getTime();
     private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private String dia;
@@ -57,15 +61,15 @@ public class IndexController extends BaseController{
     
     @PostConstruct
     public void init(){
-        System.out.println("Iniciamos aplicación NBA INFO STATS");
+    	logger.info("Iniciamos aplicación NBA INFO STATS");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_WEEK,0);
         fechaPartidos = calendar.getTime();
         restar1dia(calendar);
         sumar2dia(calendar);
-        iniciarSesion(HOST, PUERTO_HOST);
+        iniciarSesion(host, puertoHost);
         rellenarPartidos();
-        System.out.println(listaPartidos.size()+" Partidos encontrados");
+        logger.info(listaPartidos.size()+" Partidos encontrados");
     }
     
     private void sumar1dia(Calendar calendar){
@@ -89,7 +93,7 @@ public class IndexController extends BaseController{
     }
     
     public void irDiaDespues(){
-        iniciarSesion(HOST,PUERTO_HOST);
+        iniciarSesion(host,puertoHost);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaPartidos);
         calendar.add(Calendar.DAY_OF_WEEK, 1);
@@ -100,7 +104,7 @@ public class IndexController extends BaseController{
     }
     
     public void irDiaAntes(){
-        iniciarSesion(HOST, PUERTO_HOST);
+        iniciarSesion(host, puertoHost);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaPartidos);
         calendar.add(Calendar.DAY_OF_WEEK, -1);
@@ -118,7 +122,7 @@ public class IndexController extends BaseController{
             
             setDiaMesYear();
 
-            MongoDatabase db = mongo.getDatabase(BASE_DATOS);
+            MongoDatabase db = mongo.getDatabase(baseDatos);
 
             // Select the collection
             MongoCollection<Document> collection = db.getCollection("partidos");
@@ -131,7 +135,7 @@ public class IndexController extends BaseController{
             MongoCursor<Document> lista = collection.find(findDocument).iterator();
 
             while(lista.hasNext()) {
-                    listaPartidos.add(MapJavaMongo.rellenarPartido((Document)lista.next()));
+                    listaPartidos.add(MapJavaMongo.rellenarPartido(lista.next()));
             }
         }
     }
@@ -173,7 +177,7 @@ public class IndexController extends BaseController{
             sumar1dia(calendar);
             restar2dias(calendar);
 
-            MongoDatabase db = mongo.getDatabase(BASE_DATOS);
+            MongoDatabase db = mongo.getDatabase(baseDatos);
 
             // Select the collection
             MongoCollection<Document> collection = db.getCollection("partidos");
@@ -181,12 +185,12 @@ public class IndexController extends BaseController{
             Document findDocument = new Document("dia",dia);
             findDocument.put("mes", mes);
             findDocument.put("year", year);
-            System.out.println("Buscando el día: :"+dia+" - "+mes+" - "+year);
+            logger.info("Buscando el día: :"+dia+" - "+mes+" - "+year);
 
             MongoCursor<Document> lista = collection.find(findDocument).iterator();
 
             while(lista.hasNext()) {
-                    listaPartidos.add(MapJavaMongo.rellenarPartido((Document)lista.next()));
+                    listaPartidos.add(MapJavaMongo.rellenarPartido(lista.next()));
             }
         }
     }

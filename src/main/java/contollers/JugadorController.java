@@ -60,14 +60,13 @@ public class JugadorController extends BaseController implements Serializable{
     private String urlFoto="https://www.basketball-reference.com/req/202106291/images/headshots/";
     private String imagenCarga="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";
     private Jugador jugadorSeleccionado = new Jugador();
-    //private boolean verEstadisticasJugador = false;
     private ArrayList<ClaseEstadisticaNormalTotales> listaEstadisticasCabecera;
     private ArrayList<ClaseEstadisticaNormalTotales> listaEstadisticasJugador;
     private String error="";
-    private HashMap<String, String> atributosMap = new HashMap<String, String>();
+    private HashMap<String, String> atributosMap = new HashMap<>();
     
     // TAB PROGRESIÓN DEL JUGADOR
-    private ArrayList<String> listaSeleccionTemporadasProgresion = new ArrayList<String>();
+    private ArrayList<String> listaSeleccionTemporadasProgresion = new ArrayList<>();
     private List<SelectItem> selectMenuTemporadas;
     private String atributoProgresion;
     private String tiempoPartidoProgresion;
@@ -84,8 +83,8 @@ public class JugadorController extends BaseController implements Serializable{
     private List<SelectItem> selectMenuCuando;
     private ArrayList<Double> listaProgresiones = new ArrayList<>();
     private ArrayList<String> listaProgresionesDobles = new ArrayList<>();
-    private ArrayList<ControllerPartido> listaPartidosLocal = new ArrayList<ControllerPartido>();
-    private ArrayList<ControllerPartido> listaPartidosVisitante = new ArrayList<ControllerPartido>();
+    private ArrayList<ControllerPartido> listaPartidosLocal = new ArrayList<>();
+    private ArrayList<ControllerPartido> listaPartidosVisitante = new ArrayList<>();
     
     //  TAB ESTADISTICAS CONTRA EQUIPOS
     private int partidosTotales=0;
@@ -100,11 +99,11 @@ public class JugadorController extends BaseController implements Serializable{
     private ControllerEstadisticaNormal partidosDeLocalPlayoff = new  ControllerEstadisticaNormal();
     private ControllerEstadisticaNormal partidosDeVisitanteRegular = new  ControllerEstadisticaNormal();
     private ControllerEstadisticaNormal partidosDeVisitantePlayoff = new  ControllerEstadisticaNormal();
-    private ArrayList<ControllerEstadisticaNormal> listaPartidosLocalVisitante = new ArrayList<ControllerEstadisticaNormal>();
-    private ArrayList<ControllerTiros> listaTirosLocalRegular = new ArrayList<ControllerTiros>();
-    private ArrayList<ControllerTiros> listaTirosVisitanteRegular = new ArrayList<ControllerTiros>();
-    private ArrayList<ControllerTiros> listaTirosLocalPlayoff = new ArrayList<ControllerTiros>();
-    private ArrayList<ControllerTiros> listaTirosVisitantePlayoff = new ArrayList<ControllerTiros>();
+    private ArrayList<ControllerEstadisticaNormal> listaPartidosLocalVisitante = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosLocalRegular = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosVisitanteRegular = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosLocalPlayoff = new ArrayList<>();
+    private ArrayList<ControllerTiros> listaTirosVisitantePlayoff = new ArrayList<>();
     
     private LineChartModel graficoLineas = new LineChartModel();
     private BarChartModel graficoBarras = new BarChartModel();
@@ -121,25 +120,25 @@ public class JugadorController extends BaseController implements Serializable{
     
     
     private String listaCuartosElegidos;
-    private List<String> listaCuartos= new ArrayList<String>();
+    private List<String> listaCuartos= new ArrayList<>();
     
     private String listaDentroElegidos;
-    private List<String> listaDentro = new ArrayList<String>();
+    private List<String> listaDentro = new ArrayList<>();
     
     private String listaDistanciasElegidas;
-    private List<String> listaDistancias = new ArrayList<String>();
+    private List<String> listaDistancias = new ArrayList<>();
     
     private String listaTiempoRestanteElegido;
-    private List<String> listaTiempoRestante = new ArrayList<String>();
+    private List<String> listaTiempoRestante = new ArrayList<>();
     
     private String listaTipoCanastaElegida;
-    private List<String> listaTipoCanasta = new ArrayList<String>();
+    private List<String> listaTipoCanasta = new ArrayList<>();
     
     private String listaSituacionPartidoElegido;
-    private List<String> listaSituacionPartido = new ArrayList<String>();
+    private List<String> listaSituacionPartido = new ArrayList<>();
     
     private String listaPonerseDelanteElegido;
-    private List<String> listaPonerseDelante = new ArrayList<String>();
+    private List<String> listaPonerseDelante = new ArrayList<>();
     
     private String[] listaTemporadasElegidas;
     
@@ -205,6 +204,10 @@ public class JugadorController extends BaseController implements Serializable{
     
     //TAB 3
     private String partidosTemporada="";
+    private String dosDentro="2pt Dentro";
+    private String dosFuera="2pt Fuera";
+    private String tresDentro="3pt Dentro";
+    private String tresFuera="3pt Fuera";
     
     @SuppressWarnings("unchecked")
 	@PostConstruct
@@ -266,8 +269,8 @@ public class JugadorController extends BaseController implements Serializable{
             listaProgresiones.clear();
             listaPartidosLocalVisitante.clear();
             listaSeleccionTemporadasProgresion.clear();
-            listaEstadisticasJugador = new ArrayList<ClaseEstadisticaNormalTotales>();            
-            listaEstadisticasCabecera = new ArrayList<ClaseEstadisticaNormalTotales>();
+            listaEstadisticasJugador = new ArrayList<>();            
+            listaEstadisticasCabecera = new ArrayList<>();
             conectamosBaseDatos(0);
             setInvisibleEstadisticasGlobales("statsJugador");
             setInvisibleTabs("");
@@ -280,7 +283,7 @@ public class JugadorController extends BaseController implements Serializable{
      * Función que nos busca las estadisticas por temporada de un jugador.
      */
     public void verEstadisticas(){
-        if(listaSeleccionTemporadasProgresion.size() == 0){
+        if(listaSeleccionTemporadasProgresion.isEmpty()){
             error = "Debe seleccionar al menos una temporada";
             listaEstadisticasJugador.clear();
         }else{
@@ -300,10 +303,10 @@ public class JugadorController extends BaseController implements Serializable{
     private void conectamosBaseDatos(int objeto){
         
         if(objeto == 0){
-            listaEstadisticasCabecera = new ArrayList<ClaseEstadisticaNormalTotales>();
+            listaEstadisticasCabecera = new ArrayList<>();
             listaEstadisticasCabecera = data.devolverListaEstadisticasCabecera(jugadorSeleccionado.getCodigo());
         }else if(objeto == 1){
-            listaEstadisticasJugador = new ArrayList<ClaseEstadisticaNormalTotales>();
+            listaEstadisticasJugador = new ArrayList<>();
             listaEstadisticasJugador = data.devolverListaEstadisticasJugador(jugadorSeleccionado.getCodigo(),listaSeleccionTemporadasProgresion);
             if(listaEstadisticasJugador.isEmpty()){
                 listaEstadisticasJugador.clear();
@@ -323,14 +326,14 @@ public class JugadorController extends BaseController implements Serializable{
 	public void verEstadisticasContraEquipos(){
         
         MongoClient mongo = null;
-        mongo = new MongoClient(HOST,PUERTO_HOST);
+        mongo = new MongoClient(host,puertoHost);
 		
         if(mongo!=null) {
                 borrarDatosContraEquipo();
                 ArrayList<BasicDBObject> listaTirosLocal = null;
                         
                 @SuppressWarnings("deprecation")
-				DB db = mongo.getDB(BASE_DATOS);
+				DB db = mongo.getDB(baseDatos);
                 DBCursor cursor;
 
                 for(String temporada:listaTemporadasElegidas){
@@ -340,7 +343,7 @@ public class JugadorController extends BaseController implements Serializable{
 
                     BasicDBObject allQuery = new BasicDBObject();
                     BasicDBObject fields = new BasicDBObject();
-                    List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+                    List<BasicDBObject> obj = new ArrayList<>();
 
     //          EL JUGADOR COMO LOCAL ***************************************************************
 
@@ -423,7 +426,7 @@ public class JugadorController extends BaseController implements Serializable{
 
                     allQuery = new BasicDBObject();
                     fields = new BasicDBObject();
-                    obj = new ArrayList<BasicDBObject>();
+                    obj = new ArrayList<>();
 
                     obj.add(new BasicDBObject("equipoVisitante.jugadores.id", jugadorSeleccionado.getCodigo()));
                     if(null!=equipoSeleccionado){
@@ -502,20 +505,20 @@ public class JugadorController extends BaseController implements Serializable{
                 }
         }
         
-        rellenarGraficaDonutGenerico(getDonutModel(),localRegularDosPuntosDentro,localRegularDosPuntosFuera,"2pt Fuera","2pt Dentro");
-        rellenarGraficaDonutGenerico(getDonutModel2(),localRegularTresPuntosDentro,localRegularTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel(),localRegularDosPuntosDentro,localRegularDosPuntosFuera,dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(getDonutModel2(),localRegularTresPuntosDentro,localRegularTresPuntosFuera,tresFuera,tresDentro);
         rellenarGraficaDonutGenerico(donutModel3,localRegularTotalDentro,localRegularTotalFuera,"TR Local Fuera","TR Local Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel4,localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera,"2pt Fuera","2pt Dentro");
-        rellenarGraficaDonutGenerico(donutModel5,localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel4,localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera,dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel5,localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera,tresFuera,tresDentro);
         rellenarGraficaDonutGenerico(donutModel6,localPlayoffTotalDentro,localPlayoffTotalFuera,"PO Local Fuera","PO Local Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel7,visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera,"2pt Fuera","2pt Dentro");
-        rellenarGraficaDonutGenerico(donutModel8,visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel7,visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera,dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel8,visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera,tresFuera,tresDentro);
         rellenarGraficaDonutGenerico(donutModel9,visitanteRegularTotalDentro,visitanteRegularTotalFuera,"TR Visitante Fuera","TR Visitante Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera,"2pt Fuera","2pt Dentro");
-        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera,"3pt Fuera","3pt Dentro");
+        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera,dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera,tresFuera,tresDentro);
         rellenarGraficaDonutGenerico(donutModel12,visitantePlayoffTotalDentro,visitantePlayoffTotalFuera,"PO Visitante Fuera","PO Visitante Dentro");
 
         setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegularDosPuntosDentro,localRegularDosPuntosFuera));
@@ -533,7 +536,7 @@ public class JugadorController extends BaseController implements Serializable{
     }
     
     private void rellenarGraficaDonutGenerico(DonutChartModel grafica,int dentro, int fuera,String fueraLabel, String dentroLabel) {
-    	//grafica = new DonutChartModel();
+
     	ChartData data = new ChartData();
 
     	DonutChartDataSet dataSet = new DonutChartDataSet();
@@ -657,6 +660,8 @@ public class JugadorController extends BaseController implements Serializable{
                     }
                 }
                 break;
+            default:
+            	   break;
         }
         listaTiros.add(cartaTiro);
             

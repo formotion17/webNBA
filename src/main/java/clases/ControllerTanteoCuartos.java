@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class ControllerTanteoCuartos {
 
-    private Map<String, Integer> cuartos = new HashMap<String, Integer>();
-    private ArrayList<String> listaCuartosJugados= new ArrayList<String>();
+    private Map<String, Integer> cuartos = new HashMap<>();
+    private ArrayList<String> listaCuartosJugados= new ArrayList<>();
 
     public void insertarCuarto(String cuarto, Integer puntos) {
     	listaCuartosJugados.add(insertarStringCuartoCorrecto(cuarto));
@@ -46,27 +46,28 @@ public class ControllerTanteoCuartos {
 	
 	private String insertarStringCuartoCorrecto(String cuarto) {
 		switch(cuarto) {
-		case "primero":
-			return "1st quarter,";
-		case "segundo":
-			return "2nd quarter,";
-		case "tercero":
-			return "3rd quarter,";
-		case "cuarto":
-			return "4th quarter,";
-		case "OT1":
-			return "1st overtime,";
-		case "OT2":
-			return "2nd overtime,";
-		case "OT3":
-			return "3rd overtime,";
-		case "OT4":
-			return "4th overtime,";
-		case "OT5":
-			return "5th overtime,";
-		case "OT6":
-			return "6th overtime,";
-		}
-		return cuarto;
+			case "primero":
+				return "1st quarter,";
+			case "segundo":
+				return "2nd quarter,";
+			case "tercero":
+				return "3rd quarter,";
+			case "cuarto":
+				return "4th quarter,";
+			case "OT1":
+				return "1st overtime,";
+			case "OT2":
+				return "2nd overtime,";
+			case "OT3":
+				return "3rd overtime,";
+			case "OT4":
+				return "4th overtime,";
+			case "OT5":
+				return "5th overtime,";
+			case "OT6":
+				return "6th overtime,";
+			default:
+				return cuarto;
+			}
 	}
 }

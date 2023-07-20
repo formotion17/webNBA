@@ -605,7 +605,7 @@
 												  		<p:selectOneMenu value="#{match.equipoVisitante.jugadorElegidoTiros}"
 															filter="false">
 															<f:selectItems value="#{match.equipoVisitante.listaJugadores}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaVisitante"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt48:cartaVisitante"
 																listener="#{match.equipoVisitante.actualizarTiros()}" />
 														</p:selectOneMenu>
 												  	</h:form>
@@ -614,7 +614,7 @@
 															filter="false" >
     														<f:selectItem itemLabel="Partido" itemValue="partido" />
 															<f:selectItems value="#{match.equipoVisitante.tanteoCuartos.listaCuartosJugados}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaVisitante"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt48:cartaVisitante"
 																listener="#{match.equipoVisitante.actualizarTiros()}" />
 														</p:selectOneMenu>
 													</h:form>
@@ -639,7 +639,7 @@
 												  		<p:selectOneMenu value="#{match.equipoLocal.jugadorElegidoTiros}"
 															filter="false">
 															<f:selectItems value="#{match.equipoLocal.listaJugadores}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaLocal"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt48:cartaLocal"
 																listener="#{match.equipoLocal.actualizarTiros()}" />
 														</p:selectOneMenu>
 												  	</h:form>
@@ -648,7 +648,7 @@
 															filter="false" >
     														<f:selectItem itemLabel="Partido" itemValue="partido" />
 															<f:selectItems value="#{match.equipoLocal.tanteoCuartos.listaCuartosJugados}" />
-															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt49:cartaLocal"
+															<p:ajax event="change" update="formulario:tablaPartidos:#{indice}:j_idt48:cartaLocal"
 																listener="#{match.equipoLocal.actualizarTiros()}" />
 														</p:selectOneMenu>
 													</h:form>

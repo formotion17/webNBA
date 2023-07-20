@@ -649,7 +649,7 @@ ui-panelgrid .ui-panelgrid-cell {
 
 /* styles.css */
 table {
-  font-size: 14px; /* Tamaño de letra más pequeño */
+  font-size: 13px; /* Tamaño de letra más pequeño */
   border-collapse: collapse; /* Eliminar espacios entre las celdas */
 }
 

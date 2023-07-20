@@ -64,6 +64,8 @@ public class ClaseEstadisticaNormalTotales {
 			case "temporada":
 				this.tituloCabeceraJugador="Total de partidos jugados en la NBA";
 				break;
+			default:
+				break;
 		}
 	}
 }

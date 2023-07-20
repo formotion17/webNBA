@@ -9,10 +9,10 @@ import lombok.Data;
 public class ControllerJugador {
 
     private ControllerFullBoxscore totalPartido = new ControllerFullBoxscore();
-    private ArrayList<ControllerTiros> listaTiros = new ArrayList<ControllerTiros>();
+    private ArrayList<ControllerTiros> listaTiros = new ArrayList<>();
     private ControllerEstadisticaNormal boxscore = new ControllerEstadisticaNormal();
     private ControllerEstadisticaAvanzada estadisticaAvanzada = new ControllerEstadisticaAvanzada();
-    private ArrayList<ControllerFullBoxscore> cuartos = new ArrayList<ControllerFullBoxscore>();
+    private ArrayList<ControllerFullBoxscore> cuartos = new ArrayList<>();
 
     private String id = "";
     private String nombre = "";
@@ -51,7 +51,8 @@ public class ControllerJugador {
     @SuppressWarnings("unused")
 	public String getMinutos(){
         String min="";
-        int iSeg, iMin;
+        int iSeg;
+        int iMin;
         iMin=getSegundos()/60;
         iSeg=segundos-iMin*60;
         return Integer.toString(iMin)+":"+devolverSegundos(iSeg);

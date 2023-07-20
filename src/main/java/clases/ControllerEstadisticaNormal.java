@@ -1,13 +1,18 @@
 package clases;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import lombok.Data;
 
 @Data
-public class ControllerEstadisticaNormal {
+public class ControllerEstadisticaNormal implements Serializable{
 
-    private Integer robos = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4956220859884456148L;
+	private Integer robos = 0;
     private Integer puntos = 0;
     private Integer tapones = 0;
     private Integer perdidas = 0;

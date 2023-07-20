@@ -19,14 +19,14 @@ public class ControllerEquipo {
     private Integer sinAnotar = 0;
     private Integer tiempoLider = 0;
 
-    private ArrayList<ControllerJugador> jugadores = new ArrayList< ControllerJugador>();
+    private ArrayList<ControllerJugador> jugadores = new ArrayList<>();
     private ControllerFullBoxscore fullBoxscore = new ControllerFullBoxscore();
     private ControllerTanteoCuartos tanteoCuartos = new ControllerTanteoCuartos();
     private ControllerEstadisticaAvanzada estadisticaAvanzada = new ControllerEstadisticaAvanzada();
     private ControllerEstadisticaNormal estadisticaNormal = new ControllerEstadisticaNormal();
-    private ArrayList<ControllerTiros> listaTiros = new ArrayList<ControllerTiros>();
+    private ArrayList<ControllerTiros> listaTiros = new ArrayList<>();
     
-    private ArrayList<String> listaJugadores = new ArrayList<String>();
+    private ArrayList<String> listaJugadores = new ArrayList<>();
 
     private String cuartoElegidoTiros="partido";
     private String jugadorElegidoTiros="";
@@ -66,7 +66,6 @@ public class ControllerEquipo {
     }
     
     private void maximaAnotacion() {
-//		Collections.sort(jugadores,new ordenMaximoAnotador());
         ordenarAnotadores();
         maxAnotadores[0] = getJugadores().get(0).getPosicionTabla();
         maxAnotadores[1] = getJugadores().get(1).getPosicionTabla();
@@ -74,7 +73,6 @@ public class ControllerEquipo {
     }
 
     private void maximoAsistente() {
-//		Collections.sort(jugadores,new ordenMaximoAsistente());
         ordenarAsistentes();
         maxAsistentes[0] = getJugadores().get(0).getPosicionTabla();
         maxAsistentes[1] = getJugadores().get(1).getPosicionTabla();
@@ -82,7 +80,6 @@ public class ControllerEquipo {
     }
 
     private void maximoReboteador() {
-//		Collections.sort(jugadores,new ordenMaximoReboteador());
         ordenarReboteadores();
         maxReboteadores[0] = getJugadores().get(0).getPosicionTabla();
         maxReboteadores[1] = getJugadores().get(1).getPosicionTabla();
@@ -178,6 +175,7 @@ public class ControllerEquipo {
     public void actualizarTiros() {
     	
     	listaTiros.clear();
+    	
     	ControllerJugador jugador= buscarJugadorCartaTiros();
     	if(null!=jugador) {
         	for(ControllerTiros tiro:jugador.getListaTiros()) {
@@ -203,11 +201,10 @@ public class ControllerEquipo {
     }
     
     private boolean insetarTiroGraficaPartido(ControllerTiros tiro){
-    	if(tiro.getCuarto().equals(getCuartoElegidoTiros())) {
-    		return true;
-    	}else if("partido".equals(getCuartoElegidoTiros())) {
+    	if(tiro.getCuarto().equals(getCuartoElegidoTiros()) || "partido".equals(getCuartoElegidoTiros())) {
     		return true;
     	}
+    	
     	return false;
     }
     

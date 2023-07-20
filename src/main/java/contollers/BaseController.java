@@ -26,13 +26,13 @@ public class BaseController implements Serializable{
 	private static final long serialVersionUID = -2150948195156093408L;
 	
 	
-	protected static String BASE_DATOS="NBA";
-	protected String HOST="localhost";
-	protected Integer PUERTO_HOST=27017;
-	protected String COLLECTION_PARTIDOS="partidos";
-	protected String COLLECTION_TOTALES="totales";
+	protected static String baseDatos="NBA";
+	protected String host="localhost";
+	protected Integer puertoHost=27017;
+	protected String collectionPartidos="partidos";
+	protected String collectionTotales="totales";
 	
-    protected static MongoClient mongo = null;
+    protected MongoClient mongo = null;
 	
 	
     protected void iniciarSesion(String host, int port) {
@@ -42,7 +42,6 @@ public class BaseController implements Serializable{
 		return mongo;
 	}
 	
-	@SuppressWarnings("static-access")
 	public void setMongo(MongoClient mongo) {
 		this.mongo = mongo;
 	}

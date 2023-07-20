@@ -17,7 +17,7 @@ import javax.faces.model.SelectItem;
 public class Utilidades {
     
     public static List<SelectItem> devolverMenuAtributos(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("PTS","Puntos"));
             lista.add(new SelectItem("TRB","Rebotes"));
             lista.add(new SelectItem("AST","Asistencias"));
@@ -42,7 +42,7 @@ public class Utilidades {
     
     @SuppressWarnings("rawtypes")
 	public static HashMap devolverHashMapAtributos(){
-        HashMap<String,String> map = new HashMap<String,String>();
+        HashMap<String,String> map = new HashMap<>();
             map.put("PTS","puntos");
             map.put("TRB","totalRebotes");
             map.put("AST","asistencias");
@@ -76,7 +76,7 @@ public class Utilidades {
     }
     
     public static List<SelectItem> devolverMenuTiempoPartido(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("partido","Partido"));
             lista.add(new SelectItem("cuarto1","1º Cuarto"));
             lista.add(new SelectItem("cuarto2","2º Cuarto"));
@@ -90,7 +90,7 @@ public class Utilidades {
     }
     
     public static List<SelectItem> devolverMenuUbicacion(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("indiferente","Indiferente"));
             lista.add(new SelectItem("local","Local"));
             lista.add(new SelectItem("visitante","Visitante"));
@@ -98,7 +98,7 @@ public class Utilidades {
     }
     
     public static List<SelectItem> devolverMenuResultado(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("","Indiferente"));
             lista.add(new SelectItem("win","Victoria"));
             lista.add(new SelectItem("lose","Derrota"));
@@ -106,7 +106,7 @@ public class Utilidades {
     }
     
     public static List<SelectItem> devolverMenuCuando(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("regular","Temporada Regular"));
             lista.add(new SelectItem("playoff","PlayOff"));
             lista.add(new SelectItem("temporada","Temporada"));
@@ -114,7 +114,7 @@ public class Utilidades {
     }
     
      public static List<SelectItem> devolverTemporadas(){
-        List<SelectItem> lista = new ArrayList<SelectItem>();
+        List<SelectItem> lista = new ArrayList<>();
             lista.add(new SelectItem("season20002001","2000/2001"));
             lista.add(new SelectItem("season20012002","2001/2002"));
             lista.add(new SelectItem("season20022003","2002/2003"));

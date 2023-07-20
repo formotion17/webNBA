@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class JugadorControllerUtilidades {
 	
-	private static String RUTA_ARCHIVO_ID="/Users/formotion/tfg/java/archivos/idJugadoresNombre";
+	private static String rutaArchivoId="/Users/formotion/tfg/java/archivos/idJugadoresNombre";
     
     public List<Jugador> devolverJugadores(String nombre) throws IOException{
         List<Jugador> listaJugadores;
@@ -39,10 +39,9 @@ public class JugadorControllerUtilidades {
         List<Jugador> listaJugadores;
         List<String> listaJugadoresNombre;
         Dictionary d = new Hashtable();
-        listaJugadores = new ArrayList<Jugador>();
-        listaJugadoresNombre = new ArrayList<String>();
-        try (BufferedReader readerJugadores = new BufferedReader(new FileReader(RUTA_ARCHIVO_ID))) {
-        //try (BufferedReader readerJugadores = new BufferedReader(new FileReader("E://TFG//archivos varios//listaJugadoresIdNombreApellidoNuevoBis.txt"))) {
+        listaJugadores = new ArrayList<>();
+        listaJugadoresNombre = new ArrayList<>();
+        try (BufferedReader readerJugadores = new BufferedReader(new FileReader(rutaArchivoId))) {
             String lineJugadores;
             while ((lineJugadores = readerJugadores.readLine()) != null)
             {
@@ -53,14 +52,13 @@ public class JugadorControllerUtilidades {
                     listaJugadores.add(new Jugador(tokens[0],"",""));
                 }
                 listaJugadoresNombre.add(tokens[0]);
-                //d.put(tokens[0], tokens[1]);
             }
         }
             return listaJugadores;
     }
     
     public List<String> devolverMenuCuartos(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todos los cuartos");
             lista.add("1º Cuarto");
             lista.add("2º Cuarto");
@@ -75,7 +73,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverMenuDentro(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todas las Canastas");
             lista.add("Dentro");
             lista.add("Fuera");
@@ -84,7 +82,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverMenuDistancia(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todas las distancias");
             lista.add("0 - 2 Metros");
             lista.add("2 - 4 Metros");
@@ -96,7 +94,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverMenuTiempoRestante(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todo el cuarto");
             lista.add("5 Segundos");
             lista.add("1 Minuto");
@@ -116,7 +114,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverMenuTipoCanasta(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todos los tipos");
             lista.add("2 Puntos");
             lista.add("3 Puntos");
@@ -125,7 +123,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverSituacionesPartido(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todas las situaciones");
             lista.add("Perdiendo");
             lista.add("Empate");
@@ -134,7 +132,7 @@ public class JugadorControllerUtilidades {
     }
     
     public List<String> devolverPonerseDelante(){
-        List<String> lista = new ArrayList<String>();
+        List<String> lista = new ArrayList<>();
             lista.add("Todas las canastas");
             lista.add("Ponerse por Delante");
         return lista;

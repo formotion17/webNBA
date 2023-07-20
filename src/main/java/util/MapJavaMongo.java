@@ -4,15 +4,20 @@ import clases.ControllerEquipo;
 import clases.ControllerTanteoCuartos;
 import clases.ControllerFullBoxscore;
 import clases.ControllerTiros;
+import contollers.IndexController;
 import clases.ControllerPartido;
 import clases.ControllerEstadisticaAvanzada;
 import clases.ControllerEstadisticaNormal;
 import clases.ControllerJugador;
 import clases.ControllerPartidoJugador;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
 /**
@@ -22,12 +27,18 @@ import org.bson.Document;
  * @author hatashi
  *
  */
-public class MapJavaMongo {
+public class MapJavaMongo implements Serializable{
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3346672511009422594L;
+	private static final Logger logger = LogManager.getLogger(MapJavaMongo.class);
 
     @SuppressWarnings("unchecked")
 	public static ControllerPartido rellenarPartido(Document partido) {
         ControllerPartido match = new ControllerPartido();
-        System.out.println((String) partido.get("dia") + " " + (String) partido.get("mes"));
         match.setAsistencia((Integer) partido.get("asistencia"));
         match.setCambiosLider((String) partido.get("cambiosLider"));
         match.setDia((String) partido.get("dia"));
@@ -80,7 +91,7 @@ public class MapJavaMongo {
         
         match.setListaJugadoresLocal(match.getEquipoLocal().getListaJugadores());
         match.setListaJugadoresVisitante(match.getEquipoVisitante().getListaJugadores());
-        
+        logger.info("	"+match.getEquipoVisitante().getNombre().toUpperCase()+" - "+match.getEquipoLocal().getNombre().toUpperCase());
         return match;
     }
 

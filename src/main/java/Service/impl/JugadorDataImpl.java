@@ -30,7 +30,7 @@ import util.Temporadas;
 @Data
 public class JugadorDataImpl{
     
-    private ArrayList<String> listaSeleccionTemporadasProgresion = new ArrayList<String>();
+    private ArrayList<String> listaSeleccionTemporadasProgresion = new ArrayList<>();
     private ArrayList<ClaseEstadisticaNormalTotales> listaEstadisticasJugador;
     private ArrayList<ClaseEstadisticaNormalTotales> listaEstadisticasCabecera;
     private ArrayList<ControllerPartidoJugador> listaPartidos;
@@ -65,7 +65,7 @@ public class JugadorDataImpl{
         mongo = new MongoClient("localhost",27017);
         
         if(mongo!=null){
-            listaEstadisticasJugador = new ArrayList<ClaseEstadisticaNormalTotales>();
+            listaEstadisticasJugador = new ArrayList<>();
         
             conectarBaseDatos("NBA",mongo);
             conectarColeccion("totales");
@@ -106,7 +106,7 @@ public class JugadorDataImpl{
         
         if(mongo!=null){
             
-            listaEstadisticasCabecera = new ArrayList<ClaseEstadisticaNormalTotales>();
+            listaEstadisticasCabecera = new ArrayList<>();
 
             conectarBaseDatos("NBA",mongo);
             conectarColeccion("totales");

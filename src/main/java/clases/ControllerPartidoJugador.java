@@ -64,22 +64,22 @@ public class ControllerPartidoJugador {
     }
 
     public String getJugandoConAbreviado() {
-        if("BRK".equals(jugandoConAbreviado.toUpperCase())){
+        if("BRK".equalsIgnoreCase(jugandoConAbreviado.toUpperCase())){
             return "NJN";
-        }else if("NOP".equals(jugandoConAbreviado.toUpperCase())){
+        }else if("NOP".equalsIgnoreCase(jugandoConAbreviado.toUpperCase())){
             return "NOH";
-        }else if("CHO".equals(jugandoConAbreviado.toUpperCase())){
+        }else if("CHO".equalsIgnoreCase(jugandoConAbreviado.toUpperCase())){
             return "CHA";
         }
         return jugandoConAbreviado.toUpperCase();
     }
 
     public String getJugandoContraAbreviado() {
-        if("BRK".equals(jugandoContraAbreviado.toUpperCase())){
+        if("BRK".equalsIgnoreCase(jugandoContraAbreviado.toUpperCase())){
             return "NJN";
-        }else if("NOP".equals(jugandoContraAbreviado.toUpperCase())){
+        }else if("NOP".equalsIgnoreCase(jugandoContraAbreviado.toUpperCase())){
             return "NOH";
-        }else if("CHO".equals(jugandoContraAbreviado.toUpperCase())){
+        }else if("CHO".equalsIgnoreCase(jugandoContraAbreviado.toUpperCase())){
             return "CHA";
         }
         return jugandoContraAbreviado.toUpperCase();
@@ -89,7 +89,8 @@ public class ControllerPartidoJugador {
     @SuppressWarnings("unused")
 	public String getMinutos(){
         String min="";
-        int iSeg, iMin;
+        int iSeg;
+        int iMin;
         iMin=getSegundos()/60;
         iSeg=segundos-iMin*60;
         return Integer.toString(iMin)+":"+devolverSegundos(iSeg);
