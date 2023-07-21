@@ -38,6 +38,7 @@
 
 .divFechas {
    display: flex;
+   background-color: #fffafb;
  }
  
 .divFechas-calendario {
@@ -369,7 +370,7 @@ ul{
 }
 
 .findJugador>.tablaJugadores{
-    width: 70em;
+    width: 60em;
     height: 140px;
     margin: 5px;
 }

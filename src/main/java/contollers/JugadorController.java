@@ -201,6 +201,8 @@ public class JugadorController extends BaseController implements Serializable{
     
     private ArrayList<ControllerPartidoJugador> listaPartidosTemporadaRegular;
     private ArrayList<ControllerPartidoJugador> listaPartidosPlayOff;
+    private ClaseEstadisticaNormalTotales mediaTemporadaRegular=new ClaseEstadisticaNormalTotales();
+    private ClaseEstadisticaNormalTotales mediaPlayoff=new ClaseEstadisticaNormalTotales();
     
     //TAB 3
     private String partidosTemporada="";
@@ -317,6 +319,25 @@ public class JugadorController extends BaseController implements Serializable{
      public void recogerPartidosTemporada(){
          listaPartidosTemporadaRegular = data.devolverListaPartidosTemporada(partidosTemporada,jugadorSeleccionado.getCodigo(),false);
          listaPartidosPlayOff = dataPlayoff.devolverListaPartidosTemporada(partidosTemporada,jugadorSeleccionado.getCodigo(),true);
+         
+         int partidosJugados=0;
+         int partidosJugadosPlayoff=0;
+         int masMenos=0;
+         int masMenosPlayoff=0;
+         for(ControllerPartidoJugador partido:listaPartidosTemporadaRegular) {
+        	 masMenos += partido.getBoxscore().getMasMenos();
+        	 partidosJugados++;
+         }
+         for(ControllerPartidoJugador partido:listaPartidosPlayOff) {
+        	 masMenosPlayoff += partido.getBoxscore().getMasMenos();
+        	 partidosJugadosPlayoff++;
+         }
+         
+         mediaTemporadaRegular = data.devolverMediaTemporada(jugadorSeleccionado.getCodigo(), partidosTemporada, "regular");
+         mediaTemporadaRegular.setMasMenos(masMenos/partidosJugados);
+         
+         mediaPlayoff = data.devolverMediaTemporada(jugadorSeleccionado.getCodigo(), partidosTemporada, "playoff");
+         mediaPlayoff.setMasMenos(masMenosPlayoff/partidosJugadosPlayoff);
     }
 
     /**

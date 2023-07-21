@@ -122,6 +122,24 @@ public class JugadorDataImpl{
         return listaEstadisticasCabecera;
     }
     
+    @SuppressWarnings({ "resource", "unused" })
+	public ClaseEstadisticaNormalTotales devolverMediaTemporada(String codigoJugador, String temporada, String periodo) {
+    	
+    	MongoClient mongo = null;
+        mongo = new MongoClient("localhost",27017);
+        
+        if(mongo!=null){
+            
+
+            conectarBaseDatos("NBA",mongo);
+            conectarColeccion("totales");
+
+            return insertarFilaEstadisticasCabecera(collection,temporada,periodo,"media","",codigoJugador);
+        }
+        
+        return new ClaseEstadisticaNormalTotales();
+    }
+    
     private ClaseEstadisticaNormalTotales insertarFilaEstadisticasCabecera(MongoCollection<Document> collection,String carrera, String tiempo,String tiporesultado,String temporada,String codigoJugador){
         ClaseEstadisticaNormalTotales statInsertar = new ClaseEstadisticaNormalTotales();
         

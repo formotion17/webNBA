@@ -1,15 +1,16 @@
 /*Imagen de la cabecera*/
 .responsive-image {
-  max-width: 100%;
+  max-width: 40%;
   height: auto;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top:10px
 }
 
 /*Menu horizontal*/
 .menu-pagina {
-  width: 95%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -19,6 +20,7 @@
   padding: 0;
   display: flex;
   justify-content: center;
+  background-color:#e8e4e4
 }
 
 .horizontal-menu li {

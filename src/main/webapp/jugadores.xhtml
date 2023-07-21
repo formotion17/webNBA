@@ -27,9 +27,9 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="content">
                 <h:form id ="form">
-                    <div id="contenido" style="margin-top: 40px;width: 100%;margin: auto;">
-                        <div id="content" style="margin-top:40px;background-color: white;height: auto; width: 100%">
-                            <div id="busquedaJugador" style="padding:20px;height: 400px;" class="findJugador">
+                    <div id="contenido" style="width: 100%;margin: auto;">
+                        <div id="content" style="background-color: #fffafb ;height: auto; width: 100%">
+                            <div id="busquedaJugador" style="padding:10px;height: 450px;" class="findJugador">
                                 <div class="nombreJugador" style="margin-top:40px;">
                                     <p:outputLabel value="Escribe el nombre del jugador"/>
                                     <p:inputText id="txtBusqueda" style="padding: 14px;"
@@ -84,6 +84,8 @@ and open the template in the editor.
                                      <p:ajax onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();"/>
                                 </p:commandButton>
                             </div>
+                 		</div>
+                 		<div id="ContenidoJugador" style="background-color: white;height: auto; width: 100%">
                             <div class="#{jugadores.invisibleEstadisticasGlobales}" style="margin-top:#{jugadores.altoFoto}px"> <!-- <div class="statsJugador" > -->
                                 <div class="fotoJugador">
                                     <p:graphicImage url="#{jugadores.jugadorSeleccionado.recogerFoto()}" height="220" width="140" style=""/>
@@ -822,119 +824,138 @@ and open the template in the editor.
                                                 <div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.getMinutos()}"/>
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FG</f:facet>
                                                 <div class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FGA</f:facet>
                                                 <div class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FG%</f:facet>
                                                 <div class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3P</f:facet>
                                                 <div class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesMetidos}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3PA</f:facet>
                                                 <div class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesIntentados}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3P%</f:facet>
                                                 <div class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FT</f:facet>
                                                 <div class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FTA</f:facet>
                                                 <div class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresIntentados}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FT%</f:facet>
                                                 <div class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">ORB</f:facet>
                                                 <div class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.reboteOfensivo}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">DRB</f:facet>
                                                 <div class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.reboteDefensivo}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">TRB</f:facet>
                                                 <div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.totalRebotes}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">AST</f:facet>
                                                 <div class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.asistencias}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">STL</f:facet>
                                                 <div class="#{stat.maximaRobos eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.robos}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">BLK</f:facet>
                                                 <div class="#{stat.maximaTapones eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tapones}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">TOV</f:facet>
                                                 <div class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.perdidas}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">PF</f:facet>
                                                 <h:outputText value="#{stat.boxscore.faltasPersonales}"/>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">PTS</f:facet>
                                                 <div class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.puntos}" />
                                                 </div>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header" >+/-</f:facet>
                                                 <div class="#{stat.maximaMasMenos eq true ? 'green':'white'}" >
                                                     <h:outputText value="#{stat.boxscore.masMenos}"/>
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.data.maximaMasMenos}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
                                             </h:column>
                                         </h:dataTable>
                                         
@@ -983,137 +1004,138 @@ and open the template in the editor.
                                                 <div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.getMinutos()}"/>
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaMinutos}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.minutos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FG</f:facet>
                                                 <div class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTirosCampoMetido}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FGA</f:facet>
                                                 <div class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTirosCampoTirado}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FG%</f:facet>
                                                 <div class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTirosCampoPorcentaje}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3P</f:facet>
                                                 <div class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesMetidos}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTripleMetido}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.triplesMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3PA</f:facet>
                                                 <div class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesIntentados}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTripleTirado}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.triplesIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">3P%</f:facet>
                                                 <div class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTriplePorcentaje}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.triplesPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FT</f:facet>
                                                 <div class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTiroLibreMetido}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresMetidos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FTA</f:facet>
                                                 <div class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresIntentados}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTiroLibreTirado}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresIntentados}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">FT%</f:facet>
                                                 <div class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTiroLibrePorcentaje}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresPorcentaje}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">ORB</f:facet>
                                                 <div class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.reboteOfensivo}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaRebotesAtaque}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.reboteOfensivo}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">DRB</f:facet>
                                                 <div class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.reboteDefensivo}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaRebotesDefensa}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.reboteDefensivo}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">TRB</f:facet>
                                                 <div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.totalRebotes}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaRebotes}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.totalRebotes}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">AST</f:facet>
                                                 <div class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.asistencias}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaAsistencias}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.asistencias}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">STL</f:facet>
                                                 <div class="#{stat.maximaRobos eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.robos}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaRobos}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.robos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">BLK</f:facet>
                                                 <div class="#{stat.maximaTapones eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.tapones}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaTapones}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.tapones}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">TOV</f:facet>
                                                 <div class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.perdidas}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaPerdidas}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.perdidas}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">PF</f:facet>
                                                 <h:outputText value="#{stat.boxscore.faltasPersonales}"/>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.faltasPersonales}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">PTS</f:facet>
                                                 <div class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
                                                     <h:outputText value="#{stat.boxscore.puntos}" />
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaAnotacion}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.puntos}</f:facet>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header" >+/-</f:facet>
                                                 <div class="#{stat.maximaMasMenos eq true ? 'green':'white'}" >
                                                     <h:outputText value="#{stat.boxscore.masMenos}"/>
                                                 </div>
-                                                <f:facet name="footer">#{jugadores.dataPlayoff.maximaMasMenos}</f:facet>
+                                                <f:facet name="footer">#{jugadores.mediaPlayoff.masMenos}</f:facet>
                                             </h:column>                                            
                                         </h:dataTable>
                                         
