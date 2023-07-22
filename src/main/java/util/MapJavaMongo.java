@@ -42,14 +42,29 @@ public class MapJavaMongo implements Serializable{
         match.setAsistencia((Integer) partido.get("asistencia"));
         match.setCambiosLider((String) partido.get("cambiosLider"));
         match.setDia((String) partido.get("dia"));
+        match.setMes((String) partido.get("mes"));
+        match.setYear((String) partido.get("year"));
         match.setEmpates((String) partido.get("empates"));
-        match.setEquipoLocal(rellenarEquipo((Document) partido.get("equipoLocal")));	//EquipoLocal
-        match.setEquipoVisitante(rellenarEquipo((Document) partido.get("equipoVisitante"))); //EquipoVisitante
+        match.setEquipoLocal(
+        		rellenarEquipo(
+        				(Document) partido.get("equipoLocal"),
+        				match.getDia(),
+        				match.getMes(),
+        				match.getYear(),
+        				(String)((Document)partido.get("equipoVisitante")).getString("nombre"),
+        				(String)((Document)partido.get("equipoLocal")).getString("nombre")));	//EquipoLocal
+        match.setEquipoVisitante(
+        		rellenarEquipo(
+    					(Document) partido.get("equipoVisitante"),
+        				match.getDia(),
+        				match.getMes(),
+        				match.getYear(),
+        				(String)((Document)partido.get("equipoLocal")).getString("nombre"),
+        				(String)((Document)partido.get("equipoVisitante")).getString("nombre"))); //EquipoVisitante
         match.setEstadio((String) partido.get("estadio"));
         match.setHora((String) partido.get("hora"));
         match.setLocalPuntosConsecutivos((String) partido.get("localPuntosConsecutivos"));
         match.setLocalSinAnotar((Integer) partido.get("localSinAnotar"));
-        match.setMes((String) partido.get("mes"));
         match.setPlayOff((boolean) partido.get("playOff"));
         match.setTiempoEmpate((Integer) partido.get("tiempoEmpate"));
         match.setTiempoLocalGanando((Integer) partido.get("tiempoLocalGanando"));
@@ -57,7 +72,6 @@ public class MapJavaMongo implements Serializable{
         match.setUbicacion((String) partido.get("ubicacion"));
         match.setVisitantePuntosConsecutivos((String) partido.get("visitantePuntosConsecutivos"));
         match.setVisitanteSinAnotar((Integer) partido.get("visitanteSinAnotar"));
-        match.setYear((String) partido.get("year"));
         match.rellenarCuartos();
         match.setListaTanteoLocal((ArrayList<Integer>)partido.get("tanteoLocal"));
         match.setListaTanteoPartido((ArrayList<String>)partido.get("tanteo"));
@@ -96,14 +110,14 @@ public class MapJavaMongo implements Serializable{
     }
 
     @SuppressWarnings("unchecked")
-	private static ControllerEquipo rellenarEquipo(Document team) {
+	private static ControllerEquipo rellenarEquipo(Document team,String dia, String mes, String year, String rival,String equipoNombre) {
         ControllerEquipo equipo = new ControllerEquipo();
         equipo.setDerrotas((String) team.get("derrotas"));
         equipo.setEstadisticaAvanzada(devolverEstadisticaAvanzada((Document) team.get("estadisticaAvanzada"))); // Estadistica Avanzada
         equipo.setEstadisticaNormal(devolverEstadisticaNormal((Document) team.get("estadisticaNormal"))); // Estadistica Normal
         equipo.setFullBoxscore(devolverFullBox((Document) team.get("fullBoxscore"))); // Full BoxScore
         equipo.setNombre((String) team.get("nombre"));
-        equipo.setJugadores(devolverJugadores((ArrayList<Document>) team.get("jugadores"))); // Array Jugadores
+        equipo.setJugadores(devolverJugadores((ArrayList<Document>) team.get("jugadores"),dia,mes,year,rival,equipoNombre)); // Array Jugadores
         equipo.setNombreAbreviado(((String) team.get("nombreAbreviado")).toUpperCase());
         equipo.setPuntosConsecutivos((String) team.get("puntosConsecutivos"));
         equipo.setSinAnotar((Integer) team.get("sinAnotar"));
@@ -119,10 +133,11 @@ public class MapJavaMongo implements Serializable{
     }
 
     @SuppressWarnings("unchecked")
-	private static ControllerJugador devolverJugador(Document player, int i) {
+	private static ControllerJugador devolverJugador(Document player, int i,String dia, String mes, String year, String rival,String equipo) {
         ControllerJugador jugador = new ControllerJugador();
 
         jugador.setApellido((String) player.get("apellido"));
+        jugador.setNombre((String) player.get("nombre"));
         jugador.setBoxscore(devolverEstadisticaNormal((Document) player.get("boxscore"))); // BoxScore
         jugador.addCuartoJugador(devolverFullBox((Document) player.get("cuarto1"))); // Cuartos	
         jugador.addCuartoJugador(devolverFullBox((Document) player.get("cuarto2")));
@@ -143,8 +158,7 @@ public class MapJavaMongo implements Serializable{
         jugador.setEstadisticaAvanzada(devolverEstadisticaAvanzada((Document) player.get("estadisticaAvanzada"))); // EstadisticaAvanzada
         jugador.setId((String) player.get("id"));
         jugador.setInicio((Boolean) player.get("inicio"));
-        jugador.setListaTiros(devolverCartaTiro((ArrayList<Document>) player.get("listaTiros"))); // ListaTiros
-        jugador.setNombre((String) player.get("nombre"));
+        jugador.setListaTiros(devolverCartaTiro((ArrayList<Document>) player.get("listaTiros"),dia,mes,year,rival,jugador.getNombre()+". "+jugador.getApellido(),equipo)); // ListaTiros
         if(player.get("segundos") != null){
             jugador.setSegundos((Integer) player.get("segundos"));
         }else{
@@ -159,7 +173,7 @@ public class MapJavaMongo implements Serializable{
         return jugador;
     }
 
-    private static ControllerTiros devolverTiros(Document tiro) {
+    private static ControllerTiros devolverTiros(Document tiro,String dia, String mes, String year, String rival, String jugador,String equipo) {
         ControllerTiros carta = new ControllerTiros();
 
         	carta.setCuarto((String)tiro.get("cuarto"));
@@ -174,6 +188,11 @@ public class MapJavaMongo implements Serializable{
             carta.setTanteoRival((String)tiro.get("tanteoRival"));
             carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
             carta.setTipo((String) tiro.get("tipo"));
+            carta.setRival(rival);
+            carta.setFecha(dia+"-"+mes+"-"+year);
+            carta.setJugador(jugador);
+            carta.setEquipo(equipo);
+            carta.rellenarTooltipPartido();
 
         return carta;
     }
@@ -524,10 +543,10 @@ public class MapJavaMongo implements Serializable{
         return null;
     }
 
-    private static ArrayList<ControllerTiros> devolverCartaTiro(ArrayList<Document> lista) {
+    private static ArrayList<ControllerTiros> devolverCartaTiro(ArrayList<Document> lista,String dia, String mes, String year, String rival, String jugador, String equipo) {
         ArrayList<ControllerTiros> listaTiros = new ArrayList<ControllerTiros>();
         for (int i = 0; i < lista.size(); i++) {
-            listaTiros.add(devolverTiros(lista.get(i)));
+            listaTiros.add(devolverTiros(lista.get(i),dia,mes,year,rival,jugador,equipo));
         }
         return listaTiros;
     }
@@ -542,10 +561,10 @@ public class MapJavaMongo implements Serializable{
         return valor;
     }
 
-    private static ArrayList<ControllerJugador> devolverJugadores(ArrayList<Document> lista) {
+    private static ArrayList<ControllerJugador> devolverJugadores(ArrayList<Document> lista,String dia, String mes, String year, String rival,String equipo) {
         ArrayList<ControllerJugador> listaJugadores = new ArrayList<ControllerJugador>();
         for (int i = 0; i < lista.size(); i++) {
-            ControllerJugador jugador = devolverJugador(lista.get(i), i);
+            ControllerJugador jugador = devolverJugador(lista.get(i), i,dia,mes,year,rival,equipo);
             if(jugador!=null){
                 listaJugadores.add(jugador);
             }

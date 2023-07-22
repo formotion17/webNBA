@@ -165,7 +165,8 @@ public class ControllerEquipo {
 		listaJugadores.add(getNombre());
 		for(ControllerJugador jugador: getJugadores()) {
 			for(ControllerTiros tiro:jugador.getListaTiros()) {
-				listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro(),tiro.getCuarto()));
+				listaTiros.add(tiro);
+				//listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro(),tiro.getCuarto()));
 			}
 			listaJugadores.add(jugador.getApeNom());
 		}
@@ -179,12 +180,12 @@ public class ControllerEquipo {
     	ControllerJugador jugador= buscarJugadorCartaTiros();
     	if(null!=jugador) {
         	for(ControllerTiros tiro:jugador.getListaTiros()) {
-    			if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));}
+    			if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(tiro);}
     		}    		
     	}else {
     		for(ControllerJugador jugadorEquipo: getJugadores()) {
     			for(ControllerTiros tiro:jugadorEquipo.getListaTiros()) {
-    				if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(new ControllerTiros(tiro.getPosicionTop(), tiro.getPosicionLeft(), tiro.isDentro()));}
+    				if(insetarTiroGraficaPartido(tiro)) {listaTiros.add(tiro);}
     			}
     		}
     	}

@@ -625,7 +625,10 @@
 													<ui:repeat value="#{match.equipoVisitante.listaTiros}" var="item">
 														<div
 															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-															class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)} " 
+																	title="#{item.tooltipTiro}"/>
+														</div>
 													</ui:repeat>
 												</h:panelGroup>
 											</p:panelGrid>
@@ -659,7 +662,10 @@
 													<ui:repeat value="#{match.equipoLocal.listaTiros}" var="item">
 														<div
 															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-															class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)} " 
+																	title="#{item.tooltipTiro}"/>
+														</div>
 													</ui:repeat>
 												</h:panelGroup>
 											</p:panelGrid>
