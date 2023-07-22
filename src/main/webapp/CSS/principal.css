@@ -71,25 +71,25 @@
 	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
-	background-color:#c8c8c8;
+	background-color:#e8e4e4;
 }
 
 .partido-record{
 	width: 100%;
 	margin: auto;
 	text-align: center;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
-	background-color:#d3d3d3;
+	background-color:#f8f9fa;
 }
 
 .partido-tipoPartido{
 	width: 100%;
 	margin: auto;
 	text-align: center;
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: bold;
-	background-color:#f8f8ff;
+	background-color:#e8e4e4;
 }
 
 .partido-logoTanteo{
@@ -626,27 +626,79 @@ ui-panelgrid .ui-panelgrid-cell {
   align-items: center;
 }
 
+.centrarTexto{
+	text-align:center;
+}
+
 .mostrarEnLinea {
   display: inline-block;
 }
 
 .tabla-estadisticas {
-  table-layout: fixed; /* Hace que las celdas tengan un ancho fijo */
-  border-collapse: collapse; /* Combina los bordes de las celdas */
-  width: 100%; /* Ancho total de la tabla */
+  table-layout: fixed; 
+  border-collapse: collapse;
+  width: 100%; 
 }
 
-/* Alineación de la primera columna (equipo) a la izquierda */
-.tabla-estadisticas tbody td:first-child {
-  text-align: left; /* Alineación del texto a la izquierda */
-  background-color: #f2f2f2; /* Fondo gris claro */
-  font-weight: bold; /* Texto en negrita */
+.tabla-estadisticas thead th:nth-child(1) {
+  background-color: #e8e4e4; 
+  font-weight: bold; 
+}
+
+.tabla-estadisticas thead th:nth-child(2) {
+  background-color: #e8e4e4; 
+  font-weight: bold;
+  text-align:center;
+}
+
+.tabla-estadisticas thead th:nth-child(3) {
+  background-color: #e8e4e4; 
+  font-weight: bold;
+  text-align:center; 
+}
+
+.tabla-estadisticas tbody td:nth-child(1) {
+  text-align: left; 
+  background-color: #e8e4e4; 
+  font-weight: bold; 
+}
+
+.tabla-estadisticas tbody td:nth-child(2){
+  text-align: left; 
+  background-color: #f8f9fa; 
+  font-weight: bold; 
+}
+
+.tabla-estadisticas tbody td:nth-child(3){
+  text-align: left; 
+  background-color: #f8f9fa; 
+  font-weight: bold; 
 }
 
 /* Alineación del resto de columnas al centro */
 .tabla-estadisticas tbody td:not(:first-child) {
   text-align: center;
 }
+
+
+.tanteoCuartosGenerico .encabezado-fila th {
+    background-color: #e8e4e4; 
+    font-weight: bold; 
+  	font-size:16px;
+}
+
+.tanteoCuartosGenerico .filaVisitante th {
+  background-color: #f8f9fa; 
+  font-size:16px;
+  font-weight: normal;
+}
+
+.tanteoCuartosGenerico .filaLocal th {
+  background-color: #f8f9fa; 
+  font-size:16px;
+  font-weight: normal;
+}
+
 
 /* styles.css */
 table {
@@ -663,5 +715,10 @@ th {
   font-weight: bold; /* Texto en negrita para encabezados */
   background-color: #f2f2f2; /* Fondo gris claro para encabezados */
   text-align: center; /* Alinear el texto al centro en los encabezados */
+}
+
+.ui-panelgrid-cell.porcentaje-sesenta {
+  vertical-align: top;
+  margin-top:20px;
 }
 
