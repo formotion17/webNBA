@@ -94,7 +94,6 @@ public class JugadorController extends BaseController implements Serializable{
     private int partidosVisitanteRegular=0;
     private int partidosLocalPlayoff=0;
     private int partidosVisitantePlayoff=0;
-    private int altoFoto=0;
     private ControllerEstadisticaNormal partidosDeLocalRegular = new  ControllerEstadisticaNormal();
     private ControllerEstadisticaNormal partidosDeLocalPlayoff = new  ControllerEstadisticaNormal();
     private ControllerEstadisticaNormal partidosDeVisitanteRegular = new  ControllerEstadisticaNormal();
@@ -256,7 +255,6 @@ public class JugadorController extends BaseController implements Serializable{
         }else{
             listaJugadores = new ArrayList<Jugador>();
         }
-        devolverAltoFoto();
     }
     
     /**
@@ -891,17 +889,6 @@ public class JugadorController extends BaseController implements Serializable{
         partidosVisitantePlayoff=0;
         resetearContadores();
     }
-    
-    public void devolverAltoFoto(){
-        if(listaJugadores.size()>1){
-            altoFoto = -43;
-        }else if(listaJugadores.size()==1){
-            altoFoto = -160;
-        }else{
-            altoFoto = 0;
-        }
-    }
-    
     
     
     private String actualizarPorcentajeTirosDonut(int dentro, int fuera) {

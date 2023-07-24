@@ -130,7 +130,7 @@
 										</div>
 										<div class="ui-g partido-record">
 											<div class="ui-g-5">#{match.equipoVisitante.victorias}-#{match.equipoVisitante.derrotas}</div>
-											<div class="ui-g-2"></div>
+											<div class="ui-g-2">Record</div>
 											<div class="ui-g-5">#{match.equipoLocal.victorias}-#{match.equipoLocal.derrotas}</div>
 										</div>
 									</div>
@@ -226,84 +226,83 @@
 									styleClass="sinBordes">
 									<p:tabView style="border:0px;">
 										<p:tab title="Partido">
-											<p:panelGrid columns="1"
-												columnClasses="porcentaje-cuarenta,porcentaje-sesenta"
+											<p:panelGrid columns="1" columnClasses="porcentaje-cien"
 												styleClass="sinBordes">
-												<p:panelGrid columns="1" columnClasses="porcentaje-cien"
-													styleClass="sinBordes">
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4"></div>
-	                                                	<div class="ui-g-4 negrita textoCentrado" style="background-color:#e8e4e4;border: solid;">#{match.equipoVisitante.nombre}</div>
-	                                                	<div class="ui-g-4 negrita textoCentrado" style="background-color:#e8e4e4;border: solid;">#{match.equipoLocal.nombre}</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;border: solid;">Tiempo Ganando</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">#{match.tiempoVisitanteGanandoMinutos}</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">#{match.tiempoLocalGanandoMinutos}</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;border: solid;">Mas puntos consecutivos</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">#{match.visitantePuntosConsecutivos}</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">#{match.localPuntosConsecutivos}</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;border: solid;">Tiempo sin anotar</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">#{match.visitanteSinAnotarMinutos}</div>
-	                                                	<div class="ui-g-4 textoCentrado" style="border: solid;">1#{match.localSinAnotarMinutos}</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4" style="background-color:#e8e4e4;border: solid;">
-	                                                		<spam class="negrita">Cambios de lider en el partido</spam>
-	                                                	</div>
-	                                                	<div class="ui-g-8 centrarTexto" style="border: solid;">
-	                                                		<spam>#{match.cambiosLider} cambios de lider en el partido</spam>
-	                                                	</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4" style="background-color:#e8e4e4;border: solid;">
-	                                                		<spam class="negrita">Empates en el partido</spam>
-	                                                	</div>
-	                                                	<div class="ui-g-8 centrarTexto" style="border: solid;">
-	                                                		<spam>#{match.empates} empates en el partido</spam>
-	                                                	</div>
-	                                                </div>
-	                                                <div class="ui-g">
-	                                                	<div class="ui-g-4" style="background-color:#e8e4e4;border: solid;">
-	                                                		<spam class="negrita">Tiempo de empate en el partido</spam>
-	                                                	</div>
-	                                                	<div class="ui-g-8 centrarTexto" style="border: solid;">
-	                                                		<spam>#{match.tiempoEmpateMinutos} Minutos</spam>
-	                                                	</div>
-	                                                </div>
-													<p:dataTable id="tanteoCuartos" styleClass="columns tanteoCuartosGenerico"
-														var="stat" value="#{match.listaCuartos}">
-														<p:columnGroup type="header">
-															<p:row styleClass="encabezado-fila">
-																<p:column headerText="Tanteo de los cuartos"
-																	style="width: 45%;text-align: left;" />
-																<ui:repeat value="#{match.listaCuartos}" var="cuarto">
-																	<p:column headerText="#{cuarto.cuarto}" />
-																</ui:repeat>
-																<p:column headerText="Total" />
-															</p:row>
-															<p:row styleClass="filaVisitante">
-													            <p:column headerText="#{match.equipoVisitante.nombre}" style="width: 45%; text-align: left;" />
-													            <ui:repeat value="#{match.listaCuartos}" var="cuarto" style="background-color:red;">
-													                <p:column headerText="#{cuarto.tanteoVisitante}" />
-													            </ui:repeat>
-													            <p:column headerText="#{match.equipoVisitante.tanteo}" />
-													        </p:row>
-															<p:row styleClass="filaLocal">
-																<p:column headerText="#{match.equipoLocal.nombre}"
-																	style="width: 45%;text-align: left" />
-																<ui:repeat value="#{match.listaCuartos}" var="cuarto">
-																	<p:column headerText="#{cuarto.tanteoLocal}" />
-																</ui:repeat>
-																<p:column headerText="#{match.equipoLocal.tanteo}" />
-															</p:row>
-														</p:columnGroup>
-													</p:dataTable>
-												</p:panelGrid>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4"></div>
+                                                	<div class="ui-g-4 negrita textoCentrado" style="background-color:#e8e4e4;">#{match.equipoVisitante.nombre}</div>
+                                                	<div class="ui-g-4 negrita textoCentrado" style="background-color:#e8e4e4;">#{match.equipoLocal.nombre}</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Tiempo Ganando</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.tiempoVisitanteGanandoMinutos}</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.tiempoLocalGanandoMinutos}</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Mas puntos consecutivos</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.visitantePuntosConsecutivos}</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.localPuntosConsecutivos}</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Tiempo sin anotar</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.visitanteSinAnotarMinutos}</div>
+                                                	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">1#{match.localSinAnotarMinutos}</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4" style="background-color:#e8e4e4;">
+                                                		<spam class="negrita">Cambios de lider en el partido</spam>
+                                                	</div>
+                                                	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
+                                                		<spam>#{match.cambiosLider} cambios de lider en el partido</spam>
+                                                	</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4" style="background-color:#e8e4e4;">
+                                                		<spam class="negrita">Empates en el partido</spam>
+                                                	</div>
+                                                	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
+                                                		<spam>#{match.empates} empates en el partido</spam>
+                                                	</div>
+                                                </div>
+                                                <div class="ui-g">
+                                                	<div class="ui-g-4" style="background-color:#e8e4e4;">
+                                                		<spam class="negrita">Tiempo de empate en el partido</spam>
+                                                	</div>
+                                                	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
+                                                		<spam>#{match.tiempoEmpateMinutos} Minutos</spam>
+                                                	</div>
+                                                </div>
+												<p:dataTable id="tanteoCuartos" styleClass="columns tanteoCuartosGenerico"
+													var="stat" value="#{match.listaCuartos}">
+													<p:columnGroup type="header">
+														<p:row styleClass="encabezado-fila">
+															<p:column headerText="Tanteo de los cuartos"
+																style="width: 45%;text-align: left;" />
+															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
+																<p:column headerText="#{cuarto.cuarto}" />
+															</ui:repeat>
+															<p:column headerText="Total" />
+														</p:row>
+														<p:row styleClass="filaVisitante">
+												            <p:column headerText="#{match.equipoVisitante.nombre}" style="width: 45%; text-align: left;" />
+												            <ui:repeat value="#{match.listaCuartos}" var="cuarto" style="background-color:red;">
+												                <p:column headerText="#{cuarto.tanteoVisitante}" />
+												            </ui:repeat>
+												            <p:column headerText="#{match.equipoVisitante.tanteo}" />
+												        </p:row>
+														<p:row styleClass="filaLocal">
+															<p:column headerText="#{match.equipoLocal.nombre}"
+																style="width: 45%;text-align: left" />
+															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
+																<p:column headerText="#{cuarto.tanteoLocal}" />
+															</ui:repeat>
+															<p:column headerText="#{match.equipoLocal.tanteo}" />
+														</p:row>
+													</p:columnGroup>
+												</p:dataTable>
+												<h:form>
+   													<p:barChart model="#{match.tanteoGrafica}" style="width: 100%; height: 400px;"/>
+											    </h:form>
 											</p:panelGrid>
 										</p:tab>
 										
@@ -585,16 +584,6 @@
 													<h:outputText value="#{stat.estadisticaNormal.puntos}" />
 												</p:column>
 											</p:dataTable>
-										</p:tab>
-										
-										<p:tab title="Tanteo Partido">
-											<div id="graficaTanteo">
-												<h:panelGrid columns="1">
-													<h:form>
-    													<p:barChart model="#{match.tanteoGrafica}" style="width: 100%; height: 500px;"/>
-												    </h:form>
-												</h:panelGrid>
-											</div>
 										</p:tab>
 										<p:tab title="Tiros #{match.equipoVisitante.nombre}">
 											<p:panelGrid columns="1" styleClass="sinBordes centrar"

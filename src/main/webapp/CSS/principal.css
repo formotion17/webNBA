@@ -257,7 +257,6 @@ ul{
 }
 
 .tablaEstadisticaCarrera{
-    margin-top:30px;
     font-size:12px;
     text-align:center;
 }
@@ -396,9 +395,8 @@ ul{
 
 .statsJugador>.fotoJugador{
     height: 220px;
-    margin-right:10px;
-    margin-left:-30px;
-    margin-top:4%;
+    margin-right:20px;
+    margin-left:-20px;
 }
 
 /*
@@ -418,7 +416,7 @@ ul{
 
 .tabset .tab-panel {
     display: none;
-    padding-left:10px;
+    padding-left:1em;
 }
 
 .tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
@@ -719,6 +717,67 @@ th {
 
 .ui-panelgrid-cell.porcentaje-sesenta {
   vertical-align: top;
-  margin-top:20px;
 }
+
+.ui-panelgrid-cell.porcentaje-treintaCinco {
+  vertical-align: top;
+}
+
+
+.tablaEstadisticaCarrera thead th {
+  background-color: #e8e4e4 !important;
+}
+
+.tablaEstadisticaCarrera tbody tr {
+  background-color: #f8f9fa !important;
+  height: 10px !important;
+}
+
+.tablaEstadisticaTemporada thead th {
+  background-color: #e8e4e4 !important;
+}
+
+.tablaEstadisticaTemporada tbody tr {
+  background-color: #f8f9fa !important;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+  padding: 0.4rem 1rem;
+}
+
+.tablaJugadoresSeleccion thead th {
+  background-color: #e8e4e4 !important;
+}
+
+.tablaJugadoresSeleccion tbody tr {
+  font-size: 16px !important;
+}
+
+.tablaJugadoresSeleccion.ui-datatable .ui-paginator.ui-paginator-bottom {
+  /* Define aquí los estilos para el paginador que esté al final de la tabla */
+  /* Por ejemplo: */
+  background-color: #e8e4e4;
+  color: #333;
+  padding: 10px;
+}
+
+.cabecera-jugadores {
+  width: 86%;
+  margin: 0 auto;
+}
+
+/* CSS para cambiar el color de selección en el p:dataTable */
+body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
+    background-color: #ffda00; /* Cambia el color de fondo de selección a tu elección */
+    font-weight: bold;
+}
+
+#form\:graficos_stats_1 > tbody > tr:nth-child(2) > td:nth-child(1){
+	vertical-align: top;
+}
+
+
+
+
+
 
