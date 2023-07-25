@@ -198,6 +198,56 @@ public class MapJavaMongo implements Serializable{
     }
     
     @SuppressWarnings("rawtypes")
+	public static ControllerTiros devolverTirosContraEquipo(Map tiro,String dia, String mes, String year, String rival, String jugador,String equipo) {
+        ControllerTiros carta = new ControllerTiros();
+            
+	        carta.setCuarto((String)tiro.get("cuarto"));
+	        carta.setDentro((boolean) tiro.get("dentro"));
+	        carta.setDistancia((Integer) tiro.get("distancia"));
+	        carta.setPosicionLeft(Integer.parseInt((String) tiro.get("posicionLeft")));
+	        carta.setPosicionTop(Integer.parseInt((String) tiro.get("posicionTop")));
+	        carta.setSituacionAntes((String) tiro.get("situacionAntes"));
+	        carta.setSituacionDespues((String) tiro.get("situacionDespues"));
+	        carta.setTanteo((String)tiro.get("tanteo"));
+	        carta.setTanteoEquipo((String)tiro.get("tanteoEquipo"));
+	        carta.setTanteoRival((String)tiro.get("tanteoRival"));
+	        carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
+	        carta.setTipo((String) tiro.get("tipo"));
+	        carta.setRival(rival);
+	        carta.setFecha(dia+"-"+mes+"-"+year);
+	        carta.setJugador(jugador);
+	        carta.setEquipo(equipo);
+	        carta.rellenarToolTipTiroContraEquipo();
+
+        return carta;
+    }
+    
+    @SuppressWarnings("rawtypes")
+	public static ControllerTiros devolverTiros(Map tiro,String dia, String mes, String year, String rival, String jugador,String equipo) {
+        ControllerTiros carta = new ControllerTiros();
+            
+	        carta.setCuarto((String)tiro.get("cuarto"));
+	        carta.setDentro((boolean) tiro.get("dentro"));
+	        carta.setDistancia((Integer) tiro.get("distancia"));
+	        carta.setPosicionLeft(Integer.parseInt((String) tiro.get("posicionLeft")));
+	        carta.setPosicionTop(Integer.parseInt((String) tiro.get("posicionTop")));
+	        carta.setSituacionAntes((String) tiro.get("situacionAntes"));
+	        carta.setSituacionDespues((String) tiro.get("situacionDespues"));
+	        carta.setTanteo((String)tiro.get("tanteo"));
+	        carta.setTanteoEquipo((String)tiro.get("tanteoEquipo"));
+	        carta.setTanteoRival((String)tiro.get("tanteoRival"));
+	        carta.setTiempoRestante((Integer) tiro.get("tiempoRestante"));
+	        carta.setTipo((String) tiro.get("tipo"));
+	        carta.setRival(rival);
+	        carta.setFecha(dia+"-"+mes+"-"+year);
+	        carta.setJugador(jugador);
+	        carta.setEquipo(equipo);
+	        carta.rellenarTooltipPartido();
+
+        return carta;
+    }
+    
+    @SuppressWarnings("rawtypes")
 	public static ControllerTiros devolverTiros(Map tiro) {
         ControllerTiros carta = new ControllerTiros();
             

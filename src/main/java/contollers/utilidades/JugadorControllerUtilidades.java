@@ -96,7 +96,11 @@ public class JugadorControllerUtilidades {
     public List<String> devolverMenuTiempoRestante(){
         List<String> lista = new ArrayList<>();
             lista.add("Todo el cuarto");
+            lista.add("Sobre la bocina");
             lista.add("5 Segundos");
+            lista.add("15 Segundos");
+            lista.add("30 Segundos");
+            lista.add("45 Segundos");
             lista.add("1 Minuto");
             lista.add("2 Minutos");
             lista.add("3 Minutos");
@@ -109,7 +113,6 @@ public class JugadorControllerUtilidades {
             lista.add("10 Minutos");
             lista.add("11 Minutos");
             lista.add("12 Minutos");
-          
         return lista;
     }
     
@@ -154,7 +157,11 @@ public class JugadorControllerUtilidades {
     
     public int devolverTiempoCuarto(String tiempoSeleccionado){
         switch(tiempoSeleccionado){
+        	case "Sobre la bocina":return 0;
             case "5 Segundos":return 5;
+            case "15 Segundos":return 15;
+            case "30 Segundos":return 20;
+            case "45 Segundos":return 45;
             case "1 Minuto":return 60;
             case "2 Minutos":return 120;
             case "3 Minutos":return 180;

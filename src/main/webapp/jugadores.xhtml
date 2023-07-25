@@ -398,17 +398,17 @@ and open the template in the editor.
 										<div class="tituloEquipo"></div>
 										<div>
 											<p:dataTable id="statPlayerLocalRegular" var="statLoRe"
-												value="#{jugadores.partidosDeLocalRegular}"
-												class="tablaEstadisticaContraEquipos"
-												expandableRowGroups="true" sortBy="#{statLoRe.temporada}"
-												lazy="true">
-												<p:headerRow field="partidosJugados" expandable="false"
+												value="#{jugadores.listaPartidosDeLocalRegular}"
+												class="tablaEstadisticaContraEquipos"  sortBy="#{statLoRe.puntos}">
+												
+												<p:headerRow field="puntos" expandable="false"
 													style="vertical-Align:left;">
-													<p:column colspan="22">
+													<p:column colspan="21">
 														<div class="inline-flex align-items-left"
 															style="text-align: left;">
 															<h:outputText styleClass="ml-2"
-																value="#{jugadores.partidosDeLocalRegular.partidosJugados} partidos de Temporada regular como local" />
+																value="#{jugadores.partidosDeLocalRegular.partidosJugados} partidos de Temporada regular como local.
+																#{statLoRe.situacionTiro}" />
 														</div>
 													</p:column>
 												</p:headerRow>
@@ -417,10 +417,10 @@ and open the template in the editor.
 													<h:outputText value="#{statLoRe.puntos}" />
 												</p:column>
 												<p:column headerText="AST">
-													<h:outputText value="#{statLoRe.asistencias}" />
+													<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
 												</p:column>
 												<p:column headerText="TRB">
-													<h:outputText value="#{statLoRe.totalRebotes}" />
+													<h:outputText value="#{statLoRe.totalRebotes == 0 ? '-' : statLoRe.totalRebotes}" />
 												</p:column>
 												<p:column headerText="FG">
 													<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
@@ -456,48 +456,48 @@ and open the template in the editor.
 													</h:outputText>
 												</p:column>
 												<p:column headerText="FT">
-													<h:outputText value="#{statLoRe.tirosLibresMetidos}" />
+													<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
 												</p:column>
 												<p:column headerText="FTA">
-													<h:outputText value="#{statLoRe.tirosLibresIntentados}" />
+													<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
 												</p:column>
 												<p:column headerText="%FTG">
-													<h:outputText value="#{statLoRe.tirosLibresPorcentaje}">
+													<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
 														<f:convertNumber pattern="#0.000" />
 													</h:outputText>
 												</p:column>
 												<p:column headerText="DRB">
-													<h:outputText value="#{statLoRe.reboteDefensivo}" />
+													<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
 												</p:column>
 												<p:column headerText="ORB">
-													<h:outputText value="#{statLoRe.reboteOfensivo}" />
+													<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
 												</p:column>
 												<p:column headerText="STL">
-													<h:outputText value="#{statLoRe.robos}" />
+													<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
 												</p:column>
 												<p:column headerText="BLK">
-													<h:outputText value="#{statLoRe.tapones}" />
+													<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
 												</p:column>
 												<p:column headerText="TOV">
-													<h:outputText value="#{statLoRe.perdidas}" />
+													<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
 												</p:column>
 												<p:column headerText="PF" style="width: 3%;">
-													<h:outputText value="#{statLoRe.faltasPersonales}" />
+													<h:outputText value="#{statLoRe.faltasPersonales == 0 ? '-' : statLoRe.faltasPersonales}" />
 												</p:column>
 											</p:dataTable>
 											<p:dataTable id="statPlayerLocalPlayoff" var="statLoRe"
-												value="#{jugadores.partidosDeLocalPlayoff}"
+												value="#{jugadores.listaPartidosDeLocalPlayoff}"
 												class="tablaEstadisticaContraEquipos"
-												expandableRowGroups="true" sortBy="#{statLoRe.temporada}"
-												lazy="true">
+												expandableRowGroups="true" sortBy="#{statLoRe.puntos}">
 
-												<p:headerRow field="partidosLocalPlayoff" expandable="false"
+												<p:headerRow field="puntos" expandable="false"
 													style="vertical-Align:left;">
-													<p:column colspan="22">
+													<p:column colspan="21">
 														<div class="inline-flex align-items-left"
 															style="text-align: left;">
 															<h:outputText styleClass="ml-2"
-																value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local" />
+																value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local. 
+																#{statLoRe.situacionTiro}"/>
 														</div>
 													</p:column>
 												</p:headerRow>
@@ -505,10 +505,10 @@ and open the template in the editor.
 													<h:outputText value="#{statLoRe.puntos}" />
 												</p:column>
 												<p:column headerText="AST">
-													<h:outputText value="#{statLoRe.asistencias}" />
+													<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
 												</p:column>
 												<p:column headerText="TRB">
-													<h:outputText value="#{statLoRe.totalRebotes}" />
+													<h:outputText value="#{statLoRe.totalRebotes == 0 ? '-' : statLoRe.totalRebotes}" />
 												</p:column>
 												<p:column headerText="FG">
 													<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
@@ -544,48 +544,48 @@ and open the template in the editor.
 													</h:outputText>
 												</p:column>
 												<p:column headerText="FT">
-													<h:outputText value="#{statLoRe.tirosLibresMetidos}" />
+													<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
 												</p:column>
 												<p:column headerText="FTA">
-													<h:outputText value="#{statLoRe.tirosLibresIntentados}" />
+													<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
 												</p:column>
 												<p:column headerText="%FTG">
-													<h:outputText value="#{statLoRe.tirosLibresPorcentaje}">
+													<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
 														<f:convertNumber pattern="#0.000" />
 													</h:outputText>
 												</p:column>
 												<p:column headerText="DRB">
-													<h:outputText value="#{statLoRe.reboteDefensivo}" />
+													<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
 												</p:column>
 												<p:column headerText="ORB">
-													<h:outputText value="#{statLoRe.reboteOfensivo}" />
+													<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
 												</p:column>
 												<p:column headerText="STL">
-													<h:outputText value="#{statLoRe.robos}" />
+													<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
 												</p:column>
 												<p:column headerText="BLK">
-													<h:outputText value="#{statLoRe.tapones}" />
+													<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
 												</p:column>
 												<p:column headerText="TOV">
-													<h:outputText value="#{statLoRe.perdidas}" />
+													<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
 												</p:column>
 												<p:column headerText="PF" style="width: 3%;">
-													<h:outputText value="#{statLoRe.faltasPersonales}" />
+													<h:outputText value="#{statLoRe.faltasPersonales == 0 ? '-' : statLoRe.faltasPersonales}" />
 												</p:column>
 											</p:dataTable>
 											<p:dataTable id="statPlayerVisitanteRegular" var="statLoRe"
-												value="#{jugadores.partidosDeVisitanteRegular}"
+												value="#{jugadores.listaPartidosDeVisitanteRegular}"
 												class="tablaEstadisticaContraEquipos"
-												expandableRowGroups="true" sortBy="#{statLoRe.temporada}"
-												lazy="true">
+												expandableRowGroups="true" sortBy="#{statLoRe.puntos}">
 
-												<p:headerRow field="partidosVisitanteRegular"
+												<p:headerRow field="puntos"
 													expandable="false" style="vertical-Align:left;">
-													<p:column colspan="22">
+													<p:column colspan="21">
 														<div class="inline-flex align-items-left"
 															style="text-align: left;">
 															<h:outputText styleClass="ml-2"
-																value="#{jugadores.partidosVisitanteRegular} partidos de Temporada regular como Visitante" />
+																value="#{jugadores.partidosVisitanteRegular} partidos de Temporada regular como Visitante.
+																#{statLoRe.situacionTiro}" />
 														</div>
 													</p:column>
 												</p:headerRow>
@@ -593,10 +593,10 @@ and open the template in the editor.
 													<h:outputText value="#{statLoRe.puntos}" />
 												</p:column>
 												<p:column headerText="AST">
-													<h:outputText value="#{statLoRe.asistencias}" />
+													<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
 												</p:column>
 												<p:column headerText="TRB">
-													<h:outputText value="#{statLoRe.totalRebotes}" />
+													<h:outputText value="#{statLoRe.totalRebotes == 0 ? '-' : statLoRe.totalRebotes}" />
 												</p:column>
 												<p:column headerText="FG">
 													<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
@@ -632,48 +632,48 @@ and open the template in the editor.
 													</h:outputText>
 												</p:column>
 												<p:column headerText="FT">
-													<h:outputText value="#{statLoRe.tirosLibresMetidos}" />
+													<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
 												</p:column>
 												<p:column headerText="FTA">
-													<h:outputText value="#{statLoRe.tirosLibresIntentados}" />
+													<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
 												</p:column>
 												<p:column headerText="%FTG">
-													<h:outputText value="#{statLoRe.tirosLibresPorcentaje}">
+													<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
 														<f:convertNumber pattern="#0.000" />
 													</h:outputText>
 												</p:column>
 												<p:column headerText="DRB">
-													<h:outputText value="#{statLoRe.reboteDefensivo}" />
+													<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
 												</p:column>
 												<p:column headerText="ORB">
-													<h:outputText value="#{statLoRe.reboteOfensivo}" />
+													<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
 												</p:column>
 												<p:column headerText="STL">
-													<h:outputText value="#{statLoRe.robos}" />
+													<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
 												</p:column>
 												<p:column headerText="BLK">
-													<h:outputText value="#{statLoRe.tapones}" />
+													<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
 												</p:column>
 												<p:column headerText="TOV">
-													<h:outputText value="#{statLoRe.perdidas}" />
+													<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
 												</p:column>
 												<p:column headerText="PF" style="width: 3%;">
-													<h:outputText value="#{statLoRe.faltasPersonales}" />
+													<h:outputText value="#{statLoRe.faltasPersonales == 0 ? '-' : statLoRe.faltasPersonales}" />
 												</p:column>
 											</p:dataTable>
 											<p:dataTable id="statPlayerVisitantePlayoff" var="statLoRe"
-												value="#{jugadores.partidosDeVisitantePlayoff}"
+												value="#{jugadores.listaPartidosDeVisitantePlayoff}"
 												class="tablaEstadisticaContraEquipos"
-												expandableRowGroups="true" sortBy="#{statLoRe.temporada}"
-												lazy="true">
+												expandableRowGroups="true" sortBy="#{statLoRe.puntos}">
 
-												<p:headerRow field="partidosVisitantePlayoff"
+												<p:headerRow field="puntos"
 													expandable="false" style="vertical-Align:left;">
-													<p:column colspan="22">
+													<p:column colspan="21">
 														<div class="inline-flex align-items-left"
 															style="text-align: left;">
 															<h:outputText styleClass="ml-2"
-																value="#{jugadores.partidosVisitantePlayoff} partidos de PlayOff como visitante" />
+																value="#{jugadores.partidosVisitantePlayoff} partidos de PlayOff como visitante.
+																#{statLoRe.situacionTiro}" />
 														</div>
 													</p:column>
 												</p:headerRow>
@@ -681,10 +681,10 @@ and open the template in the editor.
 													<h:outputText value="#{statLoRe.puntos}" />
 												</p:column>
 												<p:column headerText="AST">
-													<h:outputText value="#{statLoRe.asistencias}" />
+													<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
 												</p:column>
 												<p:column headerText="TRB">
-													<h:outputText value="#{statLoRe.totalRebotes}" />
+													<h:outputText value="#{statLoRe.totalRebotes == 0 ? '-' : statLoRe.totalRebotes}" />
 												</p:column>
 												<p:column headerText="FG">
 													<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
@@ -720,157 +720,217 @@ and open the template in the editor.
 													</h:outputText>
 												</p:column>
 												<p:column headerText="FT">
-													<h:outputText value="#{statLoRe.tirosLibresMetidos}" />
+													<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
 												</p:column>
 												<p:column headerText="FTA">
-													<h:outputText value="#{statLoRe.tirosLibresIntentados}" />
+													<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
 												</p:column>
 												<p:column headerText="%FTG">
-													<h:outputText value="#{statLoRe.tirosLibresPorcentaje}">
+													<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
 														<f:convertNumber pattern="#0.000" />
 													</h:outputText>
 												</p:column>
 												<p:column headerText="DRB">
-													<h:outputText value="#{statLoRe.reboteDefensivo}" />
+													<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
 												</p:column>
 												<p:column headerText="ORB">
-													<h:outputText value="#{statLoRe.reboteOfensivo}" />
+													<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
 												</p:column>
 												<p:column headerText="STL">
-													<h:outputText value="#{statLoRe.robos}" />
+													<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
 												</p:column>
 												<p:column headerText="BLK">
-													<h:outputText value="#{statLoRe.tapones}" />
+													<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
 												</p:column>
 												<p:column headerText="TOV">
-													<h:outputText value="#{statLoRe.perdidas}" />
+													<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
 												</p:column>
 												<p:column headerText="PF" style="width: 3%;">
-													<h:outputText value="#{statLoRe.faltasPersonales}" />
+													<h:outputText value="#{statLoRe.faltasPersonales == 0 ? '-' : statLoRe.faltasPersonales}" />
 												</p:column>
 											</p:dataTable>
 										</div>
 
-										<h:panelGrid id="graficos_stats_1" columns="4"
-											style="margin-top:30px;text-align:center">
+										<p:panelGrid id="graficos_stats_1" columns="2" columnClasses="porcentaje-cincuenta,porcentaje-cincuenta"
+											style="margin-top:30px;" styleClass="sinBordes centrar">
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop centrarTexto">
+												<p:outputLabel style="font-size: 25px;font-weight: bold" escape="false">
+													Temporada Regular como Local contra <br/>#{jugadores.equipoSeleccionado.nombre}
+												</p:outputLabel>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop centrarTexto">
+												<p:outputLabel style="font-size: 25px;font-weight: bold" escape="false">
+													Play Offs como Local contra <br/>#{jugadores.equipoSeleccionado.nombre}
+												</p:outputLabel>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop">
+												<h:panelGroup style="display:block;margin-left:30px"
+													class="shot-area-jugador" id="cartaLocalRegular">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{jugadores.listaTirosLocalRegular}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
+																	title="#{item.tooltipTiro}">
+																</h:outputText>
+														</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
+											<p:panelGrid columns="1" styleClass="centrar verticalTop">
+												<h:panelGroup style="display:block;margin-left:60px;vertical-align:top;"
+													class="shot-area-jugador" id="cartaVisitanteRegular">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{jugadores.listaTirosLocalPlayoff}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
+																	title="#{item.tooltipTiro}"/>
+														</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="3" styleClass="centrar verticalTop">
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart id="chartDonut1"
+														model="#{jugadores.donutModel}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor1}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut2" model="#{jugadores.donutModel2}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor2}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut3" model="#{jugadores.donutModel3}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor3}"/>
+												</p:panelGrid>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="3" styleClass="centrar verticalTop">
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart id="chartDonut4"
+														model="#{jugadores.donutModel4}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor4}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut5" model="#{jugadores.donutModel5}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor5}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut6" model="#{jugadores.donutModel6}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor6}"/>
+												</p:panelGrid>
+											</p:panelGrid>
 
-											<h:outputText
-												value="Temporada Recular como Local contra #{jugadores.equipoSeleccionado.nombre}" />
-											<h:outputText value=" " />
-											<h:outputText
-												value="Play Offs como Local contra #{jugadores.equipoSeleccionado.nombre}" />
-											<h:outputText value=" " />
+										</p:panelGrid>
 
-											<h:panelGroup style="display:block;margin-left:30px"
-												class="shot-area" id="cartaLocalRegular">
-												<img alt="nbaHalfCourt"
-													src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-												<p:repeat value="#{jugadores.listaTirosLocalRegular}"
-													var="item">
-													<div
-														style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-														class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-												</p:repeat>
-											</h:panelGroup>
+										<p:panelGrid id="graficos_stats_2" columns="2" columnClasses="porcentaje-cincuenta,porcentaje-cincuenta"
+											style="margin-top:30px;" styleClass="sinBordes centrar">
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop centrarTexto">
+												<p:outputLabel style="font-size: 25px;font-weight: bold" escape="false">
+													Temporada Regular como Visitante contra <br/>#{jugadores.equipoSeleccionado.nombre}
+												</p:outputLabel>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop centrarTexto">
+												<p:outputLabel style="font-size: 25px;font-weight: bold" escape="false">
+													Play Offs como Visitante contra <br/>#{jugadores.equipoSeleccionado.nombre}
+												</p:outputLabel>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="1" styleClass="centrar verticalTop">
+												<h:panelGroup style="display:block;margin-left:30px"
+													class="shot-area-jugador" id="cartaLocalPlayoff">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{jugadores.listaTirosVisitanteRegular}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
+																	title="#{item.tooltipTiro}"/>
+														</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
+											<p:panelGrid columns="1" styleClass="centrar verticalTop">
+												<h:panelGroup style="display:block;margin-left:60px;vertical-align:top;"
+													class="shot-area-jugador" id="cartaVisitantePlayoff">
+													<img alt="nbaHalfCourt"
+														src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+													<ui:repeat value="#{jugadores.listaTirosVisitantePlayoff}" var="item">
+														<div
+															style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+															class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
+																	title="#{item.tooltipTiro}"/>
+														</div>
+													</ui:repeat>
+												</h:panelGroup>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="3" styleClass="centrar verticalTop">
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart id="chartDonut7"
+														model="#{jugadores.donutModel7}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor7}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut8" model="#{jugadores.donutModel8}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor8}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut9" model="#{jugadores.donutModel9}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor9}"/>
+												</p:panelGrid>
+											</p:panelGrid>
+											
+											<p:panelGrid columns="3" styleClass="centrar verticalTop">
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart id="chartDonut10"
+														model="#{jugadores.donutModel10}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor10}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut11" model="#{jugadores.donutModel11}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor11}"/>
+												</p:panelGrid>
+												<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+													<p:donutChart
+														id="chartDonut12" model="#{jugadores.donutModel12}"
+														style="width: 100%; height: 80px;" />
+													<h:outputText value="#{jugadores.donutModelPor12}"/>
+												</p:panelGrid>
+											</p:panelGrid>
 
-											<h:panelGrid columns="1">
-												<p:donutChart id="chartDonut1"
-													model="#{jugadores.donutModel}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor1}
-                                                <p:donutChart
-													id="chartDonut2" model="#{jugadores.donutModel2}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor2}
-                                                <p:donutChart
-													id="chartDonut3" model="#{jugadores.donutModel3}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor3}
-                                            </h:panelGrid>
-
-											<h:panelGroup style="display:block;margin-left:60px;vertical-align:top;"
-												class="shot-area" id="cartaVisitanteRegular">
-												<img alt="nbaHalfCourt"
-													src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-												<p:repeat value="#{jugadores.listaTirosLocalPlayoff}"
-													var="item">
-													<div
-														style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-														class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-												</p:repeat>
-											</h:panelGroup>
-
-											<h:panelGrid columns="1">
-												<p:donutChart id="chartDonut4"
-													model="#{jugadores.donutModel4}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor4}
-                                                <p:donutChart
-													id="chartDonut5" model="#{jugadores.donutModel5}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor5}
-                                                <p:donutChart
-													id="chartDonut6" model="#{jugadores.donutModel6}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor6}
-                                            </h:panelGrid>
-
-										</h:panelGrid>
-
-										<h:panelGrid id="graficos_stats_2" columns="4"
-											style="margin-top:30px;text-align:center">
-
-											<h:outputText
-												value="Temporada Recular como Visitante contra #{jugadores.equipoSeleccionado.nombre}" />
-											<h:outputText value=" " />
-											<h:outputText
-												value="Play Offs como Visitante contra #{jugadores.equipoSeleccionado.nombre}" />
-											<h:outputText value=" " />
-
-											<h:panelGroup style="display:block;margin-left:30px"
-												class="shot-area" id="cartaLocalPlayoff">
-												<img alt="nbaHalfCourt"
-													src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-												<p:repeat value="#{jugadores.listaTirosVisitanteRegular}"
-													var="item">
-													<div
-														style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-														class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-												</p:repeat>
-											</h:panelGroup>
-
-											<h:panelGrid columns="1">
-												<p:donutChart id="chartDonut7"
-													model="#{jugadores.donutModel7}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor7}
-                                                <p:donutChart
-													id="chartDonut8" model="#{jugadores.donutModel8}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor8}
-                                                <p:donutChart
-													id="chartDonut9" model="#{jugadores.donutModel9}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor9}
-                                            </h:panelGrid>
-
-											<h:panelGroup style="display:block;margin-left:60px"
-												class="shot-area" id="cartaVisitantePlayoff">
-												<img alt="nbaHalfCourt"
-													src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-												<p:repeat value="#{jugadores.listaTirosVisitantePlayoff}"
-													var="item">
-													<div
-														style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-														class="#{jugadores.comprobarTiroClase(item.dentro)}">#{jugadores.comprobarTiro(item.dentro)}</div>
-												</p:repeat>
-											</h:panelGroup>
-
-											<h:panelGrid columns="1">
-												<p:donutChart id="chartDonut10"
-													model="#{jugadores.donutModel10}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor10}
-                                                <p:donutChart
-													id="chartDonut11" model="#{jugadores.donutModel11}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor11}
-                                                <p:donutChart
-													id="chartDonut12" model="#{jugadores.donutModel12}"
-													style="width: 100%; height: 100px;" /> #{jugadores.donutModelPor12}
-                                            </h:panelGrid>
-
-
-										</h:panelGrid>
+										</p:panelGrid>
 									</section>
 
 									<section id="partidos_temporada" class="tab-panel">

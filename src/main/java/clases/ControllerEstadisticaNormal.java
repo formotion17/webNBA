@@ -3,9 +3,14 @@ package clases;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import modelo.JugadorTirosContraEquipo;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ControllerEstadisticaNormal implements Serializable{
 
     /**
@@ -44,6 +49,29 @@ public class ControllerEstadisticaNormal implements Serializable{
     private DecimalFormat df = new DecimalFormat("0.00");
     private DecimalFormat media = new DecimalFormat("0.00");
     private boolean tienePartido=false;
+    private String situacionTiro="";
+    
+	
+	public ControllerEstadisticaNormal(JugadorTirosContraEquipo tirosJugador) {
+		this.triplesIntentados = tirosJugador.getTresPuntosIntentados();
+		this.triplesMetidos = tirosJugador.getTresPuntosMetidos();
+
+		this.tirosCampoIntentados = tirosJugador.getTirosCampoIntentados();
+		this.tirosCampoMetidos = tirosJugador.getTirosCampoMetidos();
+		this.puntos =tirosJugador.getTresPuntosMetidos()*3 + tirosJugador.getDosPuntosMetidos();
+		
+		this.tirosCampoIntentados = tirosJugador.getTirosCampoIntentados();
+		this.tirosCampoMetidos = tirosJugador.getTirosCampoMetidos();
+		
+		this.tirosDosIntentados = tirosJugador.getDosPuntosIntentados();
+		this.tirosDosMetidos = tirosJugador.getDosPuntosMetidos();
+		
+		this.tirosDosPorcentaje = tirosJugador.getPorcentajeDosPuntos();
+		this.triplesPorcentaje = tirosJugador.getPorcentajeTresPuntos();
+		this.tirosCampoPorcentaje = tirosJugador.getPorcentajeTirosCampo();
+		
+		this.situacionTiro = "Estadisticas del Filtro de Tiros";
+	}
 
 
     public void calcularTirosDosPuntos() {
@@ -228,5 +256,6 @@ public class ControllerEstadisticaNormal implements Serializable{
 		int porcentaje = (int) (tirosCampoPorcentaje * 100);
 		return  porcentaje + "%";
 	}
+
     
 }

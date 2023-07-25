@@ -324,11 +324,10 @@ ul{
 .shot-area {
     position:relative;
     overflow-x:auto;
-    margin-top: 30px;
 }
 .shot-area>div {
     position:absolute;
-    font-size:14px;
+    font-size:10px;
 }
 .shot-area>.make {
     color:#080;
@@ -336,6 +335,22 @@ ul{
 .shot-area>.miss {
     color:#f00;
 }
+
+.shot-area-jugador {
+    position:relative;
+    overflow-x:auto;
+}
+.shot-area-jugador>div {
+    position:absolute;
+    font-size:10px;
+}
+.shot-area-jugador>.make {
+    color:#080;
+}
+.shot-area-jugador>.miss {
+    color:#f00;
+}
+
 
 #cartaLocalRegular.shot-area{
 
@@ -529,6 +544,7 @@ body {
 .porcentaje-veinte{width:20%;}
 .porcentaje-veinteCinco{width:25%;}
 .porcentaje-treinta{width:30%;}
+.porcentaje-tercio{width:33%;}
 .porcentaje-treintaCinco{width:35%;}
 .porcentaje-cuarenta{width:40%;}
 .porcentaje-cuarentaCinco{width:45%;}
@@ -622,6 +638,10 @@ ui-panelgrid .ui-panelgrid-cell {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.centrarTexto{
+	text-align: center;
 }
 
 .centrarTexto{
@@ -772,12 +792,41 @@ body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
     font-weight: bold;
 }
 
-#form\:graficos_stats_1 > tbody > tr:nth-child(2) > td:nth-child(1){
+.verticalTop{
 	vertical-align: top;
+}
+
+/* CSS para eliminar espacio entre elementos en el p:panelGrid */
+.ui-panelgrid-cell {
+  margin: 0; /* Establece margen a cero para las celdas del panelGrid */
+}
+
+/* Establece margen a cero para los elementos dentro de las celdas del panelGrid */
+.ui-panelgrid-cell > * {
+  margin: 0;
 }
 
 
 
+.grid-table {
+  width: 100%;
+  border-collapse: collapse; /* Para que las celdas compartan el borde */
+}
 
+/* Estilos para las celdas del grid */
+.grid-table td {
+  padding: 20px;
+  background-color: #f2f2f2;
+  text-align: center;
+  border: 1px solid #ccc;
+}
 
+.tablaEstadisticaContraEquipos thead th {
+  background-color: #e8e4e4 !important;
+}
+
+.tablaEstadisticaContraEquipos tbody tr {
+  background-color: #f8f9fa !important;
+  height: 10px !important;
+}
 

@@ -64,6 +64,17 @@ public class ControllerTiros {
     			"\n"+getEquipo()+" "+devolverSituacionPartido(getSituacionDespues())+" "+getTanteo();
     }
     
+
+	public void rellenarToolTipTiroContraEquipo() {
+		this.tooltipTiro=
+				getEquipo()+" - "+getRival()+
+				"\nFecha: "+getFecha()+
+    			"\n"+devolverCuarto(getCuarto())+", A falta de "+getMinutos(getTiempoRestante())+
+    			"\n"+jugador+" "+getAcierto(isDentro())+" la canasta de "+getTipo()+" a "+PiesAMetros.devolverMetros(getDistancia())+
+    			"\n"+getEquipo()+" "+devolverSituacionPartido(getSituacionDespues())+" "+getTanteo();
+    }
+		
+    
 	private String devolverSituacionPartido(String situacion) {
 		switch(situacion) {
 		case "GANANDO":

@@ -16,6 +16,7 @@ import com.mongodb.MongoClient;
 import contollers.utilidades.JugadorControllerUtilidades;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import modelo.JugadorTirosContraEquipo;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -94,10 +95,20 @@ public class JugadorController extends BaseController implements Serializable{
     private int partidosVisitanteRegular=0;
     private int partidosLocalPlayoff=0;
     private int partidosVisitantePlayoff=0;
+    
     private ControllerEstadisticaNormal partidosDeLocalRegular = new  ControllerEstadisticaNormal();
+    private ArrayList<ControllerEstadisticaNormal> listaPartidosDeLocalRegular = new  ArrayList<>();
+    
     private ControllerEstadisticaNormal partidosDeLocalPlayoff = new  ControllerEstadisticaNormal();
+    private ArrayList<ControllerEstadisticaNormal> listaPartidosDeLocalPlayoff= new  ArrayList<>();
+    
     private ControllerEstadisticaNormal partidosDeVisitanteRegular = new  ControllerEstadisticaNormal();
+    private ArrayList<ControllerEstadisticaNormal> listaPartidosDeVisitanteRegular = new  ArrayList<>();
+    
     private ControllerEstadisticaNormal partidosDeVisitantePlayoff = new  ControllerEstadisticaNormal();
+    private ArrayList<ControllerEstadisticaNormal> listaPartidosDeVisitantePlayoff = new  ArrayList<>();
+    
+    
     private ArrayList<ControllerEstadisticaNormal> listaPartidosLocalVisitante = new ArrayList<>();
     private ArrayList<ControllerTiros> listaTirosLocalRegular = new ArrayList<>();
     private ArrayList<ControllerTiros> listaTirosVisitanteRegular = new ArrayList<>();
@@ -170,33 +181,11 @@ public class JugadorController extends BaseController implements Serializable{
     private String donutModelPor11;
     private String donutModelPor12;
     
-    private int localRegularDosPuntosDentro=0;
-    private int localRegularDosPuntosFuera=0;
-    private int localRegularTresPuntosDentro=0;
-    private int localRegularTresPuntosFuera=0;
-    private int localRegularTotalDentro=0;
-    private int localRegularTotalFuera=0;
     
-    private int visitanteRegularDosPuntosDentro=0;
-    private int visitanteRegularDosPuntosFuera=0;
-    private int visitanteRegularTresPuntosDentro=0;
-    private int visitanteRegularTresPuntosFuera=0;
-    private int visitanteRegularTotalDentro=0;
-    private int visitanteRegularTotalFuera=0;
-    
-    private int localPlayoffDosPuntosDentro=0;
-    private int localPlayoffDosPuntosFuera=0;
-    private int localPlayoffTresPuntosDentro=0;
-    private int localPlayoffTresPuntosFuera=0;
-    private int localPlayoffTotalDentro=0;
-    private int localPlayoffTotalFuera=0;
-    
-    private int visitantePlayoffDosPuntosDentro=0;
-    private int visitantePlayoffDosPuntosFuera=0;
-    private int visitantePlayoffTresPuntosDentro=0;
-    private int visitantePlayoffTresPuntosFuera=0;
-    private int visitantePlayoffTotalDentro=0;
-    private int visitantePlayoffTotalFuera=0;
+    private JugadorTirosContraEquipo localRegular = new JugadorTirosContraEquipo();
+    private JugadorTirosContraEquipo visitanteRegular = new JugadorTirosContraEquipo();
+    private JugadorTirosContraEquipo localPlayoff = new JugadorTirosContraEquipo();
+    private JugadorTirosContraEquipo visitantePlayoff = new JugadorTirosContraEquipo();
     
     private ArrayList<ControllerPartidoJugador> listaPartidosTemporadaRegular;
     private ArrayList<ControllerPartidoJugador> listaPartidosPlayOff;
@@ -323,6 +312,8 @@ public class JugadorController extends BaseController implements Serializable{
          int masMenos=0;
          int masMenosPlayoff=0;
          for(ControllerPartidoJugador partido:listaPartidosTemporadaRegular) {
+        	 System.out.println(partido.getFecha());
+        	 System.out.println("Marmo: hay que revisar, porque igual el jugador no ha jugado y esto esta a null");
         	 masMenos += partido.getBoxscore().getMasMenos();
         	 partidosJugados++;
          }
@@ -381,12 +372,22 @@ public class JugadorController extends BaseController implements Serializable{
                     cuartoElegido = jugadorUtil.devolverCuarto(listaCuartosElegidos);
                     fields.put("equipoLocal.jugadores."+cuartoElegido, 1);
                     fields.put("equipoLocal.jugadores.listaTiros", 1);
+                    fields.put("dia",1);
+                    fields.put("mes",1);
+                    fields.put("year",1);
+                    fields.put("equipoVisitante.nombre",1);
+                    fields.put("equipoLocal.nombre",1);
 
                     cursor = collection.find(allQuery,fields);
 
                     while(cursor.hasNext()) {
                         setLocalVisitante("LOCAL");
                         DBObject get = cursor.next();
+                        String dia = (String) get.get("dia");
+                        String mes = (String) get.get("mes");
+                        String year = (String) get.get("year");
+                        String equipo = (String) ((BasicDBObject) get.get("equipoLocal")).get("nombre");
+                        String rival = (String) ((BasicDBObject) get.get("equipoVisitante")).get("nombre");
                         ArrayList<BasicDBObject> listaLocales =(ArrayList<BasicDBObject>) ((BasicDBObject) get.get("equipoLocal")).get("jugadores");
 
                         for(int i = 0;i<listaLocales.size();i++){
@@ -403,7 +404,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaLocales.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTiros((Map)listaTirosLocal.get(j).toMap()),listaTirosLocalPlayoff,2);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosLocalPlayoff,2);
                                                 }
                                             }
                                         }else{
@@ -413,7 +414,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaLocales.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTiros((Map)listaTirosLocal.get(j).toMap()),listaTirosLocalRegular,1);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosLocalRegular,1);
                                                 }
                                             }   
                                         }
@@ -427,11 +428,17 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeLocalPlayoff.setUbicacion("");
                     partidosDeLocalPlayoff.setCuando("PlayOff");
                     partidosDeLocalPlayoff.setPartidosJugados(partidosLocalPlayoff);
+                    partidosDeLocalPlayoff.setSituacionTiro("Estadisticas Totales del Jugador");
+                    
+                    listaPartidosDeLocalPlayoff.add(partidosDeLocalPlayoff);
 
                     partidosDeLocalRegular.calcularTirosDosPuntos();
                     partidosDeLocalRegular.setUbicacion("Local");
                     partidosDeLocalRegular.setCuando("Regular");
                     partidosDeLocalRegular.setPartidosJugados(partidosLocalRegular);
+                    partidosDeLocalRegular.setSituacionTiro("Estadisticas Totales del Jugador");
+                    
+                    listaPartidosDeLocalRegular.add(partidosDeLocalRegular);
 
                     if(partidosLocalRegular!=0){
                         listaPartidosLocalVisitante.add(partidosDeLocalRegular);
@@ -461,12 +468,23 @@ public class JugadorController extends BaseController implements Serializable{
                     fields.put("playOff", 1);
                     fields.put("equipoVisitante.jugadores."+cuartoElegido, 1);
                     fields.put("equipoVisitante.jugadores.listaTiros", 1);
+                    fields.put("dia",1);
+                    fields.put("mes",1);
+                    fields.put("year",1);
+                    fields.put("equipoVisitante.nombre",1);
+                    fields.put("equipoLocal.nombre",1);
 
                     cursor = collection.find(allQuery,fields);
 
                     while(cursor.hasNext()) {
                         setLocalVisitante("VISITANTE");
                         DBObject get = cursor.next();
+                        String dia = (String) get.get("dia");
+                        String mes = (String) get.get("mes");
+                        String year = (String) get.get("year");
+                        String equipo = (String) ((BasicDBObject) get.get("equipoVisitante")).get("nombre");
+                        String rival = (String) ((BasicDBObject) get.get("equipoLocal")).get("nombre");
+                        
                         ArrayList<BasicDBObject> listaVisitantes =
                                         (ArrayList<BasicDBObject>) ((BasicDBObject) get.get("equipoVisitante")).get("jugadores");
                         for(int i = 0;i<listaVisitantes.size();i++){
@@ -483,7 +501,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaVisitantes.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTiros((Map)listaTirosLocal.get(j).toMap()),listaTirosVisitantePlayoff,4);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosVisitantePlayoff,4);
                                                 }
                                             }
                                         }else{
@@ -493,7 +511,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaVisitantes.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTiros((Map)listaTirosLocal.get(j).toMap()),listaTirosVisitanteRegular,3);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosVisitanteRegular,3);
                                                 }
                                             }
                                         }
@@ -507,11 +525,17 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeVisitantePlayoff.setUbicacion("");
                     partidosDeVisitantePlayoff.setCuando("PlayOff");
                     partidosDeVisitantePlayoff.setPartidosJugados(partidosVisitantePlayoff);
+                    partidosDeVisitantePlayoff.setSituacionTiro("Estadisticas Totales del Jugador");
+                    
+                    listaPartidosDeVisitantePlayoff.add(partidosDeVisitantePlayoff);
 
                     partidosDeVisitanteRegular.calcularTirosDosPuntos();
                     partidosDeVisitanteRegular.setUbicacion("Visitante");
                     partidosDeVisitanteRegular.setCuando("Regular");
                     partidosDeVisitanteRegular.setPartidosJugados(partidosVisitanteRegular);
+                    partidosDeVisitanteRegular.setSituacionTiro("Estadisticas Totales del Jugador");
+                    
+                    listaPartidosDeVisitanteRegular.add(partidosDeVisitanteRegular);
 
                     if(partidosVisitanteRegular!=0){
                         listaPartidosLocalVisitante.add(partidosDeVisitanteRegular);
@@ -524,34 +548,49 @@ public class JugadorController extends BaseController implements Serializable{
                 }
         }
         
-        rellenarGraficaDonutGenerico(getDonutModel(),localRegularDosPuntosDentro,localRegularDosPuntosFuera,dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(getDonutModel2(),localRegularTresPuntosDentro,localRegularTresPuntosFuera,tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel3,localRegularTotalDentro,localRegularTotalFuera,"TR Local Fuera","TR Local Dentro");
+        localRegular.calcularTirosCampo();
+        localPlayoff.calcularTirosCampo();
+        visitanteRegular.calcularTirosCampo();
+        visitantePlayoff.calcularTirosCampo();
         
-        rellenarGraficaDonutGenerico(donutModel4,localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera,dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel5,localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera,tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel6,localPlayoffTotalDentro,localPlayoffTotalFuera,"PO Local Fuera","PO Local Dentro");
+        listaPartidosDeLocalRegular.add(new ControllerEstadisticaNormal(localRegular));
+        listaPartidosDeLocalPlayoff.add(new ControllerEstadisticaNormal(localPlayoff));
+        listaPartidosDeVisitanteRegular.add(new ControllerEstadisticaNormal(visitanteRegular));
+        listaPartidosDeVisitantePlayoff.add(new ControllerEstadisticaNormal(visitantePlayoff));
         
-        rellenarGraficaDonutGenerico(donutModel7,visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera,dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel8,visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera,tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel9,visitanteRegularTotalDentro,visitanteRegularTotalFuera,"TR Visitante Fuera","TR Visitante Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel(),localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(getDonutModel2(),localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(donutModel3,localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados(),"TR Local Fuera","TR Local Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera,dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera,tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel12,visitantePlayoffTotalDentro,visitantePlayoffTotalFuera,"PO Visitante Fuera","PO Visitante Dentro");
+        rellenarGraficaDonutGenerico(donutModel4,localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel5,localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(donutModel6,localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados(),"PO Local Fuera","PO Local Dentro");
+        
+        rellenarGraficaDonutGenerico(donutModel7,visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel8,visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(donutModel9,visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados(),"TR Visitante Fuera","TR Visitante Dentro");
+        
+        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(donutModel12,visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados(),"PO Visitante Fuera","PO Visitante Dentro");
 
-        setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegularDosPuntosDentro,localRegularDosPuntosFuera));
-        setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegularTresPuntosDentro,localRegularTresPuntosFuera));
-        setDonutModelPor3(actualizarPorcentajeTirosDonut(localRegularTotalDentro,localRegularTotalFuera));
-        setDonutModelPor4(actualizarPorcentajeTirosDonut(localPlayoffDosPuntosDentro,localPlayoffDosPuntosFuera));
-        setDonutModelPor5(actualizarPorcentajeTirosDonut(localPlayoffTresPuntosDentro,localPlayoffTresPuntosFuera));
-        setDonutModelPor6(actualizarPorcentajeTirosDonut(localPlayoffTotalDentro,localPlayoffTotalFuera));
-        setDonutModelPor7(actualizarPorcentajeTirosDonut(visitanteRegularDosPuntosDentro,visitanteRegularDosPuntosFuera));
-        setDonutModelPor8(actualizarPorcentajeTirosDonut(visitanteRegularTresPuntosDentro,visitanteRegularTresPuntosFuera));
-        setDonutModelPor9(actualizarPorcentajeTirosDonut(visitanteRegularTotalDentro,visitanteRegularTotalFuera));
-        setDonutModelPor10(actualizarPorcentajeTirosDonut(visitantePlayoffDosPuntosDentro,visitantePlayoffDosPuntosFuera));
-        setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoffTresPuntosDentro,visitantePlayoffTresPuntosFuera));
-        setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoffTotalDentro,visitantePlayoffTotalFuera));
+        setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados()));
+        setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados()));
+        setDonutModelPor3(actualizarPorcentajeTirosDonut(localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados()));
+        
+        setDonutModelPor4(actualizarPorcentajeTirosDonut(localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados()));
+        setDonutModelPor5(actualizarPorcentajeTirosDonut(localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados()));
+        setDonutModelPor6(actualizarPorcentajeTirosDonut(localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados()));
+        
+        setDonutModelPor7(actualizarPorcentajeTirosDonut(visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados()));
+        setDonutModelPor8(actualizarPorcentajeTirosDonut(visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados()));
+        setDonutModelPor9(actualizarPorcentajeTirosDonut(visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados()));
+        
+        setDonutModelPor10(actualizarPorcentajeTirosDonut(visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados()));
+        setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados()));
+        setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados()));
+        
+        
     }
     
     private void rellenarGraficaDonutGenerico(DonutChartModel grafica,int dentro, int fuera,String fueraLabel, String dentroLabel) {
@@ -565,7 +604,7 @@ public class JugadorController extends BaseController implements Serializable{
         dataSet.setData(values);
         
         List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(178, 34, 34)");
+        bgColors.add("rgb(148, 152, 147)");
         bgColors.add("rgb(34, 139, 34)");
         dataSet.setBackgroundColor(bgColors);
          
@@ -606,76 +645,60 @@ public class JugadorController extends BaseController implements Serializable{
             case 1:
                 if(cartaTiro.getTipo().equals("2")){
                     if(cartaTiro.isDentro()){
-                        localRegularDosPuntosDentro++;
-                        localRegularTotalDentro++;
+                        localRegular.sumarDosMetido();
                     }else{
-                        localRegularDosPuntosFuera++;
-                        localRegularTotalFuera++;
+                        localRegular.sumarDosFallado();
                     }
                 }else{
                     if(cartaTiro.isDentro()){
-                        localRegularTresPuntosDentro++;
-                        localRegularTotalDentro++;
+                        localRegular.sumarTresMetido();
                     }else{
-                        localRegularTresPuntosFuera++;
-                        localRegularTotalFuera++;
+                        localRegular.sumarTresFallado();
                     }
                 }
                 break;
             case 2:
                 if(cartaTiro.getTipo().equals("2")){
                     if(cartaTiro.isDentro()){
-                        localPlayoffDosPuntosDentro++;
-                        localPlayoffTotalDentro++;
+                        localPlayoff.sumarDosMetido();
                     }else{
-                        localPlayoffDosPuntosFuera++;
-                        localPlayoffTotalFuera++;
+                        localPlayoff.sumarDosFallado();
                     }
                 }else{
                     if(cartaTiro.isDentro()){
-                        localPlayoffTresPuntosDentro++;
-                        localPlayoffTotalDentro++;
+                        localPlayoff.sumarTresMetido();
                     }else{
-                        localPlayoffTresPuntosFuera++;
-                        localPlayoffTotalFuera++;
+                        localPlayoff.sumarTresFallado();
                     }
                 }
                 break;
             case 3:
                 if(cartaTiro.getTipo().equals("2")){
                     if(cartaTiro.isDentro()){
-                        visitanteRegularDosPuntosDentro++;
-                        visitanteRegularTotalDentro++;
+                        visitanteRegular.sumarDosMetido();
                     }else{
-                        visitanteRegularDosPuntosFuera++;
-                        visitanteRegularTotalFuera++;
+                        visitanteRegular.sumarDosFallado();
                     }
                 }else{
                     if(cartaTiro.isDentro()){
-                        visitanteRegularTresPuntosDentro++;
-                        visitanteRegularTotalDentro++;
+                        visitanteRegular.sumarTresMetido();
                     }else{
-                        visitanteRegularTresPuntosFuera++;
-                        visitanteRegularTotalFuera++;
+                        visitanteRegular.sumarTresFallado();
                     }
                 }
                 break;
             case 4:
                 if(cartaTiro.getTipo().equals("2")){
                     if(cartaTiro.isDentro()){
-                        visitantePlayoffDosPuntosDentro++;
-                        visitantePlayoffTotalDentro++;
+                        visitantePlayoff.sumarDosMetido();
                     }else{
-                        visitantePlayoffDosPuntosFuera++;
-                        visitantePlayoffTotalFuera++;
+                        visitantePlayoff.sumarDosFallado();
                     }
                 }else{
                     if(cartaTiro.isDentro()){
-                        visitantePlayoffTresPuntosDentro++;
-                        visitantePlayoffTotalDentro++;
+                        visitantePlayoff.sumarTresMetido();
                     }else{
-                        visitantePlayoffTresPuntosFuera++;
-                        visitantePlayoffTotalFuera++;
+                        visitantePlayoff.sumarTresFallado();
                     }
                 }
                 break;
@@ -763,83 +786,70 @@ public class JugadorController extends BaseController implements Serializable{
             return true;
         }
         
-        String[] marcador = cartaTiro.getTanteo().split("-");
-        if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){
-            return true;
-        }
-        int visitante=Integer.parseInt(marcador[0]);
-        int local=Integer.parseInt(marcador[1]);
-        if(cartaTiro.isDentro()){
-            if(localVisitante.equals("LOCAL")){
-                local=local-Integer.parseInt(cartaTiro.getTipo());
-            }else{
-                visitante=visitante-Integer.parseInt(cartaTiro.getTipo());
-            }
+		/*
+		 * String[] marcador = cartaTiro.getTanteo().split("-");
+		 * if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){ return
+		 * true; } int visitante=Integer.parseInt(marcador[0]); int
+		 * local=Integer.parseInt(marcador[1]); if(cartaTiro.isDentro()){
+		 * if(localVisitante.equals("LOCAL")){
+		 * local=local-Integer.parseInt(cartaTiro.getTipo()); }else{
+		 * visitante=visitante-Integer.parseInt(cartaTiro.getTipo()); } }
+		 */
+        
+        // EMPATE - PERDIENDO - GANANDO
+        
+        switch(getListaSituacionPartidoElegido()) {
+        case "Empate":
+        	if(cartaTiro.getSituacionAntes().equals("EMPATE")) {return true;}
+        	break;
+        case "Ganando":
+        	if(cartaTiro.getSituacionAntes().equals("GANANDO")) {return true;}
+        	break;
+        case "Perdiendo":
+        	if(cartaTiro.getSituacionAntes().equals("PERDIENDO")) {return true;}
+        	break;
         }
         
-        if(listaSituacionPartidoElegido.equals("Empate") && visitante == local){
-            return true;
-        }else if(localVisitante.equals("LOCAL")){
-            if(listaSituacionPartidoElegido.equals("Ganando") && local>visitante){
-                return true;
-            }else if(listaSituacionPartidoElegido.equals("Perdiendo") && visitante>local){
-                return true;
-            }
-        }else{ // ES VISITANTE
-            if(listaSituacionPartidoElegido.equals("Ganando") && visitante>local){
-                return true;
-            }else if(listaSituacionPartidoElegido.equals("Perdiendo") && local>visitante){
-                return true;
-            }
-        }
-        
+		/*
+		 * if(listaSituacionPartidoElegido.equals("Empate"))
+		 * 
+		 * if(listaSituacionPartidoElegido.equals("Empate") && visitante == local){
+		 * return true; }else if(localVisitante.equals("LOCAL")){
+		 * if(listaSituacionPartidoElegido.equals("Ganando") && local>visitante){ return
+		 * true; }else if(listaSituacionPartidoElegido.equals("Perdiendo") &&
+		 * visitante>local){ return true; } }else{ // ES VISITANTE
+		 * if(listaSituacionPartidoElegido.equals("Ganando") && visitante>local){ return
+		 * true; }else if(listaSituacionPartidoElegido.equals("Perdiendo") &&
+		 * local>visitante){ return true; } }
+		 */
         return false;
     }
     
     private boolean comprobarPonerseDelante(ControllerTiros cartaTiro){
         if(listaPonerseDelanteElegido.equals("Todas las canastas")){
             return true;
-        }else{ // hemos elegido ponerse por delante, mirar que el tiro haya entrado y mirar la anotación anterior y la de despues
-            if(cartaTiro.isDentro()){
-                String[] marcador = cartaTiro.getTanteo().split("-");
-                if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){
-                    return false;
-                }
-                int visitante=Integer.parseInt(marcador[0]);
-                int local=Integer.parseInt(marcador[1]);
-                if(localVisitante.equals("LOCAL")){
-                    local=local-Integer.parseInt(cartaTiro.getTipo());
-                }else{
-                    visitante=visitante-Integer.parseInt(cartaTiro.getTipo());
-                }
-                
-                if(visitante == local){
-                    return true;
-                }else if(localVisitante.equals("LOCAL")){
-                    if(local>visitante){
-                        return false;
-                    }else if(visitante>local){
-                        if((visitante-local)<=Integer.parseInt(cartaTiro.getTipo())){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    }
-                }else{ // ES VISITANTE
-                    if(visitante>local){
-                        return false;
-                    }else if(local>visitante){
-                        if((local-visitante)<=Integer.parseInt(cartaTiro.getTipo())){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    }
-                }
-            }else{
-                return false;
-            }
         }
+        
+        if(cartaTiro.getSituacionDespues().equals("GANANDO")) {return true;}
+		/*
+		 * else{ // hemos elegido ponerse por delante, mirar que el tiro haya entrado y
+		 * mirar la anotación anterior y la de despues if(cartaTiro.isDentro()){
+		 * String[] marcador = cartaTiro.getTanteo().split("-");
+		 * if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){ return
+		 * false; } int visitante=Integer.parseInt(marcador[0]); int
+		 * local=Integer.parseInt(marcador[1]); if(localVisitante.equals("LOCAL")){
+		 * local=local-Integer.parseInt(cartaTiro.getTipo()); }else{
+		 * visitante=visitante-Integer.parseInt(cartaTiro.getTipo()); }
+		 * 
+		 * if(visitante == local){ return true; }else
+		 * if(localVisitante.equals("LOCAL")){ if(local>visitante){ return false; }else
+		 * if(visitante>local){
+		 * if((visitante-local)<=Integer.parseInt(cartaTiro.getTipo())){ return true;
+		 * }else{ return false; } } }else{ // ES VISITANTE if(visitante>local){ return
+		 * false; }else if(local>visitante){
+		 * if((local-visitante)<=Integer.parseInt(cartaTiro.getTipo())){ return true;
+		 * }else{ return false; } } } }else{ return false; } }
+		 */
         return false;
     }
     
@@ -880,6 +890,13 @@ public class JugadorController extends BaseController implements Serializable{
         listaTirosLocalPlayoff.clear();
         listaTirosVisitantePlayoff.clear();
         listaPartidosLocalVisitante.clear();
+        
+        
+        listaPartidosDeVisitantePlayoff.clear();
+        listaPartidosDeLocalRegular.clear();
+        listaPartidosDeLocalPlayoff.clear();
+        listaPartidosDeVisitanteRegular.clear();
+        
         partidosTotales=0;
         partidosLocal=0;
         partidosVisitante=0;
@@ -1032,33 +1049,10 @@ public class JugadorController extends BaseController implements Serializable{
     }
     
     private void resetearContadores() {
-        localRegularDosPuntosDentro=0;
-        localRegularDosPuntosFuera=0;
-        localRegularTresPuntosDentro=0;
-        localRegularTresPuntosFuera=0;
-        localRegularTotalDentro=0;
-        localRegularTotalFuera=0;
-
-        visitanteRegularDosPuntosDentro=0;
-        visitanteRegularDosPuntosFuera=0;
-        visitanteRegularTresPuntosDentro=0;
-        visitanteRegularTresPuntosFuera=0;
-        visitanteRegularTotalDentro=0;
-        visitanteRegularTotalFuera=0;
-
-        localPlayoffDosPuntosDentro=0;
-        localPlayoffDosPuntosFuera=0;
-        localPlayoffTresPuntosDentro=0;
-        localPlayoffTresPuntosFuera=0;
-        localPlayoffTotalDentro=0;
-        localPlayoffTotalFuera=0;
-
-        visitantePlayoffDosPuntosDentro=0;
-        visitantePlayoffDosPuntosFuera=0;
-        visitantePlayoffTresPuntosDentro=0;
-        visitantePlayoffTresPuntosFuera=0;
-        visitantePlayoffTotalDentro=0;
-        visitantePlayoffTotalFuera=0;
+        localRegular = new JugadorTirosContraEquipo();
+        localPlayoff = new JugadorTirosContraEquipo();
+        visitanteRegular = new JugadorTirosContraEquipo();
+        visitantePlayoff = new JugadorTirosContraEquipo();
     }
     
     public String devolverStyle(boolean maxima){
