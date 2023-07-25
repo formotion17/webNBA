@@ -17,6 +17,7 @@ import contollers.utilidades.JugadorControllerUtilidades;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import modelo.JugadorTirosContraEquipo;
+import modelo.TablaTirosJugador;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -95,6 +96,8 @@ public class JugadorController extends BaseController implements Serializable{
     private int partidosVisitanteRegular=0;
     private int partidosLocalPlayoff=0;
     private int partidosVisitantePlayoff=0;
+    
+    private ArrayList<TablaTirosJugador> tablaTirosJugador = new ArrayList<>(); 
     
     private ControllerEstadisticaNormal partidosDeLocalRegular = new  ControllerEstadisticaNormal();
     private ArrayList<ControllerEstadisticaNormal> listaPartidosDeLocalRegular = new  ArrayList<>();
@@ -560,19 +563,19 @@ public class JugadorController extends BaseController implements Serializable{
         
         rellenarGraficaDonutGenerico(getDonutModel(),localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados(),dosFuera,dosDentro);
         rellenarGraficaDonutGenerico(getDonutModel2(),localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel3,localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados(),"TR Local Fuera","TR Local Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel3(),localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados(),"TR Local Fuera","TR Local Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel4,localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel5,localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel6,localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados(),"PO Local Fuera","PO Local Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel4(),localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(getDonutModel5(),localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(getDonutModel6(),localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados(),"PO Local Fuera","PO Local Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel7,visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel8,visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel9,visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados(),"TR Visitante Fuera","TR Visitante Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel7(),visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(getDonutModel8(),visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(getDonutModel9(),visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados(),"TR Visitante Fuera","TR Visitante Dentro");
         
-        rellenarGraficaDonutGenerico(donutModel10,visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(donutModel11,visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(donutModel12,visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados(),"PO Visitante Fuera","PO Visitante Dentro");
+        rellenarGraficaDonutGenerico(getDonutModel10(),visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        rellenarGraficaDonutGenerico(getDonutModel11(),visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        rellenarGraficaDonutGenerico(getDonutModel12(),visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados(),"PO Visitante Fuera","PO Visitante Dentro");
 
         setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados()));
         setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados()));
@@ -590,6 +593,39 @@ public class JugadorController extends BaseController implements Serializable{
         setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados()));
         setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados()));
         
+        tablaTirosJugador.add(new TablaTirosJugador(
+        		"Temporada Regular como Local",
+        		partidosLocalRegular+" PARTIDOS DE TEMPORADA REGULAR COMO LOCAL",
+        		listaTirosLocalRegular,
+        		listaPartidosDeLocalRegular,
+        		donutModel,donutModel2,donutModel3,
+        		getDonutModelPor1(),getDonutModelPor2(),getDonutModelPor3()));
+        
+        tablaTirosJugador.add(new TablaTirosJugador(
+        		"PlayOff como Local",
+        		partidosLocalPlayoff+" PARTIDOS DE PLAYOFF COMO LOCAL",
+        		listaTirosLocalPlayoff,
+        		listaPartidosDeLocalPlayoff,
+        		donutModel4,donutModel5,donutModel6,
+        		getDonutModelPor4(),getDonutModelPor5(),getDonutModelPor6()));
+        
+        tablaTirosJugador.add(new TablaTirosJugador(
+        		"Temporada Regular como Visitante",
+        		partidosVisitanteRegular+" PARTIDOS DE TEMPORADA REGULAR COMO VISITANTE",
+        		listaTirosVisitanteRegular,
+        		listaPartidosDeVisitanteRegular,
+        		donutModel7,donutModel8,donutModel9,
+        		getDonutModelPor7(),getDonutModelPor8(),getDonutModelPor9()));
+        
+        tablaTirosJugador.add(new TablaTirosJugador(
+        		"PlayOff como Visitante",
+        		partidosVisitantePlayoff+" PARTIDOS DE PLAYOFF COMO VISITANTE",
+        		listaTirosVisitantePlayoff,
+        		listaPartidosDeVisitantePlayoff,
+        		donutModel10,donutModel11,donutModel12,
+        		getDonutModelPor10(),getDonutModelPor11(),getDonutModelPor12()));
+        
+        System.out.println("paramos");
         
     }
     
@@ -896,6 +932,7 @@ public class JugadorController extends BaseController implements Serializable{
         listaPartidosDeLocalRegular.clear();
         listaPartidosDeLocalPlayoff.clear();
         listaPartidosDeVisitanteRegular.clear();
+        tablaTirosJugador.clear();
         
         partidosTotales=0;
         partidosLocal=0;
