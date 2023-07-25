@@ -32,10 +32,7 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.bar.BarChartModel;
-import org.primefaces.model.charts.donut.DonutChartDataSet;
-import org.primefaces.model.charts.donut.DonutChartModel;
 import org.primefaces.model.charts.line.LineChartModel;
 import util.ClaseEstadisticaNormalTotales;
 import util.MapJavaMongo;
@@ -98,6 +95,10 @@ public class JugadorController extends BaseController implements Serializable{
     private int partidosVisitantePlayoff=0;
     
     private ArrayList<TablaTirosJugador> tablaTirosJugador = new ArrayList<>(); 
+    private TablaTirosJugador localRegularTirosJugador;
+    private TablaTirosJugador localPlayoffTirosJugador;
+    private TablaTirosJugador visitanteRegularTirosJugador;
+    private TablaTirosJugador visitantePlayoffTirosJugador;
     
     private ControllerEstadisticaNormal partidosDeLocalRegular = new  ControllerEstadisticaNormal();
     private ArrayList<ControllerEstadisticaNormal> listaPartidosDeLocalRegular = new  ArrayList<>();
@@ -113,10 +114,7 @@ public class JugadorController extends BaseController implements Serializable{
     
     
     private ArrayList<ControllerEstadisticaNormal> listaPartidosLocalVisitante = new ArrayList<>();
-    private ArrayList<ControllerTiros> listaTirosLocalRegular = new ArrayList<>();
-    private ArrayList<ControllerTiros> listaTirosVisitanteRegular = new ArrayList<>();
-    private ArrayList<ControllerTiros> listaTirosLocalPlayoff = new ArrayList<>();
-    private ArrayList<ControllerTiros> listaTirosVisitantePlayoff = new ArrayList<>();
+
     
     private LineChartModel graficoLineas = new LineChartModel();
     private BarChartModel graficoBarras = new BarChartModel();
@@ -158,32 +156,6 @@ public class JugadorController extends BaseController implements Serializable{
     private String cuartoElegido;
     private String localVisitante;
     
-    private DonutChartModel donutModel = new DonutChartModel();
-    private DonutChartModel donutModel2;
-    private DonutChartModel donutModel3;
-    private DonutChartModel donutModel4;
-    private DonutChartModel donutModel5;
-    private DonutChartModel donutModel6;
-    private DonutChartModel donutModel7;
-    private DonutChartModel donutModel8;
-    private DonutChartModel donutModel9;
-    private DonutChartModel donutModel10;
-    private DonutChartModel donutModel11;
-    private DonutChartModel donutModel12;
-    
-    private String donutModelPor1;
-    private String donutModelPor2;
-    private String donutModelPor3;
-    private String donutModelPor4;
-    private String donutModelPor5;
-    private String donutModelPor6;
-    private String donutModelPor7;
-    private String donutModelPor8;
-    private String donutModelPor9;
-    private String donutModelPor10;
-    private String donutModelPor11;
-    private String donutModelPor12;
-    
     
     private JugadorTirosContraEquipo localRegular = new JugadorTirosContraEquipo();
     private JugadorTirosContraEquipo visitanteRegular = new JugadorTirosContraEquipo();
@@ -210,7 +182,6 @@ public class JugadorController extends BaseController implements Serializable{
         setInvisibleTabs("invisible"); //Para cuando funcione todo invisible //Probando ""
         setInvisibleFindJugador(true);
         rellenarMenus();
-        //createDonutModel();
     }
     
     private void rellenarMenus(){
@@ -344,6 +315,10 @@ public class JugadorController extends BaseController implements Serializable{
         if(mongo!=null) {
                 borrarDatosContraEquipo();
                 ArrayList<BasicDBObject> listaTirosLocal = null;
+                localRegularTirosJugador = new TablaTirosJugador();
+                localPlayoffTirosJugador = new TablaTirosJugador();
+                visitanteRegularTirosJugador = new TablaTirosJugador();
+                visitantePlayoffTirosJugador = new TablaTirosJugador();
                         
                 @SuppressWarnings("deprecation")
 				DB db = mongo.getDB(baseDatos);
@@ -407,7 +382,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaLocales.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosLocalPlayoff,2);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),localPlayoffTirosJugador.getListaTiros(),2);
                                                 }
                                             }
                                         }else{
@@ -417,7 +392,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaLocales.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosLocalRegular,1);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),localRegularTirosJugador.getListaTiros(),1);
                                                 }
                                             }   
                                         }
@@ -433,7 +408,8 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeLocalPlayoff.setPartidosJugados(partidosLocalPlayoff);
                     partidosDeLocalPlayoff.setSituacionTiro("Estadisticas Totales del Jugador");
                     
-                    listaPartidosDeLocalPlayoff.add(partidosDeLocalPlayoff);
+                    //listaPartidosDeLocalPlayoff.add(partidosDeLocalPlayoff);
+                    localPlayoffTirosJugador.getListadiferentesStats().add(partidosDeLocalPlayoff);
 
                     partidosDeLocalRegular.calcularTirosDosPuntos();
                     partidosDeLocalRegular.setUbicacion("Local");
@@ -441,7 +417,8 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeLocalRegular.setPartidosJugados(partidosLocalRegular);
                     partidosDeLocalRegular.setSituacionTiro("Estadisticas Totales del Jugador");
                     
-                    listaPartidosDeLocalRegular.add(partidosDeLocalRegular);
+                   // listaPartidosDeLocalRegular.add(partidosDeLocalRegular);
+                    localRegularTirosJugador.getListadiferentesStats().add(partidosDeLocalRegular);
 
                     if(partidosLocalRegular!=0){
                         listaPartidosLocalVisitante.add(partidosDeLocalRegular);
@@ -504,7 +481,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaVisitantes.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosVisitantePlayoff,4);
+                                                	insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),visitantePlayoffTirosJugador.getListaTiros(),4);
                                                 }
                                             }
                                         }else{
@@ -514,7 +491,7 @@ public class JugadorController extends BaseController implements Serializable{
                                             listaTirosLocal = (ArrayList<BasicDBObject>) listaVisitantes.get(i).get("listaTiros");
                                             if(listaTirosLocal!=null){
                                                 for(int j=0;j<listaTirosLocal.size();j++){
-                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),listaTirosVisitanteRegular,3);
+                                                    insertarTiro(MapJavaMongo.devolverTirosContraEquipo((Map)listaTirosLocal.get(j).toMap(),dia,mes,year,rival,jugadorSeleccionado.getNombre(),equipo),visitanteRegularTirosJugador.getListaTiros(),3);
                                                 }
                                             }
                                         }
@@ -530,7 +507,8 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeVisitantePlayoff.setPartidosJugados(partidosVisitantePlayoff);
                     partidosDeVisitantePlayoff.setSituacionTiro("Estadisticas Totales del Jugador");
                     
-                    listaPartidosDeVisitantePlayoff.add(partidosDeVisitantePlayoff);
+                    //listaPartidosDeVisitantePlayoff.add(partidosDeVisitantePlayoff);
+                    visitantePlayoffTirosJugador.getListadiferentesStats().add(partidosDeVisitantePlayoff);
 
                     partidosDeVisitanteRegular.calcularTirosDosPuntos();
                     partidosDeVisitanteRegular.setUbicacion("Visitante");
@@ -538,7 +516,8 @@ public class JugadorController extends BaseController implements Serializable{
                     partidosDeVisitanteRegular.setPartidosJugados(partidosVisitanteRegular);
                     partidosDeVisitanteRegular.setSituacionTiro("Estadisticas Totales del Jugador");
                     
-                    listaPartidosDeVisitanteRegular.add(partidosDeVisitanteRegular);
+                    //listaPartidosDeVisitanteRegular.add(partidosDeVisitanteRegular);
+                    visitanteRegularTirosJugador.getListadiferentesStats().add(partidosDeVisitanteRegular);
 
                     if(partidosVisitanteRegular!=0){
                         listaPartidosLocalVisitante.add(partidosDeVisitanteRegular);
@@ -556,104 +535,50 @@ public class JugadorController extends BaseController implements Serializable{
         visitanteRegular.calcularTirosCampo();
         visitantePlayoff.calcularTirosCampo();
         
-        listaPartidosDeLocalRegular.add(new ControllerEstadisticaNormal(localRegular));
-        listaPartidosDeLocalPlayoff.add(new ControllerEstadisticaNormal(localPlayoff));
-        listaPartidosDeVisitanteRegular.add(new ControllerEstadisticaNormal(visitanteRegular));
-        listaPartidosDeVisitantePlayoff.add(new ControllerEstadisticaNormal(visitantePlayoff));
+        localRegularTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(localRegular));
+        localPlayoffTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(localPlayoff));
+        visitanteRegularTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(visitanteRegular));
+        visitantePlayoffTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(visitantePlayoff));
         
-        rellenarGraficaDonutGenerico(getDonutModel(),localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(getDonutModel2(),localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(getDonutModel3(),localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados(),"TR Local Fuera","TR Local Dentro");
+        localRegularTirosJugador.rellenarGraficaDonutGenerico(localRegularTirosJugador.getDonutModel1(),localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados(),dosFuera,dosDentro);
+        localRegularTirosJugador.rellenarGraficaDonutGenerico(localRegularTirosJugador.getDonutModel2(),localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados(),tresFuera,tresDentro);
+        localRegularTirosJugador.rellenarGraficaDonutGenerico(localRegularTirosJugador.getDonutModel3(),localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados(),"TR Local Fuera","TR Local Dentro");
         
-        rellenarGraficaDonutGenerico(getDonutModel4(),localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(getDonutModel5(),localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(getDonutModel6(),localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados(),"PO Local Fuera","PO Local Dentro");
+        localPlayoffTirosJugador.rellenarGraficaDonutGenerico(localPlayoffTirosJugador.getDonutModel1(),localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        localPlayoffTirosJugador.rellenarGraficaDonutGenerico(localPlayoffTirosJugador.getDonutModel2(),localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        localPlayoffTirosJugador.rellenarGraficaDonutGenerico(localPlayoffTirosJugador.getDonutModel3(),localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados(),"PO Local Fuera","PO Local Dentro");
         
-        rellenarGraficaDonutGenerico(getDonutModel7(),visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(getDonutModel8(),visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(getDonutModel9(),visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados(),"TR Visitante Fuera","TR Visitante Dentro");
+        visitanteRegularTirosJugador.rellenarGraficaDonutGenerico(visitanteRegularTirosJugador.getDonutModel1(),visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados(),dosFuera,dosDentro);
+        visitanteRegularTirosJugador.rellenarGraficaDonutGenerico(visitanteRegularTirosJugador.getDonutModel2(),visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados(),tresFuera,tresDentro);
+        visitanteRegularTirosJugador.rellenarGraficaDonutGenerico(visitanteRegularTirosJugador.getDonutModel3(),visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados(),"TR Visitante Fuera","TR Visitante Dentro");
         
-        rellenarGraficaDonutGenerico(getDonutModel10(),visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
-        rellenarGraficaDonutGenerico(getDonutModel11(),visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
-        rellenarGraficaDonutGenerico(getDonutModel12(),visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados(),"PO Visitante Fuera","PO Visitante Dentro");
-
-        setDonutModelPor1(actualizarPorcentajeTirosDonut(localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados()));
-        setDonutModelPor2(actualizarPorcentajeTirosDonut(localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados()));
-        setDonutModelPor3(actualizarPorcentajeTirosDonut(localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados()));
+        visitantePlayoffTirosJugador.rellenarGraficaDonutGenerico(visitantePlayoffTirosJugador.getDonutModel1(),visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados(),dosFuera,dosDentro);
+        visitantePlayoffTirosJugador.rellenarGraficaDonutGenerico(visitantePlayoffTirosJugador.getDonutModel2(),visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados(),tresFuera,tresDentro);
+        visitantePlayoffTirosJugador.rellenarGraficaDonutGenerico(visitantePlayoffTirosJugador.getDonutModel3(),visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados(),"PO Visitante Fuera","PO Visitante Dentro");
         
-        setDonutModelPor4(actualizarPorcentajeTirosDonut(localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados()));
-        setDonutModelPor5(actualizarPorcentajeTirosDonut(localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados()));
-        setDonutModelPor6(actualizarPorcentajeTirosDonut(localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados()));
+        localRegularTirosJugador.setPorcentaje1(localRegular.getDosPuntosMetidos(),localRegular.getDosPuntosFallados());
+        localRegularTirosJugador.setPorcentaje2(localRegular.getTresPuntosMetidos(),localRegular.getTresPuntosFallados());
+        localRegularTirosJugador.setPorcentaje3(localRegular.getTirosCampoMetidos(),localRegular.getTirosCampoFallados());
         
-        setDonutModelPor7(actualizarPorcentajeTirosDonut(visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados()));
-        setDonutModelPor8(actualizarPorcentajeTirosDonut(visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados()));
-        setDonutModelPor9(actualizarPorcentajeTirosDonut(visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados()));
+        localPlayoffTirosJugador.setPorcentaje1(localPlayoff.getDosPuntosMetidos(),localPlayoff.getDosPuntosFallados());
+        localPlayoffTirosJugador.setPorcentaje2(localPlayoff.getTresPuntosMetidos(),localPlayoff.getTresPuntosFallados());
+        localPlayoffTirosJugador.setPorcentaje3(localPlayoff.getTirosCampoMetidos(),localPlayoff.getTirosCampoFallados());
         
-        setDonutModelPor10(actualizarPorcentajeTirosDonut(visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados()));
-        setDonutModelPor11(actualizarPorcentajeTirosDonut(visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados()));
-        setDonutModelPor12(actualizarPorcentajeTirosDonut(visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados()));
+        visitanteRegularTirosJugador.setPorcentaje1(visitanteRegular.getDosPuntosMetidos(),visitanteRegular.getDosPuntosFallados());
+        visitanteRegularTirosJugador.setPorcentaje2(visitanteRegular.getTresPuntosMetidos(),visitanteRegular.getTresPuntosFallados());
+        visitanteRegularTirosJugador.setPorcentaje3(visitanteRegular.getTirosCampoMetidos(),visitanteRegular.getTirosCampoFallados());
         
-        tablaTirosJugador.add(new TablaTirosJugador(
-        		"Temporada Regular como Local",
-        		partidosLocalRegular+" PARTIDOS DE TEMPORADA REGULAR COMO LOCAL",
-        		listaTirosLocalRegular,
-        		listaPartidosDeLocalRegular,
-        		donutModel,donutModel2,donutModel3,
-        		getDonutModelPor1(),getDonutModelPor2(),getDonutModelPor3()));
+        visitantePlayoffTirosJugador.setPorcentaje1(visitantePlayoff.getDosPuntosMetidos(),visitantePlayoff.getDosPuntosFallados());
+        visitantePlayoffTirosJugador.setPorcentaje2(visitantePlayoff.getTresPuntosMetidos(),visitantePlayoff.getTresPuntosFallados());
+        visitantePlayoffTirosJugador.setPorcentaje3(visitantePlayoff.getTirosCampoMetidos(),visitantePlayoff.getTirosCampoFallados());
         
-        tablaTirosJugador.add(new TablaTirosJugador(
-        		"PlayOff como Local",
-        		partidosLocalPlayoff+" PARTIDOS DE PLAYOFF COMO LOCAL",
-        		listaTirosLocalPlayoff,
-        		listaPartidosDeLocalPlayoff,
-        		donutModel4,donutModel5,donutModel6,
-        		getDonutModelPor4(),getDonutModelPor5(),getDonutModelPor6()));
-        
-        tablaTirosJugador.add(new TablaTirosJugador(
-        		"Temporada Regular como Visitante",
-        		partidosVisitanteRegular+" PARTIDOS DE TEMPORADA REGULAR COMO VISITANTE",
-        		listaTirosVisitanteRegular,
-        		listaPartidosDeVisitanteRegular,
-        		donutModel7,donutModel8,donutModel9,
-        		getDonutModelPor7(),getDonutModelPor8(),getDonutModelPor9()));
-        
-        tablaTirosJugador.add(new TablaTirosJugador(
-        		"PlayOff como Visitante",
-        		partidosVisitantePlayoff+" PARTIDOS DE PLAYOFF COMO VISITANTE",
-        		listaTirosVisitantePlayoff,
-        		listaPartidosDeVisitantePlayoff,
-        		donutModel10,donutModel11,donutModel12,
-        		getDonutModelPor10(),getDonutModelPor11(),getDonutModelPor12()));
-        
-        System.out.println("paramos");
+        tablaTirosJugador.add(localRegularTirosJugador);
+        tablaTirosJugador.add(localPlayoffTirosJugador);
+        tablaTirosJugador.add(visitanteRegularTirosJugador);
+        tablaTirosJugador.add(visitantePlayoffTirosJugador);
         
     }
     
-    private void rellenarGraficaDonutGenerico(DonutChartModel grafica,int dentro, int fuera,String fueraLabel, String dentroLabel) {
-
-    	ChartData data = new ChartData();
-
-    	DonutChartDataSet dataSet = new DonutChartDataSet();
-        List<Number> values = new ArrayList<>();
-        values.add(fuera);
-        values.add(dentro);
-        dataSet.setData(values);
-        
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(148, 152, 147)");
-        bgColors.add("rgb(34, 139, 34)");
-        dataSet.setBackgroundColor(bgColors);
-         
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add(fueraLabel);
-        labels.add(dentroLabel);
-        data.setLabels(labels);
-                 
-        grafica.setData(data);
-    	
-    }
-
     private void insertarTiro(ControllerTiros cartaTiro, ArrayList<ControllerTiros> listaTiros,int situacionTemporada) {
         
         // Miramos si dentro o fuera los tiros
@@ -822,16 +747,6 @@ public class JugadorController extends BaseController implements Serializable{
             return true;
         }
         
-		/*
-		 * String[] marcador = cartaTiro.getTanteo().split("-");
-		 * if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){ return
-		 * true; } int visitante=Integer.parseInt(marcador[0]); int
-		 * local=Integer.parseInt(marcador[1]); if(cartaTiro.isDentro()){
-		 * if(localVisitante.equals("LOCAL")){
-		 * local=local-Integer.parseInt(cartaTiro.getTipo()); }else{
-		 * visitante=visitante-Integer.parseInt(cartaTiro.getTipo()); } }
-		 */
-        
         // EMPATE - PERDIENDO - GANANDO
         
         switch(getListaSituacionPartidoElegido()) {
@@ -845,19 +760,6 @@ public class JugadorController extends BaseController implements Serializable{
         	if(cartaTiro.getSituacionAntes().equals("PERDIENDO")) {return true;}
         	break;
         }
-        
-		/*
-		 * if(listaSituacionPartidoElegido.equals("Empate"))
-		 * 
-		 * if(listaSituacionPartidoElegido.equals("Empate") && visitante == local){
-		 * return true; }else if(localVisitante.equals("LOCAL")){
-		 * if(listaSituacionPartidoElegido.equals("Ganando") && local>visitante){ return
-		 * true; }else if(listaSituacionPartidoElegido.equals("Perdiendo") &&
-		 * visitante>local){ return true; } }else{ // ES VISITANTE
-		 * if(listaSituacionPartidoElegido.equals("Ganando") && visitante>local){ return
-		 * true; }else if(listaSituacionPartidoElegido.equals("Perdiendo") &&
-		 * local>visitante){ return true; } }
-		 */
         return false;
     }
     
@@ -867,25 +769,7 @@ public class JugadorController extends BaseController implements Serializable{
         }
         
         if(cartaTiro.getSituacionDespues().equals("GANANDO")) {return true;}
-		/*
-		 * else{ // hemos elegido ponerse por delante, mirar que el tiro haya entrado y
-		 * mirar la anotación anterior y la de despues if(cartaTiro.isDentro()){
-		 * String[] marcador = cartaTiro.getTanteo().split("-");
-		 * if(marcador[0].equals("") || !cartaTiro.getTanteo().contains("-")){ return
-		 * false; } int visitante=Integer.parseInt(marcador[0]); int
-		 * local=Integer.parseInt(marcador[1]); if(localVisitante.equals("LOCAL")){
-		 * local=local-Integer.parseInt(cartaTiro.getTipo()); }else{
-		 * visitante=visitante-Integer.parseInt(cartaTiro.getTipo()); }
-		 * 
-		 * if(visitante == local){ return true; }else
-		 * if(localVisitante.equals("LOCAL")){ if(local>visitante){ return false; }else
-		 * if(visitante>local){
-		 * if((visitante-local)<=Integer.parseInt(cartaTiro.getTipo())){ return true;
-		 * }else{ return false; } } }else{ // ES VISITANTE if(visitante>local){ return
-		 * false; }else if(local>visitante){
-		 * if((local-visitante)<=Integer.parseInt(cartaTiro.getTipo())){ return true;
-		 * }else{ return false; } } } }else{ return false; } }
-		 */
+
         return false;
     }
     
@@ -921,10 +805,7 @@ public class JugadorController extends BaseController implements Serializable{
         partidosDeLocalRegular = new ControllerEstadisticaNormal();
         partidosDeVisitantePlayoff = new ControllerEstadisticaNormal();
         partidosDeVisitanteRegular = new ControllerEstadisticaNormal();
-        listaTirosLocalRegular.clear();
-        listaTirosVisitanteRegular.clear();
-        listaTirosLocalPlayoff.clear();
-        listaTirosVisitantePlayoff.clear();
+
         listaPartidosLocalVisitante.clear();
         
         
@@ -944,18 +825,6 @@ public class JugadorController extends BaseController implements Serializable{
         resetearContadores();
     }
     
-    
-    private String actualizarPorcentajeTirosDonut(int dentro, int fuera) {
-    	String porcentaje = new java.text.DecimalFormat("0.##").format(Double.valueOf((double) dentro/(dentro+fuera)));
-    	
-    	if(porcentaje.equals("NaN")) {
-    		return "";
-    	}
-    	if(fuera==0) {
-    		return "0";
-    	}
-    	return (new java.text.DecimalFormat("0.##").format(Double.parseDouble(porcentaje.replace(",", "."))*100))+"%";
-    }
     
     public ListaEquipos[] getEquipos(){
         return ListaEquipos.values();
@@ -1001,88 +870,6 @@ public class JugadorController extends BaseController implements Serializable{
             selectMenuTemporadas = Utilidades.devolverTemporadas();
         }
         return selectMenuTemporadas;
-    }
-    
-    public DonutChartModel getDonutModel() {
-        if(null == donutModel){
-            donutModel = new DonutChartModel();
-        }
-        return donutModel;
-    }
-
-    public DonutChartModel getDonutModel2() {
-        if(null == donutModel2){
-            donutModel2 = new DonutChartModel();
-        }
-        return donutModel2;
-    }
-    public DonutChartModel getDonutModel3() {
-        if(null == donutModel3){
-            donutModel3 = new DonutChartModel();
-        }
-        return donutModel3;
-    }
-
-    public DonutChartModel getDonutModel4() {
-        if(null == donutModel4){
-            donutModel4 = new DonutChartModel();
-        }
-        return donutModel4;
-    }
-
-    public DonutChartModel getDonutModel5() {
-        if(null == donutModel5){
-            donutModel5 = new DonutChartModel();
-        }
-        return donutModel5;
-    }
-    public DonutChartModel getDonutModel6() {
-        if(null == donutModel6){
-            donutModel6 = new DonutChartModel();
-        }
-        return donutModel6;
-    }
-
-    public DonutChartModel getDonutModel7() {
-        if(null == donutModel7){
-            donutModel7 = new DonutChartModel();
-        }
-        return donutModel7;
-    }
-
-    public DonutChartModel getDonutModel8() {
-        if(null == donutModel8){
-            donutModel8 = new DonutChartModel();
-        }
-        return donutModel8;
-    }
-
-    public DonutChartModel getDonutModel9() {
-        if(null == donutModel9){
-            donutModel9 = new DonutChartModel();
-        }
-        return donutModel9;
-    }
-
-    public DonutChartModel getDonutModel10() {
-        if(null == donutModel10){
-            donutModel10 = new DonutChartModel();
-        }
-        return donutModel10;
-    }
-
-    public DonutChartModel getDonutModel11() {
-        if(null == donutModel11){
-            donutModel11 = new DonutChartModel();
-        }
-        return donutModel11;
-    }
-
-    public DonutChartModel getDonutModel12() {
-        if(null == donutModel12){
-            donutModel12 = new DonutChartModel();
-        }
-        return donutModel12;
     }
     
     private void resetearContadores() {
