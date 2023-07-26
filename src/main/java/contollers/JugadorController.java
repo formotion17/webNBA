@@ -535,6 +535,11 @@ public class JugadorController extends BaseController implements Serializable{
         visitanteRegular.calcularTirosCampo();
         visitantePlayoff.calcularTirosCampo();
         
+        localRegularTirosJugador.setTitulo("PARTIDOS COMO LOCAL EN TEMPORADA REGULAR");
+        localPlayoffTirosJugador.setTitulo("PARTIDOS COMO LOCAL EN PLAYOFF");
+        visitanteRegularTirosJugador.setTitulo("PARTIDOS COMO VISITANTE EN TEMPORADA REGULAR");
+        visitantePlayoffTirosJugador.setTitulo("PARTIDOS COMO VISITANTE EN PLAYOFF");
+        
         localRegularTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(localRegular));
         localPlayoffTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(localPlayoff));
         visitanteRegularTirosJugador.getListadiferentesStats().add(new ControllerEstadisticaNormal(visitanteRegular));

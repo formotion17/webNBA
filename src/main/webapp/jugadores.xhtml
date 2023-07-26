@@ -23,7 +23,7 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/facelets/templates/cabecera.xhtml">
             <ui:define name="title">
-                <h:outputText value="Jugadores NBA"/> 
+                <h:outputText value="#{msgs.jugador_titulo}"/> 
             </ui:define>
             <ui:define name="content">
                 <h:form id ="form">
@@ -36,7 +36,7 @@ and open the template in the editor.
                             		<p:panelGrid columns="1">
 	                            		<div class="nombreJugador" style="margin-top:40px;">
 		                                    <p:inputText id="txtBusqueda" style="padding: 14px;"
-		                                                 autocomplete="off" placeholder="Buscar Jugador"
+		                                                 autocomplete="off" placeholder="#{msgs.jugador_input_buscar_jugador}"
 		                                                 value="#{jugadores.nombreJugador}">
 		                                        <p:ajax event="keyup"
 		                                                update="form"
@@ -64,15 +64,12 @@ and open the template in the editor.
 		                                        lazy="true" 
 		                                        class="tablaJugadoresSeleccion"
 		                                        >
-		                                        <!--
-		                                       <p:ajax event="rowSelect"
-		                                               update="botonVerEstadisticas"/> -->
 		
-		                                       <p:column style="width:35%;text-align:left;" headerText="Apellido">
+		                                       <p:column style="width:35%;text-align:left;" headerText="#{msgs.jugador_buscar_apellido}">
 		                                           <h:outputText value="#{item.apellido}"/>
 		                                       </p:column>
 		
-		                                       <p:column style="width:35%;text-align:left;" headerText="Nombre">
+		                                       <p:column style="width:35%;text-align:left;" headerText="#{msgs.jugador_buscar_nombre}">
 		                                           <h:outputText value="#{item.nombre}"/>
 		                                       </p:column>
 		
@@ -86,7 +83,7 @@ and open the template in the editor.
 		                                </div>
                             		</p:panelGrid>
                             		<p:panelGrid columns="1">
-                            			<p:commandButton  action="#{jugadores.verEstadisticasJugadorTotales()}" update="form" value="Ver Estadisticas" >
+                            			<p:commandButton  action="#{jugadores.verEstadisticasJugadorTotales()}" update="form" value="#{msgs.jugador_boton_buscar_jugador}" >
 		                                     <p:ajax onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();"/>
 		                                </p:commandButton>
                             		</p:panelGrid>
@@ -112,67 +109,67 @@ and open the template in the editor.
 							                    </div>
 							                </p:column>
 							            </p:headerRow>
-                                        <p:column headerText="MIN" style="width: 5%;">
+                                        <p:column headerText="#{msgs.MIN}" style="width: 5%;">
                                             <h:outputText value="#{stat.minutos}" />
                                         </p:column>
-                                        <p:column headerText="PTS">
+                                        <p:column headerText="#{msgs.PTS}">
                                             <h:outputText value="#{stat.puntos}" />
                                         </p:column>
-                                        <p:column headerText="AST">
+                                        <p:column headerText="#{msgs.AST}">
                                             <h:outputText value="#{stat.asistencias}" />
                                         </p:column>
-                                        <p:column headerText="TRB">
+                                        <p:column headerText="#{msgs.REB}">
                                             <h:outputText value="#{stat.totalRebotes}" />
                                         </p:column>
-                                        <p:column headerText="FG">
+                                        <p:column headerText="#{msgs.FG}">
                                             <h:outputText value="#{stat.tirosCampoMetidos}" />
                                         </p:column>
-                                        <p:column headerText="FGA">
+                                        <p:column headerText="#{msgs.PFG}">
                                             <h:outputText value="#{stat.tirosCampoIntentados}" />
                                         </p:column>
-                                        <p:column headerText="%FG">
+                                        <p:column headerText="#{msgs.TFG}">
                                             <h:outputText value="#{stat.tirosCampoPorcentaje}" />
                                         </p:column>
-                                        <p:column headerText="2P">
+                                        <p:column headerText="#{msgs.TP}" >
                                             <h:outputText value="#{stat.dosPuntosMetidos}" />
                                         </p:column>
-                                        <p:column headerText="2PA">
+                                        <p:column headerText="#{msgs.TPA}">
                                             <h:outputText value="#{stat.dosPuntosIntentados}" />
                                         </p:column>
-                                        <p:column headerText="%2PG">
+                                        <p:column headerText="#{msgs.PTG}">
                                             <h:outputText value="#{stat.dosPuntosPorcentaje}" />
                                         </p:column>
-                                        <p:column headerText="3P">
+                                        <p:column headerText="#{msgs.TFG}">
                                             <h:outputText value="#{stat.triplesMetidos}" />
                                         </p:column>
-                                        <p:column headerText="3PA">
+                                        <p:column headerText="#{msgs.TFA}">
                                             <h:outputText value="#{stat.triplesIntentados}" />
                                         </p:column>
-                                        <p:column headerText="%3PG">
+                                        <p:column headerText="#{msgs.PTF}">
                                             <h:outputText value="#{stat.triplesPorcentaje}" />
                                         </p:column>
-                                        <p:column headerText="FT">
+                                        <p:column headerText="#{msgs.FT}">
                                             <h:outputText value="#{stat.tirosLibresMetidos}" />
                                         </p:column>
-                                        <p:column headerText="FTA">
+                                        <p:column headerText="#{msgs.FTA}">
                                             <h:outputText value="#{stat.tirosLibresIntentados}" />
                                         </p:column>
-                                        <p:column headerText="%FTG">
+                                        <p:column headerText="#{msgs.PFT}">
                                             <h:outputText value="#{stat.tirosLibresPorcentaje}" />
                                         </p:column>
-                                        <p:column headerText="DRB">
+                                        <p:column headerText="#{msgs.DRE}">
                                             <h:outputText value="#{stat.reboteDefensivo}" />
                                         </p:column>
-                                        <p:column headerText="ORB">
+                                        <p:column headerText="#{msgs.ORE}">
                                             <h:outputText value="#{stat.reboteOfensivo}" />
                                         </p:column>
-                                        <p:column headerText="STL">
+                                        <p:column headerText="#{msgs.STL}">
                                             <h:outputText value="#{stat.robos}" />
                                         </p:column>
-                                        <p:column headerText="BLK">
+                                        <p:column headerText="#{msgs.BLK}">
                                             <h:outputText value="#{stat.tapones}" />
                                         </p:column>
-                                        <p:column headerText="TOV">
+                                        <p:column headerText="#{msgs.TOV}">
                                             <h:outputText value="#{stat.perdidas}" />
                                         </p:column>
                                         <p:column headerText="PF" style="width: 3%;">
@@ -185,25 +182,34 @@ and open the template in the editor.
                             <!-- Tab links -->
                             <div class="#{jugadores.invisibleTabs}" >
                                 <div class="tabset">
-                                    <!-- Tab 1 -->
-                                    <input type="radio" name="tabset" id="tab1" aria-controls="estadisticas_Temporada" checked="true"/>
-                                    <label for="tab1">Estadisticas por Temporada</label>
+                                	<!-- Tab 1 -->
+                                    <input type="radio" name="tabset" id="tab1" aria-controls="bio_jugador" checked="true"/>
+                                    <label for="tab1">#{msgs.jugador_tab_bio}</label>
                                     <!-- Tab 2 -->
-                                    <input type="radio" name="tabset" id="tab2" aria-controls="estadisticas_equipos"/>
-                                    <label for="tab2">Estadisticas contra Equipos</label>
+                                    <input type="radio" name="tabset" id="tab2" aria-controls="estadisticas_Temporada"/>
+                                    <label for="tab2">#{msgs.jugador_tab_stat_temporada}</label>
                                     <!-- Tab 3 -->
-                                    <input type="radio" name="tabset" id="tab3" aria-controls="partidos_temporada"/>
-                                    <label for="tab3">Partidos Temporada</label>
+                                    <input type="radio" name="tabset" id="tab3" aria-controls="estadisticas_equipos"/>
+                                    <label for="tab3">#{msgs.jugador_tab_stat_equipos}</label>
+                                    <!-- Tab 4 -->
+                                    <input type="radio" name="tabset" id="tab4" aria-controls="partidos_temporada"/>
+                                    <label for="tab4">#{msgs.jugador_tab_partidos_tamporada}</label>
 
                                     <div class="tab-panels">
+                                    
+                                    <section id="bio_jugador" class="tab-panel">
+                                    	<h2>"#{msgs.boton_texto}"</h2>
+                                    
+                                    </section>
+                                    
 									<section id="estadisticas_Temporada" class="tab-panel">
-										<h2>Estadisticas por Temporada</h2>
+										<h2>#{msgs.jugador_tab_stat_temporada_titulo}</h2>
 										<p:selectManyButton
 											value="#{jugadores.listaSeleccionTemporadasProgresion}"
 											class="listaTemporadas" style="margin-left:4%;">
 											<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
 										</p:selectManyButton>
-										<p:commandButton value="Ver estadisticas de temporada"
+										<p:commandButton value="#{msgs.jugador_tab_stat_temporada_boton}"
 											update="estadisticasJugadorYears"
 											actionListener="#{jugadores.verEstadisticas()}">
 											<p:ajax onstart="PF('dlg2').show();"
@@ -225,81 +231,82 @@ and open the template in the editor.
 														</div>
 													</p:column>
 												</p:headerRow>
-												<p:column headerText="TEM" style="width: 3%;"
-													footerText="TEM">
+												<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}" style="width: 3%;"
+													footerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}">
 													<h:outputText value="#{stat.temporada}"
 														id="estadisticasJugadorYearsTemporada" />
 													<p:tooltip for="estadisticasJugadorYearsTemporada"
 														value="Temporada" />
 												</p:column>
-												<p:column headerText="PJ" style="width: 3%;" footerText="PJ">
+												<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}" style="width: 3%;"
+													footerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}">
 													<h:outputText value="#{stat.partidosJugados}" />
 												</p:column>
-												<p:column headerText="MIN" style="width: 5%;"
-													footerText="MIN">
+												<p:column headerText="#{msgs.MIN}" style="width: 5%;"
+													footerText="#{msgs.MIN}">
 													<h:outputText value="#{stat.minutos}" />
 												</p:column>
-												<p:column headerText="PTS" footerText="PTS">
+												<p:column headerText="#{msgs.PTS}" footerText="#{msgs.PTS}">
 													<h:outputText value="#{stat.puntos}" />
 												</p:column>
-												<p:column headerText="AST" footerText="AST">
+												<p:column headerText="#{msgs.AST}" footerText="#{msgs.AST}">
 													<h:outputText value="#{stat.asistencias}" />
 												</p:column>
-												<p:column headerText="TRB" footerText="TRB">
+												<p:column headerText="#{msgs.REB}" footerText="#{msgs.REB}">
 													<h:outputText value="#{stat.totalRebotes}" />
 												</p:column>
-												<p:column headerText="FG" footerText="FG">
+												<p:column headerText="#{msgs.FG}" footerText="#{msgs.FG}">
 													<h:outputText value="#{stat.tirosCampoMetidos}" />
 												</p:column>
-												<p:column headerText="FGA" footerText="FGA">
+												<p:column headerText="#{msgs.FGA}" footerText="#{msgs.FGA}">
 													<h:outputText value="#{stat.tirosCampoIntentados}" />
 												</p:column>
-												<p:column headerText="%FG" footerText="%FG">
+												<p:column headerText="#{msgs.PFG}" footerText="#{msgs.PFG}">
 													<h:outputText value="#{stat.tirosCampoPorcentaje}" />
 												</p:column>
-												<p:column headerText="2P" footerText="2P">
+												<p:column headerText="#{msgs.TP}" footerText="#{msgs.TP}">
 													<h:outputText value="#{stat.dosPuntosMetidos}" />
 												</p:column>
-												<p:column headerText="2PA" footerText="2PA">
+												<p:column headerText="#{msgs.TPA}" footerText="#{msgs.TPA}">
 													<h:outputText value="#{stat.dosPuntosIntentados}" />
 												</p:column>
-												<p:column headerText="%2PG" footerText="%2PG">
+												<p:column headerText="#{msgs.PTG}" footerText="#{msgs.PTG}">
 													<h:outputText value="#{stat.dosPuntosPorcentaje}" />
 												</p:column>
-												<p:column headerText="3P" footerText="3P">
+												<p:column headerText="#{msgs.TFG}" footerText="#{msgs.TFG}">
 													<h:outputText value="#{stat.triplesMetidos}" />
 												</p:column>
-												<p:column headerText="3PA" footerText="3PA">
+												<p:column headerText="#{msgs.TFA}" footerText="#{msgs.TFA}">
 													<h:outputText value="#{stat.triplesIntentados}" />
 												</p:column>
-												<p:column headerText="%3PG" footerText="%3PG">
+												<p:column headerText="#{msgs.PTF}" footerText="#{msgs.PTF}">
 													<h:outputText value="#{stat.triplesPorcentaje}" />
 												</p:column>
-												<p:column headerText="FT" footerText="FT">
+												<p:column headerText="#{msgs.FT}" footerText="#{msgs.FT}">
 													<h:outputText value="#{stat.tirosLibresMetidos}" />
 												</p:column>
-												<p:column headerText="FTA" footerText="FTA">
+												<p:column headerText="#{msgs.FTA}" footerText="#{msgs.FTA}">
 													<h:outputText value="#{stat.tirosLibresIntentados}" />
 												</p:column>
-												<p:column headerText="%FTG" footerText="%FTG">
+												<p:column headerText="#{msgs.PFT}" footerText="#{msgs.PFT}">
 													<h:outputText value="#{stat.tirosLibresPorcentaje}" />
 												</p:column>
-												<p:column headerText="DRB" footerText="DRB">
+												<p:column headerText="#{msgs.DRE}" footerText="#{msgs.DRE}">
 													<h:outputText value="#{stat.reboteDefensivo}" />
 												</p:column>
-												<p:column headerText="ORB" footerText="ORB">
+												<p:column headerText="#{msgs.ORE}" footerText="#{msgs.ORE}">
 													<h:outputText value="#{stat.reboteOfensivo}" />
 												</p:column>
-												<p:column headerText="STL" footerText="STL">
+												<p:column headerText="#{msgs.STL}" footerText="#{msgs.STL}">
 													<h:outputText value="#{stat.robos}" />
 												</p:column>
-												<p:column headerText="BLK" footerText="BLK">
+												<p:column headerText="#{msgs.BLK}" footerText="#{msgs.BLK}">
 													<h:outputText value="#{stat.tapones}" />
 												</p:column>
-												<p:column headerText="TOV" footerText="TOV">
+												<p:column headerText="#{msgs.TOV}" footerText="#{msgs.TOV}">
 													<h:outputText value="#{stat.perdidas}" />
 												</p:column>
-												<p:column headerText="PF" style="width: 3%;" footerText="PF">
+												<p:column headerText="#{msgs.PF}" style="width: 3%;" footerText="#{msgs.PF}">
 													<h:outputText value="#{stat.faltasPersonales}" />
 												</p:column>
 											</p:dataTable>
@@ -392,12 +399,6 @@ and open the template in the editor.
 										</div>
 										<div class="tituloEquipo"></div>
 										
-											
-										
-										
-										
-										
-										
 										<p:panelGrid id="graficos_stats"  columns="1" columnClasses="porcentaje-cien"
 											styleClass="sinBordes centrar">
 										
@@ -426,9 +427,7 @@ and open the template in the editor.
 													
 													<p:panelGrid columns="1" columnClasses="porcentaje-cien">
 													
-														<p:outputLabel style="font-size: 25px;font-weight: bold" escape="false">
-															#{evento.titulo}
-														</p:outputLabel>
+														<p:outputLabel style="font-size: 25px;font-weight: bold" value="#{evento.titulo}" />
 														
 														<p:dataTable var="statLoRe"
 															value="#{evento.listadiferentesStats}"
@@ -538,14 +537,6 @@ and open the template in the editor.
 											</ui:repeat>
 										
 										</p:panelGrid>
-										
-											
-										
-										
-
-
-
-										
 										
 									</section>
 

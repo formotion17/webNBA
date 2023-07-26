@@ -21,7 +21,7 @@
 </head>
 <ui:composition template="/WEB-INF/facelets/templates/cabecera.xhtml">
 	<ui:define name="title">
-		<h:outputText value="NBA Info Stat" />
+		<h:outputText value="#{msgs.index_titulo}" />
 	</ui:define>
 	<ui:define name="content">
 
@@ -76,7 +76,7 @@
 							
 						<div class="divFechas-titulo">
 							<h2 id="fechaElegida">
-								#{index.listaPartidos.size()} #{index.listaPartidos.size()==1?'partido':'partidos'} en la fecha
+								#{index.listaPartidos.size()} #{index.listaPartidos.size()==1? msgs.index_partido : msgs.index_partidos} #{msgs.index_en_fecha}
 								<h:outputText value="#{index.devolverFechaElegida()}">
 									<f:convertDateTime pattern="MM/dd/yyyy" />
 								</h:outputText>
@@ -85,7 +85,7 @@
 					</div>
 					<div>
 						<p:dataList id="tablaPartidos" value="#{index.listaPartidos}" var="match" rowIndexVar="indice"
-							emptyMessage="No existen partidos para el día escogido" style="background-color:red;">
+							emptyMessage="#{msgs.index_tabla_empty}" style="background-color:red;">
 							<p:panelGrid columns="2"
 								columnClasses="porcentaje-treintaCinco,porcentaje-sesenta"
 								styleClass="sinBordes"
@@ -100,7 +100,7 @@
 									</div>
 									<!-- TEMPORADA REGULAR, PLAY IN, PLAYOFF -->
 									<div class="ui-g partido-tipoPartido" style="display: #{match.playOff ? 'block' : 'none'}">
-										<div class="ui-g-12">#{match.bracket}#{match.conferencia}. GAME #{match.game}</div>
+										<div class="ui-g-12">#{match.bracket}#{match.conferencia}#{msgs.index_GAME}#{match.game}</div>
 									</div>
 									<div class="ui-g partido-tipoPartido" style="display: #{match.temporadaRegular ? 'block' : 'none'}">
 										<div class="ui-g-12">#{match.bracket}</div>
@@ -130,12 +130,12 @@
 										</div>
 										<div class="ui-g partido-record">
 											<div class="ui-g-5">#{match.equipoVisitante.victorias}-#{match.equipoVisitante.derrotas}</div>
-											<div class="ui-g-2">Record</div>
+											<div class="ui-g-2">#{msgs.index_record}</div>
 											<div class="ui-g-5">#{match.equipoLocal.victorias}-#{match.equipoLocal.derrotas}</div>
 										</div>
 									</div>
 									<p:tabView>
-										<p:tab  title="Estadisticas">
+										<p:tab  title="#{msgs.index_tab_estadisticas}">
 											<h:form>
 											    <p:dataTable value="#{match.estadisticaIndexPartido}" var="estadistica" styleClass="tabla-estadisticas">
 											        <p:column headerText="Estadística">
@@ -152,7 +152,7 @@
 										</p:tab>
 										
 										<!-- NOMBRE EQUIPOS Y RECORD DE TEMPORADA -->
-										<p:tab  title="Maximos">
+										<p:tab  title="#{msgs.index_tab_maximos}">
 											<!-- MAXIMOS ANOTADORES -->
 											<div class="ui-g partido-maximos">
 												<div class="ui-g-1">
@@ -162,22 +162,22 @@
 												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].apeNom}</div>
 												<div class="ui-g-1 tooltip partido-puntuacion">
 													#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].totalPartido.puntos}
-													<span class="tooltiptext"> Tiros Libres:
+													<span class="tooltiptext"> #{msgs.index_tooltip_tiros_libres}
 														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosLibresIntentados}
-														<br /> Tiros Campo :
+														<br /> #{msgs.index_tooltip_tiros_campo}
 														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.tirosCampoIntentados}
-														<br /> Triples :
+														<br /> #{msgs.index_tooltip_triples}
 														#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAnotadores[0]].boxscore.triplesIntentados}
 													</span>
 												</div>
-												<div class="ui-g-2 partido-atributo">Puntos</div>
+												<div class="ui-g-2 partido-atributo">#{msgs.index_maximos_puntos}</div>
 												<div class="ui-g-1 tooltip partido-puntuacion">
 													#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].totalPartido.puntos}<span
-														class="tooltiptext"> Tiros Libres:
+														class="tooltiptext"> #{msgs.index_tooltip_tiros_libres}
 														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosLibresIntentados}
-														<br /> Tiros Campo :
+														<br /> #{msgs.index_tooltip_tiros_campo}
 														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.tirosCampoIntentados}
-														<br /> Triples :
+														<br /> #{msgs.index_tooltip_triples}
 														#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesMetidos}/#{match.equipoLocal.jugadores[match.equipoLocal.maxAnotadores[0]].boxscore.triplesIntentados}
 													</span>
 												</div>
@@ -195,7 +195,7 @@
 												</div>
 												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].apeNom}</div>
 												<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxReboteadores[0]].totalPartido.totalRebotes}</div>
-												<div class="ui-g-2 partido-atributo">Rebotes</div>
+												<div class="ui-g-2 partido-atributo">#{msgs.index_maximos_rebotes}</div>
 												<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].totalPartido.totalRebotes}</div>
 												<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxReboteadores[0]].apeNom}</div>
 												<div class="ui-g-1">
@@ -211,7 +211,7 @@
 												</div>
 												<div class="ui-g-3 partido-jugadorNombreVisitante">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].apeNom}</div>
 												<div class="ui-g-1 partido-puntuacion">#{match.equipoVisitante.jugadores[match.equipoVisitante.maxAsistentes[0]].totalPartido.asistencias}</div>
-												<div class="ui-g-2 partido-atributo">Asistencias</div>
+												<div class="ui-g-2 partido-atributo">#{msgs.index_maximos_asistencias}</div>
 												<div class="ui-g-1 partido-puntuacion">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].totalPartido.asistencias}</div>
 												<div class="ui-g-3 partido-jugadorNombreLocal">#{match.equipoLocal.jugadores[match.equipoLocal.maxAsistentes[0]].apeNom}</div>
 												<div class="ui-g-1">
@@ -234,49 +234,49 @@
                                                 	<div class="ui-g-4 negrita textoCentrado" style="background-color:#e8e4e4;">#{match.equipoLocal.nombre}</div>
                                                 </div>
                                                 <div class="ui-g">
-                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Tiempo Ganando</div>
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">#{msgs.index_partido_tiempo_ganando}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.tiempoVisitanteGanandoMinutos}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.tiempoLocalGanandoMinutos}</div>
                                                 </div>
                                                 <div class="ui-g">
-                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Mas puntos consecutivos</div>
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">#{msgs.index_partido_tiempo_ganando}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.visitantePuntosConsecutivos}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.localPuntosConsecutivos}</div>
                                                 </div>
                                                 <div class="ui-g">
-                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">Tiempo sin anotar</div>
+                                                	<div class="ui-g-4 negrita" style="background-color:#e8e4e4;">#{msgs.index_partido_sin_anotar}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">#{match.visitanteSinAnotarMinutos}</div>
                                                 	<div class="ui-g-4 textoCentrado" style="background-color:#f8f9fa;">1#{match.localSinAnotarMinutos}</div>
                                                 </div>
                                                 <div class="ui-g">
                                                 	<div class="ui-g-4" style="background-color:#e8e4e4;">
-                                                		<spam class="negrita">Cambios de lider en el partido</spam>
+                                                		<spam class="negrita">#{msgs.index_partido_cambios_lider}</spam>
                                                 	</div>
                                                 	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
-                                                		<spam>#{match.cambiosLider} cambios de lider en el partido</spam>
+                                                		<spam>#{match.cambiosLider} #{msgs.index_partido_cambios_lider}</spam>
                                                 	</div>
                                                 </div>
                                                 <div class="ui-g">
                                                 	<div class="ui-g-4" style="background-color:#e8e4e4;">
-                                                		<spam class="negrita">Empates en el partido</spam>
+                                                		<spam class="negrita">#{msgs.index_partido_empates_partido}</spam>
                                                 	</div>
                                                 	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
-                                                		<spam>#{match.empates} empates en el partido</spam>
+                                                		<spam>#{match.empates} #{msgs.index_partido_empates_partido}</spam>
                                                 	</div>
                                                 </div>
                                                 <div class="ui-g">
                                                 	<div class="ui-g-4" style="background-color:#e8e4e4;">
-                                                		<spam class="negrita">Tiempo de empate en el partido</spam>
+                                                		<spam class="negrita">#{msgs.index_partido_tiempo_empate}</spam>
                                                 	</div>
                                                 	<div class="ui-g-8 centrarTexto" style="background-color:#f8f9fa;">
-                                                		<spam>#{match.tiempoEmpateMinutos} Minutos</spam>
+                                                		<spam>#{match.tiempoEmpateMinutos} #{msgs.index_partido_minutos}</spam>
                                                 	</div>
                                                 </div>
 												<p:dataTable id="tanteoCuartos" styleClass="columns tanteoCuartosGenerico"
 													var="stat" value="#{match.listaCuartos}">
 													<p:columnGroup type="header">
 														<p:row styleClass="encabezado-fila">
-															<p:column headerText="Tanteo de los cuartos"
+															<p:column headerText="#{msgs.index_partido_tanteo_cuartos}"
 																style="width: 45%;text-align: left;" />
 															<ui:repeat value="#{match.listaCuartos}" var="cuarto">
 																<p:column headerText="#{cuarto.cuarto}" />
@@ -313,65 +313,65 @@
 												sortMode="multiple"
 												rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
 												
-												<p:column headerText="Jugadores"
+												<p:column headerText="#{msgs.jugadores}"
 													style="width: 12%;text-align: left">
 													<h:outputText value="#{stat.apeNom}" />
 												</p:column>
-												<p:column headerText="MIN">
+												<p:column headerText="#{msgs.MIN}">
 													<h:outputText value="#{stat.minutos}" />
 												</p:column>
-												<p:column headerText="FG">
+												<p:column headerText="#{msgs.FG}">
 													<h:outputText
 														value="#{stat.boxscore.tirosCampoMetidos}/#{stat.boxscore.tirosCampoIntentados}" />
 												</p:column>
-												<p:column headerText="%FG">
+												<p:column headerText="#{msgs.PFG}">
 													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}">
 														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="3FG">
+												<p:column headerText="#{msgs.TFG}">
 													<h:outputText
 														value="#{stat.boxscore.triplesMetidos}/#{stat.boxscore.triplesIntentados}" />
 												</p:column>
-												<p:column headerText="%3F">
+												<p:column headerText="#{msgs.PTF}">
 													<h:outputText value="#{stat.boxscore.triplesPorcentaje}">
 														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="FT">
+												<p:column headerText="#{msgs.FT}">
 													<h:outputText
 														value="#{stat.boxscore.tirosLibresMetidos}/#{stat.boxscore.tirosLibresIntentados}" />
 												</p:column>
-												<p:column headerText="%FT">
+												<p:column headerText="#{msgs.PFT}">
 													<h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}">
 														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="DRE">
+												<p:column headerText="#{msgs.DRE}">
 													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
 												</p:column>
-												<p:column headerText="ORE">
+												<p:column headerText="#{msgs.ORE}">
 													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
 												</p:column>
-												<p:column headerText="REB">
+												<p:column headerText="#{msgs.REB}">
 													<h:outputText value="#{stat.boxscore.totalRebotes}" />
 												</p:column>
-												<p:column headerText="AST">
+												<p:column headerText="#{msgs.AST}">
 													<h:outputText value="#{stat.boxscore.asistencias}" />
 												</p:column>
-												<p:column headerText="STL">
+												<p:column headerText="#{msgs.STL}">
 													<h:outputText value="#{stat.boxscore.robos}" />
 												</p:column>
-												<p:column headerText="BLK">
+												<p:column headerText="#{msgs.BLK}">
 													<h:outputText value="#{stat.boxscore.tapones}" />
 												</p:column>
-												<p:column headerText="TOV">
+												<p:column headerText="#{msgs.TOV}">
 													<h:outputText value="#{stat.boxscore.perdidas}" />
 												</p:column>
-												<p:column headerText="+/-">
+												<p:column headerText="#{msgs.masMenos}">
 													<h:outputText value="#{stat.boxscore.masMenos}" />
 												</p:column>
-												<p:column headerText="PTS" style="font-size: 10px;text-align:right;">
+												<p:column headerText="#{msgs.PTS}" style="font-size: 10px;text-align:right;">
 													<h:outputText style="text-align:right;" value="#{stat.boxscore.puntos}" />
 												</p:column>
 											</p:dataTable>
@@ -452,66 +452,66 @@
 												style="font-size:12px;text-align: center;"
 												sortMode="multiple"
 												rowStyleClass="#{stat.inicio eq true ? 'titulares' : 'suplentes'}">
-												<p:column headerText="Jugadores"
-													style="width: 13%;text-align: left">
+												<p:column headerText="#{msgs.jugadores}"
+													style="width: 12%;text-align: left">
 													<h:outputText value="#{stat.apeNom}" />
 												</p:column>
-												<p:column headerText="MIN">
+												<p:column headerText="#{msgs.MIN}">
 													<h:outputText value="#{stat.minutos}" />
 												</p:column>
-												<p:column headerText="FG">
+												<p:column headerText="#{msgs.FG}">
 													<h:outputText
 														value="#{stat.boxscore.tirosCampoMetidos}/#{stat.boxscore.tirosCampoIntentados}" />
 												</p:column>
-												<p:column headerText="%FG">
+												<p:column headerText="#{msgs.PFG}">
 													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}">
-														<f:convertNumber pattern="#,###,##0.00" />
+														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="3FG">
+												<p:column headerText="#{msgs.TFG}">
 													<h:outputText
 														value="#{stat.boxscore.triplesMetidos}/#{stat.boxscore.triplesIntentados}" />
 												</p:column>
-												<p:column headerText="%3FG">
+												<p:column headerText="#{msgs.PTF}">
 													<h:outputText value="#{stat.boxscore.triplesPorcentaje}">
-														<f:convertNumber pattern="#,###,##0.00" />
+														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="FT">
+												<p:column headerText="#{msgs.FT}">
 													<h:outputText
 														value="#{stat.boxscore.tirosLibresMetidos}/#{stat.boxscore.tirosLibresIntentados}" />
 												</p:column>
-												<p:column headerText="%FT">
+												<p:column headerText="#{msgs.PFT}">
 													<h:outputText value="#{stat.boxscore.tirosLibresPorcentaje}">
-														<f:convertNumber pattern="#,###,##0.00" />
+														<f:convertNumber pattern="#,###,##0.000" />
 													</h:outputText>
 												</p:column>
-												<p:column headerText="DREB">
+												<p:column headerText="#{msgs.DRE}">
 													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
 												</p:column>
-												<p:column headerText="OREB">
+												<p:column headerText="#{msgs.ORE}">
 													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
 												</p:column>
-												<p:column headerText="REB">
+												<p:column headerText="#{msgs.REB}">
 													<h:outputText value="#{stat.boxscore.totalRebotes}" />
 												</p:column>
-												<p:column headerText="AST">
+												<p:column headerText="#{msgs.AST}">
 													<h:outputText value="#{stat.boxscore.asistencias}" />
 												</p:column>
-												<p:column headerText="STL">
+												<p:column headerText="#{msgs.STL}">
 													<h:outputText value="#{stat.boxscore.robos}" />
 												</p:column>
-												<p:column headerText="BLK">
+												<p:column headerText="#{msgs.BLK}">
 													<h:outputText value="#{stat.boxscore.tapones}" />
 												</p:column>
-												<p:column headerText="TOV">
+												<p:column headerText="#{msgs.TOV}">
 													<h:outputText value="#{stat.boxscore.perdidas}" />
 												</p:column>
-												<p:column headerText="+/-">
+												<p:column headerText="#{msgs.masMenos}">
 													<h:outputText value="#{stat.boxscore.masMenos}" />
 												</p:column>
-												<p:column headerText="PTS">
-													<h:outputText value="#{stat.boxscore.puntos}" />
+												<p:column headerText="#{msgs.PTS}" style="font-size: 10px;text-align:right;">
+													<h:outputText style="text-align:right;" value="#{stat.boxscore.puntos}" />
 												</p:column>
 											</p:dataTable>
 											<p:dataTable id="boxscoreLocalTotal" var="stat"
