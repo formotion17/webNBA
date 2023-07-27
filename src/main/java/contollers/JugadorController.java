@@ -301,10 +301,14 @@ public class JugadorController extends BaseController implements Serializable{
          }
          
          mediaTemporadaRegular = data.devolverMediaTemporada(jugadorSeleccionado.getCodigo(), partidosTemporada, "regular");
-         mediaTemporadaRegular.setMasMenos(masMenos/partidosJugados);
+         if(partidosJugados != 0) {
+             mediaTemporadaRegular.setMasMenos(masMenos/partidosJugados);
+         }
          
          mediaPlayoff = data.devolverMediaTemporada(jugadorSeleccionado.getCodigo(), partidosTemporada, "playoff");
-         mediaPlayoff.setMasMenos(masMenosPlayoff/partidosJugadosPlayoff);
+         if(partidosJugadosPlayoff!=0) {
+             mediaPlayoff.setMasMenos(masMenosPlayoff/partidosJugadosPlayoff);
+         }
     }
 
     /**

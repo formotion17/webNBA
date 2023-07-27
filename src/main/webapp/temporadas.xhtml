@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" lang="en"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Awesome videos!" />
+<h:outputStylesheet name="primefaces/primefaces.css"
+	library="primefaces" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+</head>
+<h:body>
+	<ui:composition template="/WEB-INF/facelets/templates/cabecera.xhtml">
+		<ui:define name="title">
+			<h:outputText value="TEMPORADAS" />
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form">
+				<div id="contenido" style="width: 100%; margin: auto;">
+					<div id="content" style="background-color: #fffafb; width: 100%">
+					
+						<div class="margen-left" style="background-color:red;margin-top:20px">
+							<H2>Elige la temporada que deseas ver</H2>
+						</div>
+						
+						<div class="margen-left">
+							<p:selectOneButton value="#{temporadas.partidosTemporada}"
+								class="listaTemporadasClase">
+								<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+							</p:selectOneButton>
+						</div>
+						
+						<div class="margen-left">
+							<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
+								update="form:j_idt27"
+								action="#{jugadores.recogerPartidosTemporada()}">
+								<p:ajax onstart="PF('dlg2').show();"
+									oncomplete="PF('dlg2').hide();" />
+							</p:commandButton>
+						</div>
+						<div id="temporadaSeleccionada">
+						
+						</div>
+					
+					</div>
+                    <p:dialog header="#{msgs.jugador_cargando_datos}" widgetVar="dlg2" modal="true" height="auto" resizable="false">
+                        <h:graphicImage value="data:image/gif;base64,#{jugadores.imagenCarga}" style="max-width: 300px; max-height: 300px;" />
+                    </p:dialog> 
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</h:body>
+</html>

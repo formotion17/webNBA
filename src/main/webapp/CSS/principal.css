@@ -8,7 +8,7 @@
 .contenedor-partidos{
     width: 100%;
     height: auto;
-    background-color: black;
+    background-color: #fffafb;
 }
 
 .contenido{
@@ -273,10 +273,11 @@ ul{
 .listaEquipos .ui-button.ui-widget.ui-state-default.ui-button-text-only{
     font-size:16px;
     border-color:white;
-    background-color:#b9c1c7;
+    background-color:#e8e4e4;
     width:15em;
-    padding:4px;
+    padding:2px;
     margin:2px;
+    border-radius: 24px;
 }
 
 .listaEquipos .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
@@ -836,3 +837,32 @@ body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
 	margin-right: auto;
 }
 
+.margen-left-tab{
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/*pargina temporadas*/
+
+.listaTemporadasClase{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.listaTemporadasClase .ui-button.ui-widget.ui-state-default.ui-button-text-only{
+    font-size:16px;
+    border-color:white;
+    background-color:#e8e4e4;
+    width:8em;
+    padding:3px;
+    margin:6px;
+    border-radius: 25px;
+}
+
+.listaTemporadasClase .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
+    border-color:#007ad9;
+    background-color:#0c4d80;
+    color:#fff;
+}

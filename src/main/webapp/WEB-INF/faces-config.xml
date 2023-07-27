@@ -10,12 +10,33 @@
             <from-outcome>jugadores</from-outcome>
             <to-view-id>jugadores.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>temporadas</from-outcome>
+            <to-view-id>temporadas.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>jugadores.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>temporadas</from-outcome>
+            <to-view-id>temporadas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>temporadas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>temporadas</from-outcome>
+            <to-view-id>temporadas.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     

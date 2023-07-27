@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16584935523840" configfile="/NBAInfoStat/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="122" y="178" id="pf16894734372103" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf16898840859213" inlinks="pf16898840859214" path="jugadores.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf16898840859215" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf16898840859214" inlinks="pf16898840859213" path="index.xhtml"/>
-  <links id="pf16898840859214" target="pf16894734372103" source="pf16898840859215" outcome="jugadores"/>
-  <links id="pf16898840859213" target="pf16898840859215" source="pf16894734372103" outcome="index"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="48" y="63" id="pf16898840859215" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf16904249906475 pf16904249906476" inlinks="pf16904250265179 pf169042502651810" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="264" y="63" id="pf16904249906487" outlinks="pf16904250265179 pf169042502651811" inlinks="pf16904249906475 pf169042502651812" path="/jugadores.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="temporadas.xhtml" x="132" y="180" id="pf16904249906488" outlinks="pf169042502651812 pf169042502651810" inlinks="pf16904249906476 pf169042502651811" path="/temporadas.xhtml"/>
+  <links id="pf16904249906475" target="pf16904249906487" source="pf16898840859215"/>
+  <links id="pf16904249906476" target="pf16904249906488" source="pf16898840859215"/>
+  <links id="pf16904250265179" target="pf16898840859215" source="pf16904249906487"/>
+  <links id="pf169042502651811" target="pf16904249906488" source="pf16904249906487"/>
+  <links id="pf169042502651812" target="pf16904249906487" source="pf16904249906488"/>
+  <links id="pf169042502651810" target="pf16898840859215" source="pf16904249906488"/>
 </pageflow:Pageflow>

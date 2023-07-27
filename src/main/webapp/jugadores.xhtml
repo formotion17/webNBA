@@ -29,7 +29,7 @@ and open the template in the editor.
                 <h:form id ="form">
                     <div id="contenido" style="width: 100%;margin: auto;">
                         <div id="content" style="background-color: #fffafb ; width: 100%">
-                            <div id="busquedaJugador" style="padding:10px;height: auto;" class="findJugador">
+                            <div id="busquedaJugador" style="height: auto;" class="findJugador">
                             	<p:panelGrid columns="3"
                             		columnClasses="porcentaje-veinte, porcentaje-sesenta, porcentaje-veinte"
                             		class="cabecera-jugadores sinBordes">
@@ -90,7 +90,7 @@ and open the template in the editor.
                             	</p:panelGrid>
                             </div>
                  		</div>
-                 		<div id="ContenidoJugador" style="background-color: white;height: auto; width: 100%">
+                 		<div id="ContenidoJugador" style="background-color: white;" class="margen-left-tab">
                             <div class="#{jugadores.invisibleEstadisticasGlobales}">
                                 <div class="fotoJugador">
                                     <p:graphicImage url="#{jugadores.jugadorSeleccionado.recogerFoto()}" height="220" width="140" style=""/>
@@ -181,7 +181,7 @@ and open the template in the editor.
                             
                             <!-- Tab links -->
                             <div class="#{jugadores.invisibleTabs}" >
-                                <div class="tabset">
+                                <div class="tabset margen-left-tab">
                                 	<!-- Tab 1 -->
                                     <input type="radio" name="tabset" id="tab1" aria-controls="bio_jugador" checked="true"/>
                                     <label for="tab1">#{msgs.jugador_tab_bio}</label>
@@ -212,7 +212,7 @@ and open the template in the editor.
 										<div class="margen-left">
 											<p:selectManyButton
 												value="#{jugadores.listaSeleccionTemporadasProgresion}"
-												class="listaTemporadas" style="margin-left:4%;">
+												class="listaTemporadasClase" style="margin-left:4%;">
 												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
 											</p:selectManyButton>
 										</div>
@@ -325,11 +325,11 @@ and open the template in the editor.
 									</section>
 									<section id="estadisticas_equipos" class="tab-panel">
 									
-										<div class="margen-left">
+										<div class="margen-left-tab">
 											<h2>#{msgs.jugador_tab_equipo_titulo}</h2>
 										</div>
 										
-										<div class="margen-left">
+										<div class="margen-left-tab">
 											<p:selectOneButton value="#{jugadores.equipoSeleccionado}"
 												class="listaEquipos">
 												<f:selectItems value="#{jugadores.equipos}" var="status"
@@ -577,7 +577,7 @@ and open the template in the editor.
 										
 										<div class="margen-left">
 											<p:selectOneButton value="#{jugadores.partidosTemporada}"
-												class="listaTemporadas" style="margin-left:4%;">
+												class="listaTemporadasClase" style="margin-left:4%;">
 												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
 											</p:selectOneButton>
 										</div>

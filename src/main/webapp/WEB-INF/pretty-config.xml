@@ -12,5 +12,11 @@
         <pattern value="/jugadores" />
         <view-id value="/jugadores.xhtml" />
     </url-mapping>
+    
+    <url-mapping id="temporadas">
+        <pattern value="/temporadas" />
+        <view-id value="/temporadas.xhtml" />
+    </url-mapping>
+    
 
 </pretty-config>
