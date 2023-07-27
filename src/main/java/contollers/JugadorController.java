@@ -288,12 +288,16 @@ public class JugadorController extends BaseController implements Serializable{
          for(ControllerPartidoJugador partido:listaPartidosTemporadaRegular) {
         	 System.out.println(partido.getFecha());
         	 System.out.println("Marmo: hay que revisar, porque igual el jugador no ha jugado y esto esta a null");
-        	 masMenos += partido.getBoxscore().getMasMenos();
-        	 partidosJugados++;
+        	 if(null!=partido.getBoxscore().getMasMenos()){
+            	 masMenos += partido.getBoxscore().getMasMenos();
+            	 partidosJugados++;
+        	 }
          }
          for(ControllerPartidoJugador partido:listaPartidosPlayOff) {
-        	 masMenosPlayoff += partido.getBoxscore().getMasMenos();
-        	 partidosJugadosPlayoff++;
+        	 if(null!=partido.getBoxscore().getMasMenos()){
+            	 masMenosPlayoff += partido.getBoxscore().getMasMenos();
+            	 partidosJugadosPlayoff++;
+        	 }
          }
          
          mediaTemporadaRegular = data.devolverMediaTemporada(jugadorSeleccionado.getCodigo(), partidosTemporada, "regular");

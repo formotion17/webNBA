@@ -203,20 +203,31 @@ and open the template in the editor.
                                     </section>
                                     
 									<section id="estadisticas_Temporada" class="tab-panel">
-										<h2>#{msgs.jugador_tab_stat_temporada_titulo}</h2>
-										<p:selectManyButton
-											value="#{jugadores.listaSeleccionTemporadasProgresion}"
-											class="listaTemporadas" style="margin-left:4%;">
-											<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-										</p:selectManyButton>
-										<p:commandButton value="#{msgs.jugador_tab_stat_temporada_boton}"
-											update="estadisticasJugadorYears"
-											actionListener="#{jugadores.verEstadisticas()}">
-											<p:ajax onstart="PF('dlg2').show();"
-												oncomplete="PF('dlg2').hide();" />
-										</p:commandButton>
+									
+										<div class="margen-left">
+											<h2>#{msgs.jugador_tab_stat_temporada_titulo}</h2>
+										</div>
+										
+										
+										<div class="margen-left">
+											<p:selectManyButton
+												value="#{jugadores.listaSeleccionTemporadasProgresion}"
+												class="listaTemporadas" style="margin-left:4%;">
+												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+											</p:selectManyButton>
+										</div>
+										
+										
+										<div class="margen-left">
+											<p:commandButton value="#{msgs.jugador_tab_stat_temporada_boton}"
+												update="estadisticasJugadorYears" style="margin-bottom:10px;"
+												actionListener="#{jugadores.verEstadisticas()}">
+												<p:ajax onstart="PF('dlg2').show();"
+													oncomplete="PF('dlg2').hide();" />
+											</p:commandButton>
+										</div>
 
-										<div class="estadisticasCarrera">
+										<div class="estadisticasCarrera margen-left">
 											<p:dataTable id="estadisticasJugadorYears" var="stat"
 												value="#{jugadores.listaEstadisticasJugador}"
 												class="tablaEstadisticaTemporada" expandableRowGroups="true"
@@ -313,28 +324,39 @@ and open the template in the editor.
 										</div>
 									</section>
 									<section id="estadisticas_equipos" class="tab-panel">
-										<h2>Estadisticas Contra Equipos</h2>
+									
+										<div class="margen-left">
+											<h2>#{msgs.jugador_tab_equipo_titulo}</h2>
+										</div>
+										
+										<div class="margen-left">
+											<p:selectOneButton value="#{jugadores.equipoSeleccionado}"
+												class="listaEquipos">
+												<f:selectItems value="#{jugadores.equipos}" var="status"
+													class="foto" itemValue="#{status}"
+													itemLabel="#{status.nombre}" />
+												<p:ajax
+													update="botonVerEstadisticas,tablaEstadisticasJugadorEquipo" />
+											</p:selectOneButton>
+										</div>
+										
 
-										<p:selectOneButton value="#{jugadores.equipoSeleccionado}"
-											class="listaEquipos" style="margin-left:4%;">
-											<f:selectItems value="#{jugadores.equipos}" var="status"
-												class="foto" itemValue="#{status}"
-												itemLabel="#{status.nombre}" />
-											<p:ajax
-												update="botonVerEstadisticas,tablaEstadisticasJugadorEquipo" />
-										</p:selectOneButton>
-
-										<div id="listaMenusCriba"
-											style="margin: 0px auto; text-align: center; margin-bottom: 20px;">
-											<h:panelGrid columns="7" style="margin:0px auto;">
-												<h:outputLabel value="Cuarto" />
-												<h:outputLabel value="Dentro/Fuera" />
-												<h:outputLabel value="Distancia" />
-												<h:outputLabel value="Tiempo restante" />
-												<h:outputLabel value="Tipo Canasta" />
-												<h:outputLabel value="Momento del tiro" />
-												<h:outputLabel value="Situacion de tiro" />
-
+										<div id="listaMenusCriba" class="centrar"
+											style="text-align: center; margin-bottom: 20px;">
+											
+											<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_cuarto}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_dentroFuera}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_distancia}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_tiempo}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_tipo}" />
+												
+												<p:selectOneMenu id="menuTipoCanasta"
+													value="#{jugadores.listaTipoCanastaElegida}" filter="false"
+													style="width: 200px;margin-left:10px;">
+													<f:selectItems value="#{jugadores.listaTipoCanasta}" />
+												</p:selectOneMenu>
+												
 												<p:selectOneMenu id="menuCuartos"
 													value="#{jugadores.listaCuartosElegidos}" filter="false"
 													style="width: 200px;margin-left:10px;">
@@ -360,12 +382,19 @@ and open the template in the editor.
 													style="width: 230px;margin-left:10px;">
 													<f:selectItems value="#{jugadores.listaTiempoRestante}" />
 												</p:selectOneMenu>
-
-												<p:selectOneMenu id="menuTipoCanasta"
-													value="#{jugadores.listaTipoCanastaElegida}" filter="false"
-													style="width: 200px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaTipoCanasta}" />
-												</p:selectOneMenu>
+											
+											</h:panelGrid>
+										</div>
+										
+										<div id="listaMenusCriba2" class="centrar"
+											style="text-align: center; margin-bottom: 20px;">
+											
+											<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_momento}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_situacion}" />
+												<h:outputLabel value="#{msgs.jugador_tab_equipo_listaTemporadas}" />
+												<h:outputLabel value=" " />
+												<h:outputLabel value=" " />
 
 												<p:selectOneMenu id="menuSituacionPartido"
 													value="#{jugadores.listaSituacionPartidoElegido}"
@@ -379,30 +408,31 @@ and open the template in the editor.
 													title="Hola">
 													<f:selectItems value="#{jugadores.listaPonerseDelante}" />
 												</p:selectOneMenu>
+	
+												<p:selectCheckboxMenu id="menuTemporadas"
+													value="#{jugadores.listaTemporadasElegidas}"
+													label="#{msgs.jugador_tab_equipo_temporadas}" filter="false"
+													style="margin-left:10px;margin-right: 20px;"
+													showHeader="false">
+													<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+												</p:selectCheckboxMenu>
+												<p:commandButton id="botonVerEstadisticas"
+													value="#{msgs.jugador_tab_equipo_rival} #{jugadores.equipoSeleccionado.nombre}"
+													update="graficos_stats" actionListener="#{jugadores.verEstadisticasContraEquipos()}">
+												</p:commandButton>
+												<p:graphicImage id="tablaEstadisticasJugadorEquipo"
+													url="#{jugadores.equipoSeleccionado.foto}" height="80"
+													style="margin-left: 25px;vertical-align: middle;" />
 											</h:panelGrid>
-
-											<p:selectCheckboxMenu id="menuTemporadas"
-												value="#{jugadores.listaTemporadasElegidas}"
-												label="Elegir Temporadas" filter="false"
-												style="width: 230px;margin-left:10px;margin-top:20px;margin-right: 20px;"
-												showHeader="false">
-												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-											</p:selectCheckboxMenu>
-											<p:commandButton id="botonVerEstadisticas"
-												value="Ver Estadisticas contra #{jugadores.equipoSeleccionado.nombre}"
-												update="graficos_stats" actionListener="#{jugadores.verEstadisticasContraEquipos()}"
-												style="margin-bottom:30px;">
-											</p:commandButton>
-											<p:graphicImage id="tablaEstadisticasJugadorEquipo"
-												url="#{jugadores.equipoSeleccionado.foto}" height="80"
-												style="margin-left: 25px;vertical-align: middle;" />
 										</div>
+										
 										<div class="tituloEquipo"></div>
 										
 										<p:panelGrid id="graficos_stats"  columns="1" columnClasses="porcentaje-cien"
 											styleClass="sinBordes centrar">
 										
-											<ui:repeat var="evento" value="#{jugadores.tablaTirosJugador}" >
+											<p:dataList var="evento" value="#{jugadores.tablaTirosJugador}" 
+												emptyMessage="#{msgs.jugador_tab_equipo_tabla_empty}">
 												
 												<p:panelGrid  columns="2" columnClasses="porcentaje-veinteCinco,porcentaje-setentaCinco "
 													styleClass="sinBordes centrar">
@@ -445,69 +475,69 @@ and open the template in the editor.
 																	</div>
 																</p:column>
 															</p:headerRow>
-															<p:column headerText="PTS">
+															<p:column headerText="#{msgs.PTS}">
 																<h:outputText value="#{statLoRe.puntos}" />
 															</p:column>
-															<p:column headerText="FG">
+															<p:column headerText="#{msgs.FG}">
 																<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
 															</p:column>
-															<p:column headerText="FGA">
+															<p:column headerText="#{msgs.FGA}">
 																<h:outputText value="#{statLoRe.tirosCampoIntentados}" />
 															</p:column>
-															<p:column headerText="%FG">
+															<p:column headerText="#{msgs.PFG}">
 																<h:outputText value="#{statLoRe.tirosCampoPorcentaje}">
 																	<f:convertNumber pattern="#0.00" />
 																</h:outputText>
 															</p:column>
-															<p:column headerText="2P">
+															<p:column headerText="#{msgs.TP}">
 																<h:outputText value="#{statLoRe.tirosDosMetidos}" />
 															</p:column>
-															<p:column headerText="2PA">
+															<p:column headerText="#{msgs.TPA}">
 																<h:outputText value="#{statLoRe.tirosDosIntentados}" />
 															</p:column>
-															<p:column headerText="%2P">
+															<p:column headerText="#{msgs.PTG}">
 																<h:outputText value="#{statLoRe.tirosDosPorcentaje}">
 																	<f:convertNumber pattern="#0.00" />
 																</h:outputText>
 															</p:column>
-															<p:column headerText="3P">
+															<p:column headerText="#{msgs.TFG}">
 																<h:outputText value="#{statLoRe.triplesMetidos}" />
 															</p:column>
-															<p:column headerText="3PA">
+															<p:column headerText="#{msgs.FTA}">
 																<h:outputText value="#{statLoRe.triplesIntentados}" />
 															</p:column>
-															<p:column headerText="%3P">
+															<p:column headerText="#{msgs.PTF}">
 																<h:outputText value="#{statLoRe.triplesPorcentaje}">
 																	<f:convertNumber pattern="#0.00" />
 																</h:outputText>
 															</p:column>
-															<p:column headerText="AST">
-																<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
-															</p:column>
-															<p:column headerText="FT">
+															<p:column headerText="#{msgs.FT}">
 																<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
 															</p:column>
-															<p:column headerText="FTA">
+															<p:column headerText="#{msgs.FTA}">
 																<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
 															</p:column>
-															<p:column headerText="%FTG">
+															<p:column headerText="#{msgs.PFT}">
 																<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
 																	<f:convertNumber pattern="#0.000" />
 																</h:outputText>
 															</p:column>
-															<p:column headerText="DRB">
+															<p:column headerText="#{msgs.AST}">
+																<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
+															</p:column>
+															<p:column headerText="#{msgs.DRE}">
 																<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
 															</p:column>
-															<p:column headerText="ORB">
+															<p:column headerText="#{msgs.ORE}">
 																<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
 															</p:column>
-															<p:column headerText="STL">
+															<p:column headerText="#{msgs.STL}">
 																<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
 															</p:column>
-															<p:column headerText="BLK">
+															<p:column headerText="#{msgs.BLK}">
 																<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
 															</p:column>
-															<p:column headerText="TOV">
+															<p:column headerText="#{msgs.TOV}">
 																<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
 															</p:column>
 														</p:dataTable>
@@ -534,79 +564,88 @@ and open the template in the editor.
 													
 												</p:panelGrid>
 											
-											</ui:repeat>
+											</p:dataList>
 										
 										</p:panelGrid>
 										
 									</section>
 
 									<section id="partidos_temporada" class="tab-panel">
-										<h2>Partidos de Temporada</h2>
-										<p:selectOneButton value="#{jugadores.partidosTemporada}"
-											class="listaTemporadas" style="margin-left:4%;">
-											<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-										</p:selectOneButton>
+										<h2 class="margen-left">
+											#{msgs.jugador_tab_temporada_titulo}
+										</h2>
+										
+										<div class="margen-left">
+											<p:selectOneButton value="#{jugadores.partidosTemporada}"
+												class="listaTemporadas" style="margin-left:4%;">
+												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+											</p:selectOneButton>
+										</div>
+										
+										
+										<div class="margen-left">
+											<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
+												update="partidosJugadorTemporada,partidosJugadorPlyaoff"
+												action="#{jugadores.recogerPartidosTemporada()}">
+												<p:ajax onstart="PF('dlg2').show();"
+													oncomplete="PF('dlg2').hide();" />
+											</p:commandButton>
+										</div>
 
-										<p:commandButton value="Ver estadisticas de temporada"
-											update="partidosJugadorTemporada,partidosJugadorPlyaoff"
-											action="#{jugadores.recogerPartidosTemporada()}">
-											<p:ajax onstart="PF('dlg2').show();"
-												oncomplete="PF('dlg2').hide();" />
-										</p:commandButton>
-
-										<h2
-											style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 30px;">Partidos
-											de Temporada Regular #{jugadores.partidosTemporada}</h2>
+										<h2 class="margen-left" style="margin-top: 30px;">
+											#{msgs.jugador_tab_temporada_partidosRegular} #{jugadores.partidosTemporada}
+										</h2>
+										
 
 										<h:dataTable id="partidosJugadorTemporada"
 											value="#{jugadores.listaPartidosTemporadaRegular}" var="stat"
-											style="width:80%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
+											style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
 											border="10" headerClass="partidosHeader"
 											footerClass="partidosHeader">
 
 											<h:column>
-												<f:facet name="header">Nº</f:facet>
+												<f:facet name="header">#{msgs.numero}</f:facet>
                                                 #{stat.partidoNumero}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">Fecha</f:facet>
+												<f:facet name="header">#{msgs.fecha}</f:facet>
                                                 #{stat.fechaFormateada()}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">Team</f:facet>
+												<f:facet name="header">#{msgs.team}</f:facet>
 												<p:graphicImage
 													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
 													height="30" style="vertical-align: middle;" />
 											</h:column>
 											<h:column>
-												<f:facet name="header">HO</f:facet>
+												<f:facet name="header">#{msgs.HO}</f:facet>
 												<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
 													style="vertical-align: middle;" />
 
 											</h:column>
 											<h:column>
-												<f:facet name="header">Opo</f:facet>
+												<f:facet name="header">#{msgs.opo}</f:facet>
 												<p:graphicImage
 													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
 													height="30" style="vertical-align: middle;" />
 											</h:column>
 											<h:column>
-												<f:facet name="header">Resul</f:facet>
+												<f:facet name="header">#{msgs.resul}</f:facet>
                                                 #{stat.getResultadoPartido()}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">GS</f:facet>
+												<f:facet name="header">#{msgs.GS}</f:facet>
                                                 #{stat.inicio}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">MP</f:facet>
+												<f:facet name="header">#{msgs.MP}</f:facet>
 												<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.getMinutos()}" />
 												</div>
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FG</f:facet>
+												<f:facet name="header">#{msgs.FG}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
@@ -614,7 +653,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FGA</f:facet>
+												<f:facet name="header">#{msgs.FGA}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
@@ -622,7 +661,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FG%</f:facet>
+												<f:facet name="header">#{msgs.PFG}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
@@ -630,7 +669,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3P</f:facet>
+												<f:facet name="header">#{msgs.TP}</f:facet>
 												<div
 													class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesMetidos}" />
@@ -638,7 +677,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3PA</f:facet>
+												<f:facet name="header">#{msgs.TFA}</f:facet>
 												<div
 													class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesIntentados}" />
@@ -646,7 +685,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3P%</f:facet>
+												<f:facet name="header">#{msgs.PTF}</f:facet>
 												<div
 													class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
@@ -654,7 +693,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FT</f:facet>
+												<f:facet name="header">#{msgs.FT}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
@@ -662,7 +701,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FTA</f:facet>
+												<f:facet name="header">#{msgs.FTA}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
 													<h:outputText
@@ -671,7 +710,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FT%</f:facet>
+												<f:facet name="header">#{msgs.PFT}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
 													<h:outputText
@@ -680,7 +719,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">ORB</f:facet>
+												<f:facet name="header">#{msgs.ORE}</f:facet>
 												<div
 													class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
@@ -688,7 +727,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">DRB</f:facet>
+												<f:facet name="header">#{msgs.DRE}</f:facet>
 												<div
 													class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
@@ -696,14 +735,14 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">TRB</f:facet>
+												<f:facet name="header">#{msgs.REB}</f:facet>
 												<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.totalRebotes}" />
 												</div>
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">AST</f:facet>
+												<f:facet name="header">#{msgs.AST}</f:facet>
 												<div
 													class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.asistencias}" />
@@ -711,21 +750,21 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">STL</f:facet>
+												<f:facet name="header">#{msgs.STL}</f:facet>
 												<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.robos}" />
 												</div>
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">BLK</f:facet>
+												<f:facet name="header">#{msgs.BLK}</f:facet>
 												<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tapones}" />
 												</div>
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">TOV</f:facet>
+												<f:facet name="header">#{msgs.TOV}</f:facet>
 												<div
 													class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.perdidas}" />
@@ -733,12 +772,12 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">PF</f:facet>
+												<f:facet name="header">#{msgs.PF}</f:facet>
 												<h:outputText value="#{stat.boxscore.faltasPersonales}" />
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">PTS</f:facet>
+												<f:facet name="header">#{msgs.PTS}</f:facet>
 												<div
 													class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.puntos}" />
@@ -746,7 +785,7 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">+/-</f:facet>
+												<f:facet name="header">#{msgs.masMenos}</f:facet>
 												<div
 													class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.masMenos}" />
@@ -754,208 +793,218 @@ and open the template in the editor.
 												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
 											</h:column>
 										</h:dataTable>
+										
+										<div class="margen-left" style="argin-top: 30px">
+											<h:outputLabel  style="background-color:#98db98;">
+												#{msgs.jugador_tab_temporada_maximosTemporada}
+											</h:outputLabel>
+										</div>
 
-										<h2
-											style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 30px;">Partidos
-											de PlayOff</h2>
+										<h2 class="margen-left" style="margin-top: 30px;">
+											#{msgs.jugador_tab_temporada_partidosPlayoff}
+										</h2>
 
 										<h:dataTable id="partidosJugadorPlyaoff"
 											value="#{jugadores.listaPartidosPlayOff}" var="stat"
-											style="width:80%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
+											style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
 											border="10" headerClass="partidosHeader"
 											footerClass="partidosHeader">
 
 											<h:column>
-												<f:facet name="header">Nº</f:facet>
+												<f:facet name="header">#{msgs.numero}</f:facet>
                                                 #{stat.partidoNumero}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">Fecha</f:facet>
-												<h:outputText value="#{stat.fechaFormateada()}" />
-											</h:column>
+												<f:facet name="header">#{msgs.fecha}</f:facet>
+                                                #{stat.fechaFormateada()}
+                                            </h:column>
 											<h:column>
-												<f:facet name="header">Team</f:facet>
+												<f:facet name="header">#{msgs.team}</f:facet>
 												<p:graphicImage
 													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
 													height="30" style="vertical-align: middle;" />
 											</h:column>
 											<h:column>
-												<f:facet name="header">HO</f:facet>
+												<f:facet name="header">#{msgs.HO}</f:facet>
 												<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
 													style="vertical-align: middle;" />
 
 											</h:column>
 											<h:column>
-												<f:facet name="header">Opo</f:facet>
+												<f:facet name="header">#{msgs.opo}</f:facet>
 												<p:graphicImage
 													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
 													height="30" style="vertical-align: middle;" />
 											</h:column>
 											<h:column>
-												<f:facet name="header">Resul</f:facet>
+												<f:facet name="header">#{msgs.resul}</f:facet>
                                                 #{stat.getResultadoPartido()}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">GS</f:facet>
+												<f:facet name="header">#{msgs.GS}</f:facet>
                                                 #{stat.inicio}
                                             </h:column>
 											<h:column>
-												<f:facet name="header">MP</f:facet>
+												<f:facet name="header">#{msgs.MP}</f:facet>
 												<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.getMinutos()}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.minutos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FG</f:facet>
+												<f:facet name="header">#{msgs.FG}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoMetidos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FGA</f:facet>
+												<f:facet name="header">#{msgs.FGA}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoIntentados}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FG%</f:facet>
+												<f:facet name="header">#{msgs.PFG}</f:facet>
 												<div
 													class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosCampoPorcentaje}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3P</f:facet>
+												<f:facet name="header">#{msgs.TP}</f:facet>
 												<div
 													class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesMetidos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.triplesMetidos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3PA</f:facet>
+												<f:facet name="header">#{msgs.TFA}</f:facet>
 												<div
 													class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesIntentados}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.triplesIntentados}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">3P%</f:facet>
+												<f:facet name="header">#{msgs.PTF}</f:facet>
 												<div
 													class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.triplesPorcentaje}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FT</f:facet>
+												<f:facet name="header">#{msgs.FT}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresMetidos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FTA</f:facet>
+												<f:facet name="header">#{msgs.FTA}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
 													<h:outputText
 														value="#{stat.boxscore.tirosLibresIntentados}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresIntentados}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">FT%</f:facet>
+												<f:facet name="header">#{msgs.PFT}</f:facet>
 												<div
 													class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
 													<h:outputText
 														value="#{stat.boxscore.tirosLibresPorcentaje}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tirosLibresPorcentaje}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">ORB</f:facet>
+												<f:facet name="header">#{msgs.ORE}</f:facet>
 												<div
 													class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.reboteOfensivo}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">DRB</f:facet>
+												<f:facet name="header">#{msgs.DRE}</f:facet>
 												<div
 													class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.reboteDefensivo}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">TRB</f:facet>
+												<f:facet name="header">#{msgs.REB}</f:facet>
 												<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.totalRebotes}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.totalRebotes}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">AST</f:facet>
+												<f:facet name="header">#{msgs.AST}</f:facet>
 												<div
 													class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.asistencias}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.asistencias}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">STL</f:facet>
+												<f:facet name="header">#{msgs.STL}</f:facet>
 												<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.robos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.robos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">BLK</f:facet>
+												<f:facet name="header">#{msgs.BLK}</f:facet>
 												<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.tapones}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.tapones}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">TOV</f:facet>
+												<f:facet name="header">#{msgs.TOV}</f:facet>
 												<div
 													class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.perdidas}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.perdidas}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">PF</f:facet>
+												<f:facet name="header">#{msgs.PF}</f:facet>
 												<h:outputText value="#{stat.boxscore.faltasPersonales}" />
-												<f:facet name="footer">#{jugadores.mediaPlayoff.faltasPersonales}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">PTS</f:facet>
+												<f:facet name="header">#{msgs.PTS}</f:facet>
 												<div
 													class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.puntos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.puntos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
 											</h:column>
 											<h:column>
-												<f:facet name="header">+/-</f:facet>
+												<f:facet name="header">#{msgs.masMenos}</f:facet>
 												<div
 													class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
 													<h:outputText value="#{stat.boxscore.masMenos}" />
 												</div>
-												<f:facet name="footer">#{jugadores.mediaPlayoff.masMenos}</f:facet>
+												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
 											</h:column>
 										</h:dataTable>
-
+										<div class="margen-left" style="margin-top: 30px">
+											<h:outputLabel  style="background-color:#98db98;">
+												#{msgs.jugador_tab_temporada_maximosPlayoff}
+											</h:outputLabel>
+										</div>
 									</section>
 								</div>
                                 </div>
@@ -964,7 +1013,7 @@ and open the template in the editor.
                             <div>
                                 
                             </div>
-                            <p:dialog header="Cargando Datos" widgetVar="dlg2" modal="true" height="auto" resizable="false">
+                            <p:dialog header="#{msgs.jugador_cargando_datos}" widgetVar="dlg2" modal="true" height="auto" resizable="false">
                                 <h:graphicImage value="data:image/gif;base64,#{jugadores.imagenCarga}" style="max-width: 300px; max-height: 300px;" />
                             </p:dialog> 
                         </div>
