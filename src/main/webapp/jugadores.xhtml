@@ -74,10 +74,10 @@ and open the template in the editor.
 		                                       </p:column>
 		
 		                                      	<p:column style="height:auto;text-align: center;">
-			                                       	<p:avatar styleClass="mr-2" size="xlarge" shape="circle">
-										                <p:graphicImage url="#{jugadores.urlFoto}#{item.codigo}.jpg" alt="Image Description for #{item.nombre}" title="#{item.nombre}"/>
-										            </p:avatar>
-		                                           
+									                <p:graphicImage url="#{jugadores.urlFoto}#{item.codigo}.jpg" 
+									                	alt="Image Description for #{item.nombre}" 
+									                	title="#{item.nombre}"
+									                	styleClass="circle-image" />
 		                                       </p:column>
 		                                   </p:dataTable>
 		                                </div>
@@ -197,816 +197,817 @@ and open the template in the editor.
 
                                     <div class="tab-panels">
                                     
-                                    <section id="bio_jugador" class="tab-panel">
-                                    	<h2>"#{msgs.boton_texto}"</h2>
-                                    
-                                    </section>
-                                    
-									<section id="estadisticas_Temporada" class="tab-panel">
-									
-										<div class="margen-left">
-											<h2>#{msgs.jugador_tab_stat_temporada_titulo}</h2>
-										</div>
+	                                    <section id="bio_jugador" class="tab-panel">
+	                                    	<h2>"#{msgs.boton_texto}"</h2>
+	                                    
+	                                    </section>
+	                                    
+										<section id="estadisticas_Temporada" class="tab-panel">
 										
-										
-										<div class="margen-left">
-											<p:selectManyButton
-												value="#{jugadores.listaSeleccionTemporadasProgresion}"
-												class="listaTemporadasClase" style="margin-left:4%;">
-												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-											</p:selectManyButton>
-										</div>
-										
-										
-										<div class="margen-left">
-											<p:commandButton value="#{msgs.jugador_tab_stat_temporada_boton}"
-												update="estadisticasJugadorYears" style="margin-bottom:10px;"
-												actionListener="#{jugadores.verEstadisticas()}">
-												<p:ajax onstart="PF('dlg2').show();"
-													oncomplete="PF('dlg2').hide();" />
-											</p:commandButton>
-										</div>
-
-										<div class="estadisticasCarrera margen-left">
-											<p:dataTable id="estadisticasJugadorYears" var="stat"
-												value="#{jugadores.listaEstadisticasJugador}"
-												class="tablaEstadisticaTemporada" expandableRowGroups="true"
-												sortBy="#{stat.tiempo}">
-												<p:headerRow field="tiempo" expandable="false"
-													style="vertical-Align:left;height:40px;">
-													<p:column colspan="24">
-														<div class="inline-flex align-items-left"
-															style="text-align: left;">
-															<h:outputText styleClass="ml-2"
-																value="Partidos de #{stat.tiempo}" />
-														</div>
-													</p:column>
-												</p:headerRow>
-												<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}" style="width: 3%;"
-													footerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}">
-													<h:outputText value="#{stat.temporada}"
-														id="estadisticasJugadorYearsTemporada" />
-													<p:tooltip for="estadisticasJugadorYearsTemporada"
-														value="Temporada" />
-												</p:column>
-												<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}" style="width: 3%;"
-													footerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}">
-													<h:outputText value="#{stat.partidosJugados}" />
-												</p:column>
-												<p:column headerText="#{msgs.MIN}" style="width: 5%;"
-													footerText="#{msgs.MIN}">
-													<h:outputText value="#{stat.minutos}" />
-												</p:column>
-												<p:column headerText="#{msgs.PTS}" footerText="#{msgs.PTS}">
-													<h:outputText value="#{stat.puntos}" />
-												</p:column>
-												<p:column headerText="#{msgs.AST}" footerText="#{msgs.AST}">
-													<h:outputText value="#{stat.asistencias}" />
-												</p:column>
-												<p:column headerText="#{msgs.REB}" footerText="#{msgs.REB}">
-													<h:outputText value="#{stat.totalRebotes}" />
-												</p:column>
-												<p:column headerText="#{msgs.FG}" footerText="#{msgs.FG}">
-													<h:outputText value="#{stat.tirosCampoMetidos}" />
-												</p:column>
-												<p:column headerText="#{msgs.FGA}" footerText="#{msgs.FGA}">
-													<h:outputText value="#{stat.tirosCampoIntentados}" />
-												</p:column>
-												<p:column headerText="#{msgs.PFG}" footerText="#{msgs.PFG}">
-													<h:outputText value="#{stat.tirosCampoPorcentaje}" />
-												</p:column>
-												<p:column headerText="#{msgs.TP}" footerText="#{msgs.TP}">
-													<h:outputText value="#{stat.dosPuntosMetidos}" />
-												</p:column>
-												<p:column headerText="#{msgs.TPA}" footerText="#{msgs.TPA}">
-													<h:outputText value="#{stat.dosPuntosIntentados}" />
-												</p:column>
-												<p:column headerText="#{msgs.PTG}" footerText="#{msgs.PTG}">
-													<h:outputText value="#{stat.dosPuntosPorcentaje}" />
-												</p:column>
-												<p:column headerText="#{msgs.TFG}" footerText="#{msgs.TFG}">
-													<h:outputText value="#{stat.triplesMetidos}" />
-												</p:column>
-												<p:column headerText="#{msgs.TFA}" footerText="#{msgs.TFA}">
-													<h:outputText value="#{stat.triplesIntentados}" />
-												</p:column>
-												<p:column headerText="#{msgs.PTF}" footerText="#{msgs.PTF}">
-													<h:outputText value="#{stat.triplesPorcentaje}" />
-												</p:column>
-												<p:column headerText="#{msgs.FT}" footerText="#{msgs.FT}">
-													<h:outputText value="#{stat.tirosLibresMetidos}" />
-												</p:column>
-												<p:column headerText="#{msgs.FTA}" footerText="#{msgs.FTA}">
-													<h:outputText value="#{stat.tirosLibresIntentados}" />
-												</p:column>
-												<p:column headerText="#{msgs.PFT}" footerText="#{msgs.PFT}">
-													<h:outputText value="#{stat.tirosLibresPorcentaje}" />
-												</p:column>
-												<p:column headerText="#{msgs.DRE}" footerText="#{msgs.DRE}">
-													<h:outputText value="#{stat.reboteDefensivo}" />
-												</p:column>
-												<p:column headerText="#{msgs.ORE}" footerText="#{msgs.ORE}">
-													<h:outputText value="#{stat.reboteOfensivo}" />
-												</p:column>
-												<p:column headerText="#{msgs.STL}" footerText="#{msgs.STL}">
-													<h:outputText value="#{stat.robos}" />
-												</p:column>
-												<p:column headerText="#{msgs.BLK}" footerText="#{msgs.BLK}">
-													<h:outputText value="#{stat.tapones}" />
-												</p:column>
-												<p:column headerText="#{msgs.TOV}" footerText="#{msgs.TOV}">
-													<h:outputText value="#{stat.perdidas}" />
-												</p:column>
-												<p:column headerText="#{msgs.PF}" style="width: 3%;" footerText="#{msgs.PF}">
-													<h:outputText value="#{stat.faltasPersonales}" />
-												</p:column>
-											</p:dataTable>
-										</div>
-									</section>
-									<section id="estadisticas_equipos" class="tab-panel">
-									
-										<div class="margen-left-tab">
-											<h2>#{msgs.jugador_tab_equipo_titulo}</h2>
-										</div>
-										
-										<div class="margen-left-tab">
-											<p:selectOneButton value="#{jugadores.equipoSeleccionado}"
-												class="listaEquipos">
-												<f:selectItems value="#{jugadores.equipos}" var="status"
-													class="foto" itemValue="#{status}"
-													itemLabel="#{status.nombre}" />
-												<p:ajax
-													update="botonVerEstadisticas,tablaEstadisticasJugadorEquipo" />
-											</p:selectOneButton>
-										</div>
-										
-
-										<div id="listaMenusCriba" class="centrar"
-											style="text-align: center; margin-bottom: 20px;">
+											<div class="margen-left">
+												<h2>#{msgs.jugador_tab_stat_temporada_titulo}</h2>
+											</div>
 											
-											<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_cuarto}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_dentroFuera}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_distancia}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_tiempo}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_tipo}" />
-												
-												<p:selectOneMenu id="menuTipoCanasta"
-													value="#{jugadores.listaTipoCanastaElegida}" filter="false"
-													style="width: 200px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaTipoCanasta}" />
-												</p:selectOneMenu>
-												
-												<p:selectOneMenu id="menuCuartos"
-													value="#{jugadores.listaCuartosElegidos}" filter="false"
-													style="width: 200px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaCuartos}" />
-												</p:selectOneMenu>
-
-												<p:selectOneMenu id="menuDentro"
-													value="#{jugadores.listaDentroElegidos}" filter="false"
-													style="width: 200px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaDentro}" />
-												</p:selectOneMenu>
-
-												<p:selectOneMenu id="menuDistancia"
-													value="#{jugadores.listaDistanciasElegidas}"
-													label="Todas las distancias" filter="false"
-													style="width: 220px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaDistancias}" />
-												</p:selectOneMenu>
-
-												<p:selectOneMenu id="menuTiempoRestante"
-													value="#{jugadores.listaTiempoRestanteElegido}"
-													label="Tiempo acabar cuarto" filter="false"
-													style="width: 230px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaTiempoRestante}" />
-												</p:selectOneMenu>
 											
-											</h:panelGrid>
-										</div>
-										
-										<div id="listaMenusCriba2" class="centrar"
-											style="text-align: center; margin-bottom: 20px;">
-											
-											<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_momento}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_situacion}" />
-												<h:outputLabel value="#{msgs.jugador_tab_equipo_listaTemporadas}" />
-												<h:outputLabel value=" " />
-												<h:outputLabel value=" " />
-
-												<p:selectOneMenu id="menuSituacionPartido"
-													value="#{jugadores.listaSituacionPartidoElegido}"
-													filter="false" style="width: 200px;margin-left:10px;">
-													<f:selectItems value="#{jugadores.listaSituacionPartido}" />
-												</p:selectOneMenu>
-
-												<p:selectOneMenu id="menuPonerseDelante"
-													value="#{jugadores.listaPonerseDelanteElegido}"
-													filter="false" style="width: 200px;margin-left:10px;"
-													title="Hola">
-													<f:selectItems value="#{jugadores.listaPonerseDelante}" />
-												</p:selectOneMenu>
-	
-												<p:selectCheckboxMenu id="menuTemporadas"
-													value="#{jugadores.listaTemporadasElegidas}"
-													label="#{msgs.jugador_tab_equipo_temporadas}" filter="false"
-													style="margin-left:10px;margin-right: 20px;"
-													showHeader="false">
+											<div class="margen-left">
+												<p:selectManyButton
+													value="#{jugadores.listaSeleccionTemporadasProgresion}"
+													class="listaTemporadasClase" style="margin-left:4%;">
 													<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-												</p:selectCheckboxMenu>
-												<p:commandButton id="botonVerEstadisticas"
-													value="#{msgs.jugador_tab_equipo_rival} #{jugadores.equipoSeleccionado.nombre}"
-													update="graficos_stats" actionListener="#{jugadores.verEstadisticasContraEquipos()}">
-												</p:commandButton>
-												<p:graphicImage id="tablaEstadisticasJugadorEquipo"
-													url="#{jugadores.equipoSeleccionado.foto}" height="80"
-													style="margin-left: 25px;vertical-align: middle;" />
-											</h:panelGrid>
-										</div>
-										
-										<div class="tituloEquipo"></div>
-										
-										<p:panelGrid id="graficos_stats"  columns="1" columnClasses="porcentaje-cien"
-											styleClass="sinBordes centrar">
-										
-											<p:dataList var="evento" value="#{jugadores.tablaTirosJugador}" 
-												emptyMessage="#{msgs.jugador_tab_equipo_tabla_empty}">
-												
-												<p:panelGrid  columns="2" columnClasses="porcentaje-veinteCinco,porcentaje-setentaCinco "
-													styleClass="sinBordes centrar">
-													
-													<p:panelGrid columns="1" styleClass="centrar verticalTop">
-														<h:panelGroup style="display:block;vertical-align:top;"
-															class="shot-area-jugador">
-															<img alt="nbaHalfCourt"
-																src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
-															<ui:repeat value="#{evento.listaTiros}" var="item">
-																<div
-																	style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
-																	class="#{jugadores.comprobarTiroClase(item.dentro)}">
-																		<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
-																			title="#{item.tooltipTiro}"/>
-																</div>
-															</ui:repeat>
-														</h:panelGroup>
-													</p:panelGrid>
-													
-													
-													
-													<p:panelGrid columns="1" columnClasses="porcentaje-cien">
-													
-														<p:outputLabel style="font-size: 25px;font-weight: bold" value="#{evento.titulo}" />
-														
-														<p:dataTable var="statLoRe"
-															value="#{evento.listadiferentesStats}"
-															class="tablaEstadisticaContraEquipos"
-															expandableRowGroups="true" sortBy="#{statLoRe.puntos}">
-			
-															<p:headerRow field="puntos" expandable="false"
-																style="vertical-Align:left;">
-																<p:column colspan="19">
-																	<div class="inline-flex align-items-left"
-																		style="text-align: left;">
-																		<h:outputText styleClass="ml-2"
-																			value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local. 
-																			#{statLoRe.situacionTiro}"/>
-																	</div>
-																</p:column>
-															</p:headerRow>
-															<p:column headerText="#{msgs.PTS}">
-																<h:outputText value="#{statLoRe.puntos}" />
-															</p:column>
-															<p:column headerText="#{msgs.FG}">
-																<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
-															</p:column>
-															<p:column headerText="#{msgs.FGA}">
-																<h:outputText value="#{statLoRe.tirosCampoIntentados}" />
-															</p:column>
-															<p:column headerText="#{msgs.PFG}">
-																<h:outputText value="#{statLoRe.tirosCampoPorcentaje}">
-																	<f:convertNumber pattern="#0.00" />
-																</h:outputText>
-															</p:column>
-															<p:column headerText="#{msgs.TP}">
-																<h:outputText value="#{statLoRe.tirosDosMetidos}" />
-															</p:column>
-															<p:column headerText="#{msgs.TPA}">
-																<h:outputText value="#{statLoRe.tirosDosIntentados}" />
-															</p:column>
-															<p:column headerText="#{msgs.PTG}">
-																<h:outputText value="#{statLoRe.tirosDosPorcentaje}">
-																	<f:convertNumber pattern="#0.00" />
-																</h:outputText>
-															</p:column>
-															<p:column headerText="#{msgs.TFG}">
-																<h:outputText value="#{statLoRe.triplesMetidos}" />
-															</p:column>
-															<p:column headerText="#{msgs.FTA}">
-																<h:outputText value="#{statLoRe.triplesIntentados}" />
-															</p:column>
-															<p:column headerText="#{msgs.PTF}">
-																<h:outputText value="#{statLoRe.triplesPorcentaje}">
-																	<f:convertNumber pattern="#0.00" />
-																</h:outputText>
-															</p:column>
-															<p:column headerText="#{msgs.FT}">
-																<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
-															</p:column>
-															<p:column headerText="#{msgs.FTA}">
-																<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
-															</p:column>
-															<p:column headerText="#{msgs.PFT}">
-																<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
-																	<f:convertNumber pattern="#0.000" />
-																</h:outputText>
-															</p:column>
-															<p:column headerText="#{msgs.AST}">
-																<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
-															</p:column>
-															<p:column headerText="#{msgs.DRE}">
-																<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
-															</p:column>
-															<p:column headerText="#{msgs.ORE}">
-																<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
-															</p:column>
-															<p:column headerText="#{msgs.STL}">
-																<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
-															</p:column>
-															<p:column headerText="#{msgs.BLK}">
-																<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
-															</p:column>
-															<p:column headerText="#{msgs.TOV}">
-																<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
-															</p:column>
-														</p:dataTable>
-														
-														<p:panelGrid columns="3" styleClass="centrar verticalTop">
-															<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
-																<p:donutChart model="#{evento.donutModel1}"
-																	style="width: 100%; height: 80px;" />
-																<h:outputText value="#{evento.donutModelPorcentaje1}"/>
-															</p:panelGrid>
-															<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
-																<p:donutChart model="#{evento.donutModel2}"
-																	style="width: 100%; height: 80px;" />
-																<h:outputText value="#{evento.donutModelPorcentaje2}"/>
-															</p:panelGrid>
-															<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
-																<p:donutChart  model="#{evento.donutModel3}"
-																	style="width: 100%; height: 80px;" />
-																<h:outputText value="#{evento.donutModelPorcentaje3}"/>
-															</p:panelGrid>
-														</p:panelGrid>
-													
-													</p:panelGrid>
-													
-												</p:panelGrid>
+												</p:selectManyButton>
+											</div>
 											
-											</p:dataList>
+											
+											<div class="margen-left">
+												<p:commandButton value="#{msgs.jugador_tab_stat_temporada_boton}"
+													update="estadisticasJugadorYears" style="margin-bottom:10px;"
+													actionListener="#{jugadores.verEstadisticas()}">
+													<p:ajax onstart="PF('dlg2').show();"
+														oncomplete="PF('dlg2').hide();" />
+												</p:commandButton>
+											</div>
+	
+											<div class="estadisticasCarrera margen-left">
+												<p:dataTable id="estadisticasJugadorYears" var="stat"
+													value="#{jugadores.listaEstadisticasJugador}"
+													class="tablaEstadisticaTemporada" expandableRowGroups="true"
+													sortBy="#{stat.tiempo}">
+													<p:headerRow field="tiempo" expandable="false"
+														style="vertical-Align:left;height:40px;">
+														<p:column colspan="24">
+															<div class="inline-flex align-items-left"
+																style="text-align: left;">
+																<h:outputText styleClass="ml-2"
+																	value="Partidos de #{stat.tiempo}" />
+															</div>
+														</p:column>
+													</p:headerRow>
+													<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}" style="width: 3%;"
+														footerText="#{msgs.jugador_tab_stat_tamporada_tabla_tem}">
+														<h:outputText value="#{stat.temporada}"
+															id="estadisticasJugadorYearsTemporada" />
+														<p:tooltip for="estadisticasJugadorYearsTemporada"
+															value="Temporada" />
+													</p:column>
+													<p:column headerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}" style="width: 3%;"
+														footerText="#{msgs.jugador_tab_stat_tamporada_tabla_pj}">
+														<h:outputText value="#{stat.partidosJugados}" />
+													</p:column>
+													<p:column headerText="#{msgs.MIN}" style="width: 5%;"
+														footerText="#{msgs.MIN}">
+														<h:outputText value="#{stat.minutos}" />
+													</p:column>
+													<p:column headerText="#{msgs.PTS}" footerText="#{msgs.PTS}">
+														<h:outputText value="#{stat.puntos}" />
+													</p:column>
+													<p:column headerText="#{msgs.AST}" footerText="#{msgs.AST}">
+														<h:outputText value="#{stat.asistencias}" />
+													</p:column>
+													<p:column headerText="#{msgs.REB}" footerText="#{msgs.REB}">
+														<h:outputText value="#{stat.totalRebotes}" />
+													</p:column>
+													<p:column headerText="#{msgs.FG}" footerText="#{msgs.FG}">
+														<h:outputText value="#{stat.tirosCampoMetidos}" />
+													</p:column>
+													<p:column headerText="#{msgs.FGA}" footerText="#{msgs.FGA}">
+														<h:outputText value="#{stat.tirosCampoIntentados}" />
+													</p:column>
+													<p:column headerText="#{msgs.PFG}" footerText="#{msgs.PFG}">
+														<h:outputText value="#{stat.tirosCampoPorcentaje}" />
+													</p:column>
+													<p:column headerText="#{msgs.TP}" footerText="#{msgs.TP}">
+														<h:outputText value="#{stat.dosPuntosMetidos}" />
+													</p:column>
+													<p:column headerText="#{msgs.TPA}" footerText="#{msgs.TPA}">
+														<h:outputText value="#{stat.dosPuntosIntentados}" />
+													</p:column>
+													<p:column headerText="#{msgs.PTG}" footerText="#{msgs.PTG}">
+														<h:outputText value="#{stat.dosPuntosPorcentaje}" />
+													</p:column>
+													<p:column headerText="#{msgs.TFG}" footerText="#{msgs.TFG}">
+														<h:outputText value="#{stat.triplesMetidos}" />
+													</p:column>
+													<p:column headerText="#{msgs.TFA}" footerText="#{msgs.TFA}">
+														<h:outputText value="#{stat.triplesIntentados}" />
+													</p:column>
+													<p:column headerText="#{msgs.PTF}" footerText="#{msgs.PTF}">
+														<h:outputText value="#{stat.triplesPorcentaje}" />
+													</p:column>
+													<p:column headerText="#{msgs.FT}" footerText="#{msgs.FT}">
+														<h:outputText value="#{stat.tirosLibresMetidos}" />
+													</p:column>
+													<p:column headerText="#{msgs.FTA}" footerText="#{msgs.FTA}">
+														<h:outputText value="#{stat.tirosLibresIntentados}" />
+													</p:column>
+													<p:column headerText="#{msgs.PFT}" footerText="#{msgs.PFT}">
+														<h:outputText value="#{stat.tirosLibresPorcentaje}" />
+													</p:column>
+													<p:column headerText="#{msgs.DRE}" footerText="#{msgs.DRE}">
+														<h:outputText value="#{stat.reboteDefensivo}" />
+													</p:column>
+													<p:column headerText="#{msgs.ORE}" footerText="#{msgs.ORE}">
+														<h:outputText value="#{stat.reboteOfensivo}" />
+													</p:column>
+													<p:column headerText="#{msgs.STL}" footerText="#{msgs.STL}">
+														<h:outputText value="#{stat.robos}" />
+													</p:column>
+													<p:column headerText="#{msgs.BLK}" footerText="#{msgs.BLK}">
+														<h:outputText value="#{stat.tapones}" />
+													</p:column>
+													<p:column headerText="#{msgs.TOV}" footerText="#{msgs.TOV}">
+														<h:outputText value="#{stat.perdidas}" />
+													</p:column>
+													<p:column headerText="#{msgs.PF}" style="width: 3%;" footerText="#{msgs.PF}">
+														<h:outputText value="#{stat.faltasPersonales}" />
+													</p:column>
+												</p:dataTable>
+											</div>
+										</section>
+										<section id="estadisticas_equipos" class="tab-panel">
 										
-										</p:panelGrid>
-										
-									</section>
-
-									<section id="partidos_temporada" class="tab-panel">
-										<h2 class="margen-left">
-											#{msgs.jugador_tab_temporada_titulo}
-										</h2>
-										
-										<div class="margen-left">
-											<p:selectOneButton value="#{jugadores.partidosTemporada}"
-												class="listaTemporadasClase" style="margin-left:4%;">
-												<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
-											</p:selectOneButton>
-										</div>
-										
-										
-										<div class="margen-left">
-											<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
-												update="partidosJugadorTemporada,partidosJugadorPlyaoff"
-												action="#{jugadores.recogerPartidosTemporada()}">
-												<p:ajax onstart="PF('dlg2').show();"
-													oncomplete="PF('dlg2').hide();" />
-											</p:commandButton>
-										</div>
-
-										<h2 class="margen-left" style="margin-top: 30px;">
-											#{msgs.jugador_tab_temporada_partidosRegular} #{jugadores.partidosTemporada}
-										</h2>
-										
-
-										<h:dataTable id="partidosJugadorTemporada"
-											value="#{jugadores.listaPartidosTemporadaRegular}" var="stat"
-											style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
-											border="10" headerClass="partidosHeader"
-											footerClass="partidosHeader">
-
-											<h:column>
-												<f:facet name="header">#{msgs.numero}</f:facet>
-                                                #{stat.partidoNumero}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.fecha}</f:facet>
-                                                #{stat.fechaFormateada()}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.team}</f:facet>
-												<p:graphicImage
-													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
-													height="30" style="vertical-align: middle;" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.HO}</f:facet>
-												<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
-													style="vertical-align: middle;" />
-
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.opo}</f:facet>
-												<p:graphicImage
-													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
-													height="30" style="vertical-align: middle;" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.resul}</f:facet>
-                                                #{stat.getResultadoPartido()}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.GS}</f:facet>
-                                                #{stat.inicio}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.MP}</f:facet>
-												<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.getMinutos()}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FG}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FGA}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PFG}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TP}</f:facet>
-												<div
-													class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TFA}</f:facet>
-												<div
-													class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PTF}</f:facet>
-												<div
-													class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FT}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FTA}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
-													<h:outputText
-														value="#{stat.boxscore.tirosLibresIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PFT}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
-													<h:outputText
-														value="#{stat.boxscore.tirosLibresPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.ORE}</f:facet>
-												<div
-													class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.DRE}</f:facet>
-												<div
-													class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.REB}</f:facet>
-												<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.totalRebotes}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.AST}</f:facet>
-												<div
-													class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.asistencias}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.STL}</f:facet>
-												<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.robos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.BLK}</f:facet>
-												<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tapones}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TOV}</f:facet>
-												<div
-													class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.perdidas}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PF}</f:facet>
-												<h:outputText value="#{stat.boxscore.faltasPersonales}" />
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PTS}</f:facet>
-												<div
-													class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.puntos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.masMenos}</f:facet>
-												<div
-													class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.masMenos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
-											</h:column>
-										</h:dataTable>
-										
-										<div class="margen-left" style="argin-top: 30px">
-											<h:outputLabel  style="background-color:#98db98;">
-												#{msgs.jugador_tab_temporada_maximosTemporada}
-											</h:outputLabel>
-										</div>
-
-										<h2 class="margen-left" style="margin-top: 30px;">
-											#{msgs.jugador_tab_temporada_partidosPlayoff}
-										</h2>
-
-										<h:dataTable id="partidosJugadorPlyaoff"
-											value="#{jugadores.listaPartidosPlayOff}" var="stat"
-											style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;"
-											border="10" headerClass="partidosHeader"
-											footerClass="partidosHeader">
-
-											<h:column>
-												<f:facet name="header">#{msgs.numero}</f:facet>
-                                                #{stat.partidoNumero}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.fecha}</f:facet>
-                                                #{stat.fechaFormateada()}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.team}</f:facet>
-												<p:graphicImage
-													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
-													height="30" style="vertical-align: middle;" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.HO}</f:facet>
-												<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
-													style="vertical-align: middle;" />
-
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.opo}</f:facet>
-												<p:graphicImage
-													url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
-													height="30" style="vertical-align: middle;" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.resul}</f:facet>
-                                                #{stat.getResultadoPartido()}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.GS}</f:facet>
-                                                #{stat.inicio}
-                                            </h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.MP}</f:facet>
-												<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.getMinutos()}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FG}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FGA}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PFG}</f:facet>
-												<div
-													class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TP}</f:facet>
-												<div
-													class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TFA}</f:facet>
-												<div
-													class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PTF}</f:facet>
-												<div
-													class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FT}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.FTA}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
-													<h:outputText
-														value="#{stat.boxscore.tirosLibresIntentados}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PFT}</f:facet>
-												<div
-													class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
-													<h:outputText
-														value="#{stat.boxscore.tirosLibresPorcentaje}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.ORE}</f:facet>
-												<div
-													class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.DRE}</f:facet>
-												<div
-													class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.REB}</f:facet>
-												<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.totalRebotes}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.AST}</f:facet>
-												<div
-													class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.asistencias}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.STL}</f:facet>
-												<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.robos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.BLK}</f:facet>
-												<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.tapones}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.TOV}</f:facet>
-												<div
-													class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.perdidas}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PF}</f:facet>
-												<h:outputText value="#{stat.boxscore.faltasPersonales}" />
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.PTS}</f:facet>
-												<div
-													class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.puntos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
-											</h:column>
-											<h:column>
-												<f:facet name="header">#{msgs.masMenos}</f:facet>
-												<div
-													class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
-													<h:outputText value="#{stat.boxscore.masMenos}" />
-												</div>
-												<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
-											</h:column>
-										</h:dataTable>
-										<div class="margen-left" style="margin-top: 30px">
-											<h:outputLabel  style="background-color:#98db98;">
-												#{msgs.jugador_tab_temporada_maximosPlayoff}
-											</h:outputLabel>
-										</div>
-									</section>
-								</div>
+											<div class="margen-left-tab">
+												<h2>#{msgs.jugador_tab_equipo_titulo}</h2>
+											</div>
+											
+											<div class="margen-left-tab">
+												<p:selectOneButton value="#{jugadores.equipoSeleccionado}"
+													class="listaEquipos">
+													<f:selectItems value="#{jugadores.equipos}" var="status"
+														class="foto" itemValue="#{status}"
+														itemLabel="#{status.nombre}" />
+													<p:ajax
+														update="botonVerEstadisticas,tablaEstadisticasJugadorEquipo" />
+												</p:selectOneButton>
+											</div>
+											
+	
+											<div id="listaMenusCriba" class="centrar"
+												style="text-align: center; margin-bottom: 20px;">
+												
+												<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_cuarto}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_dentroFuera}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_distancia}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_tiempo}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_tipo}" />
+													
+													<p:selectOneMenu id="menuTipoCanasta"
+														value="#{jugadores.listaTipoCanastaElegida}" filter="false"
+														style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaTipoCanasta}" />
+													</p:selectOneMenu>
+													
+													<p:selectOneMenu id="menuCuartos"
+														value="#{jugadores.listaCuartosElegidos}" filter="false"
+														style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaCuartos}" />
+													</p:selectOneMenu>
+	
+													<p:selectOneMenu id="menuDentro"
+														value="#{jugadores.listaDentroElegidos}" filter="false"
+														style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaDentro}" />
+													</p:selectOneMenu>
+	
+													<p:selectOneMenu id="menuDistancia"
+														value="#{jugadores.listaDistanciasElegidas}"
+														label="Todas las distancias" filter="false"
+														style="width: 220px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaDistancias}" />
+													</p:selectOneMenu>
+	
+													<p:selectOneMenu id="menuTiempoRestante"
+														value="#{jugadores.listaTiempoRestanteElegido}"
+														label="Tiempo acabar cuarto" filter="false"
+														style="width: 230px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaTiempoRestante}" />
+													</p:selectOneMenu>
+												
+												</h:panelGrid>
+											</div>
+											
+											<div id="listaMenusCriba2" class="centrar"
+												style="text-align: center; margin-bottom: 20px;">
+												
+												<h:panelGrid columns="5" style="font-size: 16px;font-weight: bold;">
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_momento}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_situacion}" />
+													<h:outputLabel value="#{msgs.jugador_tab_equipo_listaTemporadas}" />
+													<h:outputLabel value=" " />
+													<h:outputLabel value=" " />
+	
+													<p:selectOneMenu id="menuSituacionPartido"
+														value="#{jugadores.listaSituacionPartidoElegido}"
+														filter="false" style="width: 200px;margin-left:10px;">
+														<f:selectItems value="#{jugadores.listaSituacionPartido}" />
+													</p:selectOneMenu>
+	
+													<p:selectOneMenu id="menuPonerseDelante"
+														value="#{jugadores.listaPonerseDelanteElegido}"
+														filter="false" style="width: 200px;margin-left:10px;"
+														title="Hola">
+														<f:selectItems value="#{jugadores.listaPonerseDelante}" />
+													</p:selectOneMenu>
+		
+													<p:selectCheckboxMenu id="menuTemporadas"
+														value="#{jugadores.listaTemporadasElegidas}"
+														label="#{msgs.jugador_tab_equipo_temporadas}" filter="false"
+														style="margin-left:10px;margin-right: 20px;"
+														showHeader="false">
+														<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+													</p:selectCheckboxMenu>
+													<p:commandButton id="botonVerEstadisticas"
+														value="#{msgs.jugador_tab_equipo_rival} #{jugadores.equipoSeleccionado.nombre}"
+														update="graficos_stats" actionListener="#{jugadores.verEstadisticasContraEquipos()}">
+													</p:commandButton>
+													<p:graphicImage id="tablaEstadisticasJugadorEquipo"
+														url="#{jugadores.equipoSeleccionado.foto}" height="80"
+														style="margin-left: 25px;vertical-align: middle;" />
+												</h:panelGrid>
+											</div>
+											
+											<div class="tituloEquipo"></div>
+											
+											<p:panelGrid id="graficos_stats"  columns="1" columnClasses="porcentaje-cien"
+												styleClass="sinBordes centrar">
+											
+												<p:dataList var="evento" value="#{jugadores.tablaTirosJugador}" 
+													emptyMessage="#{msgs.jugador_tab_equipo_tabla_empty}">
+													
+													<p:panelGrid  columns="2" columnClasses="porcentaje-veinteCinco,porcentaje-setentaCinco "
+														styleClass="sinBordes centrar">
+														
+														<p:panelGrid columns="1" styleClass="centrar verticalTop">
+															<h:panelGroup style="display:block;vertical-align:top;"
+																class="shot-area-jugador">
+																<img alt="nbaHalfCourt"
+																	src="https://www.raptorsrepublic.com/wp-content/uploads/2018/10/Lowry-nbahalfcourt.png" />
+																<ui:repeat value="#{evento.listaTiros}" var="item">
+																	<div
+																		style="top: #{item.posicionTop}px; left: #{item.posicionLeft}px; visibility: visible;"
+																		class="#{jugadores.comprobarTiroClase(item.dentro)}">
+																			<h:outputText value="#{jugadores.comprobarTiro(item.dentro)}" 
+																				title="#{item.tooltipTiro}"/>
+																	</div>
+																</ui:repeat>
+															</h:panelGroup>
+														</p:panelGrid>
+														
+														
+														
+														<p:panelGrid columns="1" columnClasses="porcentaje-cien">
+														
+															<p:outputLabel style="font-size: 25px;font-weight: bold" value="#{evento.titulo}" />
+															
+															<p:dataTable var="statLoRe"
+																value="#{evento.listadiferentesStats}"
+																class="tablaEstadisticaContraEquipos"
+																expandableRowGroups="true" sortBy="#{statLoRe.puntos}">
+				
+																<p:headerRow field="puntos" expandable="false"
+																	style="vertical-Align:left;">
+																	<p:column colspan="19">
+																		<div class="inline-flex align-items-left"
+																			style="text-align: left;">
+																			<h:outputText styleClass="ml-2"
+																				value="#{jugadores.partidosLocalPlayoff} partidos de PlayOff como local. 
+																				#{statLoRe.situacionTiro}"/>
+																		</div>
+																	</p:column>
+																</p:headerRow>
+																<p:column headerText="#{msgs.PTS}">
+																	<h:outputText value="#{statLoRe.puntos}" />
+																</p:column>
+																<p:column headerText="#{msgs.FG}">
+																	<h:outputText value="#{statLoRe.tirosCampoMetidos}" />
+																</p:column>
+																<p:column headerText="#{msgs.FGA}">
+																	<h:outputText value="#{statLoRe.tirosCampoIntentados}" />
+																</p:column>
+																<p:column headerText="#{msgs.PFG}">
+																	<h:outputText value="#{statLoRe.tirosCampoPorcentaje}">
+																		<f:convertNumber pattern="#0.00" />
+																	</h:outputText>
+																</p:column>
+																<p:column headerText="#{msgs.TP}">
+																	<h:outputText value="#{statLoRe.tirosDosMetidos}" />
+																</p:column>
+																<p:column headerText="#{msgs.TPA}">
+																	<h:outputText value="#{statLoRe.tirosDosIntentados}" />
+																</p:column>
+																<p:column headerText="#{msgs.PTG}">
+																	<h:outputText value="#{statLoRe.tirosDosPorcentaje}">
+																		<f:convertNumber pattern="#0.00" />
+																	</h:outputText>
+																</p:column>
+																<p:column headerText="#{msgs.TFG}">
+																	<h:outputText value="#{statLoRe.triplesMetidos}" />
+																</p:column>
+																<p:column headerText="#{msgs.FTA}">
+																	<h:outputText value="#{statLoRe.triplesIntentados}" />
+																</p:column>
+																<p:column headerText="#{msgs.PTF}">
+																	<h:outputText value="#{statLoRe.triplesPorcentaje}">
+																		<f:convertNumber pattern="#0.00" />
+																	</h:outputText>
+																</p:column>
+																<p:column headerText="#{msgs.FT}">
+																	<h:outputText value="#{statLoRe.tirosLibresMetidos == 0 ? '-' : statLoRe.tirosLibresMetidos}" />
+																</p:column>
+																<p:column headerText="#{msgs.FTA}">
+																	<h:outputText value="#{statLoRe.tirosLibresIntentados == 0 ? '-' : statLoRe.tirosLibresIntentados}" />
+																</p:column>
+																<p:column headerText="#{msgs.PFT}">
+																	<h:outputText value="#{statLoRe.tirosLibresPorcentaje == 0 ? '-' : statLoRe.tirosLibresPorcentaje}">
+																		<f:convertNumber pattern="#0.000" />
+																	</h:outputText>
+																</p:column>
+																<p:column headerText="#{msgs.AST}">
+																	<h:outputText value="#{statLoRe.asistencias == 0 ? '-' : statLoRe.asistencias}" />
+																</p:column>
+																<p:column headerText="#{msgs.DRE}">
+																	<h:outputText value="#{statLoRe.reboteDefensivo == 0 ? '-' : statLoRe.reboteDefensivo}" />
+																</p:column>
+																<p:column headerText="#{msgs.ORE}">
+																	<h:outputText value="#{statLoRe.reboteOfensivo == 0 ? '-' : statLoRe.reboteOfensivo}" />
+																</p:column>
+																<p:column headerText="#{msgs.STL}">
+																	<h:outputText value="#{statLoRe.robos == 0 ? '-' : statLoRe.robos}" />
+																</p:column>
+																<p:column headerText="#{msgs.BLK}">
+																	<h:outputText value="#{statLoRe.tapones == 0 ? '-' : statLoRe.tapones}" />
+																</p:column>
+																<p:column headerText="#{msgs.TOV}">
+																	<h:outputText value="#{statLoRe.perdidas == 0 ? '-' : statLoRe.perdidas}" />
+																</p:column>
+															</p:dataTable>
+															
+															<p:panelGrid columns="3" styleClass="centrar verticalTop">
+																<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+																	<p:donutChart model="#{evento.donutModel1}"
+																		style="width: 100%; height: 80px;" />
+																	<h:outputText value="#{evento.donutModelPorcentaje1}"/>
+																</p:panelGrid>
+																<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+																	<p:donutChart model="#{evento.donutModel2}"
+																		style="width: 100%; height: 80px;" />
+																	<h:outputText value="#{evento.donutModelPorcentaje2}"/>
+																</p:panelGrid>
+																<p:panelGrid columns="1" styleClass="verticalTop centrar centrarTexto">
+																	<p:donutChart  model="#{evento.donutModel3}"
+																		style="width: 100%; height: 80px;" />
+																	<h:outputText value="#{evento.donutModelPorcentaje3}"/>
+																</p:panelGrid>
+															</p:panelGrid>
+														
+														</p:panelGrid>
+														
+													</p:panelGrid>
+												
+												</p:dataList>
+											
+											</p:panelGrid>
+											
+										</section>
+	
+										<section id="partidos_temporada" class="tab-panel">
+											<h2 class="margen-left">
+												#{msgs.jugador_tab_temporada_titulo}
+											</h2>
+											
+											<div class="margen-left">
+												<p:selectOneButton value="#{jugadores.partidosTemporada}"
+													class="listaTemporadasClase" style="margin-left:4%;">
+													<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+												</p:selectOneButton>
+											</div>
+											
+											
+											<div class="margen-left">
+												<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
+													update="partidosJugadorTemporada,partidosJugadorPlyaoff"
+													action="#{jugadores.recogerPartidosTemporada()}">
+													<p:ajax onstart="PF('dlg2').show();"
+														oncomplete="PF('dlg2').hide();" />
+												</p:commandButton>
+											</div>
+	
+											<h2 class="margen-left" style="margin-top: 30px;">
+												#{msgs.jugador_tab_temporada_partidosRegular} #{jugadores.partidosTemporada}
+											</h2>
+											
+	
+											<h:dataTable id="partidosJugadorTemporada"
+												value="#{jugadores.listaPartidosTemporadaRegular}" var="stat"
+												style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;border:0;"
+												border="10" headerClass="partidosHeader"
+												footerClass="partidosHeader" rowClasses="even-row,odd-row">
+	
+												<h:column>
+													<f:facet name="header">#{msgs.numero}</f:facet>
+	                                                #{stat.partidoNumero}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.fecha}</f:facet>
+	                                                #{stat.fechaFormateada()}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.team}</f:facet>
+													<p:graphicImage
+														url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
+														height="30" style="vertical-align: middle;" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.HO}</f:facet>
+													<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
+														style="vertical-align: middle;" />
+	
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.opo}</f:facet>
+													<p:graphicImage
+														url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
+														height="30" style="vertical-align: middle;" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.resul}</f:facet>
+	                                                #{stat.getResultadoPartido()}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.GS}</f:facet>
+	                                                #{stat.inicio}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.MP}</f:facet>
+													<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.getMinutos()}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FG}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FGA}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PFG}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TP}</f:facet>
+													<div
+														class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TFA}</f:facet>
+													<div
+														class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PTF}</f:facet>
+													<div
+														class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FT}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FTA}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
+														<h:outputText
+															value="#{stat.boxscore.tirosLibresIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PFT}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
+														<h:outputText
+															value="#{stat.boxscore.tirosLibresPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.ORE}</f:facet>
+													<div
+														class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.DRE}</f:facet>
+													<div
+														class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.REB}</f:facet>
+													<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.totalRebotes}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.AST}</f:facet>
+													<div
+														class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.asistencias}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.STL}</f:facet>
+													<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.robos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.BLK}</f:facet>
+													<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tapones}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TOV}</f:facet>
+													<div
+														class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.perdidas}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PF}</f:facet>
+													<h:outputText value="#{stat.boxscore.faltasPersonales}" />
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PTS}</f:facet>
+													<div
+														class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.puntos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.masMenos}</f:facet>
+													<div
+														class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.masMenos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
+												</h:column>
+											</h:dataTable>
+											
+											<div class="margen-left" style="argin-top: 30px">
+												<h:outputLabel  style="background-color:#98db98;">
+													#{msgs.jugador_tab_temporada_maximosTemporada}
+												</h:outputLabel>
+											</div>
+	
+											<h2 class="margen-left" style="margin-top: 30px;">
+												#{msgs.jugador_tab_temporada_partidosPlayoff}
+											</h2>
+	
+											<h:dataTable id="partidosJugadorPlyaoff"
+												value="#{jugadores.listaPartidosPlayOff}" var="stat"
+												style="width:90%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;border:0;"
+												border="10" headerClass="partidosHeader"
+												footerClass="partidosHeader"
+												rowClasses="even-row,odd-row">
+	
+												<h:column>
+													<f:facet name="header">#{msgs.numero}</f:facet>
+	                                                #{stat.partidoNumero}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.fecha}</f:facet>
+	                                                #{stat.fechaFormateada()}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.team}</f:facet>
+													<p:graphicImage
+														url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoConAbreviado}.png"
+														height="30" style="vertical-align: middle;" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.HO}</f:facet>
+													<p:graphicImage url="#{stat.partidoCasaFuera()}" height="30"
+														style="vertical-align: middle;" />
+	
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.opo}</f:facet>
+													<p:graphicImage
+														url="https://d2p3bygnnzw9w3.cloudfront.net/req/202103021/tlogo/bbr/#{stat.jugandoContraAbreviado}.png"
+														height="30" style="vertical-align: middle;" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.resul}</f:facet>
+	                                                #{stat.getResultadoPartido()}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.GS}</f:facet>
+	                                                #{stat.inicio}
+	                                            </h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.MP}</f:facet>
+													<div class="#{stat.maximaMinutos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.getMinutos()}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.minutos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FG}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FGA}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoTirado eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PFG}</f:facet>
+													<div
+														class="#{stat.maximaTirosCampoPorcentaje eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosCampoPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosCampoPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TP}</f:facet>
+													<div
+														class="#{stat.maximaTripleMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TFA}</f:facet>
+													<div
+														class="#{stat.maximaTripleTirado eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PTF}</f:facet>
+													<div
+														class="#{stat.maximaTriplePorcentaje eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.triplesPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.triplesPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FT}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibreMetido eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tirosLibresMetidos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresMetidos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.FTA}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibreTirado eq true ? 'green':'white'}">
+														<h:outputText
+															value="#{stat.boxscore.tirosLibresIntentados}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresIntentados}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PFT}</f:facet>
+													<div
+														class="#{stat.maximaTiroLibrePorcentaje eq true ? 'green':'white'}">
+														<h:outputText
+															value="#{stat.boxscore.tirosLibresPorcentaje}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tirosLibresPorcentaje}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.ORE}</f:facet>
+													<div
+														class="#{stat.maximaRebotesAtaque eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.reboteOfensivo}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteOfensivo}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.DRE}</f:facet>
+													<div
+														class="#{stat.maximaRebotesDefensa eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.reboteDefensivo}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.reboteDefensivo}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.REB}</f:facet>
+													<div class="#{stat.maximaRebotes eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.totalRebotes}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.totalRebotes}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.AST}</f:facet>
+													<div
+														class="#{stat.maximaAsistencias eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.asistencias}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.asistencias}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.STL}</f:facet>
+													<div class="#{stat.maximaRobos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.robos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.robos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.BLK}</f:facet>
+													<div class="#{stat.maximaTapones eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.tapones}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.tapones}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.TOV}</f:facet>
+													<div
+														class="#{stat.maximaPerdidas eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.perdidas}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.perdidas}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PF}</f:facet>
+													<h:outputText value="#{stat.boxscore.faltasPersonales}" />
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.faltasPersonales}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.PTS}</f:facet>
+													<div
+														class="#{stat.maximaAnotacion eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.puntos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.puntos}</f:facet>
+												</h:column>
+												<h:column>
+													<f:facet name="header">#{msgs.masMenos}</f:facet>
+													<div
+														class="#{stat.maximaMasMenos eq true ? 'green':'white'}">
+														<h:outputText value="#{stat.boxscore.masMenos}" />
+													</div>
+													<f:facet name="footer">#{jugadores.mediaTemporadaRegular.masMenos}</f:facet>
+												</h:column>
+											</h:dataTable>
+											<div class="margen-left" style="margin-top: 30px">
+												<h:outputLabel  style="background-color:#98db98;">
+													#{msgs.jugador_tab_temporada_maximosPlayoff}
+												</h:outputLabel>
+											</div>
+										</section>
+									</div>
                                 </div>
                             </div>    
                             

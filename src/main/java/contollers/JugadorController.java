@@ -286,8 +286,6 @@ public class JugadorController extends BaseController implements Serializable{
          int masMenos=0;
          int masMenosPlayoff=0;
          for(ControllerPartidoJugador partido:listaPartidosTemporadaRegular) {
-        	 System.out.println(partido.getFecha());
-        	 System.out.println("Marmo: hay que revisar, porque igual el jugador no ha jugado y esto esta a null");
         	 if(null!=partido.getBoxscore().getMasMenos()){
             	 masMenos += partido.getBoxscore().getMasMenos();
             	 partidosJugados++;
@@ -898,5 +896,10 @@ public class JugadorController extends BaseController implements Serializable{
         }else{
             return "white";
         }
+    }
+    
+    public String getRowStyleClass(int rowIndex) {
+    	System.out.println(rowIndex);
+        return (rowIndex++ % 2 == 0) ? "even-row" : "odd-row";
     }
 }

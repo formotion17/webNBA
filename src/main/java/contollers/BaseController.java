@@ -6,11 +6,15 @@
 package contollers;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.mongodb.MongoClient;
+
+import Mapper.Atributos;
 
 /**
  *
@@ -18,7 +22,7 @@ import com.mongodb.MongoClient;
  */
 @ManagedBean(name ="baseController")
 @RequestScoped
-public class BaseController implements Serializable{
+public class BaseController extends Atributos implements Serializable {
     
     /**
 	 * 
@@ -27,8 +31,8 @@ public class BaseController implements Serializable{
 	
 	
 	protected static String baseDatos="NBA";
-	protected String host="localhost";
-	protected Integer puertoHost=27017;
+	protected static String host="localhost";
+	protected static Integer puertoHost=27017;
 	protected String collectionPartidos="partidos";
 	protected String collectionTotales="totales";
 	
@@ -46,4 +50,15 @@ public class BaseController implements Serializable{
 		this.mongo = mongo;
 	}
     
+	protected String getDecimalSeparatorFromLocale(Locale locale) {
+        // Obtén el separador decimal del Locale
+        return String.valueOf(".");
+    }
+
+    protected void setDecimalSeparatorForJSF(String decimalSeparator) {
+        // Configura el separador decimal para JSF
+        FacesContext.getCurrentInstance().getApplication().addComponent(
+                "javax.faces.DECIMAL_SEPARATOR", decimalSeparator
+        );
+    }
 }

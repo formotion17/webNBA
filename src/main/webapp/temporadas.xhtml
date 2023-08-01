@@ -26,19 +26,19 @@ and open the template in the editor.
 <h:body>
 	<ui:composition template="/WEB-INF/facelets/templates/cabecera.xhtml">
 		<ui:define name="title">
-			<h:outputText value="TEMPORADAS" />
+			<h:outputText value="#{msgs.temporada_titulo}" />
 		</ui:define>
 		<ui:define name="content">
-			<h:form id="form">
-				<div id="contenido" style="width: 100%; margin: auto;">
+			<h:form id="formularioTemporadas">
+				<div id="contenido" style="width: 95%; margin: auto;">
 					<div id="content" style="background-color: #fffafb; width: 100%">
 					
-						<div class="margen-left" style="background-color:red;margin-top:20px">
-							<H2>Elige la temporada que deseas ver</H2>
+						<div class="margen-left" style="margin-top:20px">
+							<H2>#{msgs.temporada_subtitulo}</H2>
 						</div>
 						
 						<div class="margen-left">
-							<p:selectOneButton value="#{temporadas.partidosTemporada}"
+							<p:selectOneButton value="#{temporadas.temporadaElegida}"
 								class="listaTemporadasClase">
 								<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
 							</p:selectOneButton>
@@ -46,14 +46,154 @@ and open the template in the editor.
 						
 						<div class="margen-left">
 							<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
-								update="form:j_idt27"
-								action="#{jugadores.recogerPartidosTemporada()}">
+								action="#{temporadas.clasificacionConferencia()}"
+								update="clasificacionOeste,clasificacionEste">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();" />
 							</p:commandButton>
 						</div>
-						<div id="temporadaSeleccionada">
-						
+						<div id="tabsTemporada" class="tabset margen-left-tab" style="margin-top:15px;">
+							<!-- Tab 1 -->
+							<input type="radio" name="tabset" id="tab1" aria-controls="clasificacion_temporada" checked="true"/>
+							<label for="tab1">Clasificación</label>
+							<!-- Tab 2 -->
+							<input type="radio" name="tabset" id="tab2" aria-controls="bracket_temporada"/>
+							<label for="tab2">Bracket</label>
+							<!-- Tab 3 -->
+							<input type="radio" name="tabset" id="tab3" aria-controls="maximos_temporada"/>
+							<label for="tab3">Máximos</label>
+							
+							<div class="tab-panels">
+							
+								<section>
+									
+									<div class="margen-left-tab">
+									
+										<h:panelGrid columns="1" columnClasses="porcentaje-cien vertical-top ,porcentaje-cincuenta vertical-top" style="margin-top:30px">
+											<h:panelGrid columns="1" style="width:100%;text-align:center;">
+											
+										        <p:selectOneRadio id="line" value="#{temporadas.clasificacionEleccion}" layout="lineDirection">
+										            <f:selectItem itemLabel="Conferencia" itemValue="conferencia"/>
+										            <f:selectItem itemLabel="Division" itemValue="division"/>
+    												<p:ajax listener="#{temporadas.verClasificacion}" update="clasificacionOeste,clasificacionEste" />
+										        </p:selectOneRadio>
+											
+												<h:outputText style="font-size:18px; font-weight:bold;" value="Conferencia Oeste"/>
+												<p:dataTable id="clasificacionOeste" var="team"
+													value="#{temporadas.clasificacionOeste}" rowIndexVar="indice"
+													class="tablaEstadisticaTemporada" expandableRowGroups="true">
+													
+													<p:column headerText="P" style="width:0%;text-align:left">
+														<h:outputText value="#{indice+1}"/>
+													</p:column>
+													
+													<p:column headerText="Equipo" style="width:26%;text-align:left">
+														<p:graphicImage
+														url="#{team.foto}" height="24px"
+														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														<h:outputText value="&#160; &#160;&#160;#{team.nombre}"/>
+													</p:column>
+													
+													<p:column headerText="W" style="text-align:center">
+														<h:outputText value="#{team.victorias}"/>
+													</p:column>
+													
+													<p:column headerText="L" style="text-align:center">
+														<h:outputText value="#{team.derrotas}"/>
+													</p:column>
+													
+													<p:column headerText="Win%" style="text-align:center">
+														<h:outputText value="#{team.getPorcentajeVictorias()}"/>
+													</p:column>
+													
+													<p:column headerText="Conf" style="text-align:center">
+														<h:outputText value="#{team.victoriasConferencia}-#{team.derrotasConferencia}"/>
+													</p:column>
+													
+													<p:column headerText="Div" style="text-align:center">
+														<h:outputText value="#{team.victoriasDivision}-#{team.derrotasDivision}"/>
+													</p:column>
+												
+													<p:column headerText="Home" style="text-align:center">
+														<h:outputText value="#{team.victoriasLocal}-#{team.derrotasLocal}"/>
+													</p:column>
+													
+													<p:column headerText="Road" style="text-align:center">
+														<h:outputText value="#{team.victoriasVisitante}-#{team.derrotasVisitante}"/>
+													</p:column>
+													
+												</p:dataTable>
+												
+												<h:outputText style="font-size:18px; font-weight:bold;" value="Conferencia Este"/>
+												
+												<p:dataTable id="clasificacionEste" var="team"
+													value="#{temporadas.clasificacionEste}" rowIndexVar="indice"
+													class="tablaEstadisticaTemporada" expandableRowGroups="true">
+													
+													<p:column headerText="P" style="width:0%;text-align:left">
+														<h:outputText value="#{indice+1}"/>
+													</p:column>
+													
+													<p:column headerText="Equipo" style="width:26%;text-align:left">
+														<p:graphicImage
+														url="#{team.foto}" height="24px"
+														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														<h:outputText value="&#160; &#160;&#160;#{team.nombre}"/>
+													</p:column>
+													
+													<p:column headerText="W" style="text-align:center">
+														<h:outputText value="#{team.victorias}"/>
+													</p:column>
+													
+													<p:column headerText="L" style="text-align:center">
+														<h:outputText value="#{team.derrotas}"/>
+													</p:column>
+													
+													<p:column headerText="Win%" style="text-align:center">
+														<h:outputText value="#{team.getPorcentajeVictorias()}"/>
+													</p:column>
+													
+													<p:column headerText="Conf" style="text-align:center">
+														<h:outputText value="#{team.victoriasConferencia}-#{team.derrotasConferencia}"/>
+													</p:column>
+													
+													<p:column headerText="Div" style="text-align:center">
+														<h:outputText value="#{team.victoriasDivision}-#{team.derrotasDivision}"/>
+													</p:column>
+												
+													<p:column headerText="Home" style="text-align:center">
+														<h:outputText value="#{team.victoriasLocal}-#{team.derrotasLocal}"/>
+													</p:column>
+													
+													<p:column headerText="Road" style="text-align:center">
+														<h:outputText value="#{team.victoriasVisitante}-#{team.derrotasVisitante}"/>
+													</p:column>
+													
+												</p:dataTable>
+												
+											</h:panelGrid>
+										
+										</h:panelGrid>
+									</div>
+
+								</section>
+								
+								<section id="bracket_temporada" class="tab-panel">
+									<div class="margen-left">
+										<h2>Bracket Play Off</h2>
+									</div>
+
+								</section>
+								
+								<section id="maximos_temporada" class="tab-panel">
+									<div class="margen-left">
+										<h2>MAximos</h2>
+									</div>
+									
+								</section>
+							</div>
+							
+							
 						</div>
 					
 					</div>

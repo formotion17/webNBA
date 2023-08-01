@@ -51,6 +51,12 @@
         <managed-bean-class>contollers.JugadorController</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>temporadas</managed-bean-name>
+        <managed-bean-class>contollers.TemporadasController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 	
 	<application>
 	    <resource-bundle>

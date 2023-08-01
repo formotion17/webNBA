@@ -282,8 +282,8 @@ ul{
 
 .listaEquipos .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
     border-color:#007ad9;
-    background-color:#0c4d80;
-    color:#fff;
+    background-color:e8e4e4;
+    color:white;
 }
 
 .listaTemporadas{
@@ -302,8 +302,8 @@ ul{
 
 .listaTemporadas .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
     border-color:#007ad9;
-    background-color:#0c4d80;
-    color:#fff;
+    background-color:#2196f3;
+    color:#000;
 }
 
 .ui-selectonemenu-label{
@@ -620,9 +620,7 @@ ui-panelgrid .ui-panelgrid-cell {
  
  .partidosHeader {
    text-align:center;
-   background:none repeat scroll 0 0 #B5B5B5;
-   border-bottom:1px solid #000000;  
-   padding:2px;
+   background:none repeat scroll 0 0 #e8e4e4;
 }
 
 .negrita{
@@ -789,8 +787,9 @@ body .ui-datatable .ui-datatable-data>tr>td {
 
 /* CSS para cambiar el color de selección en el p:dataTable */
 body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
-    background-color: #ffda00; /* Cambia el color de fondo de selección a tu elección */
+    background-color: #2196f3; /* Cambia el color de fondo de selección a tu elección */
     font-weight: bold;
+    color:white;
 }
 
 .verticalTop{
@@ -843,6 +842,25 @@ body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
 	margin-right: auto;
 }
 
+.circle-image{
+width: 45%;
+height: auto;
+     /* Establece la forma circular */
+border-radius: 50%;
+/* Establece un borde opcional para el círculo */
+border: 2px solid white;
+/* Asegura que la imagen se ajuste dentro del círculo */
+object-fit: cover;
+}
+
+.even-row {
+  background-color: #f8f9fa; /* Color de fondo para filas pares */
+}
+
+.odd-row {
+  background-color: white; /* Color de fondo para filas impares */
+}
+
 
 /*pargina temporadas*/
 
@@ -863,6 +881,10 @@ body .ui-datatable .ui-datatable-data>tr.ui-state-highlight {
 
 .listaTemporadasClase .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-state-active{
     border-color:#007ad9;
-    background-color:#0c4d80;
-    color:#fff;
+    background-color:#2196f3;
+    color:white;
+}
+
+.vertical-top{
+	vertical-align: top;
 }

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16584935523840" configfile="/NBAInfoStat/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="48" y="63" id="pf16898840859215" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf16904249906475 pf16904249906476" inlinks="pf16904250265179 pf169042502651810" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="264" y="63" id="pf16904249906487" outlinks="pf16904250265179 pf169042502651811" inlinks="pf16904249906475 pf169042502651812" path="/jugadores.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="temporadas.xhtml" x="132" y="180" id="pf16904249906488" outlinks="pf169042502651812 pf169042502651810" inlinks="pf16904249906476 pf169042502651811" path="/temporadas.xhtml"/>
-  <links id="pf16904249906475" target="pf16904249906487" source="pf16898840859215"/>
-  <links id="pf16904249906476" target="pf16904249906488" source="pf16898840859215"/>
-  <links id="pf16904250265179" target="pf16898840859215" source="pf16904249906487"/>
-  <links id="pf169042502651811" target="pf16904249906488" source="pf16904249906487"/>
-  <links id="pf169042502651812" target="pf16904249906487" source="pf16904249906488"/>
-  <links id="pf169042502651810" target="pf16898840859215" source="pf16904249906488"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="554" y="946" id="pf16898840859215" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf16908248752700 pf16908248752711" inlinks="pf16908248752722 pf16908248752723" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="122" y="178" id="pf16904249906487" path="/jugadores.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="temporadas.xhtml" x="122" y="562" id="pf16904249906488" path="/temporadas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="jugadores.xhtml" x="122" y="946" id="pf16908248752724" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf16908248752722 pf16908248752725" inlinks="pf16908248752700" path="jugadores.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="temporadas.xhtml" x="338" y="744" id="pf16908248752726" referenceLink="//@navigationRule.2/@navigationCase.1/@toViewId|" outlinks="pf16908248752723 pf16908248752737" inlinks="pf16908248752711 pf16908248752725 pf16908248752737" path="temporadas.xhtml"/>
+  <links id="pf16908248752700" target="pf16908248752724" source="pf16898840859215" outcome="jugadores"/>
+  <links id="pf16908248752711" target="pf16908248752726" source="pf16898840859215" outcome="temporadas"/>
+  <links id="pf16908248752722" target="pf16898840859215" source="pf16908248752724" outcome="index"/>
+  <links id="pf16908248752725" target="pf16908248752726" source="pf16908248752724" outcome="temporadas"/>
+  <links id="pf16908248752723" target="pf16898840859215" source="pf16908248752726" outcome="index"/>
+  <links id="pf16908248752737" target="pf16908248752726" source="pf16908248752726" outcome="temporadas">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
 </pageflow:Pageflow>
