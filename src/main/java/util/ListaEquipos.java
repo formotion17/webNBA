@@ -83,7 +83,7 @@ public enum ListaEquipos {
 			"Memphis Grizzlies","mem",
 			"https://d2p3bygnnzw9w3.cloudfront.net/req/202002101/tlogo/bbr/MEM.png",3,
 			"rgb(93, 118, 169)",
-			Atributos.CONFERENCIA_OESTE,Atributos.DIVISION_MEDIO_OESTE,Atributos.CONFERENCIA_OESTE,Atributos.DIVISION_MEDIO_OESTE),
+			Atributos.CONFERENCIA_OESTE,Atributos.DIVISION_MEDIO_OESTE,Atributos.CONFERENCIA_OESTE,Atributos.DIVISION_SUROESTE),
 	MIAMIHEAT(
 			"Miami Heat","mia",
 			"https://d2p3bygnnzw9w3.cloudfront.net/req/202002101/tlogo/bbr/MIA.png",0,

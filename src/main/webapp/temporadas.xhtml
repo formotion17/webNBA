@@ -41,12 +41,14 @@ and open the template in the editor.
 							<p:selectOneButton value="#{temporadas.temporadaElegida}"
 								class="listaTemporadasClase">
 								<f:selectItems value="#{jugadores.selectMenuTemporadas}" />
+								<p:ajax update="botonVerTemporada" />
 							</p:selectOneButton>
 						</div>
 						
 						<div class="margen-left">
-							<p:commandButton value="#{msgs.jugador_tab_temporada_boton}"
-								action="#{temporadas.clasificacionConferencia()}"
+							<p:commandButton id ="botonVerTemporada"
+								value="#{msgs.jugador_tab_temporada_boton} #{temporadas.devolverTemporadaPretty()}"
+								action="#{temporadas.verClasificacion()}"
 								update="clasificacionOeste,clasificacionEste">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();" />
@@ -75,13 +77,23 @@ and open the template in the editor.
 										        <p:selectOneRadio id="line" value="#{temporadas.clasificacionEleccion}" layout="lineDirection">
 										            <f:selectItem itemLabel="Conferencia" itemValue="conferencia"/>
 										            <f:selectItem itemLabel="Division" itemValue="division"/>
-    												<p:ajax listener="#{temporadas.verClasificacion}" update="clasificacionOeste,clasificacionEste" />
+    												<p:ajax update="clasificacionOeste,clasificacionEste" listener="#{temporadas.verClasificacion}" />
 										        </p:selectOneRadio>
-											
-												<h:outputText style="font-size:18px; font-weight:bold;" value="Conferencia Oeste"/>
-												<p:dataTable id="clasificacionOeste" var="team"
+										        
+												<p:dataTable id="clasificacionOeste" var="team" sortBy="#{team.orden}"
 													value="#{temporadas.clasificacionOeste}" rowIndexVar="indice"
-													class="tablaEstadisticaTemporada" expandableRowGroups="true">
+													class="tablaClasificacionConferencia" expandableRowGroups="true">
+													
+													<p:headerRow field="orden"
+								                         expandable="false"
+								                         style="vertical-Align:left">
+							
+										                <p:column colspan="9">
+										                    <div class="inline-flex align-items-left" style="text-align: left;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="#{team.orden}"/>
+										                    </div>
+										                </p:column>
+										            </p:headerRow>
 													
 													<p:column headerText="P" style="width:0%;text-align:left">
 														<h:outputText value="#{indice+1}"/>
@@ -124,11 +136,20 @@ and open the template in the editor.
 													
 												</p:dataTable>
 												
-												<h:outputText style="font-size:18px; font-weight:bold;" value="Conferencia Este"/>
-												
-												<p:dataTable id="clasificacionEste" var="team"
+												<p:dataTable id="clasificacionEste" var="team" sortBy="#{team.orden}"
 													value="#{temporadas.clasificacionEste}" rowIndexVar="indice"
-													class="tablaEstadisticaTemporada" expandableRowGroups="true">
+													class="tablaClasificacionConferencia" expandableRowGroups="true">
+													
+													<p:headerRow field="orden"
+								                         expandable="false" styleClass="headTabla"
+								                         style="vertical-Align:left;">
+							
+										                <p:column colspan="9">
+										                    <div class="inline-flex align-items-left" style="text-align: left;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="#{team.orden}"/>
+										                    </div>
+										                </p:column>
+										            </p:headerRow>
 													
 													<p:column headerText="P" style="width:0%;text-align:left">
 														<h:outputText value="#{indice+1}"/>

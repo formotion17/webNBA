@@ -756,6 +756,14 @@ th {
   background-color: #e8e4e4 !important;
 }
 
+.tablaEstadisticaTemporada tfoot td{
+  background-color: #e8e4e4 !important;
+}
+
+.tablaEstadisticaTemporada .headTabla{
+  background-color: red !important;
+}
+
 .tablaEstadisticaTemporada tbody tr {
   background-color: #f8f9fa !important;
 }
@@ -888,3 +896,14 @@ object-fit: cover;
 .vertical-top{
 	vertical-align: top;
 }
+
+.tablaClasificacionConferencia thead th {
+  background-color: #e8e4e4 !important;
+   min-height: 0;
+   height: 15px;
+}
+
+.tablaClasificacionConferencia tbody tr {
+  background-color: #f8f9fa !important;
+}
+

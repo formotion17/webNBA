@@ -45,8 +45,7 @@ public class TemporadasController extends BaseController{
     
     public void verClasificacion(){
     	if(DIVISION.equals(clasificacionEleccion)) {
-    		clasificacionOeste.clear();
-    		clasificacionEste.clear();
+    		clasificacionDivision();
     	}else{
     		clasificacionConferencia();
     	}
@@ -64,4 +63,28 @@ public class TemporadasController extends BaseController{
 
     	System.out.println("Entramos para actualizar temporada: "+temporadaElegida);
     }
+    
+    public void clasificacionDivision(){
+    	
+    	clasificacionOeste=ClasificacionTemporada.devolverClasificacionDivision(
+    			temporadaElegida,CONFERENCIA_OESTE,
+    			Integer.parseInt(temporadaElegida.substring(6,10)));
+    	
+    	clasificacionEste=ClasificacionTemporada.devolverClasificacionDivision(
+    			temporadaElegida,CONFERENCIA_ESTE,
+    			Integer.parseInt(temporadaElegida.substring(6,10)));
+
+    	System.out.println("Entramos para actualizar temporada: "+temporadaElegida);
+    }
+    
+    public String devolverTemporadaPretty(){
+    	
+    	//return this.temporadaElegida.replace("season", "");
+    	if(!this.temporadaElegida.equals("")) {
+    		StringBuilder temporada = new StringBuilder(this.temporadaElegida.replace("season", ""));
+        	return (temporada.insert(4, " / ")).toString();
+    	}
+    	return "";
+    }
+    
 }

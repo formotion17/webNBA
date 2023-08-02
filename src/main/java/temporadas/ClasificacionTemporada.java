@@ -33,7 +33,7 @@ public class ClasificacionTemporada extends BaseController{
         
         if(null!=mongoNuevo) {
         	
-        	recogerEquiposTemporadaDivision(temporada,year);
+        	recogerEquiposTemporadaConferencia(temporada,year);
 			
 			MongoCursor<Document> listaPartidos=devolverPartidos(temporada);
 	        
@@ -42,15 +42,13 @@ public class ClasificacionTemporada extends BaseController{
 	        }
         }
         
-        // ordenarConferencia(conferencia);
-        
-        return ordenarConferencia(conferencia);
+        return ordenarClasificacion(conferencia);
         
 	}
 	
 
 	
-	private static List<Equipo> ordenarConferencia(String conferencia){
+	private static List<Equipo> ordenarClasificacion(String conferencia){
 		
 		List<Equipo> equiposConferencia = obtenerEquiposConferencia(conferencia);
 		
@@ -68,7 +66,7 @@ public class ClasificacionTemporada extends BaseController{
 	
 	// CLASIFICACION DIVISIONES
 	
-	public static List<Equipo> devolverClasificacionDivision(String temporada, String division){
+	public static List<Equipo> devolverClasificacionDivision(String temporada, String division,int year){
 		
 		listaEquipos.clear();
 		
@@ -76,28 +74,18 @@ public class ClasificacionTemporada extends BaseController{
         
         if(mongoNuevo!=null) {
         	
-        	recogerEquiposTemporadaDivision(temporada,2000);
+        	recogerEquiposTemporadaDivision(temporada,year);
 			
-			MongoCursor<Document> listaPartidos=devolverPartidos(temporada);
+        	MongoCursor<Document> listaPartidos=devolverPartidos(temporada);
 	        
 	        while (listaPartidos.hasNext()) {
 	        	operarPartido(listaPartidos.next());
 	        }
         }
         
-        ordenarPartidosDivision(2000);
+        return ordenarClasificacion(division);
         
-        return obtenerEquiposConferencia("hola");
 		
-	}
-	
-	private static void ordenarPartidosDivision(int year) {
-		
-		if(year<2004) {
-			ordenarDivisionAntiguos();
-		}else {
-			ordenarDivisionNuevos();
-		}
 	}
 	
 	private static List<Equipo> obtenerEquiposDivision(String division){
@@ -105,44 +93,6 @@ public class ClasificacionTemporada extends BaseController{
                 .filter(equipo -> equipo.getDivision().equals(division))
                 .collect(Collectors.toList());
 	}
-	
-	private static void ordenarDivisionAntiguos() {
-		
-		// Filtrar los equipos que tienen la conferencia deseada
-        List<Equipo> equiposDivisionAtlantico = obtenerEquiposDivision(DIVISION_ATLANTICO);
-        List<Equipo> equiposDivisionCentral = obtenerEquiposDivision(DIVISION_CENTRAL);
-        
-        List<Equipo> equiposDivisionMedioOeste = obtenerEquiposDivision(DIVISION_MEDIO_OESTE);
-        List<Equipo> equiposDivisionPacifico = obtenerEquiposDivision(DIVISION_PACIFICO);
-        
-     // Ordenar la lista de equipos por victorias en orden descendente
-        Collections.sort(equiposDivisionAtlantico, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionCentral, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionMedioOeste, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionPacifico, Comparator.comparingInt(Equipo::getVictorias).reversed());
-	}
-	
-	private static void ordenarDivisionNuevos() {
-		// Filtrar los equipos que tienen la conferencia deseada
-        List<Equipo> equiposDivisionAtlantico = obtenerEquiposDivision(DIVISION_ATLANTICO);
-        List<Equipo> equiposDivisionCentral = obtenerEquiposDivision(DIVISION_CENTRAL);
-        List<Equipo> equiposDivisionSureste = obtenerEquiposDivision(DIVISION_SURESTE);
-        
-        List<Equipo> equiposDivisionNoreste = obtenerEquiposDivision(DIVISION_NOROESTE);
-        List<Equipo> equiposDivisionPacifico = obtenerEquiposDivision(DIVISION_PACIFICO);
-        List<Equipo> equiposDivisionSuroeste = obtenerEquiposDivision(DIVISION_SUROESTE);
-        
-        
-     // Ordenar la lista de equipos por victorias en orden descendente
-        Collections.sort(equiposDivisionAtlantico, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionCentral, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionSureste, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        
-        Collections.sort(equiposDivisionNoreste, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionPacifico, Comparator.comparingInt(Equipo::getVictorias).reversed());
-        Collections.sort(equiposDivisionSuroeste, Comparator.comparingInt(Equipo::getVictorias).reversed());
-	}
-
 	
 	private static void operarPartido(Document partido) {
 		Equipo equipoLocal = devolverEquipo((String)
@@ -208,7 +158,7 @@ public class ClasificacionTemporada extends BaseController{
         return cursor;
 	}
 	
-	private static void recogerEquiposTemporadaDivision(String temporada,int year) {
+	private static void recogerEquiposTemporadaConferencia(String temporada,int year) {
 		System.out.println("	TEMPORADA: "+temporada+"\n");
 		
 		dbNuevo = mongoNuevo.getDatabase("NBA");
@@ -223,12 +173,40 @@ public class ClasificacionTemporada extends BaseController{
 				listaEquipos.add(new Equipo(nombreEquipo,
 								ListaEquipos.findConferenciaAntiguaByTeam(nombreEquipo),
 								ListaEquipos.findDivisionAntiguaByTeam(nombreEquipo),
-								ListaEquipos.findFotoByTeam(nombreEquipo)));
+								ListaEquipos.findFotoByTeam(nombreEquipo),
+								"Conferencia "+ListaEquipos.findConferenciaAntiguaByTeam(nombreEquipo).toUpperCase()));
 			}else {
 				listaEquipos.add(new Equipo(nombreEquipo,
 						ListaEquipos.findConferenciaNuevaByTeam(nombreEquipo),
 						ListaEquipos.findDivisionNuevaByTeam(nombreEquipo),
-						ListaEquipos.findFotoByTeam(nombreEquipo)));
+						ListaEquipos.findFotoByTeam(nombreEquipo),
+						"Conferencia "+ListaEquipos.findConferenciaNuevaByTeam(nombreEquipo).toUpperCase()));
+			}
+		}
+	}
+	
+	private static void recogerEquiposTemporadaDivision(String temporada,int year) {
+		
+		dbNuevo = mongoNuevo.getDatabase("NBA");
+		
+		MongoCursor<String> c = dbNuevo.getCollection(temporada).
+				distinct("equipoLocal.nombre", String.class).iterator();
+		
+		
+		while(c.hasNext()) {
+			String nombreEquipo = c.next().replace("/", " ");
+			if(year<2004) {
+				listaEquipos.add(new Equipo(nombreEquipo,
+								ListaEquipos.findConferenciaAntiguaByTeam(nombreEquipo),
+								ListaEquipos.findDivisionAntiguaByTeam(nombreEquipo),
+								ListaEquipos.findFotoByTeam(nombreEquipo),
+								"División "+ListaEquipos.findDivisionAntiguaByTeam(nombreEquipo).toUpperCase()));
+			}else {
+				listaEquipos.add(new Equipo(nombreEquipo,
+						ListaEquipos.findConferenciaNuevaByTeam(nombreEquipo),
+						ListaEquipos.findDivisionNuevaByTeam(nombreEquipo),
+						ListaEquipos.findFotoByTeam(nombreEquipo),
+						"Division "+ListaEquipos.findDivisionNuevaByTeam(nombreEquipo).toUpperCase()));
 			}
 		}
 	}

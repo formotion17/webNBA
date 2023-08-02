@@ -11,6 +11,7 @@ public class Equipo {
 	private String conferencia;
 	private String division;
 	private String foto;
+	private String orden;
 	
 	private int victorias;
 	private int derrotas;
@@ -36,11 +37,12 @@ public class Equipo {
 	private int victoriasConferencia;
 	private int derrotasConferencia;
 	
-	public Equipo (String nombre, String conferencia, String division,String foto) {
+	public Equipo (String nombre, String conferencia, String division,String foto,String orden) {
 		this.nombre=nombre;
 		this.conferencia=conferencia;
 		this.division=division;
 		this.foto=foto;
+		this.orden=orden;
 	}
 	
 	public String getPorcentajeVictorias() {
