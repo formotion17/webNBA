@@ -46,6 +46,46 @@ public class ClasificacionTemporada extends BaseController{
         
 	}
 	
+	private static List<Equipo> ordenarClasificacionDivision(String division){
+		
+		List<Equipo> equiposConferencia = obtenerEquiposConferencia(division);
+		
+		Collections.sort(equiposConferencia,
+        		Comparator.comparingInt(Equipo::getVictorias).reversed());
+		
+		// Ordenar la lista de equipos primero por división y luego por número
+		Collections.sort(listaEquipos, new Comparator<Equipo>() {
+            @Override
+            public int compare(Equipo equipo1, Equipo equipo2) {
+                // Comparar primero por división
+                int comparacionDivision = equipo1.getDivision().compareTo(equipo2.getDivision());
+                if (comparacionDivision != 0) {
+                    return comparacionDivision;
+                }
+
+                // Si las divisiones son iguales, comparar por número (de más a menos)
+                return -1 * Integer.compare(equipo1.getVictorias(), equipo2.getVictorias());
+            }
+        });
+        
+        // Asignar la posición para cada equipo dentro de su división
+        String divisionActual = null;
+        int contadorPosicion = 0;
+
+        for (Equipo equipo : equiposConferencia) {
+            if (!equipo.getDivision().equals(divisionActual)) {
+                // Cambio de división, reiniciar el contador de posición
+                divisionActual = equipo.getDivision();
+                contadorPosicion = 1;
+            }
+
+            equipo.setPosicion(contadorPosicion);
+            contadorPosicion++;
+        }
+		
+		return equiposConferencia;
+	}
+	
 
 	
 	private static List<Equipo> ordenarClasificacion(String conferencia){
@@ -54,6 +94,20 @@ public class ClasificacionTemporada extends BaseController{
 		
 		Collections.sort(equiposConferencia,
         		Comparator.comparingInt(Equipo::getVictorias).reversed());
+		
+		String orden="";
+    	int posicion=0;
+		
+		for(Equipo team : equiposConferencia) {
+    		if(team.getConferencia().equals(orden)) {
+    			posicion++;
+    			team.setPosicion(posicion);
+    		}else {
+    			orden = team.getConferencia();
+    			posicion=1;
+    			team.setPosicion(posicion);
+    		}
+    	}
 		
 		return equiposConferencia;
 	}
@@ -83,7 +137,7 @@ public class ClasificacionTemporada extends BaseController{
 	        }
         }
         
-        return ordenarClasificacion(division);
+        return ordenarClasificacionDivision(division);
         
 		
 	}

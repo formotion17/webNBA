@@ -1,5 +1,7 @@
 package contollers;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +62,8 @@ public class TemporadasController extends BaseController{
     	clasificacionEste=ClasificacionTemporada.devolverClasificacionConferencia(
     			temporadaElegida,CONFERENCIA_ESTE,
     			Integer.parseInt(temporadaElegida.substring(6,10)));
+    	
+    	
 
     	System.out.println("Entramos para actualizar temporada: "+temporadaElegida);
     }
@@ -73,13 +77,14 @@ public class TemporadasController extends BaseController{
     	clasificacionEste=ClasificacionTemporada.devolverClasificacionDivision(
     			temporadaElegida,CONFERENCIA_ESTE,
     			Integer.parseInt(temporadaElegida.substring(6,10)));
+    	
+    	
 
     	System.out.println("Entramos para actualizar temporada: "+temporadaElegida);
     }
     
     public String devolverTemporadaPretty(){
     	
-    	//return this.temporadaElegida.replace("season", "");
     	if(!this.temporadaElegida.equals("")) {
     		StringBuilder temporada = new StringBuilder(this.temporadaElegida.replace("season", ""));
         	return (temporada.insert(4, " / ")).toString();
