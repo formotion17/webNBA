@@ -907,3 +907,6 @@ object-fit: cover;
   background-color: #f8f9fa !important;
 }
 
+body .ui-datatable thead th{
+	    padding: 0.4rem 1rem !important;
+}

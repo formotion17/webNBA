@@ -53,8 +53,8 @@ public class ClasificacionTemporada extends BaseController{
 		Collections.sort(equiposConferencia,
         		Comparator.comparingInt(Equipo::getVictorias).reversed());
 		
-		// Ordenar la lista de equipos primero por división y luego por número
-		Collections.sort(listaEquipos, new Comparator<Equipo>() {
+		// Ordenar la lista de equipos primero por división y luego por número (de más a menos)
+        Collections.sort(listaEquipos, new Comparator<Equipo>() {
             @Override
             public int compare(Equipo equipo1, Equipo equipo2) {
                 // Comparar primero por división
@@ -67,12 +67,12 @@ public class ClasificacionTemporada extends BaseController{
                 return -1 * Integer.compare(equipo1.getVictorias(), equipo2.getVictorias());
             }
         });
-        
-        // Asignar la posición para cada equipo dentro de su división
+
+        // Asignar la posición para cada equipo dentro de su división (de más a menos)
         String divisionActual = null;
         int contadorPosicion = 0;
 
-        for (Equipo equipo : equiposConferencia) {
+        for (Equipo equipo : listaEquipos) {
             if (!equipo.getDivision().equals(divisionActual)) {
                 // Cambio de división, reiniciar el contador de posición
                 divisionActual = equipo.getDivision();

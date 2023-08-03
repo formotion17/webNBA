@@ -16,6 +16,7 @@ and open the template in the editor.
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Awesome videos!" />
+<h:outputStylesheet name="CSS/principal.css" />
 <h:outputStylesheet name="primefaces/primefaces.css"
 	library="primefaces" />
 <link rel="stylesheet"
@@ -49,26 +50,16 @@ and open the template in the editor.
 							<p:commandButton id ="botonVerTemporada"
 								value="#{msgs.jugador_tab_temporada_boton} #{temporadas.devolverTemporadaPretty()}"
 								action="#{temporadas.verClasificacion()}"
-								update="clasificacionOeste,clasificacionEste">
+								update="formularioTemporadas:j_idt28:clasificacionOeste,formularioTemporadas:j_idt28:clasificacionEste">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();" />
 							</p:commandButton>
 						</div>
+						
 						<div id="tabsTemporada" class="tabset margen-left-tab" style="margin-top:15px;">
-							<!-- Tab 1 -->
-							<input type="radio" name="tabset" id="tab1" aria-controls="clasificacion_temporada" checked="true"/>
-							<label for="tab1">Clasificación</label>
-							<!-- Tab 2 -->
-							<input type="radio" name="tabset" id="tab2" aria-controls="bracket_temporada"/>
-							<label for="tab2">Bracket</label>
-							<!-- Tab 3 -->
-							<input type="radio" name="tabset" id="tab3" aria-controls="maximos_temporada"/>
-							<label for="tab3">Máximos</label>
-							
-							<div class="tab-panels">
-							
-								<section>
-									
+						
+							<p:tabView>
+								<p:tab title="Clasificacion">
 									<div class="margen-left-tab">
 									
 										<h:panelGrid columns="1" columnClasses="porcentaje-cien vertical-top ,porcentaje-cincuenta vertical-top" style="margin-top:30px">
@@ -77,7 +68,7 @@ and open the template in the editor.
 										        <p:selectOneRadio id="line" value="#{temporadas.clasificacionEleccion}" layout="lineDirection">
 										            <f:selectItem itemLabel="Conferencia" itemValue="conferencia"/>
 										            <f:selectItem itemLabel="Division" itemValue="division"/>
-    												<p:ajax update="clasificacionOeste,clasificacionEste" listener="#{temporadas.verClasificacion}" />
+    												<p:ajax update="formularioTemporadas:j_idt28:clasificacionOeste,formularioTemporadas:j_idt28:clasificacionEste" listener="#{temporadas.verClasificacion}" />
 										        </p:selectOneRadio>
 										        
 												<p:dataTable id="clasificacionOeste" var="team" sortBy="#{team.orden}"
@@ -95,7 +86,7 @@ and open the template in the editor.
 										                </p:column>
 										            </p:headerRow>
 													
-													<p:column headerText="P" style="width:0%;text-align:left">
+													<p:column headerText="P" style="width:0%;text-align:left;height:30px;">
 														<h:outputText value="#{team.posicion}º"/>
 													</p:column>
 													
@@ -196,25 +187,20 @@ and open the template in the editor.
 										
 										</h:panelGrid>
 									</div>
-
-								</section>
+								</p:tab>
 								
-								<section id="bracket_temporada" class="tab-panel">
+								<p:tab title="Bracket">
 									<div class="margen-left">
 										<h2>Bracket Play Off</h2>
 									</div>
-
-								</section>
+								</p:tab>
 								
-								<section id="maximos_temporada" class="tab-panel">
+								<p:tab title="Maximos">
 									<div class="margen-left">
 										<h2>MAximos</h2>
 									</div>
-									
-								</section>
-							</div>
-							
-							
+								</p:tab>
+							</p:tabView>
 						</div>
 					
 					</div>
