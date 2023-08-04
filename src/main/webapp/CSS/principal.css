@@ -910,3 +910,7 @@ object-fit: cover;
 body .ui-datatable thead th{
 	    padding: 0.4rem 1rem !important;
 }
+
+.tablaMaximos{
+	width: 80%;
+}

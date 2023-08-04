@@ -50,7 +50,11 @@ and open the template in the editor.
 							<p:commandButton id ="botonVerTemporada"
 								value="#{msgs.jugador_tab_temporada_boton} #{temporadas.devolverTemporadaPretty()}"
 								action="#{temporadas.verClasificacion()}"
-								update="formularioTemporadas:j_idt28:clasificacionOeste,formularioTemporadas:j_idt28:clasificacionEste">
+								update="formularioTemporadas:j_idt28:clasificacionOeste,
+									formularioTemporadas:j_idt28:clasificacionEste,
+    								formularioTemporadas:j_idt28:maxAnotadores,
+    								formularioTemporadas:j_idt28:maxReboteadores,
+    								formularioTemporadas:j_idt28:maxAsistentes">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();" />
 							</p:commandButton>
@@ -68,7 +72,9 @@ and open the template in the editor.
 										        <p:selectOneRadio id="line" value="#{temporadas.clasificacionEleccion}" layout="lineDirection">
 										            <f:selectItem itemLabel="Conferencia" itemValue="conferencia"/>
 										            <f:selectItem itemLabel="Division" itemValue="division"/>
-    												<p:ajax update="formularioTemporadas:j_idt28:clasificacionOeste,formularioTemporadas:j_idt28:clasificacionEste" listener="#{temporadas.verClasificacion}" />
+    												<p:ajax update="formularioTemporadas:j_idt28:clasificacionOeste,
+    												formularioTemporadas:j_idt28:clasificacionEste"
+    												listener="#{temporadas.verClasificacion}" />
 										        </p:selectOneRadio>
 										        
 												<p:dataTable id="clasificacionOeste" var="team" sortBy="#{team.orden}"
@@ -189,15 +195,84 @@ and open the template in the editor.
 									</div>
 								</p:tab>
 								
+								<p:tab title="Maximos">
+									
+									<div class="margen-left-tab">
+									
+									<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+										columns="3">
+										
+										<p:dataTable id="maxAnotadores" var="player" sortBy="#{player.puntosPartidos}"
+											rows="5" value="#{temporadas.getTirosCampoMetidosPartido()}" rowIndexVar="indice"
+											class="tablaClasificacionConferencia centrar tablaMaximos">
+											
+											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+												<p:graphicImage
+														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+												
+												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+											</p:column>
+											
+											<p:column headerText="Tiros Campo Metidos" style="width:30%;">
+												<h:outputText value="#{player.tiroCampoAnotadosPartido}">
+													<f:convertNumber pattern="#0.00" />
+												</h:outputText>
+											</p:column>
+										</p:dataTable>
+										
+										<p:dataTable id="maxReboteadores" var="player" sortBy="#{player.rebotesPartido}"
+											rows="5" value="#{temporadas.getTirosCampoIntentadosPartido()}" rowIndexVar="indice"
+											class="tablaClasificacionConferencia  centrar tablaMaximos">
+											
+											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+												<p:graphicImage
+														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+												
+												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+											</p:column>
+											
+											<p:column headerText="Tiros Campo Intentados" style="width:30%;">
+												<h:outputText value="#{player.tiroCampoIntentadosPartido}">
+													<f:convertNumber pattern="#0.00" />
+												</h:outputText>
+											</p:column>
+										</p:dataTable>
+										
+										
+										
+										<p:dataTable id="maxAsistentes" var="player" sortBy="#{player.asistenciasPartido}"
+											rows="5" value="#{temporadas.getTirosCampoPorcentajePartido()}" rowIndexVar="indice"
+											class="tablaClasificacionConferencia centrar tablaMaximos">
+											
+											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+												<p:graphicImage
+														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+												
+												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+											</p:column>
+											
+											<p:column headerText="% Tiro Campo" style="width:30%;">
+												<h:outputText value="#{player.tirosCampoPorcentaje}">
+													<f:convertNumber pattern="#0.00" />
+												</h:outputText>
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
+										
+									</div>
+									
+								</p:tab>
+								
+								
 								<p:tab title="Bracket">
 									<div class="margen-left">
 										<h2>Bracket Play Off</h2>
-									</div>
-								</p:tab>
-								
-								<p:tab title="Maximos">
-									<div class="margen-left">
-										<h2>MAximos</h2>
 									</div>
 								</p:tab>
 							</p:tabView>

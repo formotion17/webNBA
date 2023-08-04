@@ -229,6 +229,8 @@ public class Atributos {
 	protected static String ATRIBUTO_STAT_TOV="TOV";
 	protected static String ATRIBUTO_STAT_PF="PF";
 	protected static String ATRIBUTO_STAT_PTS="PTS";
+	protected static String ATRIBUTO_STAT_NOMBRE="nombre";
+	protected static String ATRIBUTO_STAT_APELLIDO="apellido";
 	
 	//Atritubos claseJugadorTiros
 	protected static String ATRIBUTO_JUGTIRO_PLAYOFF="playOff";
