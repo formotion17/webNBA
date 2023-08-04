@@ -18,7 +18,6 @@ public class MapJugadorEstadisticas extends Atributos{
 		total.setTemporada((String)stats.get(ATRIBUTO_STAT_TEMPORADA));
 		total.setTiempo((String)stats.get(ATRIBUTO_STAT_TIEMPO));
 		total.setTiempo((String)stats.get(ATRIBUTO_STAT_TIPO_RESULTADO));
-		System.out.println("JUGADOR:	"+total.getIdJugador());
 		total.setPartidosJugados((String)stats.get(ATRIBUTO_STAT_G).toString());
 		if(total.getPartidosJugados().equals("0")) {
 			total.setPartidosJugados("9999999");

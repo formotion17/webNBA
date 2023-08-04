@@ -199,71 +199,89 @@ and open the template in the editor.
 									
 									<div class="margen-left-tab">
 									
-									<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
-										columns="3">
-										
-										<p:dataTable id="maxAnotadores" var="player" sortBy="#{player.puntosPartidos}"
-											rows="5" value="#{temporadas.getTirosCampoMetidosPartido()}" rowIndexVar="indice"
-											class="tablaClasificacionConferencia centrar tablaMaximos">
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
 											
-											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
-												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
-												<p:graphicImage
-														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
-														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
-												
-												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
-											</p:column>
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												<p:dataTable id="maxAnotadores" var="player" sortBy="#{player.puntosPartidos}"
+													rows="5" value="#{temporadas.getTirosCampoMetidosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos" headerRowGroup="4">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tiros de Campo Anotados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column style="width:2%;">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+													</p:column>
+													<p:column>
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />	
+													</p:column>
+													<p:column style="width:50%;text-align:left;">
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													<p:column>
+														<h:outputText value="#{player.tiroCampoAnotadosPartido}" style="text-align:right;">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
 											
-											<p:column headerText="Tiros Campo Metidos" style="width:30%;">
-												<h:outputText value="#{player.tiroCampoAnotadosPartido}">
-													<f:convertNumber pattern="#0.00" />
-												</h:outputText>
-											</p:column>
-										</p:dataTable>
-										
-										<p:dataTable id="maxReboteadores" var="player" sortBy="#{player.rebotesPartido}"
-											rows="5" value="#{temporadas.getTirosCampoIntentadosPartido()}" rowIndexVar="indice"
-											class="tablaClasificacionConferencia  centrar tablaMaximos">
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												<p:dataTable id="maxReboteadores" var="player" sortBy="#{player.rebotesPartido}"
+													rows="5" value="#{temporadas.getTirosCampoIntentadosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{player.tiroCampoIntentadosPartido}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
 											
-											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
-												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
-												<p:graphicImage
-														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
-														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
-												
-												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
-											</p:column>
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												<p:dataTable id="maxAsistentes" var="player" sortBy="#{player.asistenciasPartido}"
+													rows="5" value="#{temporadas.getTirosCampoPorcentajePartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="% FG" style="width:30%;">
+														<h:outputText value="#{player.tirosCampoPorcentaje}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
 											
-											<p:column headerText="Tiros Campo Intentados" style="width:30%;">
-												<h:outputText value="#{player.tiroCampoIntentadosPartido}">
-													<f:convertNumber pattern="#0.00" />
-												</h:outputText>
-											</p:column>
-										</p:dataTable>
-										
-										
-										
-										<p:dataTable id="maxAsistentes" var="player" sortBy="#{player.asistenciasPartido}"
-											rows="5" value="#{temporadas.getTirosCampoPorcentajePartido()}" rowIndexVar="indice"
-											class="tablaClasificacionConferencia centrar tablaMaximos">
-											
-											<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
-												<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
-												<p:graphicImage
-														url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
-														style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
-												
-												<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
-											</p:column>
-											
-											<p:column headerText="% Tiro Campo" style="width:30%;">
-												<h:outputText value="#{player.tirosCampoPorcentaje}">
-													<f:convertNumber pattern="#0.00" />
-												</h:outputText>
-											</p:column>
-										</p:dataTable>
-									</h:panelGrid>
+										</h:panelGrid>
 										
 									</div>
 									
