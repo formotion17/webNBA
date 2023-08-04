@@ -916,4 +916,6 @@ body .ui-datatable thead th{
 	margin:0 auto;
 }
 
-
+.tablaMaximos thead{
+	display:none;
+}

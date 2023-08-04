@@ -354,4 +354,10 @@ public class EstadisticasMaximos {
 		//calcularPorcentajes();
 	}	
 
+	public int gettirosDeCampoIntentados() {
+		if(this.tirosCampoIntentados.equals("")) {
+			return 0;
+		}
+		return Integer.parseInt(this.tirosCampoIntentados);
+	}
 }

@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,11 @@ public class CalcularMaximosTemporada extends BaseController {
 	private static MongoDatabase dbNuevo;
 	private ArrayList<EstadisticasMaximos> listaJugadores;
 	private static DecimalFormat df = new DecimalFormat("#.##");
+	private static String season="";
 	
 	public void calcularMaximos(String temporada) {
+		
+		this.season=temporada;
 
 		listaJugadores = new ArrayList<>();
 
@@ -58,7 +62,6 @@ public class CalcularMaximosTemporada extends BaseController {
 			
 			while(cursor.hasNext()) {
 
-            	
                 DBObject get = cursor.next();
                 
                 listaJugadores.add(MapJugadorEstadisticas.devolverEstadisticasTotalesJugador(new Document((Map<String, Object>) get)));
@@ -69,18 +72,62 @@ public class CalcularMaximosTemporada extends BaseController {
 		
 	}
 	
+	private ArrayList<EstadisticasMaximos> devolverLista(){
+		ArrayList<EstadisticasMaximos> lista = new ArrayList<>();
+
+		mongoNuevo = new MongoClient(host, puertoHost);
+
+		if (null != mongoNuevo) {
+
+			DB db = mongoNuevo.getDB("NBA");
+			DBCursor cursor;
+			
+			DBCollection collection =db.getCollection("totales");
+
+			BasicDBObject allQuery = new BasicDBObject();
+			BasicDBObject fields = new BasicDBObject();
+			List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+
+			obj.add(new BasicDBObject("temporada", this.season));
+			obj.add(new BasicDBObject("tiempo", "regular"));
+			obj.add(new BasicDBObject("tiporesultado", "total"));
+
+			allQuery.put("$and", obj);
+
+			cursor = collection.find(allQuery);
+			
+			while(cursor.hasNext()) {
+
+                DBObject get = cursor.next();
+                
+                lista.add(MapJugadorEstadisticas.devolverEstadisticasTotalesJugador(new Document((Map<String, Object>) get)));
+
+            }
+
+		}
+		
+		return lista;
+	}
+	
 	//TIROS DE CAMPO
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(){
+	public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(String radioFg){
+		ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTiroCampoAnotadosPartido(), s1.getTiroCampoAnotadosPartido());
+				if(radioFg.equals("media")) {
+					return Double.compare(s2.getTiroCampoAnotadosPartido(), s1.getTiroCampoAnotadosPartido());
+				}else {
+					return Double.compare(Double.valueOf(s2.getTirosCampoMetidos()), Double.valueOf(s1.getTirosCampoMetidos()));
+				}
+				
 			}
 		};
-		Collections.sort(listaJugadores, comparator);
+		Collections.sort(lista, comparator);
 		
-		return listaJugadores;
+		return lista;
 	}
 	
 	public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
@@ -95,16 +142,29 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(){
+	public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(int porcentajeTiroCampo){
+		
+		ArrayList<EstadisticasMaximos> lista=devolverLista();
+
+		Iterator<EstadisticasMaximos> iterador = lista.iterator();
+		while (iterador.hasNext()) {
+			EstadisticasMaximos objeto = iterador.next();
+
+		    if (Integer.parseInt(objeto.getTirosCampoIntentados())<porcentajeTiroCampo) {
+
+		        iterador.remove();
+		    }
+		}
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
 				return Double.compare(s2.getTirosCampoPorcentaje(), s1.getTirosCampoPorcentaje());
 			}
 		};
-		Collections.sort(listaJugadores, comparator);
+		Collections.sort(lista, comparator);
 		
-		return listaJugadores;
+		return lista;
 	}
 	
 	//TRIPLES

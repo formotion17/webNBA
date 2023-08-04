@@ -38,6 +38,10 @@ public class TemporadasController extends BaseController{
     // Maximos temporada
     private ArrayList<EstadisticasMaximos> listaMaximos = new ArrayList<>();
     private CalcularMaximosTemporada maximos = new CalcularMaximosTemporada();
+    private int porcentajeTiroCampo=300;
+    
+    private String radioFg="media";
+    private String radioFga="media";
     
     @PostConstruct
     public void init() {
@@ -109,9 +113,17 @@ public class TemporadasController extends BaseController{
     // TIROS CAMPO
     public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosCampoMetidosPartido();
+    		return maximos.getTirosCampoMetidosPartido(radioFg);
     	}
     	return null;
+    }
+    public boolean esFgMedia() {
+    	if("media".equals(radioFg)) {
+    		System.out.println(true);
+    		return true;
+    	}
+    	System.out.println(false);
+    	return false;
     }
     public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
@@ -121,7 +133,8 @@ public class TemporadasController extends BaseController{
     }
     public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosCampoPorcentajePartido();
+    		System.out.println("Entamos con "+porcentajeTiroCampo);
+    		return maximos.getTirosCampoPorcentajePartido(porcentajeTiroCampo);
     	}
     	return null;
     }
