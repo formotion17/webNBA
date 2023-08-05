@@ -69,6 +69,7 @@ public class CalcularMaximosTemporada extends BaseController {
             }
 
 		}
+        mongoNuevo.close();
 		
 	}
 	
@@ -106,52 +107,37 @@ public class CalcularMaximosTemporada extends BaseController {
 
 		}
 		
+		mongoNuevo.close();
+		
 		return lista;
 	}
 	
 /////////////////////////TIROS DE CAMPO
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(String radioFg){
+	public List<EstadisticasMaximos> getTirosCampoMetidosPartido(String radioFg){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		if(radioFg.equals("media")) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTiroCampoAnotadosPartido).reversed());
+		}else {
+	        listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTirosCampoMetidos())).reversed());
+		}
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if(radioFg.equals("media")) {
-					return Double.compare(s2.getTiroCampoAnotadosPartido(), s1.getTiroCampoAnotadosPartido());
-				}else {
-					return Double.compare(Double.valueOf(s2.getTirosCampoMetidos()), Double.valueOf(s1.getTirosCampoMetidos()));
-				}
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 				
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(String radioFga){
+	public List<EstadisticasMaximos> getTirosCampoIntentadosPartido(String radioFga){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();ç
+		if(radioFga.equals("media")) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTiroCampoIntentadosPartido).reversed());
+		}else {
+	        listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTirosCampoIntentados())).reversed());
+		}
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if(radioFga.equals("media")) {
-					return Double.compare(s2.getTiroCampoIntentadosPartido(), s1.getTiroCampoIntentadosPartido());
-				}else {
-					return Double.compare(Double.valueOf(s2.getTirosCampoIntentados()), Double.valueOf(s1.getTirosCampoIntentados()));
-				}
-				
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(int porcentajeTiroCampo){
+	public List<EstadisticasMaximos> getTirosCampoPorcentajePartido(int porcentajeTiroCampo){
 		
 		ArrayList<EstadisticasMaximos> lista=devolverLista();
 
@@ -165,59 +151,36 @@ public class CalcularMaximosTemporada extends BaseController {
 		    }
 		}
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTirosCampoPorcentaje(), s1.getTirosCampoPorcentaje());
-			}
-		};
-		Collections.sort(lista, comparator);
+		lista.sort(Comparator.comparingDouble(EstadisticasMaximos::getTirosCampoPorcentaje).reversed());
 		
-		return lista;
+		return lista.subList(0, Math.min(5, lista.size()));
 	}
 	
 ///////////////////////// DOS PUNTOS
-	public ArrayList<EstadisticasMaximos> getDosMetidosPartido(String radioDosFg){
+	public List<EstadisticasMaximos> getDosMetidosPartido(String radioDosFg){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		if("media".equals(radioDosFg)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getDosPuntosMetidosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getDosPuntosMetidos())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioDosFg)) {
-					return Double.compare(s2.getDosPuntosMetidosPartido(), s1.getDosPuntosMetidosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getDosPuntosMetidos()), Double.valueOf(s1.getDosPuntosMetidos()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getDosInTentadosPartido(String radioDosFga){
+	public List<EstadisticasMaximos> getDosInTentadosPartido(String radioDosFga){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		if("media".equals(radioDosFga)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getDosPuntosIntentadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getDosPuntosIntentados())).reversed());
+		}
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioDosFga)) {
-					return Double.compare(s2.getDosPuntosIntentadosPartido(), s1.getDosPuntosIntentadosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getDosPuntosIntentados()), Double.valueOf(s1.getDosPuntosIntentados()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getDosPorcentajePartido(int porcentajeDos){
+	public List<EstadisticasMaximos> getDosPorcentajePartido(int porcentajeDos){
 		
 		ArrayList<EstadisticasMaximos> lista=devolverLista();
 
@@ -231,60 +194,36 @@ public class CalcularMaximosTemporada extends BaseController {
 		    }
 		}
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getDosPuntosPorcentaje(), s1.getDosPuntosPorcentaje());
-			}
-		};
-		Collections.sort(lista, comparator);
+		lista.sort(Comparator.comparingDouble(EstadisticasMaximos::getDosPuntosPorcentaje).reversed());
 		
-		return lista;
+		return lista.subList(0, Math.min(5, lista.size()));
 	}
 	
 ///////////////////////////TRIPLES
 	
-	public ArrayList<EstadisticasMaximos> getTriplesMetidosPartido(String radioTripleFg){
+	public List<EstadisticasMaximos> getTriplesMetidosPartido(String radioTripleFg){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();
-		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioTripleFg)) {
-					return Double.compare(s2.getTriplesAnotadosPartido(), s1.getTriplesAnotadosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getTriplesMetidos()), Double.valueOf(s1.getTriplesMetidos()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
+		if("media".equals(radioTripleFg)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTriplesAnotadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTriplesMetidos())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTriplesIntentadosPartido(String radioTripleFga){
+	public List<EstadisticasMaximos> getTriplesIntentadosPartido(String radioTripleFga){
 		
-		//ArrayList<EstadisticasMaximos> lista=devolverLista();
-		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioTripleFga)) {
-					return Double.compare(s2.getTriplesIntentadosPartido(), s1.getTriplesIntentadosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getTriplesIntentados()), Double.valueOf(s1.getTriplesIntentados()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
+		if("media".equals(radioTripleFga)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTriplesIntentadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTriplesIntentados())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTriplesPorcentajePArtido(int porcentajeTriple){
+	public List<EstadisticasMaximos> getTriplesPorcentajePArtido(int porcentajeTriple){
 		
 		ArrayList<EstadisticasMaximos> lista=devolverLista();
 		
@@ -297,55 +236,38 @@ public class CalcularMaximosTemporada extends BaseController {
 		        iterador.remove();
 		    }
 		}
+
 		
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTriplesPorcentaje(), s1.getTriplesPorcentaje());
-			}
-		};
-		Collections.sort(lista, comparator);
+		lista.sort(Comparator.comparingDouble(EstadisticasMaximos::getTriplesPorcentaje).reversed());
 		
-		return lista;
+		return lista.subList(0, Math.min(5, lista.size()));
 	}
 	
 ///////////////////////// TIROS LIBRES
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresMetidosPartido(String radioLibreFg){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioLibreFg)) {
-					return Double.compare(s2.getTirosLibresAnotadosPartido(), s1.getTirosLibresAnotadosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getTirosLibresMetidos()), Double.valueOf(s1.getTirosLibresMetidos()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
+	public List<EstadisticasMaximos>  getTirosLibresMetidosPartido(String radioLibreFg){
 		
-		return listaJugadores;
+		if("media".equals(radioLibreFg)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTirosLibresAnotadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTirosLibresMetidos())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresIntentadosPartido(String radioLibreFga){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioLibreFga)) {
-					return Double.compare(s2.getTirosLibresIntentadosPartido(), s1.getTirosLibresIntentadosPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getTirosLibresIntentados()), Double.valueOf(s1.getTirosLibresIntentados()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
+	public List<EstadisticasMaximos>  getTirosLibresIntentadosPartido(String radioLibreFga){
 		
-		return listaJugadores;
+		if("media".equals(radioLibreFga)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTirosLibresIntentadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTirosLibresIntentados())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresPorcentajePartido(int porcentajeLibre){
+	public List<EstadisticasMaximos>  getTirosLibresPorcentajePartido(int porcentajeLibre){
 		
 		ArrayList<EstadisticasMaximos> lista=devolverLista();
 		
@@ -358,20 +280,135 @@ public class CalcularMaximosTemporada extends BaseController {
 		        iterador.remove();
 		    }
 		}
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTirosLibresPorcentaje(), s1.getTirosLibresPorcentaje());
-			}
-		};
-		Collections.sort(lista, comparator);
 		
-		return lista;
+
+		lista.sort(Comparator.comparingDouble(EstadisticasMaximos::getTirosLibresPorcentaje).reversed());
+		
+		return lista.subList(0, Math.min(5, lista.size()));
+	}
+	
+	
+///////////////////////// REBOTES
+	public List<EstadisticasMaximos> getRebotesPartido(String radioRebote){
+		
+		if("media".equals(radioRebote)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getRebotesPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTotalRebotes())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+	}
+	
+	public List<EstadisticasMaximos> getRebotesDefensivosPartido(String radioReboteDefensivo){
+		
+		if("media".equals(radioReboteDefensivo)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getReboteDefensivoPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getReboteDefensivo())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+	}
+	
+	public List<EstadisticasMaximos> getRebotesOfensivosPartido(String radioReboteOfensivo){
+		
+		if("media".equals(radioReboteOfensivo)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getReboteOfensivoPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getReboteOfensivo())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+	}
+	
+///////////////////////// ASISTENCIAS
+	
+	public List<EstadisticasMaximos> getAsistenciasPartido(String radioAsistencia) {
+		
+		if("media".equals(radioAsistencia)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getAsistenciasPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getAsistencias())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+
+	}
+	
+///////////////////////// ROBOS
+	
+	public List<EstadisticasMaximos> getRobosPartido(String radioRobo){
+		
+		if("media".equals(radioRobo)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getRobosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getRobos())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+		
+	}
+	
+///////////////////////// TAPONES
+	
+	public List<EstadisticasMaximos>getTaponesPartido(String radioTapon){
+
+		if("media".equals(radioTapon)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getTaponesPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getTapones())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+		
+	}
+	
+///////////////////////// PERDIDAS
+	
+	public List<EstadisticasMaximos>getPerdidasPartido(String radioPerdida){
+		
+		if("media".equals(radioPerdida)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getPerdidasPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getPerdidas())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+		
+	}
+	
+///////////////////////// PERSONALES
+	
+	public List<EstadisticasMaximos> getPersonalesPartido(String radioPersonal){
+		
+		if("media".equals(radioPersonal)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getFaltasPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getFaltasPersonales())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+		
+	}
+	
+///////////////////////// MINUTOS
+
+	public List<EstadisticasMaximos> getMinutosPartido(String radioMinuto){
+
+		if("media".equals(radioMinuto)) {
+			listaJugadores.sort(Comparator.comparingDouble(EstadisticasMaximos::getMinutosJugadosPartido).reversed());
+		}else {
+			listaJugadores.sort(Comparator.comparingDouble(jugador -> Double.valueOf(((EstadisticasMaximos) jugador).getMinutos())).reversed());
+		}
+
+		return listaJugadores.subList(0, Math.min(5, listaJugadores.size()));
+		
 	}
 	
 ///////////////////////// PUNTOS PARTIDO
 	
-	public ArrayList<EstadisticasMaximos> getPuntosPartido(){
+	public ArrayList<EstadisticasMaximos> getPuntosPartido() {
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
@@ -379,151 +416,8 @@ public class CalcularMaximosTemporada extends BaseController {
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-	}
-	
-///////////////////////// REBOTES
-	public ArrayList<EstadisticasMaximos> getRebotesPartido(String radioRebote){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioRebote)) {
-					return Double.compare(s2.getRebotesPartido(), s1.getRebotesPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getTotalRebotes()), Double.valueOf(s1.getTotalRebotes()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
 
 		return listaJugadores;
-	}
-	
-	public ArrayList<EstadisticasMaximos> getRebotesDefensivosPartido(String radioReboteDefensivo){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioReboteDefensivo)) {
-					return Double.compare(s2.getReboteDefensivoPartido(), s1.getReboteDefensivoPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getReboteDefensivo()), Double.valueOf(s1.getReboteDefensivo()));
-				}
-				
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-
-		return listaJugadores;
-	}
-	
-	public ArrayList<EstadisticasMaximos> getRebotesOfensivosPartido(String radioReboteOfensivo){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				if("media".equals(radioReboteOfensivo)) {
-					return Double.compare(s2.getReboteOfensivoPartido(), s1.getReboteOfensivoPartido());
-				}else {
-					return Double.compare(
-							Double.valueOf(s2.getReboteOfensivo()), Double.valueOf(s1.getReboteOfensivo()));
-				}
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-
-		return listaJugadores;
-	}
-	
-///////////////////////// ASISTENCIAS
-	
-	public ArrayList<EstadisticasMaximos> getAsistenciasPartido() {
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getAsistenciasPartido(), s1.getAsistenciasPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-
-	}
-	
-///////////////////////// ROBOS
-	
-	public ArrayList<EstadisticasMaximos> getRobosPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getRobosPartido(), s1.getRobosPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-		
-	}
-	
-///////////////////////// TAPONES
-	
-	public ArrayList<EstadisticasMaximos> getTaponesPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTaponesPartido(), s1.getTaponesPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-		
-	}
-	
-///////////////////////// PERDIDAS
-	
-	public ArrayList<EstadisticasMaximos> getPerdidasPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getPerdidasPartido(), s1.getPerdidasPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-		
-	}
-	
-///////////////////////// PERSONALES
-	
-	public ArrayList<EstadisticasMaximos> getPersonalesPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getFaltasPartido(), s1.getFaltasPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-		
-	}
-	
-///////////////////////// MINUTOS
-
-	public ArrayList<EstadisticasMaximos> getMinutosPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getMinutosJugadosPartido(), s1.getMinutosJugadosPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-		
 	}
 
 }

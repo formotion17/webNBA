@@ -41,6 +41,7 @@ public class ClasificacionTemporada extends BaseController{
 	        	operarPartido(listaPartidos.next());
 	        }
         }
+        mongoNuevo.close();
         
         return ordenarClasificacion(conferencia);
         
@@ -136,6 +137,8 @@ public class ClasificacionTemporada extends BaseController{
 	        	operarPartido(listaPartidos.next());
 	        }
         }
+        
+        mongoNuevo.close();
         
         return ordenarClasificacionDivision(division);
         

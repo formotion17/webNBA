@@ -66,7 +66,13 @@ and open the template in the editor.
     								formularioTemporadas:j_idt28:maxLibresFgp,
     								formularioTemporadas:j_idt28:maxRebotes,
     								formularioTemporadas:j_idt28:maxRebotesDefensivos,
-    								formularioTemporadas:j_idt28:maxRebotesOfensivos">
+    								formularioTemporadas:j_idt28:maxRebotesOfensivos,
+    								formularioTemporadas:j_idt28:maxAsistencia,
+    								formularioTemporadas:j_idt28:maxRobo,
+    								formularioTemporadas:j_idt28:maxTapon,
+    								formularioTemporadas:j_idt28:maxPersonal,
+    								formularioTemporadas:j_idt28:maxPerdida,
+    								formularioTemporadas:j_idt28:maxMinuto">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();"/>
 							</p:commandButton>
@@ -228,7 +234,7 @@ and open the template in the editor.
 													<p:selectOneRadio id="radioFg" value="#{temporadas.radioFg}" layout="lineDirection">
 											            <f:selectItem itemLabel="Media" itemValue="media"/>
 											            <f:selectItem itemLabel="Total" itemValue="total"/>
-	    												<f:ajax process="@this" render="maxFg" />
+	    												<f:ajax render="maxFg" />
 											        </p:selectOneRadio>
 												</h:panelGrid>
 												
@@ -272,7 +278,7 @@ and open the template in the editor.
 													<p:selectOneRadio id="radioFga" value="#{temporadas.radioFga}" layout="lineDirection">
 											            <f:selectItem itemLabel="Media" itemValue="media"/>
 											            <f:selectItem itemLabel="Total" itemValue="total"/>
-	    												<f:ajax process="@this" render="maxFga" />
+	    												<f:ajax render="maxFga" />
 											        </p:selectOneRadio>
 												</h:panelGrid>
 												
@@ -313,7 +319,7 @@ and open the template in the editor.
 													<p:selectOneMenu id="menuTipoCanasta" label="Tiros minimos para Estadistica"
 														value="#{temporadas.porcentajeTiroCampo}" filter="false">											
 														<f:selectItems value="#{['100','300', '500', '700' ,'800', '1000', '1300', '1500']}" />
-														<f:ajax process="@this" render="maxFgp" />
+														<f:ajax render="maxFgp" />
 													</p:selectOneMenu>
 												</h:panelGrid>
 													
@@ -909,7 +915,281 @@ and open the template in the editor.
 										
 										
 										<!-- ASISTEN ROBOS TAPONES -->
+										
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas varias"/>
+										</div>
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioAsistencia" value="#{temporadas.radioAsistencia}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxAsistencia" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxAsistencia" var="player"
+													rows="5" value="#{temporadas.getAsistenciasPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Asistencias"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esAsistenciaMedia() ? player.asistenciasPartido : player.asistencias}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioRobo" value="#{temporadas.radioRobo}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxRobo" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxRobo" var="player"
+													rows="5" value="#{temporadas.getRobosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Robs"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esRoboMedia() ? player.robosPartido : player.robos}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioTapon" value="#{temporadas.radioTapon}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxTapon" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxTapon" var="player"
+													rows="5" value="#{temporadas.getTaponesPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tapones"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esTaponMedia() ? player.taponesPartido : player.tapones}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+										</h:panelGrid>
+										
+										
 										<!-- PERDIDAS PERSONALES MINUTOS -->
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioPerdida" value="#{temporadas.radioPerdida}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxPerdida" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxPerdida" var="player"
+													rows="5" value="#{temporadas.getPerdidasPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Perdidas"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esPerdidaMedia() ? player.perdidasPartido : player.perdidas}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioPersonal" value="#{temporadas.radioPersonal}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxPersonal" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxPersonal" var="player"
+													rows="5" value="#{temporadas.getPersonalesPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Personales"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esPersonalMedia() ? player.faltasPartido : player.faltasPersonales}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioMinuto" value="#{temporadas.radioMinuto}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxMinuto" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxMinuto" var="player"
+													rows="5" value="#{temporadas.getMinutosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Minutos"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esMinutoMedia() ? player.getMinutosPartidoMedia() : player.getMinutosPartido()}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+										</h:panelGrid>
 										
 										<!-- PUNTOS -->
 										

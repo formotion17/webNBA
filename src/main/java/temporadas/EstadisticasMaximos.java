@@ -362,4 +362,12 @@ public class EstadisticasMaximos {
 		}
 		return Integer.parseInt(this.tirosCampoIntentados);
 	}
+	
+	public Double getMinutosPartidoMedia() {
+		return minutosJugadosPartido/60;
+	}
+	
+	public Double getMinutosPartido() {
+		return Double.valueOf(getMinutos())/60;
+	}
 }

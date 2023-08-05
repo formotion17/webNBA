@@ -536,6 +536,8 @@ public class JugadorController extends BaseController implements Serializable{
                 }
         }
         
+        mongo.close();
+        
         localRegular.calcularTirosCampo();
         localPlayoff.calcularTirosCampo();
         visitanteRegular.calcularTirosCampo();

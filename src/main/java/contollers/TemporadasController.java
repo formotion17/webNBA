@@ -59,6 +59,14 @@ public class TemporadasController extends BaseController{
     private String radioReboteDefensivo="media";
     private String radioReboteOfensivo="media";
     
+    private String radioAsistencia="media";
+    private String radioRobo="media";
+    private String radioTapon="media";
+    
+    private String radioPerdida="media";
+    private String radioPersonal="media";
+    private String radioMinuto="media";
+    
     @PostConstruct
     public void init() {
         Locale defaultLocale = Locale.getDefault();
@@ -127,21 +135,21 @@ public class TemporadasController extends BaseController{
     }
     
     // TIROS CAMPO
-    public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(){
+    public List<EstadisticasMaximos> getTirosCampoMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosCampoMetidosPartido(radioFg);
     	}
     	return null;
     }
     
-    public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
+    public List<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosCampoIntentadosPartido(radioFga);
     	}
     	return null;
     }
     
-    public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(){
+    public List<EstadisticasMaximos> getTirosCampoPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosCampoPorcentajePartido(porcentajeTiroCampo);
     	}
@@ -163,19 +171,19 @@ public class TemporadasController extends BaseController{
     }
     
     // TRIPLES
-    public ArrayList<EstadisticasMaximos> getTriplesMetidosPartido(){
+    public List<EstadisticasMaximos>  getTriplesMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTriplesMetidosPartido(radioTripleFg);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getTriplesIntentadosPartido(){
+    public List<EstadisticasMaximos>  getTriplesIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTriplesIntentadosPartido(radioTripleFga);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getTriplesPorcentajePartido(){
+    public List<EstadisticasMaximos>  getTriplesPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTriplesPorcentajePArtido(porcentajeTriple);
     	}
@@ -197,19 +205,19 @@ public class TemporadasController extends BaseController{
     }
     
     // DOS PUNTOS
-    public ArrayList<EstadisticasMaximos> getDosMetidosPartido(){
+    public List<EstadisticasMaximos> getDosMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getDosMetidosPartido(radioDosFg);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getDosInTentadosPartido(){
+    public List<EstadisticasMaximos> getDosInTentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getDosInTentadosPartido(radioDosFga);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getDosPorcentajePartido(){
+    public List<EstadisticasMaximos> getDosPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getDosPorcentajePartido(porcentajeDos);
     	}
@@ -231,19 +239,19 @@ public class TemporadasController extends BaseController{
     }
     
     // TIROS LIBRES
-    public ArrayList<EstadisticasMaximos> getTirosLibresMetidosPartido(){
+    public List<EstadisticasMaximos>  getTirosLibresMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosLibresMetidosPartido(radioLibreFg);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getTirosLibresIntentadosPartido(){
+    public List<EstadisticasMaximos>  getTirosLibresIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosLibresIntentadosPartido(radioLibreFga);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getTirosLibresPorcentajePartido(){
+    public List<EstadisticasMaximos>  getTirosLibresPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getTirosLibresPorcentajePartido(porcentajeLibre);
     	}
@@ -265,19 +273,19 @@ public class TemporadasController extends BaseController{
     }
     
     // REBOTES
-    public ArrayList<EstadisticasMaximos> getRebotesPartido(){
+    public List<EstadisticasMaximos> getRebotesPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getRebotesPartido(radioRebote);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getRebotesDefensivosPartido(){
+    public List<EstadisticasMaximos>getRebotesDefensivosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getRebotesDefensivosPartido(radioReboteDefensivo);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getRebotesOfensivosPartido(){
+    public List<EstadisticasMaximos> getRebotesOfensivosPartido(){
     	if(null!=maximos.getListaJugadores()) {
     		return maximos.getRebotesOfensivosPartido(radioReboteOfensivo);
     	}
@@ -305,7 +313,89 @@ public class TemporadasController extends BaseController{
     	return false;
     }
     
-
+    // ASISTENCIAS
+    public List<EstadisticasMaximos> getAsistenciasPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getAsistenciasPartido(radioAsistencia);
+    	}
+    	return null;
+    }
+    public boolean esAsistenciaMedia() {
+    	if("media".equals(radioAsistencia)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    // ROBOS
+    public List<EstadisticasMaximos> getRobosPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getRobosPartido(radioRobo);
+    	}
+    	return null;
+    }
+    public boolean esRoboMedia() {
+    	if("media".equals(radioRobo)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    // TAPONES
+    public List<EstadisticasMaximos> getTaponesPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getTaponesPartido(radioTapon);
+    	}
+    	return null;
+    }
+    public boolean esTaponMedia() {
+    	if("media".equals(radioTapon)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    // PERDIDAS
+    public List<EstadisticasMaximos> getPerdidasPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getPerdidasPartido(radioPerdida);
+    	}
+    	return null;
+    }
+    public boolean esPerdidaMedia() {
+    	if("media".equals(radioPerdida)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    // PERSONALES
+    public List<EstadisticasMaximos>getPersonalesPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getPersonalesPartido(radioPersonal);
+    	}
+    	return null;
+    }
+    public boolean esPersonalMedia() {
+    	if("media".equals(radioPersonal)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    // MINUTOS
+    public List<EstadisticasMaximos> getMinutosPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getMinutosPartido(radioMinuto);
+    	}
+    	return null;
+    }
+    public boolean esMinutoMedia() {
+    	if("media".equals(radioMinuto)) {
+    		return true;
+    	}
+    	return false;
+    }
     
     // PUNTOS PARTIDO
     public ArrayList<EstadisticasMaximos> getPuntosPartido(){
@@ -314,55 +404,6 @@ public class TemporadasController extends BaseController{
     	}
     	return null;
     }
-    
-    // ASISTENCIAS
-    public ArrayList<EstadisticasMaximos> getAsistenciasPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getAsistenciasPartido();
-    	}
-    	return null;
-    }
-    
-    // ROBOS
-    public ArrayList<EstadisticasMaximos> getRobosPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getRobosPartido();
-    	}
-    	return null;
-    }
-    
-    // TAPONES
-    public ArrayList<EstadisticasMaximos> getTaponesPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTaponesPartido();
-    	}
-    	return null;
-    }
-    
-    // PERDIDAS
-    public ArrayList<EstadisticasMaximos> getPerdidasPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getPerdidasPartido();
-    	}
-    	return null;
-    }
-    
-    // PERSONALES
-    public ArrayList<EstadisticasMaximos> getPersonalesPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getPersonalesPartido();
-    	}
-    	return null;
-    }
-    
-    // MINUTOS
-    public ArrayList<EstadisticasMaximos> getMinutosPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getMinutosPartido();
-    	}
-    	return null;
-    }
-    
     
     
 }
