@@ -919,3 +919,11 @@ body .ui-datatable thead th{
 .tablaMaximos thead{
 	display:none;
 }
+
+.tituloMaximos{
+	text-decoration: underline;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+

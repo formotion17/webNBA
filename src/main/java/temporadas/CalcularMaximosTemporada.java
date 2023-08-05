@@ -109,10 +109,11 @@ public class CalcularMaximosTemporada extends BaseController {
 		return lista;
 	}
 	
-	//TIROS DE CAMPO
+/////////////////////////TIROS DE CAMPO
 	
 	public ArrayList<EstadisticasMaximos> getTirosCampoMetidosPartido(String radioFg){
-		ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();
 		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
@@ -125,16 +126,24 @@ public class CalcularMaximosTemporada extends BaseController {
 				
 			}
 		};
-		Collections.sort(lista, comparator);
+		Collections.sort(listaJugadores, comparator);
 		
-		return lista;
+		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
+	public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(String radioFga){
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();ç
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTiroCampoIntentadosPartido(), s1.getTiroCampoIntentadosPartido());
+				if(radioFga.equals("media")) {
+					return Double.compare(s2.getTiroCampoIntentadosPartido(), s1.getTiroCampoIntentadosPartido());
+				}else {
+					return Double.compare(Double.valueOf(s2.getTirosCampoIntentados()), Double.valueOf(s1.getTirosCampoIntentados()));
+				}
+				
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -167,13 +176,20 @@ public class CalcularMaximosTemporada extends BaseController {
 		return lista;
 	}
 	
-	//TRIPLES
-	
-	public ArrayList<EstadisticasMaximos> getTriplesMetidosPartido(){
+///////////////////////// DOS PUNTOS
+	public ArrayList<EstadisticasMaximos> getDosMetidosPartido(String radioDosFg){
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTriplesAnotadosPartido(), s1.getTriplesAnotadosPartido());
+				if("media".equals(radioDosFg)) {
+					return Double.compare(s2.getDosPuntosMetidosPartido(), s1.getDosPuntosMetidosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getDosPuntosMetidos()), Double.valueOf(s1.getDosPuntosMetidos()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -181,11 +197,19 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTriplesIntentadosPartido(){
+	public ArrayList<EstadisticasMaximos> getDosInTentadosPartido(String radioDosFga){
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTriplesIntentadosPartido(), s1.getTriplesIntentadosPartido());
+				if("media".equals(radioDosFga)) {
+					return Double.compare(s2.getDosPuntosIntentadosPartido(), s1.getDosPuntosIntentadosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getDosPuntosIntentados()), Double.valueOf(s1.getDosPuntosIntentados()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -193,62 +217,46 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTriplesPorcentajePArtido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTriplesPorcentaje(), s1.getTriplesPorcentaje());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
+	public ArrayList<EstadisticasMaximos> getDosPorcentajePartido(int porcentajeDos){
 		
-		return listaJugadores;
-	}
-	
-	// DOS PUNTOS
-	public ArrayList<EstadisticasMaximos> getDosMetidosPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getDosPuntosMetidosPartido(), s1.getDosPuntosMetidosPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
+		ArrayList<EstadisticasMaximos> lista=devolverLista();
+
+		Iterator<EstadisticasMaximos> iterador = lista.iterator();
+		while (iterador.hasNext()) {
+			EstadisticasMaximos objeto = iterador.next();
+
+		    if (Integer.parseInt(objeto.getDosPuntosIntentados())<porcentajeDos) {
+
+		        iterador.remove();
+		    }
+		}
 		
-		return listaJugadores;
-	}
-	
-	public ArrayList<EstadisticasMaximos> getDosInTentadosPartido(){
-		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
-			@Override
-			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getDosPuntosIntentadosPartido(), s1.getDosPuntosIntentadosPartido());
-			}
-		};
-		Collections.sort(listaJugadores, comparator);
-		
-		return listaJugadores;
-	}
-	
-	public ArrayList<EstadisticasMaximos> getDosPorcentajePartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
 				return Double.compare(s2.getDosPuntosPorcentaje(), s1.getDosPuntosPorcentaje());
 			}
 		};
-		Collections.sort(listaJugadores, comparator);
+		Collections.sort(lista, comparator);
 		
-		return listaJugadores;
+		return lista;
 	}
 	
-	// TIROS LIBRES
+///////////////////////////TRIPLES
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresMetidosPartido(){
+	public ArrayList<EstadisticasMaximos> getTriplesMetidosPartido(String radioTripleFg){
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTirosLibresAnotadosPartido(), s1.getTirosLibresAnotadosPartido());
+				if("media".equals(radioTripleFg)) {
+					return Double.compare(s2.getTriplesAnotadosPartido(), s1.getTriplesAnotadosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getTriplesMetidos()), Double.valueOf(s1.getTriplesMetidos()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -256,11 +264,19 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresIntentadosPartido(){
+	public ArrayList<EstadisticasMaximos> getTriplesIntentadosPartido(String radioTripleFga){
+		
+		//ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getTirosLibresIntentadosPartido(), s1.getTirosLibresIntentadosPartido());
+				if("media".equals(radioTripleFga)) {
+					return Double.compare(s2.getTriplesIntentadosPartido(), s1.getTriplesIntentadosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getTriplesIntentados()), Double.valueOf(s1.getTriplesIntentados()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -268,19 +284,92 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getTirosLibresPorcentajePartido(){
+	public ArrayList<EstadisticasMaximos> getTriplesPorcentajePArtido(int porcentajeTriple){
+		
+		ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
+		Iterator<EstadisticasMaximos> iterador = lista.iterator();
+		while (iterador.hasNext()) {
+			EstadisticasMaximos objeto = iterador.next();
+
+		    if (Integer.parseInt(objeto.getTriplesIntentados())<porcentajeTriple) {
+
+		        iterador.remove();
+		    }
+		}
+		
+		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
+			@Override
+			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
+				return Double.compare(s2.getTriplesPorcentaje(), s1.getTriplesPorcentaje());
+			}
+		};
+		Collections.sort(lista, comparator);
+		
+		return lista;
+	}
+	
+///////////////////////// TIROS LIBRES
+	
+	public ArrayList<EstadisticasMaximos> getTirosLibresMetidosPartido(String radioLibreFg){
+		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
+			@Override
+			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
+				if("media".equals(radioLibreFg)) {
+					return Double.compare(s2.getTirosLibresAnotadosPartido(), s1.getTirosLibresAnotadosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getTirosLibresMetidos()), Double.valueOf(s1.getTirosLibresMetidos()));
+				}
+			}
+		};
+		Collections.sort(listaJugadores, comparator);
+		
+		return listaJugadores;
+	}
+	
+	public ArrayList<EstadisticasMaximos> getTirosLibresIntentadosPartido(String radioLibreFga){
+		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
+			@Override
+			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
+				if("media".equals(radioLibreFga)) {
+					return Double.compare(s2.getTirosLibresIntentadosPartido(), s1.getTirosLibresIntentadosPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getTirosLibresIntentados()), Double.valueOf(s1.getTirosLibresIntentados()));
+				}
+			}
+		};
+		Collections.sort(listaJugadores, comparator);
+		
+		return listaJugadores;
+	}
+	
+	public ArrayList<EstadisticasMaximos> getTirosLibresPorcentajePartido(int porcentajeLibre){
+		
+		ArrayList<EstadisticasMaximos> lista=devolverLista();
+		
+		Iterator<EstadisticasMaximos> iterador = lista.iterator();
+		while (iterador.hasNext()) {
+			EstadisticasMaximos objeto = iterador.next();
+
+		    if (Integer.parseInt(objeto.getTirosLibresIntentados())<porcentajeLibre) {
+
+		        iterador.remove();
+		    }
+		}
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
 				return Double.compare(s2.getTirosLibresPorcentaje(), s1.getTirosLibresPorcentaje());
 			}
 		};
-		Collections.sort(listaJugadores, comparator);
+		Collections.sort(lista, comparator);
 		
-		return listaJugadores;
+		return lista;
 	}
 	
-	// PUNTOS PARTIDO
+///////////////////////// PUNTOS PARTIDO
 	
 	public ArrayList<EstadisticasMaximos> getPuntosPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -294,12 +383,17 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	// REBOTES
-	public ArrayList<EstadisticasMaximos> getRebotesPartido(){
+///////////////////////// REBOTES
+	public ArrayList<EstadisticasMaximos> getRebotesPartido(String radioRebote){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getRebotesPartido(), s1.getRebotesPartido());
+				if("media".equals(radioRebote)) {
+					return Double.compare(s2.getRebotesPartido(), s1.getRebotesPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getTotalRebotes()), Double.valueOf(s1.getTotalRebotes()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -307,11 +401,17 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getRebotesDefensivosPartido(){
+	public ArrayList<EstadisticasMaximos> getRebotesDefensivosPartido(String radioReboteDefensivo){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getReboteDefensivoPartido(), s1.getReboteDefensivoPartido());
+				if("media".equals(radioReboteDefensivo)) {
+					return Double.compare(s2.getReboteDefensivoPartido(), s1.getReboteDefensivoPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getReboteDefensivo()), Double.valueOf(s1.getReboteDefensivo()));
+				}
+				
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -319,11 +419,16 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	public ArrayList<EstadisticasMaximos> getRebotesOfensivosPartido(){
+	public ArrayList<EstadisticasMaximos> getRebotesOfensivosPartido(String radioReboteOfensivo){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
 			@Override
 			public int compare(EstadisticasMaximos s1, EstadisticasMaximos s2) {
-				return Double.compare(s2.getReboteOfensivoPartido(), s1.getReboteOfensivoPartido());
+				if("media".equals(radioReboteOfensivo)) {
+					return Double.compare(s2.getReboteOfensivoPartido(), s1.getReboteOfensivoPartido());
+				}else {
+					return Double.compare(
+							Double.valueOf(s2.getReboteOfensivo()), Double.valueOf(s1.getReboteOfensivo()));
+				}
 			}
 		};
 		Collections.sort(listaJugadores, comparator);
@@ -331,7 +436,7 @@ public class CalcularMaximosTemporada extends BaseController {
 		return listaJugadores;
 	}
 	
-	// ASISTENCIAS
+///////////////////////// ASISTENCIAS
 	
 	public ArrayList<EstadisticasMaximos> getAsistenciasPartido() {
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -346,7 +451,7 @@ public class CalcularMaximosTemporada extends BaseController {
 
 	}
 	
-	// ROBOS
+///////////////////////// ROBOS
 	
 	public ArrayList<EstadisticasMaximos> getRobosPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -361,7 +466,7 @@ public class CalcularMaximosTemporada extends BaseController {
 		
 	}
 	
-	// TAPONES
+///////////////////////// TAPONES
 	
 	public ArrayList<EstadisticasMaximos> getTaponesPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -376,7 +481,7 @@ public class CalcularMaximosTemporada extends BaseController {
 		
 	}
 	
-	// PERDIDAS
+///////////////////////// PERDIDAS
 	
 	public ArrayList<EstadisticasMaximos> getPerdidasPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -391,7 +496,7 @@ public class CalcularMaximosTemporada extends BaseController {
 		
 	}
 	
-	// PERSONALES
+///////////////////////// PERSONALES
 	
 	public ArrayList<EstadisticasMaximos> getPersonalesPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {
@@ -406,7 +511,7 @@ public class CalcularMaximosTemporada extends BaseController {
 		
 	}
 	
-	// MINUTOS
+///////////////////////// MINUTOS
 
 	public ArrayList<EstadisticasMaximos> getMinutosPartido(){
 		Comparator<EstadisticasMaximos> comparator = new Comparator<EstadisticasMaximos>() {

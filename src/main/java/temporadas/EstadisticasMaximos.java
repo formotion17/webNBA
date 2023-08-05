@@ -337,6 +337,8 @@ public class EstadisticasMaximos {
 	public void calcularMedias() {
 		setPuntosPartidos();
 		setRebotesPartido();
+		setRebotesDefensivosPartido();
+		setRebotesOfensivosPartido();
 		setAsistenciasPartido();
 		setTaponesPartido();
 		setRobosPartido();

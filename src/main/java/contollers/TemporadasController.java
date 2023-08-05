@@ -38,10 +38,26 @@ public class TemporadasController extends BaseController{
     // Maximos temporada
     private ArrayList<EstadisticasMaximos> listaMaximos = new ArrayList<>();
     private CalcularMaximosTemporada maximos = new CalcularMaximosTemporada();
-    private int porcentajeTiroCampo=300;
     
+    private int porcentajeTiroCampo=300;
     private String radioFg="media";
     private String radioFga="media";
+    
+    private String radioDosFg="media";
+    private String radioDosFga="media";
+    private int porcentajeDos=300;
+    
+    private String radioTripleFg="media";
+    private String radioTripleFga="media";
+    private int porcentajeTriple=300;
+    
+    private String radioLibreFg="media";
+    private String radioLibreFga="media";
+    private int porcentajeLibre=300;
+    
+    private String radioRebote="media";
+    private String radioReboteDefensivo="media";
+    private String radioReboteOfensivo="media";
     
     @PostConstruct
     public void init() {
@@ -117,112 +133,184 @@ public class TemporadasController extends BaseController{
     	}
     	return null;
     }
-    public boolean esFgMedia() {
-    	if("media".equals(radioFg)) {
-    		System.out.println(true);
-    		return true;
-    	}
-    	System.out.println(false);
-    	return false;
-    }
+    
     public ArrayList<EstadisticasMaximos> getTirosCampoIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosCampoIntentadosPartido();
+    		return maximos.getTirosCampoIntentadosPartido(radioFga);
     	}
     	return null;
     }
+    
     public ArrayList<EstadisticasMaximos> getTirosCampoPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		System.out.println("Entamos con "+porcentajeTiroCampo);
     		return maximos.getTirosCampoPorcentajePartido(porcentajeTiroCampo);
     	}
     	return null;
     }
     
+    public boolean esFgMedia() {
+    	if("media".equals(radioFg)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public boolean esFgaMedia() {
+    	if("media".equals(radioFga)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
     // TRIPLES
     public ArrayList<EstadisticasMaximos> getTriplesMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTriplesMetidosPartido();
+    		return maximos.getTriplesMetidosPartido(radioTripleFg);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getTriplesIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTriplesIntentadosPartido();
+    		return maximos.getTriplesIntentadosPartido(radioTripleFga);
     	}
     	return null;
     }
-    public ArrayList<EstadisticasMaximos> getTriplesPorcentajePArtido(){
+    public ArrayList<EstadisticasMaximos> getTriplesPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTriplesPorcentajePArtido();
+    		return maximos.getTriplesPorcentajePArtido(porcentajeTriple);
     	}
     	return null;
+    }
+    
+    public boolean esTripleFgMedia() {
+    	if("media".equals(radioTripleFg)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public boolean esTripleFgaMedia() {
+    	if("media".equals(radioTripleFga)) {
+    		return true;
+    	}
+    	return false;
     }
     
     // DOS PUNTOS
     public ArrayList<EstadisticasMaximos> getDosMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getDosMetidosPartido();
+    		return maximos.getDosMetidosPartido(radioDosFg);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getDosInTentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getDosInTentadosPartido();
+    		return maximos.getDosInTentadosPartido(radioDosFga);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getDosPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getDosPorcentajePartido();
+    		return maximos.getDosPorcentajePartido(porcentajeDos);
     	}
     	return null;
+    }
+    
+    public boolean esFgDosMedia() {
+    	if("media".equals(radioDosFg)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public boolean esFgaDosMedia() {
+    	if("media".equals(radioDosFga)) {
+    		return true;
+    	}
+    	return false;
     }
     
     // TIROS LIBRES
     public ArrayList<EstadisticasMaximos> getTirosLibresMetidosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosLibresMetidosPartido();
+    		return maximos.getTirosLibresMetidosPartido(radioLibreFg);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getTirosLibresIntentadosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosLibresIntentadosPartido();
+    		return maximos.getTirosLibresIntentadosPartido(radioLibreFga);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getTirosLibresPorcentajePartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getTirosLibresPorcentajePartido();
+    		return maximos.getTirosLibresPorcentajePartido(porcentajeLibre);
     	}
     	return null;
     }
     
-    // PUNTOS PARTIDO
-    public ArrayList<EstadisticasMaximos> getPuntosPartido(){
-    	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getPuntosPartido();
+    public boolean esFgLibresMedia() {
+    	if("media".equals(radioLibreFg)) {
+    		return true;
     	}
-    	return null;
+    	return false;
+    }
+
+    public boolean esFgaLibresMedia() {
+    	if("media".equals(radioLibreFga)) {
+    		return true;
+    	}
+    	return false;
     }
     
     // REBOTES
     public ArrayList<EstadisticasMaximos> getRebotesPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getRebotesPartido();
+    		return maximos.getRebotesPartido(radioRebote);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getRebotesDefensivosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getRebotesDefensivosPartido();
+    		return maximos.getRebotesDefensivosPartido(radioReboteDefensivo);
     	}
     	return null;
     }
     public ArrayList<EstadisticasMaximos> getRebotesOfensivosPartido(){
     	if(null!=maximos.getListaJugadores()) {
-    		return maximos.getRebotesOfensivosPartido();
+    		return maximos.getRebotesOfensivosPartido(radioReboteOfensivo);
+    	}
+    	return null;
+    }
+    
+    public boolean esReboteMedia() {
+    	if("media".equals(radioRebote)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public boolean esReboteDefensivoMedia() {
+    	if("media".equals(radioReboteDefensivo)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public boolean esReboteOfensivoMedia() {
+    	if("media".equals(radioReboteOfensivo)) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+
+    
+    // PUNTOS PARTIDO
+    public ArrayList<EstadisticasMaximos> getPuntosPartido(){
+    	if(null!=maximos.getListaJugadores()) {
+    		return maximos.getPuntosPartido();
     	}
     	return null;
     }

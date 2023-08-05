@@ -54,9 +54,21 @@ and open the template in the editor.
 									formularioTemporadas:j_idt28:clasificacionEste,
     								formularioTemporadas:j_idt28:maxFg,
     								formularioTemporadas:j_idt28:maxFga,
-    								formularioTemporadas:j_idt28:maxFgp">
+    								formularioTemporadas:j_idt28:maxFgp,
+    								formularioTemporadas:j_idt28:maxDosFg,
+    								formularioTemporadas:j_idt28:maxDosFga,
+    								formularioTemporadas:j_idt28:maxDosFgp,
+    								formularioTemporadas:j_idt28:maxTripleFg,
+    								formularioTemporadas:j_idt28:maxTripleFga,
+    								formularioTemporadas:j_idt28:maxTriplesFgp,
+    								formularioTemporadas:j_idt28:maxLibresFg,
+    								formularioTemporadas:j_idt28:maxLibresFga,
+    								formularioTemporadas:j_idt28:maxLibresFgp,
+    								formularioTemporadas:j_idt28:maxRebotes,
+    								formularioTemporadas:j_idt28:maxRebotesDefensivos,
+    								formularioTemporadas:j_idt28:maxRebotesOfensivos">
 								<p:ajax onstart="PF('dlg2').show();"
-									oncomplete="PF('dlg2').hide();" />
+									oncomplete="PF('dlg2').hide();"/>
 							</p:commandButton>
 						</div>
 						
@@ -197,8 +209,14 @@ and open the template in the editor.
 								
 								<p:tab title="Maximos">
 									
-									<div class="margen-left-tab">
+									<div id="maximosTemporadaJugadores" class="margen-left-tab">
 									
+										<!-- TIROS DE CAMPO -->
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas de Tiros de campo"/>
+										</div>
+										
+										
 										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
 											columns="3" >
 											
@@ -214,7 +232,7 @@ and open the template in the editor.
 											        </p:selectOneRadio>
 												</h:panelGrid>
 												
-												<p:dataTable id="maxFg" var="player" sortBy="#{player.puntosPartidos}"
+												<p:dataTable id="maxFg" var="player"
 													rows="5" value="#{temporadas.getTirosCampoMetidosPartido()}" rowIndexVar="indice"
 													class="tablaClasificacionConferencia tablaMaximos">
 													
@@ -258,8 +276,8 @@ and open the template in the editor.
 											        </p:selectOneRadio>
 												</h:panelGrid>
 												
-												<p:dataTable id="maxFga" var="player" sortBy="#{player.rebotesPartido}"
-													rows="6" value="#{temporadas.getTirosCampoIntentadosPartido()}" rowIndexVar="indice"
+												<p:dataTable id="maxFga" var="player"
+													rows="5" value="#{temporadas.getTirosCampoIntentadosPartido()}" rowIndexVar="indice"
 													class="tablaClasificacionConferencia tablaMaximos">
 													
 													<!-- Fila de encabezado personalizada -->
@@ -281,7 +299,7 @@ and open the template in the editor.
 													</p:column>
 													
 													<p:column headerText="FGA" style="width:30%;">
-														<h:outputText value="#{player.tiroCampoIntentadosPartido}">
+														<h:outputText value="#{temporadas.esFgaMedia() ? player.tiroCampoIntentadosPartido : player.tirosCampoIntentados}">
 															<f:convertNumber pattern="#0.00" />
 														</h:outputText>
 													</p:column>
@@ -294,13 +312,13 @@ and open the template in the editor.
 													<h:outputLabel value="Selecciona el mínimo de Tiros requeridos" />
 													<p:selectOneMenu id="menuTipoCanasta" label="Tiros minimos para Estadistica"
 														value="#{temporadas.porcentajeTiroCampo}" filter="false">											
-														<f:selectItems value="#{['300', '500', '800', '1000', '1300', '1500']}" />
+														<f:selectItems value="#{['100','300', '500', '700' ,'800', '1000', '1300', '1500']}" />
 														<f:ajax process="@this" render="maxFgp" />
 													</p:selectOneMenu>
 												</h:panelGrid>
 													
 												
-												<p:dataTable id="maxFgp" var="player" sortBy="#{player.tirosCampoPorcentaje}"
+												<p:dataTable id="maxFgp" var="player"
 													rows="5" value="#{temporadas.getTirosCampoPorcentajePartido()}" rowIndexVar="indice"
 													class="tablaClasificacionConferencia tablaMaximos">
 													
@@ -323,7 +341,282 @@ and open the template in the editor.
 													</p:column>
 													
 													<p:column headerText="FGA" style="width:30%;">
-														<h:outputText value="#{player.tirosCampoPorcentaje}">
+														<h:outputText value="#{player.tirosCampoPorcentaje} (#{player.tirosCampoIntentados})">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+										</h:panelGrid>
+										
+								<!-- TIROS DE DOS PUNTOS -->
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas de Tiros 2 puntos"/>
+										</div>
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioDosFg" value="#{temporadas.radioDosFg}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxDosFg" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxDosFg" var="player"
+													rows="5" value="#{temporadas.getDosMetidosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tiros 2 Anotados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esFgDosMedia() ? player.dosPuntosMetidosPartido : player.dosPuntosMetidos}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioDosFga" value="#{temporadas.radioDosFga}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxDosFga" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxDosFga" var="player"
+													rows="5" value="#{temporadas.getDosInTentadosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tiros 2 Intentados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esFgaDosMedia() ? player.dosPuntosIntentadosPartido : player.dosPuntosIntentados}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona el mínimo de Tiros requeridos" />
+													<p:selectOneMenu id="menuTipoCanastaDos" label="Tiros minimos para Estadistica"
+														value="#{temporadas.porcentajeDos}" filter="false">											
+														<f:selectItems value="#{['100','300', '500', '700' ,'800', '1000', '1300', '1500']}" />
+														<f:ajax process="@this" render="maxDosFgp" />
+													</p:selectOneMenu>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxDosFgp" var="player"
+													rows="5" value="#{temporadas.getDosPorcentajePartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Porcentaje Tiros de 2"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{player.dosPuntosPorcentaje} (#{player.dosPuntosIntentados})">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+										</h:panelGrid>
+											
+										<!-- TRIPLES -->
+										
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas del triple"/>
+										</div>
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioTripleFg" value="#{temporadas.radioTripleFg}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxTripleFg" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxTripleFg" var="player"
+													rows="5" value="#{temporadas.getTriplesMetidosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Triples Anotados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esTripleFgMedia() ? player.triplesAnotadosPartido : player.triplesMetidos}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioTripleFga" value="#{temporadas.radioTripleFga}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxTripleFga" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxTripleFga" var="player"
+													rows="5" value="#{temporadas.getTriplesIntentadosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Triples Intentados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esTripleFgaMedia() ? player.triplesIntentadosPartido : player.triplesIntentados}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona el mínimo de Tiros requeridos" />
+													<p:selectOneMenu id="menuTipoCanastaTriples" label="Tiros minimos para Estadistica"
+														value="#{temporadas.porcentajeTriple}" filter="false">											
+														<f:selectItems value="#{['100','300', '500', '700' ,'800', '1000', '1300', '1500']}" />
+														<f:ajax process="@this" render="maxTriplesFgp" />
+													</p:selectOneMenu>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxTriplesFgp" var="player"
+													rows="5" value="#{temporadas.getTriplesPorcentajePartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Porcentaje Triples"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{player.triplesPorcentaje} (#{player.triplesIntentados})">
 															<f:convertNumber pattern="#0.00" />
 														</h:outputText>
 													</p:column>
@@ -331,6 +624,294 @@ and open the template in the editor.
 											</h:panelGrid>
 											
 										</h:panelGrid>
+										
+										
+										
+										<!-- TIROS LIBRES -->
+										
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas de Tiros Libres"/>
+										</div>
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioLibreFg" value="#{temporadas.radioLibreFg}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxLibresFg" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxLibresFg" var="player"
+													rows="5" value="#{temporadas.getTirosLibresMetidosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tiros Libres Anotados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esFgLibresMedia() ? player.tirosLibresAnotadosPartido : player.tirosLibresMetidos}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioLibreFga" value="#{temporadas.radioLibreFga}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxLibresFga" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxLibresFga" var="player"
+													rows="5" value="#{temporadas.getTirosLibresIntentadosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Tiros Libres Intentados"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esFgaLibresMedia() ? player.tirosLibresIntentadosPartido : player.tirosLibresIntentados}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona el mínimo de Tiros requeridos" />
+													<p:selectOneMenu id="menuTipoCanastaLibre" label="Tiros minimos para Estadistica"
+														value="#{temporadas.porcentajeLibre}" filter="false">											
+														<f:selectItems value="#{['100','300', '500', '700' ,'800', '1000', '1300', '1500']}" />
+														<f:ajax process="@this" render="maxLibresFgp" />
+													</p:selectOneMenu>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxLibresFgp" var="player"
+													rows="5" value="#{temporadas.getTirosLibresPorcentajePartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Porcentaje Tiros Libres"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{player.tirosLibresPorcentaje} (#{player.tirosLibresIntentados})">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+										</h:panelGrid>
+										
+										
+										<!-- REBOTES OFENSIVOS DEFENSIVOS TOTAL -->
+										
+										<div class="negrita margen-left tituloMaximos">
+											<h:outputText value="Estadisticas de Rebotes"/>
+										</div>
+										
+										<h:panelGrid columnClasses="porcentaje-tercio,porcentaje-tercio,porcentaje-tercio"
+											columns="3" >
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioRebote" value="#{temporadas.radioRebote}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxRebotes" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxRebotes" var="player"
+													rows="5" value="#{temporadas.getRebotesPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+												    <!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Total Rebotes"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esReboteMedia() ? player.rebotesPartido : player.totalRebotes}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+													
+														
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+												
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioRebotesDefensivos" value="#{temporadas.radioReboteDefensivo}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxRebotesDefensivos" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+												
+												<p:dataTable id="maxRebotesDefensivos" var="player"
+													rows="5" value="#{temporadas.getRebotesDefensivosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Rebotes Defensivos"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esReboteDefensivoMedia() ? player.reboteDefensivoPartido : player.reboteDefensivo}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+											<h:panelGrid columnClasses="porcentaje-cien" columns="1" class="centrar">
+											
+												<h:panelGrid columns="2" styleClass="centrar">
+													<h:outputLabel value="Selecciona:" />
+													
+													<p:selectOneRadio id="radioRebotesOefensivos" value="#{temporadas.radioReboteOfensivo}" layout="lineDirection">
+											            <f:selectItem itemLabel="Media" itemValue="media"/>
+											            <f:selectItem itemLabel="Total" itemValue="total"/>
+	    												<f:ajax process="@this" render="maxRebotesOfensivos" />
+											        </p:selectOneRadio>
+												</h:panelGrid>
+													
+												
+												<p:dataTable id="maxRebotesOfensivos" var="player"
+													rows="5" value="#{temporadas.getRebotesOfensivosPartido()}" rowIndexVar="indice"
+													class="tablaClasificacionConferencia tablaMaximos">
+													
+													<!-- Fila de encabezado personalizada -->
+												    <p:headerRow field="temporada">
+												        <p:column colspan="4">
+										                    <div class="inline-flex align-items-left" style="text-align: right;text-decoration:underline;">
+										                        <h:outputText styleClass="ml-2" value="Rebotes Ofensivos"/>
+										                    </div>
+										                </p:column>
+												    </p:headerRow>
+													
+													<p:column headerText="Jugador" style="text-aling:left;" colspan="3">
+														<h:outputText value="#{indice+1}º&#160; &#160;&#160;" />
+														<p:graphicImage
+																url="#{jugadores.urlFoto}#{player.idJugador}.jpg"  height="48px"
+																style="vertical-align: middle;border-radius: 50%;overflow: hidden;" />
+														
+														<h:outputText value="&#160; &#160;&#160;#{player.nombre.charAt(0)} #{player.apellido}" />
+													</p:column>
+													
+													<p:column headerText="FGA" style="width:30%;">
+														<h:outputText value="#{temporadas.esReboteOfensivoMedia() ? player.reboteOfensivoPartido : player.reboteOfensivo}">
+															<f:convertNumber pattern="#0.00" />
+														</h:outputText>
+													</p:column>
+												</p:dataTable>
+											</h:panelGrid>
+											
+										</h:panelGrid>
+										
+										
+										<!-- ASISTEN ROBOS TAPONES -->
+										<!-- PERDIDAS PERSONALES MINUTOS -->
+										
+										<!-- PUNTOS -->
 										
 									</div>
 									
