@@ -33,8 +33,8 @@ public class BaseController extends Atributos implements Serializable {
 	protected static String baseDatos="NBA";
 	protected static String host="localhost";
 	protected static Integer puertoHost=27017;
-	protected String collectionPartidos="partidos";
-	protected String collectionTotales="totales";
+	protected static String collectionPartidos="partidos";
+	protected static String collectionTotales="totales";
 	
     protected MongoClient mongo = null;
 	

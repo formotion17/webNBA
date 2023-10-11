@@ -1,6 +1,7 @@
 package temporadas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,11 +10,15 @@ import java.util.stream.Collectors;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 
 import contollers.BaseController;
+import util.ListaClasificaciones;
 import util.ListaEquipos;
 
 public class ClasificacionTemporada extends BaseController{
@@ -43,7 +48,7 @@ public class ClasificacionTemporada extends BaseController{
         }
         mongoNuevo.close();
         
-        return ordenarClasificacion(conferencia);
+        return ordenarClasificacion(conferencia,year);
         
 	}
 	
@@ -89,17 +94,28 @@ public class ClasificacionTemporada extends BaseController{
 	
 
 	
-	private static List<Equipo> ordenarClasificacion(String conferencia){
+	private static List<Equipo> ordenarClasificacion(String conferencia,int year){
 		
 		List<Equipo> equiposConferencia = obtenerEquiposConferencia(conferencia);
 		
-		Collections.sort(equiposConferencia,
-        		Comparator.comparingInt(Equipo::getVictorias).reversed());
+		ListaEquipos[] list = ListaClasificaciones.findClasificacionByYearConferencia(year, conferencia.toUpperCase());
+
+		List<Equipo> listaOrdenada = new ArrayList<Equipo>();
+		
+		for(ListaEquipos lista:list) {
+			for(Equipo equipos:equiposConferencia) {
+				if(lista.getNombre().equals(equipos.getNombre())) {
+					listaOrdenada.add(equipos);
+				}
+			}
+		}
+		
+		//Collections.sort(equiposConferencia,Comparator.comparingInt(Equipo::getVictorias).reversed());
 		
 		String orden="";
     	int posicion=0;
 		
-		for(Equipo team : equiposConferencia) {
+		for(Equipo team : listaOrdenada) {
     		if(team.getConferencia().equals(orden)) {
     			posicion++;
     			team.setPosicion(posicion);
@@ -110,7 +126,8 @@ public class ClasificacionTemporada extends BaseController{
     		}
     	}
 		
-		return equiposConferencia;
+		return listaOrdenada;
+		//return equiposConferencia;
 	}
 	
 	private static List<Equipo> obtenerEquiposConferencia(String conferencia){
@@ -275,6 +292,59 @@ public class ClasificacionTemporada extends BaseController{
 			}
 		}
 		return null;
+	}
+	
+
+
+	public static String devolverVictorias(String local, String temporada,String nivel) {
+		
+		mongoNuevo = new MongoClient(host,puertoHost);
+        
+        if(null!=mongoNuevo) {
+        	
+        	dbNuevo = mongoNuevo.getDatabase("NBA");
+	
+        	MongoCollection<Document> collection = dbNuevo.getCollection(temporada);
+        	
+        	// Crear una consulta para buscar documentos que cumplan con tus criterios
+        	Document query = new Document("$or", Arrays.asList(
+                    new Document("bracket", nivel)
+                        .append("equipoLocal.nombre", local),
+                    new Document("bracket", nivel)
+                        .append("equipoVisitante.nombre", local)
+                ));
+
+            // Obtener el último documento que cumple con los criterios
+            //Document ultimoDocumento = collection.find(query).limit(1).first();
+            
+         // Realizar la búsqueda utilizando el filtro y ordenar los resultados en orden descendente
+            FindIterable<Document> resultados = collection.find(query)
+                .sort(Sorts.descending("game"))
+                .limit(1);
+
+            // Obtener el último documento basado en el mes y día máximos
+            Document ultimoDocumento = resultados.first();
+
+            if (ultimoDocumento != null) {
+            	
+            	Document equipoLocal = ultimoDocumento.get("equipoLocal", Document.class);
+            	Document equipoVisitante = ultimoDocumento.get("equipoVisitante", Document.class);
+            	
+            	String nombreLocal = equipoLocal.getString("nombre");
+            	
+                if(nombreLocal.equals(local)) {
+                	return equipoLocal.getString("victorias");
+                }else {
+                	return equipoVisitante.getString("victorias");
+                }
+            }
+
+            // Cerrar la conexión al servidor MongoDB
+            mongoNuevo.close();
+        }
+		return "0";
+		
+		
 	}
 	
 }

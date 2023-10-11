@@ -72,7 +72,8 @@ and open the template in the editor.
     								formularioTemporadas:j_idt28:maxTapon,
     								formularioTemporadas:j_idt28:maxPersonal,
     								formularioTemporadas:j_idt28:maxPerdida,
-    								formularioTemporadas:j_idt28:maxMinuto">
+    								formularioTemporadas:j_idt28:maxMinuto,
+    								formularioTemporadas:j_idt28:bracket">
 								<p:ajax onstart="PF('dlg2').show();"
 									oncomplete="PF('dlg2').hide();"/>
 							</p:commandButton>
@@ -1198,9 +1199,226 @@ and open the template in the editor.
 								</p:tab>
 								
 								
-								<p:tab title="Bracket">
-									<div class="margen-left">
+								<p:tab id="bracket" title="Bracket">
+									<div class="margen-left-tab">
 										<h2>Bracket Play Off</h2>
+										
+										<table  id="bracketPlayoff" style="width:100%;margin-left: auto;margin-right: auto; margin-top:30px;text-align: center;border:0;">
+										    <thead>
+										        <tr>
+										            <th colspan="51">NBA Playoffs #{temporadas.devolverTemporadaPretty()}</th>
+										        </tr>
+										        <tr>
+										            <th colspan="6">1º Ronda Oeste</th>
+										            <th colspan="7">Semifinal Oeste</th>
+										            <th colspan="7">Final Oeste</th>
+										            
+										            <th colspan="11">NBA Finals</th>
+										            
+										            <th colspan="7">Final Este</th>
+										            <th colspan="7">Semifinal Este</th>
+										            <th colspan="6">1º Ronda Este</th>
+									                
+										        </tr>
+										    </thead>
+										    <tbody>
+										    	<tr>
+										    		<td colspan="51"></td>
+										    	</tr>
+										    	<!-- 1 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black">#{temporadas.rondaOeste1}</td>
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.rondaOeste1Victorias}</td>
+										    		<td style="border-bottom:1px solid black" />
+										    		<td colspan="39"></td>
+										    		<td style="border-bottom:1px solid black" />
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.rondaEste1Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste1}</td>
+										    	</tr>
+										    	<!-- 2 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste8}</td>
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.rondaOeste8Victorias}</td>
+										    		<td style="border-right:1px solid black" />
+										    		<td colspan="39"></td>
+										    		<td style="border-left:1px solid black" />
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.rondaEste8Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste8}</td>
+										    	</tr>
+										    	<!-- 3 -->
+										    	<tr>
+										    		<td colspan="6"></td>
+										    		<td style="border-left:1px solid black" />
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal1Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.semifinal1OesteVictorias}</td>
+										    		<td style="border-bottom:1px solid black" />
+										    		<td colspan="25"></td>
+										    		<td style="border-bottom:1px solid black" />
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.semifinal1EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black">#{temporadas.semifinal1Este}</td>
+										    		<td style="border-bottom:1px solid black;border-right:1px solid black" />
+										    		<td colspan="6"></td>
+										    	</tr>
+										    	<!-- 4 -->
+										    	<tr>
+										    		<td colspan="6"></td>
+										    		<td style="border-left:1px solid black;border-top:1px solid black" />
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal2Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black">#{temporadas.semifinal2OesteVictorias}</td>
+										    		<td style="border-right:1px solid black;border-top:1px solid black" />
+										    		<td colspan="25"></td>
+										    		<td style="border-left:1px solid black;border-top:1px solid black" />
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.semifinal2EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal2Este}</td>
+										    		<td style="border-right:1px solid black;border-top:1px solid black" />
+										    		<td colspan="6"></td>
+										    	</tr>
+										    	<!-- 5 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste4}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste4Victorias}</td>
+										    		<td style="border-bottom:1px solid black;border-right:1px solid black" />
+										    		<td colspan="7" style="border-right:1px solid black"></td>
+										    		<td colspan="8"></td>
+										    		<td colspan="4" style="font-weight:bold">#{temporadas.finalistaOeste}</td>
+										    		<td colspan="1"></td>
+										    		<td colspan="4" style="font-weight:bold">#{temporadas.finalistaEste}</td>
+										    		<td colspan="8" style="border-right:1px solid black"></td>
+										    		<td colspan="7"></td>
+										    		<td style="border-bottom:1px solid black;border-left:1px solid black" />
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste4Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste4}</td>
+										    	</tr>
+										    	<!-- 6 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste5}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste5Victorias}</td>
+										    		<td style="border-top:1px solid black;"/>
+										    		<td colspan="7" style="border-right:1px solid black"></td>
+										    		<td colspan="8"></td>
+										    		<td colspan="4" rowspan="4" style="border:1px solid black;">
+														<p:graphicImage
+														url="#{temporadas.iconoFinalistaOeste}" height="85%" />
+										    		</td>
+										    		<td colspan="1"></td>
+										    		<td colspan="4" rowspan="4" style="border:1px solid black;">
+														<p:graphicImage
+														url="#{temporadas.iconoFinalistaEste}" height="85%" />
+										    		</td>
+										    		<td colspan="8" style="border-right:1px solid black"></td>
+										    		<td colspan="7"></td>
+										    		<td style="border-top:1px solid black"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste5Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste5}</td>
+										    	</tr>
+										    	<!-- 7 -->
+										    	<tr>
+										    		<td colspan="13" style="border-right:1px solid black"></td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.final1Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.final1OesteVictorias}</td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.final1EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.final1Este}</td>
+										    		<td style="border-bottom:1px solid black;border-right:1px solid black;"></td>
+										    		<td colspan="13"></td>
+										    	</tr>
+										    	<!-- 8 -->
+										    	<tr>
+										    		<td colspan="13" style="border-right:1px solid black"></td>
+										    		<td colspan="1"></td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.final2Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.final2OesteVictorias}</td>
+										    		<td colspan="2"></td>
+										    		<td colspan="1"></td>
+										    		<td colspan="2"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.final2EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.final2Este}</td>
+										    		<td style="border-right:1px solid black"></td>
+										    		<td colspan="13"></td>
+										    	</tr>
+										    	<!-- 9 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste3}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste4Victorias}</td>
+										    		<td style="border-bottom:1px solid black"></td>
+										    		<td colspan="7" style="border-right:1px solid black"></td>
+										    		<td colspan="8"></td>
+										    		<td colspan="1"></td>
+										    		<td colspan="8" style="border-right:1px solid black"></td>
+										    		<td colspan="8"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste4Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste3}</td>
+										    	</tr>
+										    	<!-- 10 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste6}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste6Victorias}</td>
+										    		<td colspan="1" style="border-right:1px solid black"></td>
+										    		<td colspan="7" style="border-right:1px solid black"></td>
+										    		<td colspan="9" ></td>
+										    		<td colspan="2" style="border:1px solid black;">#{temporadas.finalistaOesteVictorias}</td>
+										    		<td colspan="3"></td>
+										    		<td colspan="2" style="border:1px solid black;">#{temporadas.finalistaEsteVictorias}</td>
+										    		<td colspan="9" style="border-right:1px solid black"></td>
+										    		<td colspan="7"></td>
+										    		<td colspan="1" style="border-left:1px solid black;border-top:1px solid black"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste6Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste6}</td>
+										    	</tr>
+										    	<!-- 11 -->
+										    	<tr>
+										    		<td colspan="6" style="border-right:1px solid black;"></td>
+										    		<td colspan="1" style="border-bottom:1px solid black;"></td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal3Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.semifinal3OesteVictorias}</td>
+										    		<td colspan="1" style="border-bottom:1px solid black;border-right:1px solid black"></td>
+										    		<td colspan="25"></td>
+										    		<td colspan="1" style="border-left:1px solid black;border-bottom:1px solid black"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.semifinal3EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal3Este}</td>
+										    		<td colspan="1" style="border-bottom:1px solid black;border-right:1px solid black"></td>
+										    		<td colspan="6" ></td>
+										    	</tr>
+										    	<!-- 12 -->
+										    	<tr>
+										    		<td colspan="6" style="border-right:1px solid black;"></td>
+										    		<td colspan="1" ></td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal4Oeste}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.semifinal4OesteVictorias}</td>
+										    		<td colspan="1" style="border-top:1px solid black;"></td>
+										    		<td colspan="25"></td>
+										    		<td colspan="1" style="border-top:1px solid black;"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.semifinal4EsteVictorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.semifinal4Este}</td>
+										    		<td colspan="1" style="border-top:1px solid black;border-right:1px solid black"></td>
+										    		<td colspan="6" ></td>
+										    	</tr>
+										    	<!-- 13 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste2}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste2Victorias}</td>
+										    		<td colspan="1" style="border-bottom:1px solid black;border-right:1px solid black"></td>
+										    		<td colspan="39" style="border-right:1px solid black;"></td>
+										    		<td colspan="1" style="border-bottom:1px solid black;"></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste2Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste2}</td>
+										    	</tr>
+										    	<!-- 14 -->
+										    	<tr>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaOeste7}</td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaOeste7Victorias}</td>
+										    		<td colspan="41" ></td>
+										    		<td colspan="1" style="border:1px solid black;">#{temporadas.rondaEste7Victorias}</td>
+										    		<td colspan="4" style="font-weight:bold;border:1px solid black;">#{temporadas.rondaEste7}</td>
+										    	</tr>
+										    
+										    </tbody>
+										</table>
 									</div>
 								</p:tab>
 							</p:tabView>
