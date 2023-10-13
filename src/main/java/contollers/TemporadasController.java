@@ -75,73 +75,133 @@ public class TemporadasController extends BaseController{
     private String finalNBA="NBA Finals";
     
     private String rondaOeste1="";
+    private String rondaOeste1Color="white";
     private String rondaOeste1Victorias="";
+    private String rondaOeste1VictoriasColor="white";
     private String rondaOeste2="";
+    private String rondaOeste2Color="white";
     private String rondaOeste2Victorias="";
+    private String rondaOeste2VictoriasColor="white";
     private String rondaOeste3="";
+    private String rondaOeste3Color="white";
     private String rondaOeste3Victorias="";
+    private String rondaOeste3VictoriasColor="white";
     private String rondaOeste4="";
+    private String rondaOeste4Color="white";
     private String rondaOeste4Victorias="";
+    private String rondaOeste4VictoriasColor="white";
     private String rondaOeste5="";
+    private String rondaOeste5Color="white";
     private String rondaOeste5Victorias="";
+    private String rondaOeste5VictoriasColor="white";
     private String rondaOeste6="";
+    private String rondaOeste6Color="white";
     private String rondaOeste6Victorias="";
+    private String rondaOeste6VictoriasColor="white";
     private String rondaOeste7="";
+    private String rondaOeste7Color="white";
     private String rondaOeste7Victorias="";
+    private String rondaOeste7VictoriasColor="white";
     private String rondaOeste8="";
+    private String rondaOeste8Color="white";
     private String rondaOeste8Victorias="";
+    private String rondaOeste8VictoriasColor="white";
     
     private String semifinal1Oeste="";
+    private String semifinal1OesteColor="white";
     private String semifinal1OesteVictorias="";
+    private String semifinal1OesteVictoriasColor="white";
     private String semifinal2Oeste="";
+    private String semifinal2OesteColor="white";
     private String semifinal2OesteVictorias="";
+    private String semifinal2OesteVictoriasColor="white";
     private String semifinal3Oeste="";
+    private String semifinal3OesteColor="white";
     private String semifinal3OesteVictorias="";
+    private String semifinal3OesteVictoriasColor="white";
     private String semifinal4Oeste="";
+    private String semifinal4OesteColor="white";
     private String semifinal4OesteVictorias="";
+    private String semifinal4OesteVictoriasColor="white";
     
     private String final1Oeste="";
+    private String final1OesteColor="white";
     private String final1OesteVictorias="";
+    private String final1OesteVictoriasColor="white";
     private String final2Oeste="";
+    private String final2OesteColor="white";
     private String final2OesteVictorias="";
+    private String final2OesteVictoriasColor="white";
     
     private String finalistaOeste="";
+    private String finalistaOesteColor="white";
     private String finalistaOesteVictorias="";
+    private String finalistaOesteVictoriasColor="white";
     private String iconoFinalistaOeste="";
     
     private String rondaEste1="";
+    private String rondaEste1Color="white";
     private String rondaEste1Victorias="";
+    private String rondaEste1VictoriasColor="white";
     private String rondaEste2="";
+    private String rondaEste2Color="white";
     private String rondaEste2Victorias="";
+    private String rondaEste2VictoriasColor="white";
     private String rondaEste3="";
+    private String rondaEste3Color="white";
     private String rondaEste3Victorias="";
+    private String rondaEste3VictoriasColor="white";
     private String rondaEste4="";
+    private String rondaEste4Color="white";
     private String rondaEste4Victorias="";
+    private String rondaEste4VictoriasColor="white";
     private String rondaEste5="";
+    private String rondaEste5Color="white";
     private String rondaEste5Victorias="";
+    private String rondaEste5VictoriasColor="white";
     private String rondaEste6="";
+    private String rondaEste6Color="white";
     private String rondaEste6Victorias="";
+    private String rondaEste6VictoriasColor="white";
     private String rondaEste7="";
+    private String rondaEste7Color="white";
     private String rondaEste7Victorias="";
+    private String rondaEste7VictoriasColor="white";
     private String rondaEste8="";
+    private String rondaEste8Color="white";
     private String rondaEste8Victorias="";
+    private String rondaEste8VictoriasColor="white";
     
     private String semifinal1Este="";
+    private String semifinal1EsteColor="white";
     private String semifinal1EsteVictorias="";
+    private String semifinal1EsteVictoriasColor="white";
     private String semifinal2Este="";
+    private String semifinal2EsteColor="white";
     private String semifinal2EsteVictorias="";
+    private String semifinal2EsteVictoriasColor="white";
     private String semifinal3Este="";
+    private String semifinal3EsteColor="white";
     private String semifinal3EsteVictorias="";
+    private String semifinal3EsteVictoriasColor="white";
     private String semifinal4Este="";
+    private String semifinal4EsteColor="white";
     private String semifinal4EsteVictorias="";
+    private String semifinal4EsteVictoriasColor="white";
     
     private String final1Este="";
+    private String final1EsteColor="white";
     private String final1EsteVictorias="";
+    private String final1EsteVictoriasColor="white";
     private String final2Este="";
+    private String final2EsteColor="white";
     private String final2EsteVictorias="";
+    private String final2EsteVictoriasColor="white";
     
     private String finalistaEste="";
+    private String finalistaEsteColor="white";
     private String finalistaEsteVictorias="";
+    private String finalistaEsteVictoriasColor="white";
     private String iconoFinalistaEste="";
     
     @PostConstruct
@@ -208,43 +268,111 @@ public class TemporadasController extends BaseController{
 		rondaOeste7Victorias=ClasificacionTemporada.devolverVictorias(rondaOeste7, temporadaElegida, primeraRonda);
 		
 		
+		if(Integer.parseInt(rondaOeste1Victorias)>Integer.parseInt(rondaOeste8Victorias)) {
+			semifinal1Oeste=rondaOeste1;
+			rondaOeste1Color="#90EE90";
+			rondaOeste1VictoriasColor="#90EE90";
+			rondaOeste8Color="white";
+			rondaOeste8VictoriasColor="white";
+		}else {
+			semifinal1Oeste=rondaOeste8;
+			rondaOeste1Color="white";
+			rondaOeste1VictoriasColor="white";
+			rondaOeste8Color="#90EE90";
+			rondaOeste8VictoriasColor="#90EE90";
+		}
+		
+		if(Integer.parseInt(rondaOeste4Victorias)>Integer.parseInt(rondaOeste5Victorias)) {
+			semifinal2Oeste=rondaOeste4;
+			rondaOeste4Color="#90EE90";
+			rondaOeste4VictoriasColor="#90EE90";
+			rondaOeste5Color="white";
+			rondaOeste5VictoriasColor="white";
+		}else {
+			semifinal2Oeste=rondaOeste5;
+			rondaOeste5Color="#90EE90";
+			rondaOeste5VictoriasColor="#90EE90";
+			rondaOeste4Color="white";
+			rondaOeste4VictoriasColor="white";
+		}
+		
+		if(Integer.parseInt(rondaOeste3Victorias)>Integer.parseInt(rondaOeste6Victorias)){
+			semifinal3Oeste=rondaOeste3;
+			rondaOeste3Color="#90EE90";
+			rondaOeste3VictoriasColor="#90EE90";
+			rondaOeste6Color="white";
+			rondaOeste6VictoriasColor="white";
+		}else {
+			semifinal3Oeste=rondaOeste6;
+			rondaOeste6Color="#90EE90";
+			rondaOeste6VictoriasColor="#90EE90";
+			rondaOeste3Color="white";
+			rondaOeste3VictoriasColor="white";
+		}
 
-		semifinal1Oeste=
-				(Integer.parseInt(rondaOeste1Victorias)>Integer.parseInt(rondaOeste8Victorias))?
-						rondaOeste1:rondaOeste8;
-
-		semifinal2Oeste=
-				(Integer.parseInt(rondaOeste4Victorias)>Integer.parseInt(rondaOeste5Victorias))?
-						rondaOeste4:rondaOeste5;
-
-		semifinal3Oeste=
-				(Integer.parseInt(rondaOeste3Victorias)>Integer.parseInt(rondaOeste6Victorias))?
-						rondaOeste3:rondaOeste6;
-
-		semifinal4Oeste=
-				(Integer.parseInt(rondaOeste2Victorias)>Integer.parseInt(rondaOeste7Victorias))?
-						rondaOeste2:rondaOeste7;
+		if(Integer.parseInt(rondaOeste2Victorias)>Integer.parseInt(rondaOeste7Victorias)) {
+			semifinal4Oeste=rondaOeste2;
+			rondaOeste2Color="#90EE90";
+			rondaOeste2VictoriasColor="#90EE90";
+			rondaOeste7Color="white";
+			rondaOeste7VictoriasColor="white";
+		}else {
+			semifinal4Oeste=rondaOeste7;
+			rondaOeste7Color="#90EE90";
+			rondaOeste7VictoriasColor="#90EE90";
+			rondaOeste2Color="white";
+			rondaOeste2VictoriasColor="white";
+		}
 
 		semifinal1OesteVictorias=ClasificacionTemporada.devolverVictorias(semifinal1Oeste, temporadaElegida, semifinalConferencia);
 		semifinal2OesteVictorias=ClasificacionTemporada.devolverVictorias(semifinal2Oeste, temporadaElegida, semifinalConferencia);
 		semifinal3OesteVictorias=ClasificacionTemporada.devolverVictorias(semifinal3Oeste, temporadaElegida, semifinalConferencia);
 		semifinal4OesteVictorias=ClasificacionTemporada.devolverVictorias(semifinal4Oeste, temporadaElegida, semifinalConferencia);
 		
+		if(Integer.parseInt(semifinal1OesteVictorias)>Integer.parseInt(semifinal2OesteVictorias)) {
+			final1Oeste=semifinal1Oeste;
+			semifinal1OesteColor="#90EE90";
+			semifinal1OesteVictoriasColor="#90EE90";
+			semifinal2OesteColor="white";
+			semifinal2OesteVictoriasColor="white";
+		}else {
+			final1Oeste=semifinal2Oeste;
+			semifinal2OesteColor="#90EE90";
+			semifinal2OesteVictoriasColor="#90EE90";
+			semifinal1OesteColor="white";
+			semifinal1OesteVictoriasColor="white";
+		}
 		
-		final1Oeste=
-				(Integer.parseInt(semifinal1OesteVictorias)>Integer.parseInt(semifinal2OesteVictorias))?
-						semifinal1Oeste:semifinal2Oeste;
-		
-		final2Oeste=
-				(Integer.parseInt(semifinal3OesteVictorias)>Integer.parseInt(semifinal4OesteVictorias))?
-						semifinal3Oeste:semifinal4Oeste;
+		if(Integer.parseInt(semifinal3OesteVictorias)>Integer.parseInt(semifinal4OesteVictorias)) {
+			final2Oeste=semifinal3Oeste;
+			semifinal3OesteColor="#90EE90";
+			semifinal3OesteVictoriasColor="#90EE90";
+			semifinal4OesteColor="white";
+			semifinal4OesteVictoriasColor="white";
+		}else {
+			final2Oeste=semifinal4Oeste;
+			semifinal4OesteColor="#90EE90";
+			semifinal4OesteVictoriasColor="#90EE90";
+			semifinal3OesteColor="white";
+			semifinal3OesteVictoriasColor="white";
+		}
 		
 		final1OesteVictorias=ClasificacionTemporada.devolverVictorias(final1Oeste, temporadaElegida, finalConferencia);
 		final2OesteVictorias=ClasificacionTemporada.devolverVictorias(final2Oeste, temporadaElegida, finalConferencia);
 		
-		finalistaOeste=
-				(Integer.parseInt(final1OesteVictorias)>Integer.parseInt(final2OesteVictorias))?
-						final1Oeste:final2Oeste;
+		if(Integer.parseInt(final1OesteVictorias)>Integer.parseInt(final2OesteVictorias)) {
+			finalistaOeste=final1Oeste;
+			final1OesteColor="#90EE90";
+			final1OesteVictoriasColor="#90EE90";
+			final2OesteColor="white";
+			final2OesteVictoriasColor="white";
+		}else {
+			finalistaOeste=final2Oeste;
+			final2OesteColor="#90EE90";
+			final2OesteVictoriasColor="#90EE90";
+			final1OesteColor="white";
+			final1OesteVictoriasColor="white";
+		}
 		
 		finalistaOesteVictorias=ClasificacionTemporada.devolverVictorias(finalistaOeste, temporadaElegida, finalNBA);
 		iconoFinalistaOeste = ListaEquipos.findFotoByTeam(finalistaOeste);
@@ -264,47 +392,127 @@ public class TemporadasController extends BaseController{
         rondaEste2Victorias=ClasificacionTemporada.devolverVictorias(rondaEste2, temporadaElegida, primeraRonda);
         rondaEste7Victorias=ClasificacionTemporada.devolverVictorias(rondaEste7, temporadaElegida, primeraRonda);
         
+        if(Integer.parseInt(rondaEste1Victorias)>Integer.parseInt(rondaEste8Victorias)){
+        	semifinal1Este=rondaEste1;
+        	rondaEste1Color="#90EE90";
+        	rondaEste1VictoriasColor="#90EE90";
+        	rondaEste8Color="white";
+        	rondaEste8VictoriasColor="white";
+        }else {
+        	semifinal1Este=rondaEste8;
+        	rondaEste8Color="#90EE90";
+        	rondaEste8VictoriasColor="#90EE90";
+        	rondaEste1Color="white";
+        	rondaEste1VictoriasColor="white";
+        }
         
+        if(Integer.parseInt(rondaEste4Victorias)>Integer.parseInt(rondaEste5Victorias)){
+        	semifinal2Este=rondaEste4;
+        	rondaEste4Color="#90EE90";
+        	rondaEste4VictoriasColor="#90EE90";
+        	rondaEste5Color="white";
+        	rondaEste5VictoriasColor="white";
+        }else {
+        	semifinal2Este=rondaEste5;
+        	rondaEste5Color="#90EE90";
+        	rondaEste5VictoriasColor="#90EE90";
+        	rondaEste4Color="white";
+        	rondaEste4VictoriasColor="white";
+        }
 
-        semifinal1Este=
-                (Integer.parseInt(rondaEste1Victorias)>Integer.parseInt(rondaEste8Victorias))?
-                        rondaEste1:rondaEste8;
-
-        semifinal2Este=
-                (Integer.parseInt(rondaEste4Victorias)>Integer.parseInt(rondaEste5Victorias))?
-                        rondaEste4:rondaEste5;
-
-        semifinal3Este=
-                (Integer.parseInt(rondaEste3Victorias)>Integer.parseInt(rondaEste6Victorias))?
-                        rondaEste3:rondaEste6;
-
-        semifinal4Este=
-                (Integer.parseInt(rondaEste2Victorias)>Integer.parseInt(rondaEste7Victorias))?
-                        rondaEste2:rondaEste7;
+		if(Integer.parseInt(rondaEste3Victorias)>Integer.parseInt(rondaEste6Victorias)){
+			semifinal3Este=rondaEste3;
+        	rondaEste3Color="#90EE90";
+        	rondaEste3VictoriasColor="#90EE90";
+        	rondaEste6Color="white";
+        	rondaEste6VictoriasColor="white";
+		}else {
+			semifinal3Este=rondaEste6;
+        	rondaEste6Color="#90EE90";
+        	rondaEste6VictoriasColor="#90EE90";
+        	rondaEste3Color="white";
+        	rondaEste3VictoriasColor="white";
+		}
+		
+		if(Integer.parseInt(rondaEste2Victorias)>Integer.parseInt(rondaEste7Victorias)){
+			semifinal4Este=rondaEste2;
+        	rondaEste2Color="#90EE90";
+        	rondaEste2VictoriasColor="#90EE90";
+        	rondaEste7Color="white";
+        	rondaEste7VictoriasColor="white";
+		}else {
+			semifinal4Este=rondaEste7;
+        	rondaEste7Color="#90EE90";
+        	rondaEste7VictoriasColor="#90EE90";
+        	rondaEste2Color="white";
+        	rondaEste2VictoriasColor="white";
+		}
 
         semifinal1EsteVictorias=ClasificacionTemporada.devolverVictorias(semifinal1Este, temporadaElegida, semifinalConferencia);
         semifinal2EsteVictorias=ClasificacionTemporada.devolverVictorias(semifinal2Este, temporadaElegida, semifinalConferencia);
         semifinal3EsteVictorias=ClasificacionTemporada.devolverVictorias(semifinal3Este, temporadaElegida, semifinalConferencia);
         semifinal4EsteVictorias=ClasificacionTemporada.devolverVictorias(semifinal4Este, temporadaElegida, semifinalConferencia);
         
+        if(Integer.parseInt(semifinal1EsteVictorias)>Integer.parseInt(semifinal2EsteVictorias)) {
+        	final1Este=semifinal1Este;
+        	semifinal1EsteColor="#90EE90";
+        	semifinal1EsteVictoriasColor="#90EE90";
+        	semifinal2EsteColor="white";
+        	semifinal2EsteVictoriasColor="white";
+        }else {
+        	final1Este=semifinal2Este;
+        	semifinal2EsteColor="#90EE90";
+        	semifinal2EsteVictoriasColor="#90EE90";
+        	semifinal1EsteColor="white";
+        	semifinal1EsteVictoriasColor="white";
+        }
         
-        final1Este=
-                (Integer.parseInt(semifinal1EsteVictorias)>Integer.parseInt(semifinal2EsteVictorias))?
-                        semifinal1Este:semifinal2Este;
-        
-        final2Este=
-                (Integer.parseInt(semifinal3EsteVictorias)>Integer.parseInt(semifinal4EsteVictorias))?
-                        semifinal3Este:semifinal4Este;
+        if(Integer.parseInt(semifinal3EsteVictorias)>Integer.parseInt(semifinal4EsteVictorias)) {
+        	final2Este=semifinal3Este;
+        	semifinal3EsteColor="#90EE90";
+        	semifinal3EsteVictoriasColor="#90EE90";
+        	semifinal4EsteColor="white";
+        	semifinal4EsteVictoriasColor="white";
+        }else {
+        	final2Este=semifinal4Este;
+        	semifinal4EsteColor="#90EE90";
+        	semifinal4EsteVictoriasColor="#90EE90";
+        	semifinal3EsteColor="white";
+        	semifinal3EsteVictoriasColor="white";
+        }
         
         final1EsteVictorias=ClasificacionTemporada.devolverVictorias(final1Este, temporadaElegida, finalConferencia);
         final2EsteVictorias=ClasificacionTemporada.devolverVictorias(final2Este, temporadaElegida, finalConferencia);
         
-        finalistaEste=
-                (Integer.parseInt(final1EsteVictorias)>Integer.parseInt(final2EsteVictorias))?
-                        final1Este:final2Este;
+        if(Integer.parseInt(final1EsteVictorias)>Integer.parseInt(final2EsteVictorias)) {
+        	finalistaEste=final1Este;
+        	final1EsteColor="#90EE90";
+        	final1EsteVictoriasColor="#90EE90";
+        	final2EsteColor="white";
+        	final2EsteVictoriasColor="white";
+        	
+        }else {
+        	finalistaEste=final2Este;
+        	final2EsteColor="#90EE90";
+        	final2EsteVictoriasColor="#90EE90";
+        	final1EsteColor="white";
+        	final1EsteVictoriasColor="white";
+        }
         
         finalistaEsteVictorias=ClasificacionTemporada.devolverVictorias(finalistaEste, temporadaElegida, finalNBA);
         iconoFinalistaEste = ListaEquipos.findFotoByTeam(finalistaEste);
+        
+        if(Integer.parseInt(finalistaEsteVictorias)>Integer.parseInt(finalistaOesteVictorias)) {
+        	finalistaEsteColor="#90EE90";
+        	finalistaEsteVictoriasColor="#90EE90";
+        	finalistaOesteColor="white";
+        	finalistaOesteVictoriasColor="white";
+        }else {
+        	finalistaOesteColor="#90EE90";
+        	finalistaOesteVictoriasColor="#90EE90";
+        	finalistaEsteColor="white";
+        	finalistaEsteVictoriasColor="white";
+        }
 		
 	}
 
